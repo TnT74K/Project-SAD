@@ -39,7 +39,36 @@ git remote rename origin gitlab
 
 ---
 
-## 3. Normal Push/Pull (Mode B — two‑way workflow)
+## 3. Mode A: Mirror Push (one‑way syncing)
+
+### Full mirror (branches + tags + history)
+```
+git push --mirror github
+```
+
+**WARNING:** 
+- Deletes branches on GitHub if not in local repo  
+- Overwrites GitHub history  
+- GitHub becomes an exact copy of what you have locally  
+- It only mirrors everything from your ***LOCAL*** git. Not from original remote.
+
+Use when:
+
+- GitLab = primary
+- GitHub = backup/mirror
+
+### Full backup from `origin` to `github`:
+- Enter this to receive everything from remote:
+
+```
+git fetch --all --prune
+git push --mirror github
+```
+- Note: the `--prune` tag removes deleted branches from refrences
+
+---
+
+## 3. Mode B: Normal Push/Pull (two‑way workflow)
 
 ### Push
 ```
@@ -67,26 +96,8 @@ git push github --tags
 
 ---
 
-## 4. Mirror Push (Mode A — one‑way syncing)
 
-### Full mirror (branches + tags + history)
-```
-git push --mirror github
-```
-
-**WARNING:**  
-- Deletes branches on GitHub if not in local repo  
-- Overwrites GitHub history  
-- GitHub becomes an exact copy of what you have locally  
-
-Use when:
-
-- GitLab = primary
-- GitHub = backup/mirror
-
----
-
-## 5. Switching between Mode A and B (safe workflow)
+## 4. Switching between Mode A and B (safe workflow)
 
 Before mirroring, sync everything:
 
@@ -105,7 +116,7 @@ This prevents accidental deletion of branches pushed on GitHub.
 
 ---
 
-## 6. Branch management tips
+## 5. Branch management tips
 
 ### See all remote branches
 ```
@@ -124,7 +135,7 @@ git push github feature-x
 
 ---
 
-## 7. Tips & Best Practices
+## 6. Tips & Best Practices
 
 ### 1. Pick a single "source of truth"
 Recommended:
@@ -162,7 +173,7 @@ Git only cares about commit email, not platform usernames.
 
 ---
 
-## 8. Examples You Can Copy/Paste
+## 7. Examples You Can Copy/Paste
 
 ### Example: Full two‑way workflow (Mode B)
 ```
@@ -192,7 +203,7 @@ git push github --tags
 
 ---
 
-## 9. Danger Zone (Things to Avoid)
+## 8. Danger Zone (Things to Avoid)
 
 - Don’t run `git push --mirror github` if people are pushing directly to GitHub  
 - Don’t treat GitHub as read/write if you're mirroring from GitLab  
