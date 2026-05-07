@@ -13,7 +13,7 @@
 ## `git push origin my-new-branch`
 - First, checkout to the new branch, then enter this command.
 - To upload a new branch on remote.
-## 1`git fetch --all --prune`
+## `git fetch --all --prune`
 - downloads the latest commits from every remote
 
 - updates remote‑tracking branches like origin/main
@@ -28,3 +28,9 @@ It shows you all your branches with:
 - which remote branch they track
 - whether they are ahead or behind
 - the last commit message
+
+## `git remote -v`
+It shows all git remote addresses
+
+## `git push --all -u origin` 
+It sets the upstream to `origin` for all branches on local git.
