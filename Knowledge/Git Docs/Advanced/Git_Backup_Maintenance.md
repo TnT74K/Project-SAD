@@ -57,7 +57,7 @@ Instead of pushing manually twice, configure `origin` to push to both.
 ### Option A — Add second push URL to origin (Recommended ✅)
 
 ```bash
-git remote set-url --add --push origin https://gitlab.aranserver.com/SajadSK/reservecenter.git
+git remote set-url --add origin https://gitlab.aranserver.com/SajadSK/reservecenter.git
 ```
 
 Now check:
