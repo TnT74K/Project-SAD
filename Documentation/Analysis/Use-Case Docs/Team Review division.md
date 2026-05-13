@@ -8,7 +8,7 @@
 - هر activity diagram فقط و فقط معادل یک use-case از use-case diagram مربوطه باشد
 
 # Division:
-Abolfazl → customers  
+Abolfazl → customers - | - ⚠️Sajad has not finished Activity diagram yet!!  
 Ali → business admin  
 Hamed → business workers  
 Mohammad Hossein → support  
