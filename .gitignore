@@ -2,3 +2,7 @@
 .DS_Store
 /Local
 /Documentation/نگارش\ فنی
+
+# Windows
+Thumbs.db
+Desktop.ini
