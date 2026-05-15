@@ -6,6 +6,7 @@
 - هنگام پیاده سازی از روی نمودار به ابهام بزرگی بر نمیخوریم
 - اگر پیاده سازی این بخش براساس این نمودار انجام شود، مشکلی پیش نمی‌آید
 - هر activity diagram فقط و فقط معادل یک use-case از use-case diagram مربوطه باشد
+  - نکته: اگر در activity diagram یه یوزکیس مثل A مجبور شدین یوزکیس B که قبلا هم نمودار داشته رو بیارین، ذکر نام کافیه
 
 # Division:
 Abolfazl → customers - | - ⚠️Sajad has not finished Activity diagram yet!!  
