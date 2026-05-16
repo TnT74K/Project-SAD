@@ -9,7 +9,7 @@
   - نکته: اگر در activity diagram یه یوزکیس مثل A مجبور شدین یوزکیس B که قبلا هم نمودار داشته رو بیارین، ذکر نام کافیه
 
 # Division:
-Abolfazl → customers - | - ⚠️Sajad has not finished Activity diagram yet!!  
+Abolfazl → customers
 Ali → business admin  
 Hamed → business workers  
 Mohammad Hossein → support  
