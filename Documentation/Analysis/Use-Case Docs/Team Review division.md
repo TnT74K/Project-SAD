@@ -9,7 +9,9 @@
   - نکته: اگر در activity diagram یه یوزکیس مثل A مجبور شدین یوزکیس B که قبلا هم نمودار داشته رو بیارین، ذکر نام کافیه
 
 # Division:
-Abolfazl → customers
+- Each teamate reviews another person's work. 
+- Division is as below:   
+Abolfazl → customers  
 Ali → business admin  
 Hamed → business workers  
 Mohammad Hossein → support  
