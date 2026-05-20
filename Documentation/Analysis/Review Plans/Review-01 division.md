@@ -15,8 +15,8 @@
 ## Division:
 - Each teamate reviews another person's work. 
 - Division is as below:  
-- [x] Abolfazl → customers  
-- [x] Ali → business admin  
-- [x] Hamed → business workers  
-- [ ] Mohammad Hossein → support  
-- [x] Sajad → super admin  
+- [x] Abolfazl → customers by Sajad  
+- [x] Ali → business admin by Mohammad Hossein
+- [x] Hamed → business workers by Abolfazl
+- [ ] Mohammad Hossein → organization support by Ali
+- [x] Sajad → super admin by Hamed
