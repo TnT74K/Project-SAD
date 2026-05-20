@@ -17,6 +17,6 @@
 - Division is as below:  
 - [x] Abolfazl → customers  
 - [x] Ali → business admin  
-- [ ] Hamed → business workers  
+- [x] Hamed → business workers  
 - [ ] Mohammad Hossein → support  
 - [x] Sajad → super admin  
