@@ -2,6 +2,7 @@
 - Goal: Review and improve WBS numbers specified as below.
 - Division by AI  
 - Related WBS: 33
+- Changes deadline: Friday 8 Khordad
 
 | WBS | Description | Responsible | Reviewer | Review Status |
 | --- | -------------------------------------- | ---------------- | ---------------- | ------------- |
