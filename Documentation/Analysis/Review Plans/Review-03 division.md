@@ -6,7 +6,7 @@
 - Changes deadline: Monday 11 Khordad
 ## Status
 - [x] Abolfazl → customers  
-- [ ] Ali → business admin  
+- [x] Ali → business admin  
 - [ ] Hamed → business workers  
 - [ ] Mohammad Hossein → support  
 - [ ] Sajad → super admin  
