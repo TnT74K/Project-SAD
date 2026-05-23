@@ -12,7 +12,7 @@
 | 6.3 | Economical analysis | Hamed | Abolfazl | In progress |
 | 11 | Make team charter | Sajad | Ali | Complete |
 
-## راهنمایی ستون Review Status
+## 'Review Status' column guide:
 - Open: not yet reviewed by reviewer.
 - In progress: Reviewed, but the changes has not applied yet by Responsible.
 - Complete: Review is done and changes applied.
