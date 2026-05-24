@@ -4,7 +4,7 @@
 
 ## Work division:  
 1. Abolfazl - business workers  
-2. Ali - support  
+2. Ali - organizational support  
 3. Hamed - super admin  
 4. Mohammad Hossein - business admin  
 5. Sajad - customers  
