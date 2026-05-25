@@ -14,7 +14,7 @@
 
 ## 'Review Status' column guide:
 - Open: not yet reviewed by reviewer.
-- In progress: Reviewed, but the changes has not applied yet by Responsible.
+- In progress: Reviewed, but the changes have not applied yet by Responsible.
 - Complete: Review is done and changes applied.
 
 ---
