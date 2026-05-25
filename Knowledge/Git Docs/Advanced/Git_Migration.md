@@ -4,7 +4,7 @@ You can copy/paste this directly into your internal docs.
 
 ---
 
-# 🛠️ Repository Migration Guide  
+# 🛠️ Part One: Repository Migration Guide  
 **Switching primary remote from GitLab to GitHub**
 
 **Primary remote (new):**  
@@ -169,3 +169,129 @@ From now on:
 - Submit pull requests on **GitHub**
 - Clone new copies from GitHub
 - GitLab is now a **mirror** only
+  
+---
+
+# 🌐 Part Two: Upstream cheatsheet
+## ✅ PART 1 — What Is “Upstream”?
+
+An **upstream branch** is the remote branch your local branch tracks.
+
+It enables:
+- `git pull` (without arguments)
+- `git push` (without arguments)
+- Ahead/behind tracking in `git status`
+
+Example relationship:
+
+```
+local branch:  main
+tracks:        origin/main
+```
+
+---
+
+## 🔎 Verify Upstream
+
+### ✅ 1. Show tracking info for all branches
+
+```bash
+git branch -vv
+```
+
+Example:
+
+```
+* main      a1b2c3d [origin/main] Update README
+  dev       9f8e7d6 [gitlab/dev]  Add feature
+```
+
+Format:
+
+```
+[remote/branch]
+```
+
+---
+
+### ✅ 2. Check upstream of current branch only
+
+```bash
+git rev-parse --abbrev-ref --symbolic-full-name @{u}
+```
+
+If not set:
+
+```
+fatal: no upstream configured
+```
+
+---
+
+### ✅ 3. Quick status check
+
+```bash
+git status
+```
+
+Example:
+
+```
+Your branch is up to date with 'origin/main'.
+```
+
+---
+
+## 🔄 Change Upstream of a Branch
+
+---
+
+### ✅ Change upstream of CURRENT branch
+
+```bash
+git branch --set-upstream-to=gitlab/main
+```
+
+---
+
+### ✅ Change upstream of a SPECIFIC branch
+
+```bash
+git branch --set-upstream-to=gitlab/dev dev
+```
+
+Format:
+
+```bash
+git branch --set-upstream-to=<remote>/<branch> <local-branch>
+```
+
+---
+
+### ✅ Set upstream when pushing (common method)
+
+```bash
+git push -u gitlab main
+```
+
+`-u` = `--set-upstream`
+
+After this, plain `git push` works.
+
+---
+
+### ✅ Remove upstream
+
+```bash
+git branch --unset-upstream
+```
+
+---
+
+### ✅ Change upstream for ALL local branches (if names match)
+
+```bash
+for b in $(git branch --format='%(refname:short)'); do
+  git branch --set-upstream-to=gitlab/$b $b
+done
+```
