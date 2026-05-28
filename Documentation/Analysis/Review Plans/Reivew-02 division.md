@@ -4,13 +4,13 @@
 - Related WBS: 33
 - Changes deadline: Friday 8 Khordad
 
-| WBS | Description | Responsible | Reviewer | Review Status |
+| WBS | Description                            | Responsible      | Reviewer         | Review Status |
 | --- | -------------------------------------- | ---------------- | ---------------- | ------------- |
-| 18 | Problem analysis & Root cause analysis | Mohammad Hossein | Sajad | In progress |
-| 6.1 | Technical Analysis | Abolfazl | Mohammad Hossein | Open |
-| 6.2 | Organizational Analysis | Ali | Hamed | In progress |
-| 6.3 | Economical analysis | Hamed | Abolfazl | In progress |
-| 11 | Make team charter | Sajad | Ali | Complete |
+| 18  | Problem analysis & Root cause analysis | Mohammad Hossein | Sajad            | In progress   |
+| 6.1 | Technical Analysis                     | Abolfazl         | Mohammad Hossein | Open          |
+| 6.2 | Organizational Analysis                | Ali              | Hamed            | In progress   |
+| 6.3 | Economical analysis                    | Hamed            | Abolfazl         | In progress   |
+| 11  | Make team charter                      | Sajad            | Ali              | Complete      |
 
 ## 'Review Status' column guide:
 - Open: not yet reviewed by reviewer.
