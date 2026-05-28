@@ -5,8 +5,8 @@
 - Review deadline: Look WBS
 - Changes deadline: Monday 11 Khordad
 ## Status
-- [x] Abolfazl → customers  
-- [x] Ali → business admin  
-- [x] Hamed → business workers  
-- [ ] Mohammad Hossein → organization support  
-- [x] Sajad → super admin  
+- [x] Abolfazl → customers by Sajad
+- [x] Ali → business admin by Mohammad Hossein
+- [x] Hamed → business workers by Abolfazl
+- [ ] Mohammad Hossein → organization support by Ali
+- [x] Sajad → super admin by Hamed
