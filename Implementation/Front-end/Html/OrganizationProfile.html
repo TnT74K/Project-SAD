@@ -5,248 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>پروفایل سازمان</title>
 
-  <!-- =========================
-       Fonts
-  ========================== -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- =========================
-       Navbar Component CSS
-       استایل منوی مشترک
-  ========================== -->
+  <!-- Navbar CSS -->
   <link rel="stylesheet" href="../Css/MainNavbar.css">
 
-  <style>
-    /* =========================
-       Root Variables & Reset
-    ========================== */
-    :root {
-      --primary: #0B2545;
-      --primary-mid: #1B4F72;
-      --primary-light: #2E86C1;
-      --accent: #D4AC0D;
-      --bg: #eef2f7;
-      --bg-card: #ffffff;
-      --text: #1a2a3a;
-      --text-2: #4a6080;
-      --text-3: #8aa0b8;
-      --border: rgba(11,37,69,.1);
-      --radius: 14px;
-      --radius-sm: 8px;
-      --shadow: 0 2px 16px rgba(11,37,69,.08);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Vazirmatn', sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
-        radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
-        linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
-      background-attachment: fixed;
-      min-height: 100vh;
-    }
-
-    a { text-decoration: none; }
-
-    .container {
-      width: min(1200px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    /* =========================
-       Page Components Styles
-    ========================== */
-    main { padding: 30px 0 50px; }
-
-    .page-title {
-      margin: 0 0 24px;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .card {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.7);
-      overflow: hidden;
-    }
-
-    .profile-card { padding: 25px; }
-
-    .profile-header {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 25px;
-      align-items: start;
-    }
-
-    .org-image-wrap {
-      width: 160px;
-      height: 160px;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(11,37,69,0.15);
-      border: 1px solid var(--border);
-    }
-
-    .org-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .org-info { text-align: right; }
-
-    .org-name {
-      margin: 0 0 12px;
-      color: var(--primary);
-      font-size: 1.7rem;
-      font-weight: 800;
-    }
-
-    .org-description {
-      margin: 0 0 20px;
-      color: var(--text-2);
-      line-height: 1.9;
-      font-size: 0.95rem;
-    }
-
-    .org-meta {
-      display: grid;
-      gap: 12px;
-      padding: 16px;
-      background: rgba(11,37,69,0.03);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-    }
-
-    .meta-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .meta-label {
-      color: var(--text-3);
-      font-size: 0.9rem;
-    }
-
-    .meta-value {
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .appointments-section { margin-top: 30px; }
-
-    .section-title {
-      margin: 0 0 18px;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .appointment-grid {
-      display: grid;
-      gap: 18px;
-    }
-
-    .appointment-group {
-      padding: 20px;
-    }
-
-    .appointment-date {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-      color: var(--primary);
-      font-weight: 800;
-      gap: 12px;
-    }
-
-    .appointment-date small {
-      color: var(--text-3);
-      font-weight: 500;
-    }
-
-    .appointment-times {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .time-btn {
-      min-width: 95px;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--primary);
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .time-btn:hover {
-      background: var(--primary-light);
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(46,134,193,0.3);
-    }
-
-    .time-btn.selected {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    @media (max-width: 768px) {
-      .profile-header {
-        grid-template-columns: 1fr;
-      }
-
-      .org-image-wrap {
-        width: 100%;
-        height: 200px;
-      }
-
-      .meta-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .appointment-date {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  </style>
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="../Css/OrganizationProfile.css">
 </head>
 
 <body>
 
-  <!-- =========================
-       Navbar Component Mount Point
-       منو از طریق Navbar.js اینجا inject می‌شود
-  ========================== -->
+  <!-- Navbar -->
   <div id="navbar-container"></div>
 
-  <!-- =========================
-       Main Content
-  ========================== -->
+  <!-- Main Content -->
   <main>
     <div class="container">
       <h1 class="page-title">پروفایل سازمان</h1>
@@ -276,7 +52,7 @@
               </div>
               <div class="meta-row">
                 <span class="meta-label">وضعیت فعالیت</span>
-                <span class="meta-value" style="color:#27ae60;">● فعال</span>
+                <span class="meta-value status-active">● فعال</span>
               </div>
               <div class="meta-row">
                 <span class="meta-label">ساعت پاسخگویی</span>
@@ -320,30 +96,10 @@
     </div>
   </main>
 
-  <!-- =========================
-       Page Script
-       فقط اسکریپت‌های مربوط به خود صفحه
-  ========================== -->
-  <script>
-    const timeButtons = document.querySelectorAll('.time-btn');
+  <!-- Page JS -->
+  <script src="../JavaScript/OrganizationProfile.js"></script>
 
-    timeButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const parentGroup = btn.closest('.appointment-group');
-        if (!parentGroup) return;
-
-        parentGroup.querySelectorAll('.time-btn').forEach(b => {
-          b.classList.remove('selected');
-        });
-
-        btn.classList.add('selected');
-      });
-    });
-  </script>
-
-  <!-- =========================
-       Navbar Component Script
-  ========================== -->
+  <!-- Navbar JS -->
   <script src="../JavaScript/MainNavbar.js" defer></script>
 </body>
 </html>
