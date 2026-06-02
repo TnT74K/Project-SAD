@@ -1,271 +1,189 @@
 /* ── متغیرهای رنگ، شعاع و سایه ── */
 :root {
-  --primary: #0B2545;
-  --primary-mid: #1B4F72;
-  --primary-light: #2E86C1;
-  --accent: #D4AC0D;
-  --bg: #eef2f7;
-  --bg-card: #ffffff;
-  --text: #1a2a3a;
-  --text-2: #4a6080;
-  --text-3: #8aa0b8;
-  --border: rgba(11,37,69,.1);
-  --radius: 14px;
-  --radius-sm: 8px;
-  --shadow: 0 2px 16px rgba(11,37,69,.08);
-  --shadow-md: 0 4px 24px rgba(11,37,69,.13);
-}
-
-/* ── ریست پیش‌فرض مرورگر ── */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* ── پس‌زمینه گرادیانت ثابت برای کل صفحه ── */
-body {
-  font-family: 'Vazirmatn', sans-serif;
-  color: var(--text);
-  min-height: 100vh;
-  background:
-    radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
-    linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
-  background-attachment: fixed;
-}
-
-/* ── نوار ناوبری بالا — ثابت، تمام عرض ── */
-.topnav {
-  position: fixed;
-  top: 0; right: 0; left: 0;
-  z-index: 100;
-  background: linear-gradient(90deg, #0a2240 0%, #0B2545 60%, #0d2d52 100%);
-  display: flex;
-  align-items: center;
-  padding: 0 28px;
-  height: 60px;
-  box-shadow: 0 2px 16px rgba(11,37,69,.25);
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  gap: 8px;
-}
-
-/* ── لوگوی نوار ناوبری ── */
-.topnav-logo {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #fff;
-  white-space: nowrap;
-  margin-left: 28px;
-  letter-spacing: .5px;
-}
-
-/* ── ردیف آیتم‌های منو ── */
-.topnav-items {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  gap: 2px;
-}
-
-/* ── هر لینک منو ── */
-.topnav-items .nav-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 16px;
-  height: 60px;
-  color: rgba(255,255,255,.65);
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all .2s;
-  white-space: nowrap;
-  font-size: .88rem;
-  text-decoration: none;
-}
-/* هاور و حالت فعال منو */
-.topnav-items .nav-item:hover { color: #fff; background: rgba(255,255,255,.06); }
-.topnav-items .nav-item.active {
-  color: #fff;
-  border-bottom-color: var(--primary-light);
-  background: rgba(46,134,193,.15);
-}
-.topnav-items .nav-item .icon { font-size: 1rem; }
-
-/* ── ساعت و تاریخ در گوشه نوار ── */
-.topnav-clock {
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  line-height: 1.3;
-}
-.topnav-clock .clock-time {
-  font-family: 'Orbitron', monospace;
-  font-size: .95rem;
-  color: #fff;
-  letter-spacing: 2px;
-}
-.topnav-clock .clock-date {
-  font-size: .68rem;
-  color: rgba(255,255,255,.5);
-}
-
-/* ── محتوای اصلی صفحه — با انیمیشن ورود ── */
-.main {
-  padding: 88px 28px 28px;
-  max-width: 1200px;
-  margin: 0 auto;
-  animation: fadeInUp .4s ease;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── گرید ۴ کارت آماری ── */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-/* ── هر کارت آماری — شیشه‌ای با blur ── */
-.stat-card {
-  background: rgba(255,255,255,.85);
-  backdrop-filter: blur(12px);
-  border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: 0 2px 20px rgba(11,37,69,.08), 0 1px 0 rgba(255,255,255,.9) inset;
-  border: 1px solid rgba(255,255,255,.7);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  transition: transform .2s, box-shadow .2s;
-}
-.stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(11,37,69,.13); }
-/* تاخیر انیمیشن برای کارت‌های ۲ تا ۴ */
-.stat-card:nth-child(2) { animation-delay: .05s; }
-.stat-card:nth-child(3) { animation-delay: .1s; }
-.stat-card:nth-child(4) { animation-delay: .15s; }
-
-/* ── آیکون رنگی داخل کارت ── */
-.stat-icon {
-  width: 46px; height: 46px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
-  flex-shrink: 0;
-}
-.stat-icon.blue   { background: rgba(46,134,193,.15);  color: #2E86C1; }
-.stat-icon.green  { background: rgba(39,174,96,.15);   color: #27ae60; }
-.stat-icon.yellow { background: rgba(212,172,13,.15);  color: #D4AC0D; }
-.stat-icon.red    { background: rgba(231,76,60,.15);   color: #e74c3c; }
-
-/* ── عدد و برچسب کارت آماری ── */
-.stat-info .value { font-size: 1.6rem; font-weight: 700; color: var(--text); line-height: 1; }
-.stat-info .label { font-size: .78rem; color: var(--text-2); margin-top: 4px; }
-
-/* ── کارت سفید محتوا ── */
-.card {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
-
-/* ── هدر کارت ── */
-.card-header {
-  padding: 18px 22px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.card-header h2 { font-size: 1rem; font-weight: 600; color: var(--text); }
-.card-header .subtitle { font-size: .78rem; color: var(--text-3); margin-top: 2px; }
-
-/* ── بدنه کارت و جدول اسکرول‌پذیر ── */
-.card-body { padding: 0; }
-.table-wrap { overflow-x: auto; }
-
-/* ── جدول نوبت‌ها ── */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .875rem;
-}
-/* هدر جدول */
-thead th {
-  background: #f6f9fd;
-  padding: 12px 16px;
-  text-align: right;
-  font-weight: 600;
-  color: var(--text-2);
-  font-size: .78rem;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-/* سلول‌های بدنه جدول */
-tbody td {
-  padding: 13px 16px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-  vertical-align: middle;
-}
-tbody tr:last-child td { border-bottom: none; }
-tbody tr { transition: background .15s; }
-tbody tr:hover { background: #f6f9fd; }
-
-/* ── رنگ‌بندی ردیف‌ها بر اساس وضعیت ── */
-tbody tr.row-green  { background: rgba(39,174,96,.07); }
-tbody tr.row-red    { background: rgba(231,76,60,.07); }
-tbody tr.row-yellow { background: rgba(212,172,13,.09); }
-tbody tr.row-gray   { background: rgba(100,100,100,.05); }
-
-/* ── نشان وضعیت (Badge) ── */
-.badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: .75rem;
-  font-weight: 600;
-}
-.badge-green  { background: rgba(39,174,96,.15);  color: #1e8449; }
-.badge-yellow { background: rgba(212,172,13,.15); color: #9a7d0a; }
-.badge-blue   { background: rgba(46,134,193,.15); color: #1a6fa0; }
-.badge-red    { background: rgba(231,76,60,.15);  color: #c0392b; }
-.badge-gray   { background: rgba(100,100,100,.12);color: #555; }
-
-/* ── دکمه‌های عملیاتی کنار هم ── */
-.actions { display: flex; gap: 6px; flex-wrap: nowrap; }
-
-.btn-action {
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: 5px 11px;
-  font-size: .75rem;
-  font-family: 'Vazirmatn', sans-serif;
-  cursor: pointer;
-  font-weight: 500;
-  transition: opacity .15s, transform .1s;
-  white-space: nowrap;
-}
-.btn-action:hover  { opacity: .85; transform: translateY(-1px); }
-.btn-action:active { transform: scale(.96); }
-
-/* رنگ هر دکمه عملیاتی */
-.btn-present { background: rgba(39,174,96,.15);  color: #1e8449; }
-.btn-cancel  { background: rgba(231,76,60,.15);  color: #c0392b; }
-.btn-absent  { background: rgba(212,172,13,.15); color: #9a7d0a; }
-
-/* ── کد تأییدیه با فونت Orbitron ── */
-.confirm-code {
-  font-family: 'Orbitron', monospace;
-  font-size: .82rem;
-  color: var(--text-2);
-  letter-spacing: 1px;
-}
-
-/* ── ریسپانسیو: زیر ۱۱۰۰ دو ستون، زیر ۶۰۰ فشرده‌تر ── */
-@media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(2,1fr); } }
-@media (max-width: 600px)  { .stats-grid { grid-template-columns: 1fr 1fr; } .main { padding: 76px 12px 16px; } }
+    --primary: #0B2545;
+    --primary-mid: #1B4F72;
+    --primary-light: #2E86C1;
+    --accent: #D4AC0D;
+    --bg: #eef2f7;
+    --bg-card: #ffffff;
+    --text: #1a2a3a;
+    --text-2: #4a6080;
+    --text-3: #8aa0b8;
+    --border: rgba(11,37,69,.1);
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 16px rgba(11,37,69,.08);
+    --shadow-md: 0 4px 24px rgba(11,37,69,.13);
+  }
+  
+  /* ── ریست پیش‌فرض مرورگر ── */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  /* ── پس‌زمینه گرادیانت ثابت برای کل صفحه ── */
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
+      linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
+    background-attachment: fixed;
+  }
+  
+  /* ── محتوای اصلی صفحه — با انیمیشن ورود ── */
+  .main {
+    padding: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: fadeInUp .4s ease;
+  }
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* ── گرید ۴ کارت آماری ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  /* ── هر کارت آماری — شیشه‌ای با blur ── */
+  .stat-card {
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: 0 2px 20px rgba(11,37,69,.08), 0 1px 0 rgba(255,255,255,.9) inset;
+    border: 1px solid rgba(255,255,255,.7);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(11,37,69,.13); }
+  .stat-card:nth-child(2) { animation-delay: .05s; }
+  .stat-card:nth-child(3) { animation-delay: .1s; }
+  .stat-card:nth-child(4) { animation-delay: .15s; }
+  
+  /* ── آیکون رنگی داخل کارت ── */
+  .stat-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .stat-icon.blue   { background: rgba(46,134,193,.15);  color: #2E86C1; }
+  .stat-icon.green  { background: rgba(39,174,96,.15);   color: #27ae60; }
+  .stat-icon.yellow { background: rgba(212,172,13,.15);  color: #D4AC0D; }
+  .stat-icon.red    { background: rgba(231,76,60,.15);   color: #e74c3c; }
+  
+  /* ── عدد و برچسب کارت آماری ── */
+  .stat-info .value { font-size: 1.6rem; font-weight: 700; color: var(--text); line-height: 1; }
+  .stat-info .label { font-size: .78rem; color: var(--text-2); margin-top: 4px; }
+  
+  /* ── کارت سفید محتوا ── */
+  .card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  
+  /* ── هدر کارت ── */
+  .card-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-header h2 { font-size: 1rem; font-weight: 600; color: var(--text); }
+  .card-header .subtitle { font-size: .78rem; color: var(--text-3); margin-top: 2px; }
+  
+  /* ── بدنه کارت و جدول اسکرول‌پذیر ── */
+  .card-body { padding: 0; }
+  .table-wrap { overflow-x: auto; }
+  
+  /* ── جدول نوبت‌ها ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .875rem;
+  }
+  thead th {
+    background: #f6f9fd;
+    padding: 12px 16px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--text-2);
+    font-size: .78rem;border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: middle;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr { transition: background .15s; }
+  tbody tr:hover { background: #f6f9fd; }
+  
+  /* ── رنگ‌بندی ردیف‌ها بر اساس وضعیت ── */
+  tbody tr.row-green  { background: rgba(39,174,96,.25); }
+  tbody tr.row-red    { background: rgba(231,76,60,.22); }
+  tbody tr.row-yellow { background: rgba(212,172,13,.28); }
+  tbody tr.row-gray   { background: rgba(100,100,100,.05); }
+  
+  /* ── نشان وضعیت (Badge) ── */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: .75rem;
+    font-weight: 600;
+  }
+  .badge-green  { background: rgba(39,174,96,.15);  color: #1e8449; }
+  .badge-yellow { background: rgba(212,172,13,.15); color: #9a7d0a; }
+  .badge-blue   { background: rgba(46,134,193,.15); color: #1a6fa0; }
+  .badge-red    { background: rgba(231,76,60,.15);  color: #c0392b; }
+  .badge-gray   { background: rgba(100,100,100,.12);color: #555; }
+  
+  /* ── دکمه‌های عملیاتی ── */
+  .actions { display: flex; gap: 6px; flex-wrap: nowrap; }
+  .btn-action {
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 5px 11px;
+    font-size: .75rem;
+    font-family: 'Vazirmatn', sans-serif;
+    cursor: pointer;
+    font-weight: 500;
+    transition: opacity .15s, transform .1s;
+    white-space: nowrap;
+  }
+  .btn-action:hover  { opacity: .85; transform: translateY(-1px); }
+  .btn-action:active { transform: scale(.96); }
+  .btn-present { background: rgba(39,174,96,.15);  color: #1e8449; }
+  .btn-cancel  { background: rgba(231,76,60,.15);  color: #c0392b; }
+  .btn-absent  { background: rgba(212,172,13,.15); color: #9a7d0a; }
+    
+  /* ── کد تأییدیه با فونت Orbitron ── */
+  .confirm-code {
+    font-family: 'Orbitron', monospace;
+    font-size: .82rem;
+    color: var(--text-2);
+    letter-spacing: 1px;
+  }
+  
+  /* ── ریسپانسیو ── */
+  @media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 600px)  { .stats-grid { grid-template-columns: 1fr 1fr; } .main { padding: 16px 12px; } }
+  
