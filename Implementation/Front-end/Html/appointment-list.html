@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رزروسنتر — نوبت‌ها</title>
+  <!-- فونت‌های Vazirmatn (فارسی) و Orbitron (ساعت/کد) -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="appointment-list.css">
+</head>
+<body>
+
+  <!-- نوار ناوبری بالا -->
+  <nav class="topnav">
+    <div class="topnav-logo">🗓 رزروسنتر</div>
+
+    <!-- آیتم‌های منو -->
+    <div class="topnav-items">
+      <a class="nav-item" href="#"><span class="icon">📊</span> داشبورد</a>
+      <a class="nav-item active" href="#"><span class="icon">📅</span> لیست رزروها</a>
+      <a class="nav-item" href="#"><span class="icon">⚙️</span> تنظیمات</a>
+      <a class="nav-item" href="#"><span class="icon">🔄</span> تغییر وضعیت نوبت‌ها</a>
+    </div>
+
+    <!-- ساعت و تاریخ جلالی -->
+    <div class="topnav-clock">
+      <span class="clock-time" id="clockTime">--:--:--</span>
+      <span class="clock-date" id="jalaliDate">—</span>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- کارت‌های آماری (۴ عدد) -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon blue">📅</div>
+        <div class="stat-info">
+          <div class="value">۱۲۴</div>
+          <div class="label">رزرو امروز</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">✅</div>
+        <div class="stat-info">
+          <div class="value">۹۸</div>
+          <div class="label">تأیید شده</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon yellow">❗</div>
+        <div class="stat-info">
+          <div class="value">۱۸</div>
+          <div class="label">در انتظار</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon red">❌</div>
+        <div class="stat-info">
+          <div class="value">۸</div>
+          <div class="label">لغو شده</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- کارت جدول نوبت‌ها -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h2>لیست نوبت‌ها</h2>
+          <div class="subtitle">نوبت‌های امروز ۱۴۰۵/۰۳/۱۲</div>
+        </div></div>
+
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <!-- هدر ستون‌های جدول -->
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>مشتری</th>
+                <th>سرویس</th>
+                <th>تاریخ</th>
+                <th>ساعت</th>
+                <th>کد تأییدیه</th>
+                <th>وضعیت</th><th>عملیات</th>
+              </tr>
+            </thead>
+
+            <!-- ردیف‌های نوبت — وضعیت با JS تغییر می‌کند -->
+            <tbody id="appointmentsBody">
+              <tr>
+                <td>۱</td><td>علی رضایی</td><td>کوتاهی مو</td><td>۱۴۰۵/۰۳/۱۲</td><td>۱۰:۳۰</td>
+                <td class="confirm-code">—</td><!-- کد تأییدیه -->
+                <td><span class="badge badge-green">تأیید شده</span></td>
+                <td><div class="actions">
+                  <button class="btn-action btn-present" onclick="setStatus(this,'present')">✔ حضور</button>
+                  <button class="btn-action btn-cancel"  onclick="setStatus(this,'cancel')">✖ لغو</button>
+                  <button class="btn-action btn-absent"  onclick="setStatus(this,'absent')">— عدم حضور</button>
+                </div></td>
+              </tr>
+              <tr>
+                <td>۲</td><td>سارا محمدی</td><td>رنگ مو</td><td>۱۴۰۵/۰۳/۱۲</td><td>۱۱:۰۰</td>
+                <td class="confirm-code">—</td>
+                <td><span class="badge badge-yellow">در انتظار</span></td>
+                <td><div class="actions">
+                  <button class="btn-action btn-present" onclick="setStatus(this,'present')">✔ حضور</button>
+                  <button class="btn-action btn-cancel"  onclick="setStatus(this,'cancel')">✖ لغو</button>
+                  <button class="btn-action btn-absent"  onclick="setStatus(this,'absent')">— عدم حضور</button>
+                </div></td>
+              </tr>
+              <tr>
+                <td>۳</td><td>مهدی کریمی</td><td>اصلاح ریش</td><td>۱۴۰۵/۰۳/۱۲</td><td>۱۲:۳۰</td>
+                <td class="confirm-code">—</td>
+                <td><span class="badge badge-green">تأیید شده</span></td>
+                <td><div class="actions">
+                  <button class="btn-action btn-present" onclick="setStatus(this,'present')">✔ حضور</button>
+                  <button class="btn-action btn-cancel"  onclick="setStatus(this,'cancel')">✖ لغو</button>
+                  <button class="btn-action btn-absent"  onclick="setStatus(this,'absent')">— عدم حضور</button>
+                </div></td>
+              </tr>
+              <tr>
+                <td>۴</td><td>نیلوفر احمدی</td><td>مانیکور</td><td>۱۴۰۵/۰۳/۱۲</td><td>۱۴:۰۰</td>
+                <td class="confirm-code">—</td>
+                <td><span class="badge badge-blue">جدید</span></td>
+                <td><div class="actions">
+                  <button class="btn-action btn-present" onclick="setStatus(this,'present')">✔ حضور</button>
+                  <button class="btn-action btn-cancel"  onclick="setStatus(this,'cancel')">✖ لغو</button>
+                  <button class="btn-action btn-absent"  onclick="setStatus(this,'absent')">— عدم حضور</button>
+                </div></td>
+              </tr>
+              <tr>
+                <td>۵</td><td>رضا حسینی</td><td>ماساژ</td><td>۱۴۰۵/۰۳/۱۲</td><td>۱۵:۳۰</td>
+                <td class="confirm-code">—</td>
+                <td><span class="badge badge-red">لغو شده</span></td>
+                <td><div class="actions">
+                  <button class="btn-action btn-present" onclick="setStatus(this,'present')">✔ حضور</button>
+                  <button class="btn-action btn-cancel"  onclick="setStatus(this,'cancel')">✖ لغو</button>
+                  <button class="btn-action btn-absent"  onclick="setStatus(this,'absent')">— عدم حضور</button>
+                </div></td>
+              </tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="appointment-list.js"></script>
+</body>
+</html>
