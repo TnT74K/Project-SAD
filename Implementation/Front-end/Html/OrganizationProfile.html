@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>پروفایل سازمان</title>
+
+  <!-- =========================
+       Fonts (Vazirmatn & Orbitron)
+  ========================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================
+       Root Variables & Reset
+    ========================== */
+    :root {
+      --primary: #0B2545;
+      --primary-mid: #1B4F72;
+      --primary-light: #2E86C1;
+      --accent: #D4AC0D;
+      --bg: #eef2f7;
+      --bg-card: #ffffff;
+      --text: #1a2a3a;
+      --text-2: #4a6080;
+      --text-3: #8aa0b8;
+      --border: rgba(11,37,69,.1);
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow: 0 2px 16px rgba(11,37,69,.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      color: var(--text);
+      /* پس‌زمینه اختصاصی داشبورد */
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
+        linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; }
+
+    .container {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* =========================
+       Navbar Styles (Directly Included)
+       این استایل‌ها دقیقاً همان استایل‌های Navbar.css شما هستند
+    ========================== */
+    .topnav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      background: var(--primary); /* رنگ تیره سرمه‌ای */
+      padding: 0 20px;
+      min-height: 64px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .topnav-logo {
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-left: 30px;
+      white-space: nowrap;
+    }
+
+    .topnav-items {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 18px;
+      height: 64px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+    }
+
+    .nav-item:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .nav-item.active {
+      color: #fff;
+      background: rgba(255,255,255,0.1);
+      border-bottom-color: var(--primary-light);
+    }
+
+    .nav-item .icon {
+      font-size: 1.1rem;
+    }
+
+    /* =========================
+       Page Components Styles
+    ========================== */
+    main { padding: 30px 0 50px; }
+
+    .page-title {
+      margin: 0 0 24px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.7);
+      overflow: hidden;
+    }
+
+    /* Profile Card Header */
+    .profile-card { padding: 25px; }
+
+    .profile-header {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 25px;
+      align-items: start;
+    }
+
+    .org-image-wrap {
+      width: 160px;
+      height: 160px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(11,37,69,0.15);
+      border: 1px solid var(--border);
+    }
+
+    .org-image { width: 100%; height: 100%; object-fit: cover; }
+
+    .org-info { text-align: right; }
+
+    .org-name {
+      margin: 0 0 12px;
+      color: var(--primary);
+      font-size: 1.7rem;
+      font-weight: 800;
+    }
+
+    .org-description {
+      margin: 0 0 20px;
+      color: var(--text-2);
+      line-height: 1.9;
+      font-size: 0.95rem;
+    }
+
+    /* Info Table inside Card */
+    .org-meta {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(11,37,69,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .meta-label { color: var(--text-3); font-size: 0.9rem; }
+    .meta-value { color: var(--text); font-weight: 700; }
+
+    /* Appointment Section */
+    .appointments-section { margin-top: 30px; }
+    .section-title {
+      margin: 0 0 18px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .appointment-grid { display: grid; gap: 18px; }
+
+    .appointment-group { padding: 20px; }
+
+    .appointment-date {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .appointment-date small { color: var(--text-3); font-weight: 500; }
+
+    .appointment-times { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Time Buttons */
+    .time-btn {
+      min-width: 95px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .time-btn:hover {
+      background: var(--primary-light);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(46,134,193,0.3);
+    }
+
+    .time-btn.selected {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .profile-header { grid-template-columns: 1fr; }
+      .org-image-wrap { width: 100%; height: 200px; }
+      .topnav { flex-wrap: wrap; height: auto; padding: 10px; }
+      .nav-item { height: 50px; padding: 0 12px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       Navigation Bar (Directly Included)
+  ========================== -->
+  <nav class="topnav">
+    <div class="topnav-logo">🗓 رزروسنتر</div>
+    <div class="topnav-items">
+      <a class="nav-item active" href="#"><span class="icon">🏢</span> پروفایل</a>
+      <a class="nav-item" href="#"><span class="icon">📊</span> داشبورد</a>
+      <a class="nav-item" href="#"><span class="icon">📅</span> رزروها</a>
+      <a class="nav-item" href="#"><span class="icon">⚙️</span> تنظیمات</a>
+    </div>
+  </nav>
+
+  <!-- =========================
+       Main Content
+  ========================== -->
+  <main>
+    <div class="container">
+      <h1 class="page-title">پروفایل سازمان</h1>
+
+      <!-- Organization Summary Card -->
+      <section class="card profile-card">
+        <div class="profile-header">
+          <div class="org-image-wrap">
+            <img class="org-image" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80" alt="سازمان">
+          </div>
+
+          <div class="org-info">
+            <h2 class="org-name">مرکز تخصصی رزروسنتر</h2>
+            <p class="org-description">
+              این مرکز با بهره‌گیری از کادری مجرب و سیستم نوبت‌دهی هوشمند، خدماتی با کیفیت در حوزه‌های تخصصی ارائه می‌دهد. 
+              هدف ما تسهیل فرآیند رزرو و ارائه بهترین تجربه کاربری برای مشتریان است.
+            </p>
+
+            <div class="org-meta">
+              <div class="meta-row">
+                <span class="meta-label">نام کامل واحد</span>
+                <span class="meta-value">سازمان خدمات نمونه کشوری</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">وضعیت فعالیت</span>
+                <span class="meta-value" style="color: #27ae60;">● فعال</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">ساعت پاسخگویی</span>
+                <span class="meta-value">۰۸:۰۰ الی ۱۸:۰۰</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking Section -->
+      <section class="appointments-section">
+        <h3 class="section-title">نوبت‌های قابل رزرو</h3>
+
+        <div class="appointment-grid">
+          <!-- Day 1 -->
+          <div class="card appointment-group">
+            <div class="appointment-date">
+              <span>شنبه ۱۴۰۳/۱۰/۲۲</span>
+              <small>۴ نوبت آزاد</small>
+            </div>
+            <div class="appointment-times">
+              <button class="time-btn">08:00</button>
+              <button class="time-btn">09:30</button>
+              <button class="time-btn">11:00</button>
+              <button class="time-btn">12:30</button>
+            </div>
+          </div>
+
+          <!-- Day 2 -->
+          <div class="card appointment-group">
+            <div class="appointment-date">
+              <span>یکشنبه ۱۴۰۳/۱۰/۲۳</span>
+              <small>۳ نوبت آزاد</small>
+            </div>
+            <div class="appointment-times">
+              <button class="time-btn">10:00</button>
+              <button class="time-btn">14:30</button>
+              <button class="time-btn">16:00</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =========================
+       Page Scripts
+  ========================== -->
+  <script>
+    // 1. مدیریت کلیک روی آیتم‌های منو
+    const navLinks = document.querySelectorAll('.nav-item');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        // حذف کلاس active از بقیه
+        navLinks.forEach(item => item.classList.remove('active'));
+        // اضافه کردن به آیتم فعلی
+        link.classList.add('active');
+      });
+    });
+
+    // 2. مدیریت انتخاب دکمه‌های زمان
+    const timeButtons = document.querySelectorAll('.time-btn');
+    timeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parentGroup = btn.closest('.appointment-group');
+        // در هر باکس فقط یک دکمه انتخاب شود
+        parentGroup.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+  </script>
+
+</body>
+</html>
