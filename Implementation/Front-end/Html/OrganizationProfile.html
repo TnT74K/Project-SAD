@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>پروفایل سازمان</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Navbar CSS -->
+  <link rel="stylesheet" href="../Css/MainNavbar.css">
+
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="../Css/OrganizationProfile.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <h1 class="page-title">پروفایل سازمان</h1>
+
+      <section class="card profile-card">
+        <div class="profile-header">
+          <div class="org-image-wrap">
+            <img
+              class="org-image"
+              src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80"
+              alt="سازمان"
+            >
+          </div>
+
+          <div class="org-info">
+            <h2 class="org-name">مرکز تخصصی رزروسنتر</h2>
+            <p class="org-description">
+              این مرکز با بهره‌گیری از کادری مجرب و سیستم نوبت‌دهی هوشمند،
+              خدماتی با کیفیت در حوزه‌های تخصصی ارائه می‌دهد.
+              هدف ما تسهیل فرآیند رزرو و ارائه بهترین تجربه کاربری برای کاربران است.
+            </p>
+
+            <div class="org-meta">
+              <div class="meta-row">
+                <span class="meta-label">نام کامل واحد</span>
+                <span class="meta-value">سازمان خدمات نمونه کشوری</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">وضعیت فعالیت</span>
+                <span class="meta-value status-active">● فعال</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">ساعت پاسخگویی</span>
+                <span class="meta-value">۰۸:۰۰ الی ۱۸:۰۰</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="appointments-section">
+        <h3 class="section-title">نوبت‌های قابل رزرو</h3>
+
+        <div class="appointment-grid">
+          <div class="card appointment-group">
+            <div class="appointment-date">
+              <span>شنبه ۱۴۰۳/۱۰/۲۲</span>
+              <small>۴ نوبت آزاد</small>
+            </div>
+            <div class="appointment-times">
+              <button class="time-btn">08:00</button>
+              <button class="time-btn">09:30</button>
+              <button class="time-btn">11:00</button>
+              <button class="time-btn">12:30</button>
+            </div>
+          </div>
+
+          <div class="card appointment-group">
+            <div class="appointment-date">
+              <span>یکشنبه ۱۴۰۳/۱۰/۲۳</span>
+              <small>۳ نوبت آزاد</small>
+            </div>
+            <div class="appointment-times">
+              <button class="time-btn">10:00</button>
+              <button class="time-btn">14:30</button>
+              <button class="time-btn">16:00</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Page JS -->
+  <script src="../JavaScript/OrganizationProfile.js"></script>
+
+  <!-- Navbar JS -->
+  <script src="../JavaScript/MainNavbar.js" defer></script>
+</body>
+</html>
