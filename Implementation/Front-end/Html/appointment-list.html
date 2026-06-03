@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رزروسنتر — نوبت‌ها</title>
+
+  <!-- فونت فارسی Vazirmatn + فونت کد Orbitron از گوگل -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="appointment-list.css">
+</head>
+<body>
+  <main class="main">
+    <div class="card"><!-- کلاس not-today از JS اضافه/حذف می‌شود -->
+      <div class="card-header">
+        <h2>لیست نوبت‌ها</h2>
+
+        <!-- ناوبری تاریخ: دکمه راست/چپ + نمایش تاریخ جاری -->
+        <div class="date-nav">
+          <!-- ‹ : رفتن به روز بعد (چون RTL است، dir=-1) -->
+          <button onclick="changeDay(-1)">&#8249;</button>
+          <!-- تاریخ از JS داخل این span نوشته می‌شود -->
+          <span id="currentDate"></span>
+          <!-- › : رفتن به روز قبل -->
+          <button onclick="changeDay(1)">&#8250;</button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>مشتری</th><th>سرویس</th><th>تاریخ</th><th>ساعت</th>
+                <th>کد تأییدیه</th><th>وضعیت</th><th>عملیات</th>
+              </tr>
+            </thead>
+            <!-- ردیف‌ها کاملاً توسط render() در JS ساخته می‌شوند -->
+            <tbody id="appointmentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <script src="appointment-list.js"></script>
+</body>
+</html>

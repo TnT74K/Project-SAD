@@ -1,0 +1,177 @@
+/* ===== متغیرهای سراسری ===== */
+:root {
+  --primary: #0B2545;
+  --primary-mid: #1B4F72;
+  --primary-light: #2E86C1;
+  --accent: #D4AC0D;
+  --bg: #eef2f7;
+  --bg-card: #ffffff;
+  --text: #1a2a3a;
+  --text-2: #4a6080;       /* متن ثانویه/خاکستری */
+  --text-3: #8aa0b8;       /* متن کم‌رنگ */
+  --border: rgba(11,37,69,.1);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 2px 16px rgba(11,37,69,.08);
+  --shadow-md: 0 4px 24px rgba(11,37,69,.13);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== پس‌زمینه صفحه با گرادیان لایه‌ای ===== */
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
+    linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
+  background-attachment: fixed; /* پس‌زمینه هنگام اسکرول ثابت می‌ماند */
+}
+
+/* ===== محتوای اصلی: محدودیت عرض و انیمیشن ورود ===== */
+.main {
+  padding: 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeInUp .4s ease;
+}
+
+/* انیمیشن fade + slide از پایین به بالا هنگام لود */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== کارت اصلی ===== */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden; /* گوشه‌های گرد روی فرزندان هم اعمال شود */
+}
+
+/* هدر کارت: عنوان سمت راست، date-nav سمت چپ */
+.card-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-header h2 { font-size: 1rem; font-weight: 600; color: var(--text); }
+.card-header .subtitle { font-size: .78rem; color: var(--text-3); margin-top: 2px; }
+
+.card-body { padding: 0; }
+.table-wrap { overflow-x: auto; } /* اسکرول افقی برای موبایل */
+
+/* ===== جدول ===== */
+table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+thead th {
+  background: #f6f9fd;
+  padding: 12px 16px;
+  text-align: right;
+  font-weight: 600;
+  color: var(--text-2);
+  font-size: .78rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr { transition: background .15s; }
+tbody tr:hover { background: #f6f9fd; }
+
+/* رنگ‌های پس‌زمینه ردیف بر اساس وضعیت (از JS اعمال می‌شود) */
+tbody tr.row-green  { background: rgba(39,174,96,.25); }
+tbody tr.row-red    { background: rgba(231,76,60,.22); }
+tbody tr.row-yellow { background: rgba(212,172,13,.28); }
+tbody tr.row-gray   { background: rgba(100,100,100,.05); }
+
+/* ===== badge های وضعیت ===== */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: .75rem;
+  font-weight: 600;
+}
+.badge-green  { background: rgba(39,174,96,.15);  color: #1e8449; }
+.badge-yellow { background: rgba(212,172,13,.15); color: #9a7d0a; }
+.badge-blue   { background: rgba(46,134,193,.15); color: #1a6fa0; }
+.badge-red    { background: rgba(231,76,60,.15);  color: #c0392b; }
+.badge-gray   { background: rgba(100,100,100,.12);color: #555; }
+
+/* ===== دکمه‌های عملیات ===== */
+.actions { display: flex; gap: 6px; flex-wrap: nowrap; }
+.btn-action {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 5px 11px;
+  font-size: .75rem;
+  font-family: 'Vazirmatn', sans-serif;
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity .15s, transform .1s;
+  white-space: nowrap;
+}
+.btn-action:hover  { opacity: .85; transform: translateY(-1px); }
+.btn-action:active { transform: scale(.96); }
+/* رنگ‌بندی هر نوع دکمه */
+.btn-present { background: rgba(39,174,96,.15);   color: #1e8449; }
+.btn-cancel  { background: rgba(231,76,60,.15);   color: #c0392b; }
+.btn-absent  { background: rgba(212,172,13,.15);  color: #9a7d0a; }
+.btn-reset   { background: rgba(100,100,100,.12); color: #555; }
+
+/* کد تأییدیه با فونت مونواسپیس */
+.confirm-code {
+  font-family: 'Orbitron', monospace;
+  font-size: .82rem;
+  color: var(--text-2);
+  letter-spacing: 1px;
+}
+
+/* ===== ناوبری تاریخ (date-nav) ===== */
+.date-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+/* دکمه‌های < > جهت‌نما */
+.date-nav button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  width: 30px; height: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-2);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.date-nav button:hover { background: #f0f4f8; }
+.date-nav span { font-size: .9rem; font-weight: 600; color: var(--text); }
+
+/* ===== استایل روزهای غیر امروز ===== */
+/* border قرمز دور کل کارت */
+.card.not-today { border: 2px solid rgba(231,76,60,.35); }
+/* هدر با پس‌زمینه قرمز کم‌رنگ */
+.card.not-today .card-header {
+  background: rgba(231,76,60,.15);
+  border-bottom: 2px solid rgba(231,76,60,.4);
+}
+/* عنوان و تاریخ قرمز می‌شوند */
+.card.not-today .card-header h2,
+.card.not-today .card-header .date-nav span {
+  color: #c0392b;
+}
+
+/* ===== ریسپانسیو موبایل ===== */
+@media (max-width: 600px) { .main { padding: 16px 12px; } }
