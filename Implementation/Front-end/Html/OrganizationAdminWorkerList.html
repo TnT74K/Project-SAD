@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+
+<!-- تنظیم encoding و ریسپانسیو -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>مدیریت کارمندان</title>
+
+<!-- اتصال فونت Vazirmatn -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+<!-- اتصال فایل CSS -->
+<link rel="stylesheet" href="../Css/OrganizationAdminWorkerList.css">
+
+</head>
+
+<body>
+
+<!-- کانتینر اصلی صفحه -->
+<div class="container">
+
+<!-- کارت اصلی صفحه -->
+<div class="card">
+
+<!-- عنوان صفحه -->
+<div class="page-title">مدیریت کارمندان</div>
+
+<!-- تولبار شامل جستجو و دکمه ثبت -->
+<div class="toolbar">
+
+<!-- بخش جستجو -->
+<div class="search-box">
+
+<!-- ورودی جستجو -->
+<input id="searchInput" placeholder="جستجو...">
+
+<!-- دکمه جستجو -->
+<button class="btn-primary" onclick="searchUser()">جستجو</button>
+
+<!-- دکمه نمایش همه کاربران -->
+<button class="btn-warning" onclick="showAllUsers()">نمایش همه</button>
+
+</div>
+
+<!-- دکمه ثبت کارمند -->
+<button class="btn-primary" onclick="openModal()">ثبت کارمند</button>
+
+</div>
+
+<!-- جدول نمایش کاربران -->
+<table>
+
+<thead>
+<tr>
+<th>نام</th>
+<th>نام خانوادگی</th>
+<th>نقش</th>
+<th>وضعیت</th>
+<th>عملیات</th>
+</tr>
+</thead>
+
+<!-- بدنه جدول که توسط JS پر می‌شود -->
+<tbody id="userTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- مودال ثبت / ویرایش کارمند -->
+<div class="modal" id="userModal">
+
+<div class="modal-content">
+
+<!-- عنوان مودال -->
+<div class="modal-header">ثبت / ویرایش کارمند</div>
+
+<!-- فرم اطلاعات کارمند -->
+<div class="form-grid">
+
+<input id="firstName" placeholder="نام">
+<input id="lastName" placeholder="نام خانوادگی">
+<input id="nationalCode" placeholder="کد ملی">
+<input id="username" placeholder="نام کاربری">
+
+<!-- فیلد رمز با دکمه نمایش -->
+<div class="password-wrap">
+<input id="password" type="password" placeholder="رمز عبور">
+<button class="show-pass" onclick="togglePass()">👁</button>
+</div>
+
+<!-- انتخاب نقش -->
+<select id="role">
+<option>پشتيبان سازمان</option>
+<option>كارمند حضوري</option>
+</select>
+
+</div>
+
+<!-- دکمه‌های پایین مودال -->
+<div class="modal-actions">
+
+<button class="btn-primary" onclick="saveUser()">ثبت</button>
+<button onclick="closeModal()">انصراف</button>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- اتصال فایل جاوااسکریپت -->
+<script src="../JavaScript/OrganizationAdminWorkerList.js"></script>
+
+</body>
+</html>
