@@ -14,41 +14,65 @@
             <div class="logo-sub">ایجاد حساب کاربری جدید</div>
         </div>
 
-        <form>
+        <form id="registerForm">
             <div class="form-group">
-                <label for="name">نام و نام خانوادگی</label>
+                <label for="name">نام و نام خانوادگی
+                    <span class="required-star">*</span>
+                </label>
                 <div class="input-group">
                     <input type="text" id="name" name="name" required placeholder="نام و نام خانوادگی خود را وارد کنید">
+                    <div class="error-message" id="name-error"></div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="username">نام کاربری</label>
+                <label for="username">نام کاربری
+                    <span class="required-star">*</span>
+                </label>
                 <div class="input-group">
                     <input type="text" id="username" name="username" required placeholder="نام کاربری خود را وارد کنید">
+                    <div class="error-message" id="username-error"></div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="national_id">کد ملی</label>
+                <label for="national_id">کد ملی
+                    <span class="required-star">*</span>
+                </label>
                 <div class="input-group">
                     <input type="text" id="national_id" name="national_id" inputmode="numeric" maxlength="10" required placeholder="کد ملی ۱۰ رقمی خود را وارد کنید">
+                    <div class="error-message" id="national-id-error"></div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="phone-number">شماره تلفن
+                    <span class="required-star">*</span>
+                </label>
+                <div class="input-group">
+                    <input type="text" id="phone-number" name="phone-number" inputmode="numeric" maxlength="11" required placeholder="شماره تلفن را مانند 09131234567 وارد کنید">
+                    <div class="error-message" id="phone-number-error"></div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="password">رمز عبور</label>
+                <label for="password">رمز عبور
+                    <span class="required-star">*</span>
+                </label>
                 <div class="input-group">
                     <input type="password" id="password" name="password" required placeholder="رمز عبور خود را وارد کنید" class="has-icon">
                     <span class="toggle-icon" onclick="togglePasswordVisibility('password', this)">👁</span>
+                    <div class="error-message" id="password-error"></div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="confirm-password">تکرار رمز عبور</label>
+                <label for="confirm-password">تکرار رمز عبور
+                    <span class="required-star">*</span>
+                </label>
                 <div class="input-group">
                     <input type="password" id="confirm-password" name="confirm-password" required placeholder="رمز عبور را دوباره وارد کنید" class="has-icon">
                     <span class="toggle-icon" onclick="togglePasswordVisibility('confirm-password', this)">👁</span>
+                    <div class="error-message" id="confirm-error"></div>
                 </div>
             </div>
 
