@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,43 +8,50 @@
     <link rel="stylesheet" href="../Css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+     <!-- کارت اصلی فرم ورود -->
     <div class="auth-card">
         <div class="logo-block">
             <div class="logo-text">رزرو سنتر</div>
             <div class="logo-sub">ورود به حساب کاربری</div>
         </div>
-
+<!-- فرم ورود -->
         <form>
+            <!-- گروه فیلد نام کاربری -->
             <div class="form-group">
                 <label for="username">نام کاربری</label>
                 <div class="input-group">
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        required
-                        placeholder="نام کاربری خود را وارد کنید"
-                    >
+                    <input type="text" id="username" name="username" required placeholder="نام کاربری خود را وارد کنید">
                 </div>
             </div>
 
-
+              <!-- گروه فیلد رمز عبور -->
             <div class="form-group">
                 <label for="password">رمز عبور</label>
                 <div class="input-group">
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        required
-                        placeholder="رمز عبور خود را وارد کنید"
-                        class="has-icon"
-                    >
+                    <input type="password" id="password" name="password" required
+                        placeholder="رمز عبور خود را وارد کنید" class="has-icon">
+                         <!-- آیکون چشم برای نمایش/مخفی کردن رمز عبور -->
                     <span class="toggle-icon" onclick="togglePasswordVisibility('password', this)">👁</span>
                 </div>
             </div>
+               <!-- گروه فیلد نقش کاربری  -->
+            <div class="form-group">
+                <label for="role">نقش</label>
+                <div class="input-group">
+                    <select id="role" required>
+                        <option value="" disabled selected> لطفاً نقش خود را انتخاب کنید </option>
+                        <option value="مشتری">مشتری</option>
+                        <option value="کارمند ساده">کارمند کسب و کار</option>
+                        <option value="سوپر ادمین">مدیر ارشد سیستم</option>
+                        <option value="پشتیبان سازمان">پشتیبان کسب و کار</option>
+                        <option value="مدیر کسب و کار">مدیر کسب و کار</option>
+                    </select>
 
+                </div>
+            </div>
+            <!-- لینک فراموشی رمز عبور -->
             <a href="forget-password.html" class="forgot-password">فراموشی رمز عبور؟</a>
 
             <button type="submit" class="btn-primary">ورود</button>
@@ -55,4 +63,5 @@
     </div>
     <script src="../JavaScript/login.js"></script>
 </body>
+
 </html>
