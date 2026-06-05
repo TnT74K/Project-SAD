@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +9,9 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&family=Orbitron:wght@400;500;700&display=swap"
+    rel="stylesheet">
 
   <!-- Navbar CSS -->
   <link rel="stylesheet" href="../Css/MainNavbar.css">
@@ -30,11 +33,9 @@
       <section class="card profile-card">
         <div class="profile-header">
           <div class="org-image-wrap">
-            <img
-              class="org-image"
+            <img class="org-image"
               src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80"
-              alt="سازمان"
-            >
+              alt="سازمان">
           </div>
 
           <div class="org-info">
@@ -52,7 +53,7 @@
               </div>
               <div class="meta-row">
                 <span class="meta-label">وضعیت فعالیت</span>
-                <span class="meta-value status-active">● فعال</span>
+                <span class="meta-value" style="color: #27ae60;">● فعال</span>
               </div>
               <div class="meta-row">
                 <span class="meta-label">ساعت پاسخگویی</span>
@@ -95,6 +96,65 @@
       </section>
     </div>
   </main>
+  <!-- =========================
+       Modal 1: Confirm Appointment
+  ========================== -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-icon">📋</div>
+        <div>
+          <h2 class="modal-title">تأیید رزرو نوبت</h2>
+          <p class="modal-subtitle">لطفاً اطلاعات نوبت را بررسی کنید</p>
+        </div>
+      </div>
+
+      <div class="modal-info-grid">
+        <div class="modal-info-row">
+          <span class="modal-info-label">👤 نام و نام خانوادگی</span>
+          <span class="modal-info-value" id="modal-username">کاربر مهمان</span>
+        </div>
+        <div class="modal-info-row">
+          <span class="modal-info-label">🏢 نام سازمان</span>
+          <span class="modal-info-value" id="modal-orgname">مرکز تخصصی رزروسنتر</span>
+        </div>
+        <div class="modal-info-row">
+          <span class="modal-info-label">📅 تاریخ نوبت</span>
+          <span class="modal-info-value" id="modal-date">—</span>
+        </div>
+        <div class="modal-info-row">
+          <span class="modal-info-label">🕐 ساعت نوبت</span>
+          <span class="modal-info-value time-val" id="modal-time">—</span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btnCancel">انصراف</button>
+        <button class="btn-confirm" id="btnConfirmPay">
+          <span>✓</span> تایید و پرداخت
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       Modal 2: Success
+  ========================== -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      <div class="success-icon-wrap">✓</div>
+      <h2 class="success-title">نوبت با موفقیت ثبت شد!</h2>
+      <p class="success-desc">
+        رزرو شما با موفقیت انجام شد.<br>
+        کد رهگیری زیر را برای پیگیری نزد خود نگه دارید.
+      </p>
+      <div class="tracking-box">
+        <p class="tracking-label">کد رهگیری شما</p>
+        <div class="tracking-code" id="trackingCode">—</div>
+      </div>
+      <button class="btn-close-success" id="btnCloseSuccess">متوجه شدم</button>
+    </div>
+  </div>
 
   <!-- Page JS -->
   <script src="../JavaScript/OrganizationProfile.js"></script>
@@ -102,4 +162,5 @@
   <!-- Navbar JS -->
   <script src="../JavaScript/MainNavbar.js" defer></script>
 </body>
+
 </html>
