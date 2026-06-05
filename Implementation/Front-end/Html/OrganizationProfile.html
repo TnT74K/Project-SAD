@@ -6,15 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>پروفایل سازمان</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&family=Orbitron:wght@400;500;700&display=swap"
-    rel="stylesheet">
-
-  <!-- Navbar CSS -->
-  <link rel="stylesheet" href="../Css/MainNavbar.css">
 
   <!-- Page CSS -->
   <link rel="stylesheet" href="../Css/OrganizationProfile.css">
@@ -22,6 +13,7 @@
 
 <body>
 
+  <div id="header-placeholder"></div>
   <!-- Navbar -->
   <div id="navbar-container"></div>
 
@@ -155,12 +147,15 @@
       <button class="btn-close-success" id="btnCloseSuccess">متوجه شدم</button>
     </div>
   </div>
+  <div id="footer-placeholder"></div>
 
   <!-- Page JS -->
   <script src="../JavaScript/OrganizationProfile.js"></script>
 
-  <!-- Navbar JS -->
-  <script src="../JavaScript/MainNavbar.js" defer></script>
+<script src="../JavaScript/LoadHeader.js"></script>
+<script src="../JavaScript/Header.js"></script>
+<script src="../JavaScript/LoadFooter.js"></script>
+
 </body>
 
 </html>

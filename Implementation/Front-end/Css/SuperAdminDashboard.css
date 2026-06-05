@@ -91,6 +91,9 @@ body {
   padding: 28px;
   animation: fadeInUp .4s ease;
   position: relative;
+padding:28px;
+padding-top:90px;
+
 }
 .main::before {
   content: '';
@@ -338,7 +341,10 @@ body {
   .content-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .main { padding: 16px; }
+  .main { 
+    padding: 16px;
+    padding-top:100px;
+  }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .topnav-items { gap: 0; }
   .topnav .nav-item { padding: 12px 10px; font-size: .8rem; }
@@ -346,4 +352,26 @@ body {
 @media (max-width: 560px) {
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .topnav .nav-item span.icon { display: none; }
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../Fonts/Orbitron-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }

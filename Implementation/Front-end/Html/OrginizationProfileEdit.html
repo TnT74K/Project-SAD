@@ -8,8 +8,6 @@
 
     <title>مدیریت پروفایل سازمان | ریسپانسیو</title>
 
-    <!-- Preconnect برای بارگذاری سریع‌تر فونت‌های Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     
 
 
@@ -17,7 +15,7 @@
     <link rel="stylesheet" href="../Css/OrganizationProfileEdit.css">
 </head>
 <body>
-
+  <div id="header-placeholder"></div>
     <!-- محل قرارگیری نوار ناوبری که توسط MainNavbar.js ساخته می‌شود -->
     <div id="navbar-container"></div>
 
@@ -134,9 +132,12 @@
             <button onclick="saveSlot()">ذخیره نوبت</button>
         </div>
     </div>
-
+  <div id="footer-placeholder"></div>
     <!-- لینک به فایل جاوااسکریپت اصلی این صفحه -->
     <script src="../JavaScript/OrganizationProfileEdit.js" defer></script>
-    
+    <script src="../JavaScript/LoadHeader.js"></script>
+<script src="../JavaScript/Header.js"></script>
+<script src="../JavaScript/LoadFooter.js"></script>
+
 </body>
 </html>

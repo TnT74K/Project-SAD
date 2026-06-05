@@ -71,6 +71,11 @@ body {
   color: var(--text);
   direction: rtl;       /* راست به چپ برای فارسی */
   min-height: 100vh;
+
+  display:flex;
+flex-direction:column;
+min-height:100vh;
+margin:0;
 }
 
 /* حذف underline از لینک‌ها */
@@ -189,6 +194,7 @@ input, select, textarea {
   flex: 1;                /* تمام فضای باقی‌مانده را بگیر */
   padding: 32px 28px;
   min-width: 0;           /* جلوگیری از overflow در flex */
+  padding-top:80px; /* فاصله برای هدر fixed */
 }
 
 
@@ -647,4 +653,26 @@ input, select, textarea {
   /* فرم تک ستونه در موبایل */
   .form-grid            { grid-template-columns: 1fr; }
   .form-group.full      { grid-column: 1; }
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../Fonts/Orbitron-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }

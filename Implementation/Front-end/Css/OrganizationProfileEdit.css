@@ -546,7 +546,6 @@ input, button, textarea, select {
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'Vazirmatn';
   src: url('../Fonts/Vazirmatn-Bold.ttf') format('truetype');
@@ -554,7 +553,6 @@ input, button, textarea, select {
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'Orbitron';
   src: url('../Fonts/Orbitron-Regular.ttf') format('truetype');

@@ -20,10 +20,9 @@
   <title>رزروسنتر | سیستم جامع نوبت‌دهی</title>
 
   <!-- فونت فارسی Vazirmatn از Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- استایل‌های اصلی صفحه -->
-  <link rel="stylesheet" href="./home page.css"/>
+  <link rel="stylesheet" href="../Css/home_page.css"/>
 </head>
 <body>
 
@@ -34,49 +33,8 @@
      کلاس .scrolled توسط JS هنگام اسکرول اضافه می‌شه
 ══════════════════════════════════════════ -->
 <header id="header">
-  <div class="container">
-    <nav class="nav-inner">
+  <div id="header-placeholder"></div>
 
-      <!-- لوگو -->
-      <a href="#" class="logo">
-        <div class="logo-icon">📅</div>
-        رزرو<span>سنتر</span>
-      </a>
-
-      <!-- لینک‌های ناوبار — فقط دسکتاپ -->
-      <ul class="nav-links">
-        <li><a href="#" class="active">خانه</a></li>
-        <li><a href="#categories">دسته‌بندی‌ها</a></li>
-        <li><a href="#cta">همکاری</a></li>
-      </ul>
-
-      <!-- دکمه‌های اکشن — فقط دسکتاپ -->
-      <div class="nav-actions">
-        <button class="btn-ghost">ورود</button>
-        <button class="btn-primary">ثبت‌نام رایگان</button>
-      </div>
-
-      <!-- دکمه همبرگر — فقط موبایل -->
-      <button class="hamburger" id="hamburgerBtn" aria-label="منو">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-    </nav>
-
-    <!-- منوی کشویی موبایل — با کلیک همبرگر باز می‌شه -->
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#">خانه</a>
-      <a href="#categories">دسته‌بندی‌ها</a>
-      <a href="#cta">همکاری با ما</a>
-      <div class="mobile-actions">
-        <button class="btn-ghost">ورود</button>
-        <button class="btn-primary">ثبت‌نام</button>
-      </div>
-    </div>
-
-  </div>
 </header>
 
 
@@ -255,41 +213,14 @@
      5. FOOTER
      نوار پایین صفحه — تک ردیف با لوگو، لینک‌ها و کپی‌رایت
 ══════════════════════════════════════════ -->
-<footer id="footer">
-  <div class="container">
-    <div class="footer-inner">
-
-      <!-- لوگو -->
-      <a href="#" class="footer-logo">
-        <div class="logo-icon">📅</div>
-        رزرو<span>سنتر</span>
-      </a>
-
-      <!-- لینک‌های صفحات اصلی -->
-      <div class="footer-links-row">
-        <a href="#">درباره ما</a>
-        <span class="footer-sep">·</span>
-        <a href="#">وبلاگ</a>
-        <span class="footer-sep">·</span>
-        <a href="#">ثبت کسب‌وکار</a>
-        <span class="footer-sep">·</span>
-        <a href="#">حریم خصوصی</a>
-        <span class="footer-sep">·</span>
-        <a href="#">شرایط استفاده</a>
-        <span class="footer-sep">·</span>
-        <a href="#">تماس</a>
-      </div>
-
-      <!-- کپی‌رایت -->
-      <div class="footer-copy">© ۱۴۰۳ رزروسنتر</div>
-
-    </div>
-  </div>
-</footer>
+  <div id="footer-placeholder"></div>
 
 
 <!-- اسکریپت اصلی — انتهای body برای دسترسی به تمام عناصر DOM -->
-<script src="./home page.js" defer></script>
+<script src="../JavaScript/home_page.js" defer></script>
+<script src="../JavaScript/LoadHeader.js"></script>
+<script src="../JavaScript/Header.js"></script>
+<script src="../JavaScript/LoadFooter.js"></script>
 
 </body>
 </html>
