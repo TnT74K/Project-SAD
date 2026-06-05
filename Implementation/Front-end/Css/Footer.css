@@ -1,0 +1,100 @@
+/* اصلاح بدنه برای استفاده از Flexbox */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* ارتفاع بدنه حداقل به اندازه کل صفحه باشد */
+    margin: 0;
+}
+
+/* بخش اصلی که باید کش بیاید */
+main {
+    flex: 1; /* این بخش کل فضای خالی را پر می‌کند */
+    padding-top: 80px; /* مقدار padding لازم برای هدر fixed */
+}
+
+#footer {
+    background: #071b33;
+    color: #ddd;
+    /* این مقدار را کم کن (مثلاً از ۸۰ به ۴۰) */
+    margin-top: 40px; 
+    /* این مقدار را کم کن (مثلاً از ۶۰ به ۳۰) */
+    padding-top: 30px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    /* فاصله بین ستون‌ها را هم کم کن */
+    gap: 20px; 
+}
+
+.footer-logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:800;
+font-size:1.2rem;
+color:white;
+margin-bottom:12px;
+}
+
+.footer-logo span{
+color:#D4AC0D;
+}
+
+.footer-desc{
+font-size:.9rem;
+line-height:1.8;
+color:#aaa;
+max-width:320px;
+}
+
+.footer-col h4{
+color:white;
+font-size:.95rem;
+margin-bottom:14px;
+}
+
+.footer-col a{
+display:block;
+color:#aaa;
+font-size:.9rem;
+margin-bottom:8px;
+transition:.2s;
+}
+
+.footer-col a:hover{
+color:#D4AC0D;
+}
+
+.footer-bottom {
+    margin-top: 20px; /* از ۵۰ کمش کردیم */
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    /* این مقدار را کم کن */
+    padding: 10px 0; 
+    text-align: center;
+    font-size: .85rem;
+    color: #888;
+}
+
+@media(max-width:900px){
+
+.footer-grid{
+grid-template-columns:1fr 1fr;
+gap:30px;
+}
+
+}
+
+@media(max-width:500px){
+
+.footer-grid{
+grid-template-columns:1fr;
+}
+
+.footer-desc{
+max-width:100%;
+}
+
+}
