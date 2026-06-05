@@ -45,6 +45,6 @@ Divisions Table:
 | Connecting pages                | Abolfazl + Sajad | `develop`             | After Merge |
 | Merging open MRs into `develop` | Ali + Hamed +‌ Mohammad Hossein | `------`              | In progress |
 | Final Test                      | Team             | `develop`             | Open        |
-| Document Skeleton               | Sajad            | `Doc/System-proposal` | Open        |
+| Document Skeleton               | Sajad            | `Doc/system-proposal` | Open        |
 | Website map | Sajad | `develop` | While connecting pages |
 
