@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- صفحه مدیریت کسب‌وکارها - SuperAdmin Panel -->
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مدیریت کسب‌وکارها</title>
+
+<!-- بارگذاری فونت وزیرمتن از Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../Css/suspend-og.css">
+</head>
+
+<body>
+
+<!-- =============================================
+     ساختار اصلی صفحه
+     ============================================= -->
+<div class="container">
+  <div class="card">
+
+    <!-- عنوان صفحه -->
+    <div class="page-title">مدیریت کسب‌وکارها</div>
+
+    <!-- نوار ابزار: جستجو و دکمه‌های عملیاتی -->
+    <div class="toolbar">
+      <div class="search-box">
+        <!-- ورودی جستجو - جستجو بر اساس نام، مالک یا دسته‌بندی -->
+        <input id="searchInput" placeholder="جستجو بر اساس نام سازمان..." style="min-width:240px;">
+        <!-- دکمه اجرای جستجو -->
+        <button class="btn-primary" onclick="searchBusiness()">جستجو</button>
+        <!-- دکمه ریست و نمایش همه -->
+        <button class="btn-warning" onclick="showAll()">نمایش همه</button>
+      </div>
+    </div>
+
+    <!-- نوار آمار - به صورت داینامیک از JS پر می‌شود -->
+    <div class="stats-bar" id="statsBar"></div>
+
+    <!-- جدول لیست کسب‌وکارها -->
+    <table>
+      <thead>
+        <tr>
+          <th>نام سازمان</th>
+          <th>دسته‌بندی</th>
+          <th>مالک</th>
+          <th>وضعیت</th>
+          <th>عملیات</th>
+        </tr>
+      </thead>
+      <!-- tbody به صورت داینامیک از تابع render() پر می‌شود -->
+      <tbody id="businessTable"></tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- =============================================
+     مودال تأیید مسدودسازی / رفع مسدودیت
+     با کلاس open نمایش داده می‌شود
+     ============================================= -->
+<div class="modal" id="confirmModal">
+  <div class="modal-content">
+    <!-- عنوان مودال - داینامیک -->
+    <div class="modal-header" id="modalTitle">تأیید عملیات</div>
+    <!-- متن پیام مودال - داینامیک -->
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">انصراف</button>
+      <!-- دکمه تأیید - رنگ و متن آن داینامیک تغییر می‌کند -->
+      <button id="modalConfirmBtn" onclick="confirmAction()">تأیید</button>
+    </div>
+  </div>
+</div>
+<script src="../JavaScript/suspend-og.js" defer></script>
+
+</body>
+</html>
