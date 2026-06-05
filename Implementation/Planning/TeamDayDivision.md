@@ -43,7 +43,7 @@ Divisions Table:
 | ------------------------------- | ---------------- | --------------------- | ----------- |
 | Nav-bar component               | Abolfazl         | `develop`             | Open        |
 | Connecting pages                | Abolfazl + Sajad | `develop`             | After Merge |
-| Merging open MRs into `develop` | Ali + Hamed +‌ Mohammad Hossein | `------`              | Open        |
+| Merging open MRs into `develop` | Ali + Hamed +‌ Mohammad Hossein | `------`              | In progress |
 | Final Test                      | Team             | `develop`             | Open        |
 | Document Skeleton               | Sajad            | `Doc/System-proposal` | Open        |
 | Website map | Sajad | `develop` | While connecting pages |
