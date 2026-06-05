@@ -1,0 +1,675 @@
+/* ======================================== */
+/* تعریف متغیرهای رنگ و استایل اصلی */
+/* ======================================== */
+:root {
+  --primary:       #0B2545;        /* رنگ اصلی تیره */
+  --primary-mid:   #1B4F72;        /* رنگ اصلی متوسط */
+  --primary-light: #2E86C1;        /* رنگ اصلی روشن */
+  --accent:        #D4AC0D;        /* رنگ تأکیدی (طلایی) */
+  --bg:            #eef2f7;        /* رنگ پس‌زمینه صفحه */
+  --bg-card:       #ffffff;        /* رنگ پس‌زمینه کارت */
+  --text:          #1a2a3a;        /* رنگ متن اصلی */
+  --text-2:        #4a6080;        /* رنگ متن ثانویه */
+  --text-3:        #8aa0b8;        /* رنگ متن کم‌رنگ */
+  --border:        rgba(11,37,69,.1);  /* رنگ حاشیه */
+  --radius:        14px;           /* شعاع گوشه بزرگ */
+  --radius-sm:     8px;            /* شعاع گوشه کوچک */
+  --shadow:        0 2px 16px rgba(11,37,69,.08);  /* سایه ملایم */
+  --shadow-md:     0 4px 24px rgba(11,37,69,.13);  /* سایه متوسط */
+}
+
+/* ======================================== */
+/* تنظیمات جعبه‌مدل برای همه المنت‌ها */
+/* ======================================== */
+*, *::before, *::after { 
+  box-sizing: border-box;  /* محاسبه عرض شامل padding و border */
+  margin: 0;               /* حذف حاشیه بیرونی پیش‌فرض */
+  padding: 0;              /* حذف حاشیه داخلی پیش‌فرض */
+}
+
+/* ======================================== */
+/* استایل بدنه اصلی صفحه */
+/* ======================================== */
+body {
+  font-family: 'Vazirmatn', sans-serif;  /* فونت وزیرمتن */
+  color: var(--text);                     /* رنگ متن از متغیر */
+  min-height: 100vh;                      /* حداقل ارتفاع کل صفحه */
+  display: flex;                          /* نمایش فلکس */
+  flex-direction: column;                 /* جهت ستونی */
+  /* گرادیان پس‌زمینه با افکت رادیال */
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
+    linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
+  background-attachment: fixed;  /* ثابت ماندن پس‌زمینه هنگام اسکرول */
+}
+
+/* ======================================== */
+/* استایل نوار ناوبری بالایی (Top Navigation) */
+/* ======================================== */
+.topnav {
+  width: 100%;                         /* عرض کامل */
+  background: var(--primary);          /* رنگ پس‌زمینه از متغیر */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  padding: 0 24px;                     /* فاصله داخلی افقی */
+  position: sticky;                    /* موقعیت چسبنده */
+  top: 0;                              /* چسبیده به بالای صفحه */
+  z-index: 100;                        /* لایه بالایی */
+  box-shadow: 0 2px 12px rgba(0,0,0,.15); /* سایه پایین */
+}
+
+/* لوگوی نوار ناوبری */
+.topnav-logo {
+  font-size: 1.1rem;                   /* اندازه فونت */
+  font-weight: 700;                    /* ضخامت فونت */
+  color: #fff;                         /* رنگ سفید */
+  padding: 14px 0;                     /* فاصله داخلی عمودی */
+  margin-left: 24px;                   /* فاصله از چپ (در RTL) */
+  white-space: nowrap;                 /* عدم شکستن متن */
+  flex-shrink: 0;                      /* عدم کوچک شدن */
+}
+
+/* کانتینر آیتم‌های ناوبری */
+.topnav-items {
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  gap: 4px;                            /* فاصله بین آیتم‌ها */
+  flex-wrap: wrap;                     /* امکان شکستن در موبایل */
+}
+
+/* هر آیتم منو */
+.topnav .nav-item {
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  gap: 6px;                            /* فاصله بین آیکون و متن */
+  padding: 14px 16px;                  /* فاصله داخلی */
+  color: rgba(255,255,255,.7);         /* رنگ سفید با شفافیت */
+  cursor: pointer;                     /* تغییر مکان‌نما به دست */
+  border-bottom: 3px solid transparent; /* حاشیه پایین شفاف */
+  transition: all .2s;                 /* انیمیشن تغییرات */
+  white-space: nowrap;                 /* عدم شکستن متن */
+  font-size: .88rem;                   /* اندازه فونت */
+}
+
+/* افکت هاور آیتم منو */
+.topnav .nav-item:hover {
+  color: #fff;                         /* رنگ سفید کامل */
+  background: rgba(255,255,255,.08);   /* پس‌زمینه شفاف سفید */
+}
+
+/* آیتم فعال منو */
+.topnav .nav-item.active {
+  color: #fff;                         /* رنگ سفید */
+  border-bottom-color: #fff;           /* حاشیه پایین سفید */
+}
+
+/* آیکون داخل آیتم منو */
+.topnav .nav-item .icon { 
+  font-size: 1rem;                     /* اندازه آیکون */
+}
+
+/* ======================================== */
+/* استایل بخش اصلی محتوا */
+/* ======================================== */
+.main {
+  flex: 1;                              /* رشد برای پر کردن فضای باقیمانده */
+  padding: 28px;                       /* فاصله داخلی */
+  animation: fadeInUp .4s ease;        /* انیمیشن ورود از پایین */
+  position: relative;                  /* موقعیت نسبی برای عناصر مطلق */
+}
+
+/* عنصر تزئینی قبل از main (دایره گرادیان) */
+.main::before {
+  content: '';                         /* محتوای خالی */
+  position: fixed;                     /* موقعیت ثابت */
+  top: -120px;                         /* فاصله از بالا */
+  left: -120px;                        /* فاصله از چپ */
+  width: 500px;                        /* عرض */
+  height: 500px;                       /* ارتفاع */
+  border-radius: 50%;                  /* دایره‌ای شکل */
+  background: radial-gradient(circle, rgba(46,134,193,0.07) 0%, transparent 70%);
+  pointer-events: none;                /* عدم تأثیر بر رویدادهای موس */
+  z-index: 0;                          /* لایه پایین‌تر */
+}
+
+/* ======================================== */
+/* استایل کانتینر نوار بالایی (با بلور) */
+/* ======================================== */
+.topbar-wrapper {
+  background: rgba(255,255,255,0.85);  /* پس‌زمینه سفید نیمه شفاف */
+  backdrop-filter: blur(12px);         /* افکت بلور */
+  -webkit-backdrop-filter: blur(12px); /* برای مرورگرهای مبتنی بر وب‌کیت */
+  border-radius: 18px;                 /* گوشه گرد */
+  border: 1px solid rgba(255,255,255,0.6); /* حاشیه سفید شفاف */
+  box-shadow: 0 4px 24px rgba(11,37,69,0.08); /* سایه */
+  padding: 20px 24px 16px;             /* فاصله داخلی */
+  margin-bottom: 24px;                 /* فاصله از پایین */
+}
+
+/* نوار بالایی */
+.topbar {
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: center;             /* وسط چین افقی */
+}
+
+/* عنوان نوار بالایی - وسط چین */
+.topbar-title { 
+  text-align: center;                  /* متن وسط */
+}
+
+/* عنوان اصلی */
+.topbar-title h1 { 
+  font-size: 1.4rem;                   /* اندازه فونت */
+  font-weight: 700;                    /* ضخامت فونت */
+  color: var(--primary);               /* رنگ از متغیر */
+}
+
+/* زیرنویس */
+.topbar-title p  { 
+  font-size: .82rem;                   /* اندازه فونت کوچک */
+  color: var(--text-2);                /* رنگ متن ثانویه */
+  margin-top: 2px;                     /* فاصله از بالا */
+}
+
+/* ======================================== */
+/* استایل دکمه‌ها */
+/* ======================================== */
+.btn {
+  padding: 9px 20px;                   /* فاصله داخلی */
+  border-radius: var(--radius-sm);     /* گوشه گرد */
+  font-family: inherit;                /* ارث‌بری فونت از والد */
+  font-size: .85rem;                   /* اندازه فونت */
+  font-weight: 600;                    /* ضخامت فونت */
+  cursor: pointer;                     /* تغییر مکان‌نما به دست */
+  border: none;                        /* حذف حاشیه */
+  transition: all .2s;                 /* انیمیشن تغییرات */
+}
+
+/* دکمه اصلی (پررنگ) */
+.btn-primary { 
+  background: var(--primary-light);    /* رنگ پس‌زمینه آبی */
+  color: #fff;                         /* متن سفید */
+}
+
+/* افکت هاور دکمه اصلی */
+.btn-primary:hover { 
+  background: var(--primary-mid);      /* رنگ تیره‌تر */
+}
+
+/* دکمه حاشیه‌دار */
+.btn-outline { 
+  background: transparent;              /* پس‌زمینه شفاف */
+  border: 1.5px solid var(--border);   /* حاشیه */
+  color: var(--text-2);                /* رنگ متن */
+}
+
+/* افکت هاور دکمه حاشیه‌دار */
+.btn-outline:hover { 
+  border-color: var(--primary-light);  /* تغییر رنگ حاشیه به آبی */
+  color: var(--primary-light);         /* تغییر رنگ متن به آبی */
+}
+
+/* ======================================== */
+/* استایل کارت‌های آمار (Stats) */
+/* ======================================== */
+.stats-grid {
+  display: grid;                       /* نمایش گرید */
+  grid-template-columns: repeat(4, 1fr); /* ۴ ستون مساوی */
+  gap: 16px;                           /* فاصله بین کارت‌ها */
+  margin-bottom: 24px;                 /* فاصله از پایین */
+}
+
+/* هر کارت آمار */
+.stat-card {
+  background: rgba(255,255,255,0.85);  /* پس‌زمینه سفید نیمه شفاف */
+  backdrop-filter: blur(12px);         /* افکت بلور */
+  -webkit-backdrop-filter: blur(12px); /* برای مرورگرهای وب‌کیت */
+  border-radius: var(--radius);        /* گوشه گرد */
+  padding: 20px;                       /* فاصله داخلی */
+  box-shadow: 0 2px 20px rgba(11,37,69,0.08), 0 1px 0 rgba(255,255,255,0.9) inset;
+  border: 1px solid rgba(255,255,255,0.7); /* حاشیه سفید شفاف */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  gap: 16px;                           /* فاصله بین آیکون و متن */
+  animation: fadeInDown .4s ease both; /* انیمیشن ورود از بالا */
+  transition: transform .2s, box-shadow .2s; /* انیمیشن هاور */
+}
+
+/* افکت هاور کارت آمار */
+.stat-card:hover { 
+  transform: translateY(-3px);         /* حرکت به بالا */
+  box-shadow: 0 8px 28px rgba(11,37,69,0.13); /* سایه بیشتر */
+}
+
+/* تأخیر در انیمیشن کارت‌ها برای افکت پله‌ای */
+.stat-card:nth-child(2) { animation-delay: .05s; }
+.stat-card:nth-child(3) { animation-delay: .1s; }
+.stat-card:nth-child(4) { animation-delay: .15s; }
+
+/* آیکون آمار */
+.stat-icon {
+  width: 48px;                         /* عرض */
+  height: 48px;                        /* ارتفاع */
+  border-radius: 12px;                 /* گوشه گرد */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: center;             /* افق در مرکز */
+  font-size: 1.3rem;                   /* اندازه فونت */
+  flex-shrink: 0;                      /* عدم کوچک شدن */
+}
+
+/* رنگ‌های مختلف برای آیکون‌ها */
+.stat-icon.blue   { background: rgba(46,134,193,.12); }   /* آبی */
+.stat-icon.green  { background: rgba(26,158,111,.12); }   /* سبز */
+.stat-icon.yellow { background: rgba(212,172,13,.12); }   /* زرد */
+.stat-icon.red    { background: rgba(229,62,62,.12); }     /* قرمز */
+
+/* مقدار عددی آمار */
+.stat-info .value  { 
+  font-size: 1.5rem;                   /* فونت بزرگ */
+  font-weight: 700;                    /* ضخیم */
+  color: var(--primary);               /* رنگ اصلی */
+}
+
+/* لیبل آمار */
+.stat-info .label  { 
+  font-size: .78rem;                   /* فونت کوچک */
+  color: var(--text-2);                /* رنگ ثانویه */
+  margin-top: 2px;                     /* فاصله از بالا */
+}
+
+/* تغییرات (افزایش/کاهش) */
+.stat-info .change { 
+  font-size: .72rem;                   /* فونت خیلی کوچک */
+  margin-top: 4px;                     /* فاصله از بالا */
+  font-weight: 600;                    /* ضخامت فونت */
+}
+
+/* تغییر مثبت (افزایش) */
+.change.up   { color: #1a9e6f; }       /* رنگ سبز */
+
+/* تغییر منفی (کاهش) */
+.change.down { color: #e53e3e; }       /* رنگ قرمز */
+
+/* ======================================== */
+/* استایل چیدمان کلی محتوا (دو ستونه) */
+/* ======================================== */
+.content-grid {
+  display: grid;                       /* نمایش گرید */
+  grid-template-columns: 1fr 340px;    /* ستون اصلی و ستون کناری */
+  gap: 20px;                           /* فاصله بین ستون‌ها */
+}
+
+/* ======================================== */
+/* استایل کارت عمومی */
+/* ======================================== */
+.card {
+  background: rgba(255,255,255,0.88);  /* پس‌زمینه سفید نیمه شفاف */
+  backdrop-filter: blur(12px);         /* افکت بلور */
+  -webkit-backdrop-filter: blur(12px); /* برای مرورگرهای وب‌کیت */
+  border-radius: var(--radius);        /* گوشه گرد */
+  box-shadow: 0 2px 20px rgba(11,37,69,0.08), 0 1px 0 rgba(255,255,255,0.9) inset;
+  border: 1px solid rgba(255,255,255,0.7); /* حاشیه سفید شفاف */
+  overflow: hidden;                    /* پنهان کردن سرریز */
+}
+
+/* هدر کارت */
+.card-header {
+  padding: 18px 20px;                  /* فاصله داخلی */
+  border-bottom: 1px solid var(--border); /* خط جداکننده پایین */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: space-between;      /* فاصله بین دو طرف */
+}
+
+/* عنوان هدر کارت */
+.card-header h2 { 
+  font-size: 1rem;                     /* اندازه فونت */
+  font-weight: 700;                    /* ضخامت فونت */
+  color: var(--primary);               /* رنگ از متغیر */
+}
+
+/* بدنه کارت */
+.card-body { 
+  padding: 20px;                       /* فاصله داخلی */
+}
+
+/* ======================================== */
+/* استایل ویجت ساعت (Clock Widget) */
+/* ======================================== */
+.clock-widget {
+  background: linear-gradient(135deg, #0a2240 0%, #1B4F72 60%, #2E86C1 100%); /* گرادیان آبی */
+  border-radius: var(--radius);        /* گوشه گرد */
+  padding: 24px;                       /* فاصله داخلی */
+  color: #fff;                         /* متن سفید */
+  margin-bottom: 20px;                 /* فاصله از پایین */
+  position: relative;                  /* موقعیت نسبی */
+  overflow: hidden;                    /* پنهان کردن سرریز */
+  display: flex;                       /* نمایش فلکس */
+  flex-direction: column;              /* جهت ستونی */
+  align-items: center;                 /* عمود در مرکز */
+  text-align: center;                  /* متن وسط */
+  box-shadow: 0 8px 32px rgba(11,37,69,0.25); /* سایه */
+  border: 1px solid rgba(255,255,255,0.1); /* حاشیه سفید شفاف */
+}
+
+/* عنصر تزئینی دایره بالا-چپ */
+.clock-widget::before {
+  content: ''; position: absolute;
+  top: -40px; left: -40px;
+  width: 160px; height: 160px;
+  border-radius: 50%; background: rgba(255,255,255,.04);
+}
+
+/* عنصر تزئینی دایره پایین-راست */
+.clock-widget::after {
+  content: ''; position: absolute;
+  bottom: -30px; right: -30px;
+  width: 120px; height: 120px;
+  border-radius: 50%; background: rgba(255,255,255,.04);
+}
+
+/* نمایش ساعت به صورت دیجیتال */
+.clock-time {
+  font-family: 'Orbitron', monospace !important; /* فونت دیجیتال */
+  font-size: 2.4rem;                   /* فونت بزرگ */
+  font-weight: 700;                    /* ضخیم */
+  letter-spacing: 3px;                 /* فاصله بین حروف */
+  position: relative;                  /* موقعیت نسبی */
+  z-index: 1;                          /* لایه بالایی */
+  color: #f0c040;                      /* رنگ طلایی */
+}
+
+/* نمایش تاریخ شمسی و میلادی */
+.clock-dates {
+  display: flex;                       /* نمایش فلکس */
+  gap: 16px;                           /* فاصله بین آیتم‌ها */
+  margin-top: 10px;                    /* فاصله از بالا */
+  position: relative;                  /* موقعیت نسبی */
+  z-index: 1;                          /* لایه بالایی */
+}
+
+/* هر آیتم تاریخ */
+.clock-date-item { 
+  font-size: .78rem;                   /* فونت کوچک */
+  color: rgba(255,255,255,.7);         /* سفید شفاف */
+}
+
+/* مقدار داخل آیتم تاریخ */
+.clock-date-item span { 
+  color: #fff;                         /* سفید کامل */
+  font-weight: 600;                    /* ضخیم */
+}
+
+/* ======================================== */
+/* استایل تقویم (Calendar) */
+/* ======================================== */
+.cal-nav {
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: space-between;      /* فاصله بین دو طرف */
+  margin-bottom: 16px;                 /* فاصله از پایین */
+}
+
+/* دکمه‌های ناوبری تقویم */
+.cal-nav-btn {
+  width: 32px;                         /* عرض */
+  height: 32px;                        /* ارتفاع */
+  border-radius: 8px;                  /* گوشه گرد */
+  border: 1.5px solid var(--border);   /* حاشیه */
+  background: transparent;              /* پس‌زمینه شفاف */
+  cursor: pointer;                     /* تغییر مکان‌نما */
+  font-size: 1.1rem;                   /* اندازه فونت */
+  color: var(--text-2);                /* رنگ متن */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: center;             /* افق در مرکز */
+  transition: all .2s;                 /* انیمیشن تغییرات */
+}
+
+/* افکت هاور دکمه‌های ناوبری */
+.cal-nav-btn:hover {
+  border-color: var(--primary-light);  /* تغییر رنگ حاشیه */
+  color: var(--primary-light);         /* تغییر رنگ متن */
+  background: rgba(46,134,193,.06);    /* پس‌زمینه شفاف آبی */
+}
+
+/* نمایش ماه و سال */
+.cal-month-label { 
+  font-size: .95rem;                   /* اندازه فونت */
+  font-weight: 700;                    /* ضخامت فونت */
+  color: var(--primary);               /* رنگ اصلی */
+}
+
+/* شبکه تقویم (۷ ستون برای ۷ روز هفته) */
+.cal-grid {
+  display: grid;                       /* نمایش گرید */
+  grid-template-columns: repeat(7, 1fr); /* ۷ ستون مساوی */
+  gap: 3px;                            /* فاصله بین سلول‌ها */
+}
+
+/* هدر تقویم (نام روزها) */
+.cal-header {
+  text-align: center;                  /* متن وسط */
+  font-size: .68rem;                   /* فونت خیلی کوچک */
+  font-weight: 600;                    /* ضخامت فونت */
+  color: var(--text-3);                /* رنگ کم‌رنگ */
+  padding: 4px 0 8px;                  /* فاصله داخلی */
+}
+
+/* هدر روز تعطیل (جمعه) */
+.cal-header.holiday-header { 
+  color: #e53e3e;                      /* رنگ قرمز */
+}
+
+/* هر روز تقویم */
+.cal-day {
+  aspect-ratio: 1;                     /* نسبت ابعاد ۱:۱ (مربع) */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: center;             /* افق در مرکز */
+  font-size: .78rem;                   /* اندازه فونت */
+  border-radius: 8px;                  /* گوشه گرد */
+  cursor: pointer;                     /* تغییر مکان‌نما */
+  transition: all .15s;                /* انیمیشن تغییرات */
+  color: var(--text);                  /* رنگ متن */
+  position: relative;                  /* موقعیت نسبی */
+}
+
+/* افکت هاور روزهای غیر خالی */
+.cal-day:hover:not(.empty) { 
+  background: rgba(46,134,193,.08);    /* پس‌زمینه شفاف آبی */
+  color: var(--primary-light);         /* رنگ آبی */
+}
+
+/* روزهای خالی (بدون تاریخ) */
+.cal-day.empty { 
+  cursor: default;                     /* مکان‌نما پیش‌فرض */
+}
+
+/* روز جاری (امروز) */
+.cal-day.today {
+  background: rgba(46,134,193,.12);    /* پس‌زمینه شفاف آبی */
+  color: var(--primary-mid);           /* رنگ آبی متوسط */
+  font-weight: 700;                    /* ضخیم */
+  border: 2px solid var(--primary-light); /* حاشیه آبی */
+}
+
+/* روز انتخاب شده */
+.cal-day.selected {
+  background: var(--primary-light);    /* پس‌زمینه آبی */
+  color: #fff;                         /* متن سفید */
+  font-weight: 700;                    /* ضخیم */
+  box-shadow: 0 2px 10px rgba(46,134,193,.35); /* سایه */
+  border: none;                        /* بدون حاشیه */
+}
+
+/* روز جاری که انتخاب شده باشد */
+.cal-day.today.selected { 
+  background: var(--primary);          /* پس‌زمینه آبی تیره */
+  border: 2px solid var(--accent);     /* حاشیه طلایی */
+  color: #fff;                         /* متن سفید */
+}
+
+/* روز تعطیل */
+.cal-day.holiday { 
+  color: #e53e3e;                      /* رنگ قرمز */
+}
+
+/* روز تعطیل انتخاب شده */
+.cal-day.holiday.selected { 
+  background: #e53e3e;                 /* پس‌زمینه قرمز */
+  color: #fff;                         /* متن سفید */
+  box-shadow: 0 2px 10px rgba(229,62,62,.35); /* سایه قرمز */
+}
+
+/* روزی که رویداد دارد (نقطه پایین) */
+.cal-day.has-event::after {
+  content: '';                         /* محتوای خالی */
+  position: absolute;                  /* موقعیت مطلق */
+  bottom: 3px;                         /* فاصله از پایین */
+  left: 50%;                           /* وسط افقی */
+  transform: translateX(-50%);         /* تنظیم دقیق وسط */
+  width: 4px;                          /* عرض نقطه */
+  height: 4px;                         /* ارتفاع نقطه */
+  border-radius: 50%;                  /* گرد */
+  background: var(--primary-light);    /* رنگ آبی */
+}
+
+/* نقطه رویداد برای روز انتخاب شده */
+.cal-day.selected.has-event::after { 
+  background: rgba(255,255,255,.8);    /* سفید شفاف */
+}
+
+/* ======================================== */
+/* استایل کارت پروفایل کاربر */
+/* ======================================== */
+.profile-card { 
+  text-align: center;                  /* متن وسط */
+  padding: 24px 20px;                  /* فاصله داخلی */
+}
+
+/* آواتار کاربر */
+.profile-avatar {
+  width: 72px;                         /* عرض */
+  height: 72px;                        /* ارتفاع */
+  border-radius: 50%;                  /* دایره کامل */
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-mid)); /* گرادیان آبی */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: center;             /* افق در مرکز */
+  font-size: 1.6rem;                   /* اندازه فونت */
+  color: #fff;                         /* متن سفید */
+  font-weight: 700;                    /* ضخیم */
+  margin: 0 auto 12px;                 /* فاصله خودکار برای وسط چین */
+  box-shadow: 0 4px 16px rgba(46,134,193,.3); /* سایه */
+}
+
+/* نام کاربر */
+.profile-name { 
+  font-size: 1rem;                     /* اندازه فونت */
+  font-weight: 700;                    /* ضخیم */
+  color: var(--primary);               /* رنگ اصلی */
+}
+
+/* نقش کاربر */
+.profile-role { 
+  font-size: .78rem;                   /* فونت کوچک */
+  color: var(--text-2);                /* رنگ ثانویه */
+  margin-top: 3px;                     /* فاصله از بالا */
+}
+
+/* آمار پروفایل (سه ستونه) */
+.profile-stats {
+  display: grid;                       /* نمایش گرید */
+  grid-template-columns: repeat(3, 1fr); /* ۳ ستون مساوی */
+  gap: 8px;                            /* فاصله بین آیتم‌ها */
+  margin-top: 18px;                    /* فاصله از بالا */
+}
+
+/* هر آیتم آمار */
+.profile-stat { 
+  background: var(--bg);               /* پس‌زمینه از متغیر */
+  border-radius: var(--radius-sm);     /* گوشه گرد */
+  padding: 10px 6px;                   /* فاصله داخلی */
+}
+
+/* مقدار عددی آمار */
+.profile-stat .val { 
+  font-size: 1.1rem;                   /* اندازه فونت */
+  font-weight: 700;                    /* ضخیم */
+  color: var(--primary);               /* رنگ اصلی */
+}
+
+/* لیبل آمار */
+.profile-stat .lbl { 
+  font-size: .65rem;                   /* فونت خیلی کوچک */
+  color: var(--text-2);                /* رنگ ثانویه */
+  margin-top: 2px;                     /* فاصله از بالا */
+}
+
+/* ======================================== */
+/* انیمیشن‌ها */
+/* ======================================== */
+
+/* انیمیشن ورود از پایین به بالا */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); } /* شروع: شفاف و پایین‌تر */
+  to   { opacity: 1; transform: translateY(0); }     /* پایان: مشخص و موقعیت اصلی */
+}
+
+/* انیمیشن ورود از بالا به پایین */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-12px); } /* شروع: شفاف و بالاتر */
+  to   { opacity: 1; transform: translateY(0); }     /* پایان: مشخص و موقعیت اصلی */
+}
+
+/* انیمیشن تپش قلب (pulse) */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }      /* حالت عادی */
+  50%       { opacity: .5; transform: scale(1.4); }  /* وسط: بزرگتر و شفاف‌تر */
+}
+
+/* ======================================== */
+/* استایل واکنش‌گرا (Responsive) */
+/* ======================================== */
+
+/* صفحه‌های کوچکتر از ۱۱۰۰ پیکسل (تبلت بزرگ) */
+@media (max-width: 1100px) {
+  .stats-grid { 
+    grid-template-columns: repeat(2, 1fr); /* ۲ ستون برای آمار */
+  }
+  .content-grid { 
+    grid-template-columns: 1fr;          /* تبدیل به یک ستون */
+  }
+}
+
+/* صفحه‌های کوچکتر از ۷۶۸ پیکسل (تبلت) */
+@media (max-width: 768px) {
+  .main { 
+    padding: 16px;                       /* کاهش فاصله داخلی */
+  }
+  .stats-grid { 
+    grid-template-columns: repeat(2, 1fr); /* ۲ ستون */
+  }
+  .topnav-items { 
+    gap: 0;                              /* حذف فاصله بین آیتم‌ها */
+  }
+  .topnav .nav-item { 
+    padding: 12px 10px;                  /* کاهش فاصله داخلی */
+    font-size: .8rem;                    /* کاهش فونت */
+  }
+}
+
+/* صفحه‌های کوچکتر از ۵۶۰ پیکسل (موبایل) */
+@media (max-width: 560px) {
+  .stats-grid { 
+    grid-template-columns: 1fr 1fr;      /* ۲ ستون */
+  }
+  /* مخفی کردن آیکون منوها در موبایل */
+  .topnav .nav-item span.icon { 
+    display: none;                       /* مخفی کردن آیکون */
+  }
+}
