@@ -117,6 +117,12 @@ background:#e74c3c;
 color:white;
 }
 
+/* دکمه خطر */
+.btn-success{
+background:#27ae60;
+color:white;
+}
+
 /* جدول */
 table{
 width:100%;
@@ -212,7 +218,9 @@ display:flex;
 justify-content:flex-end;
 gap:10px;
 }
-
+.modal.open {
+  display: flex;
+}
 /* ===============================
    Responsive
 ================================*/

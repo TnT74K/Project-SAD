@@ -6,6 +6,7 @@ let users=[
 {
 first:"علی",
 last:"محمدی",
+phone:"09121235061",
 role:"پشتيبان سازمان",
 personstatus:"active",
 nationalcode:"0012345678",
@@ -15,6 +16,7 @@ password:"123456"
 {
 first:"زهرا",
 last:"کریمی",
+phone:"09121235060",
 role:"كارمند حضوري",
 personstatus:"active",
 nationalcode:"0023456789",
@@ -24,6 +26,7 @@ password:"123456"
 {
 first:"مهدی",
 last:"رضایی",
+phone:"09121235590",
 role:"پشتيبان سازمان",
 personstatus:"inactive",
 nationalcode:"0034567891",
@@ -33,6 +36,7 @@ password:"123456"
 {
 first:"سمیرا",
 last:"قاسمی",
+phone:"09121246060",
 role:"كارمند حضوري",
 personstatus:"active",
 nationalcode:"0045678912",
@@ -42,6 +46,7 @@ password:"123456"
 {
 first:"حسین",
 last:"نعمتی",
+phone:"09135635060",
 role:"كارمند حضوري",
 personstatus:"inactive",
 nationalcode:"0056789123",
@@ -53,6 +58,8 @@ password:"123456"
 // ایندکس کاربر در حالت ویرایش
 let editIndex=null
 
+//یک متغیر برای نگه داشتن ردیف انتخاب‌شده
+let pendingIndex = null;
 
 // ======================================
 // رندر جدول کاربران
@@ -71,6 +78,8 @@ table.innerHTML+=`
 
 <td data-label="نام خانوادگی">${u.last}</td>
 
+<td data-label="شماره موبايل">${u.phone}</td>
+
 <td data-label="نقش">${u.role}</td>
 
 <td data-label="وضعیت"
@@ -86,7 +95,7 @@ ${u.personstatus=='active'?'فعال':'غیرفعال'}
 ویرایش
 </button>
 
-<button class="btn-danger" onclick="togglepersonstatus(${i})">
+<button class="btn-danger" onclick="askToggle(${i})">
 تغییر وضعیت
 </button>
 
@@ -101,6 +110,52 @@ ${u.personstatus=='active'?'فعال':'غیرفعال'}
 
 
 // ======================================
+// پرسيدن براي حذف كردن
+// ======================================
+function askToggle(i) {
+  pendingIndex = i;
+
+  const item = users[i];
+  const isActive = item.personstatus === 'active';
+
+  document.getElementById('confirmTitle').innerText = isActive
+    ? 'غیرفعال کردن کاربر'
+    : 'فعال کردن کاربر';
+
+  document.getElementById('confirmText').innerHTML = isActive
+    ? `آیا از غیرفعال کردن <span>${item.first} ${item.last}</span> مطمئن هستید؟`
+    : `آیا از فعال کردن <span>${item.first} ${item.last}</span> مطمئن هستید؟`;
+
+  const btn = document.getElementById('confirmBtn');
+  btn.innerText = isActive ? 'غیرفعال کردن' : 'فعال کردن';
+  btn.className = isActive ? 'btn-danger' : 'btn-success';
+
+  document.getElementById('confirmModal').classList.add('open');
+}
+
+// ======================================
+// تاييديه انجام كار
+// ======================================
+function confirmAction(){
+
+if (pendingIndex === null) return;
+
+users[pendingIndex].personstatus =
+users[pendingIndex].personstatus === 'active'
+? 'inactive'
+: 'active';
+
+pendingIndex = null;
+
+render();
+
+closeConfirmModal();
+
+}
+
+
+
+// ======================================
 // باز کردن مودال
 // ======================================
 function openModal(){
@@ -112,9 +167,22 @@ document.getElementById("userModal").style.display="flex"
 // بستن مودال
 // ======================================
 function closeModal(){
+
 document.getElementById("userModal").style.display="none"
+
 clearForm()
+
 }
+
+function closeConfirmModal(){
+
+document.getElementById("confirmModal").classList.remove("open")
+
+pendingIndex=null
+
+}
+
+
 
 
 // ======================================
@@ -137,13 +205,14 @@ function saveUser(){
 
 const first = firstName.value.trim()
 const last = lastName.value.trim()
+const phone = phoneNumber.value.trim()
 const national = nationalCode.value.trim()
 const usern = username.value.trim()
 const pass = password.value.trim()
 const r = role.value
 
 // جلوگیری از ثبت فیلد خالی
-if(!first || !last || !national || !usern || !pass){
+if(!first || !phone || !last || !national || !usern || !pass){
 alert("لطفاً تمام فیلدها را تکمیل کنید")
 return
 }
@@ -159,6 +228,7 @@ currentStatus=users[editIndex].personstatus
 const user={
 first:first,
 last:last,
+phone:phone,
 role:r,
 nationalcode:national,
 username:usern,
@@ -190,6 +260,7 @@ const u=users[i]
 
 firstName.value=u.first
 lastName.value=u.last
+phoneNumber.value=u.phone
 role.value=u.role
 nationalCode.value=u.nationalcode
 username.value=u.username

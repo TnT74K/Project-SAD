@@ -53,6 +53,7 @@
 <tr>
 <th>نام</th>
 <th>نام خانوادگی</th>
+<th>شماره موبايل</th>
 <th>نقش</th>
 <th>وضعیت</th>
 <th>عملیات</th>
@@ -79,6 +80,7 @@
 
 <input id="firstName" placeholder="نام">
 <input id="lastName" placeholder="نام خانوادگی">
+<input id="phoneNumber" placeholder="شماره موبايل">
 <input id="nationalCode" placeholder="کد ملی">
 <input id="username" placeholder="نام کاربری">
 
@@ -111,6 +113,18 @@
 </div>
 
 </div>
+</div>
+
+<div class="modal" id="confirmModal">
+  <div class="modal-content">
+    <h3 id="confirmTitle">تأیید عملیات</h3>
+    <p id="confirmText"></p>
+
+    <div class="modal-actions">
+      <button id="confirmBtn" onclick="confirmAction()">تأیید</button>
+      <button onclick="closeConfirmModal()">انصراف</button>
+    </div>
+  </div>
 </div>
 
 <!-- اتصال فایل جاوااسکریپت -->
