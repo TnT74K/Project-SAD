@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پروفایل من — رزروسنتر</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../Css/MyProfile.css">
+</head>
+<body>
+
+<!-- ── TOP NAV ── -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-logo">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/>
+      </svg>
+    </div>
+    <span class="topbar-name">رزرو<span>سنتر</span></span>
+  </div>
+  <div class="topbar-user">
+    <div class="topbar-greeting">خوش آمدید، <strong>علی رضایی</strong></div>
+    <div class="topbar-avatar">ع</div>
+  </div>
+</header>
+
+<!-- ── BREADCRUMB ── -->
+<nav class="breadcrumb">
+  <a href="#">داشبورد</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>پروفایل من</span>
+</nav>
+
+<!-- ── MAIN ── -->
+<div class="page-wrap">
+  <div class="layout-grid">
+
+    <!-- ── PROFILE SIDEBAR ── -->
+    <aside>
+      <div class="profile-card">
+        <div class="profile-card-header">
+          <div class="avatar-wrap">
+            <div class="avatar" id="mainAvatar">ع</div>
+            <div class="avatar-edit-btn" onclick="openEdit()">
+              <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="profile-name" id="profileName">علی رضایی</div>
+          <div class="profile-mobile" id="profileMobile">09123456789</div>
+        </div>
+
+        <div class="profile-info">
+          <div class="info-row">
+            <div class="info-label">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              نام و نام خانوادگی
+            </div>
+            <div class="info-value" id="infoName">علی رضایی</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 11 19.79 19.79 0 0 1 1.93 2.12a2 2 0 0 1 1.99-1.87h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              موبایل
+            </div>
+            <div class="info-value digit" id="infoMobile">09123456789</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg>
+              کد ملی
+            </div>
+            <div class="info-value digit" id="infoNid">0012345678</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              شهر
+            </div>
+            <div class="info-value" id="infoCity">تهران</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              ایمیل
+            </div>
+            <div class="info-value" id="infoEmail" style="font-size:12px;direction:ltr;text-align:left;">ali@example.com</div>
+          </div>
+        </div>
+
+        <div class="profile-stats">
+          <div class="pstat">
+            <div class="pstat-num">۷</div>
+            <div class="pstat-lbl">رزرو شده</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-num">۱۲</div>
+            <div class="pstat-lbl">انجام‌شده</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-num">۲</div>
+            <div class="pstat-lbl">لغو شده</div>
+          </div>
+        </div>
+
+        <button class="edit-profile-btn" onclick="openEdit()">
+          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          ویرایش پروفایل
+        </button>
+      </div>
+    </aside>
+
+    <!-- ── CONTENT AREA ── -->
+    <main class="content-area">
+      <div class="tabs-card">
+        <div class="tabs-header">
+          <button class="tab-btn active" onclick="switchTab('reserved', this)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            نوبت‌های رزرو شده
+            <span class="tab-badge">۷</span>
+          </button>
+          <button class="tab-btn tab-done" onclick="switchTab('done', this)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            انجام‌شده
+            <span class="tab-badge">۱۲</span>
+          </button>
+          <button class="tab-btn tab-cancel" onclick="switchTab('cancelled', this)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            لغو شده
+            <span class="tab-badge">۲</span>
+          </button>
+        </div>
+
+        <!-- TAB: RESERVED -->
+        <div class="tab-panel active" id="tab-reserved">
+          <div class="appt-list">
+
+            <div class="appt-card reserved">
+              <div class="appt-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 3l6 12M18 3l-6 12M3 21s3-4 9-4 9 4 9 4"/></svg>
+              </div>
+              <div class="appt-info">
+                <div class="appt-biz">آرایشگاه مدرن ولیعصر</div>
+                <div class="appt-service">کوتاهی مو + ریش</div>
+                <div class="appt-meta">
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span>۱۴۰۴/۰۴/۱۵</span>
+                  </div>
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>۱۵:۳۰</span>
+                  </div>
+                  <div class="appt-meta-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>ولیعصر، تهران</span>
+                  </div>
+                </div>
+              </div>
+              <div class="appt-side">
+                <div>
+                  <div class="appt-price">۱۸۰,۰۰۰</div>
+                  <div class="appt-price-lbl">تومان</div>
+                </div>
+                <span class="appt-status status-reserved">رزرو شده</span>
+                <div class="appt-actions">
+                  <button class="appt-btn appt-btn-danger" onclick="cancelAppt(this)">لغو نوبت</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="appt-card reserved">
+              <div class="appt-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <div class="appt-info">
+                <div class="appt-biz">کلینیک تخصصی آرمیتا</div>
+                <div class="appt-service">مشاوره پوست</div>
+                <div class="appt-meta">
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span>۱۴۰۴/۰۴/۱۸</span>
+                  </div>
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>۱۰:۰۰</span>
+                  </div>
+                  <div class="appt-meta-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>نیاوران، تهران</span>
+                  </div>
+                </div>
+              </div>
+              <div class="appt-side">
+                <div>
+                  <div class="appt-price">۳۵۰,۰۰۰</div>
+                  <div class="appt-price-lbl">تومان</div>
+                </div>
+                <span class="appt-status status-reserved">رزرو شده</span>
+                <div class="appt-actions">
+                  <button class="appt-btn appt-btn-danger" onclick="cancelAppt(this)">لغو نوبت</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="appt-card reserved">
+              <div class="appt-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 6.5 4 9m13.5-2.5L20 9M4 9v6m16-6v6M4 15l2.5 2.5m13.5-2.5L17.5 17.5m-11 0h11"/></svg>
+              </div>
+              <div class="appt-info">
+                <div class="appt-biz">باشگاه پاور فیتنس</div>
+                <div class="appt-service">جلسه تمرین شخصی</div>
+                <div class="appt-meta">
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span>۱۴۰۴/۰۴/۲۰</span>
+                  </div>
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>۰۸:۰۰</span>
+                  </div>
+                  <div class="appt-meta-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>سعادت‌آباد، تهران</span>
+                  </div>
+                </div>
+              </div>
+              <div class="appt-side">
+                <div>
+                  <div class="appt-price">۲۵۰,۰۰۰</div>
+                  <div class="appt-price-lbl">تومان</div>
+                </div>
+                <span class="appt-status status-reserved">رزرو شده</span>
+                <div class="appt-actions">
+                  <button class="appt-btn appt-btn-danger" onclick="cancelAppt(this)">لغو نوبت</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TAB: DONE -->
+        <div class="tab-panel" id="tab-done">
+          <div class="appt-list">
+
+            <div class="appt-card done">
+              <div class="appt-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 3l6 12M18 3l-6 12M3 21s3-4 9-4 9 4 9 4"/></svg>
+              </div>
+              <div class="appt-info">
+                <div class="appt-biz">آرایشگاه مدرن ولیعصر</div>
+                <div class="appt-service">اصلاح ریش</div>
+                <div class="appt-meta">
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span>۱۴۰۴/۰۳/۱۰</span>
+                  </div>
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>۱۴:۰۰</span>
+                  </div>
+                </div>
+              </div>
+              <div class="appt-side">
+                <div>
+                  <div class="appt-price">۱۲۰,۰۰۰</div>
+                  <div class="appt-price-lbl">تومان</div>
+                </div>
+                <span class="appt-status status-done">انجام شده</span>
+                <div class="appt-actions">
+                  <button class="appt-btn appt-btn-primary">ثبت نظر</button>
+                  <button class="appt-btn appt-btn-outline">رزرو مجدد</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="appt-card done">
+              <div class="appt-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <div class="appt-info">
+                <div class="appt-biz">کلینیک تخصصی آرمیتا</div>
+                <div class="appt-service">ویزیت عمومی</div>
+                <div class="appt-meta">
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span>۱۴۰۴/۰۲/۲۵</span>
+                  </div>
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>۱۱:۳۰</span>
+                  </div>
+                </div>
+              </div>
+              <div class="appt-side">
+                <div>
+                  <div class="appt-price">۲۸۰,۰۰۰</div>
+                  <div class="appt-price-lbl">تومان</div>
+                </div>
+                <span class="appt-status status-done">انجام شده</span>
+                <div class="appt-actions">
+                  <button class="appt-btn appt-btn-primary">ثبت نظر</button>
+                  <button class="appt-btn appt-btn-outline">رزرو مجدد</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TAB: CANCELLED -->
+        <div class="tab-panel" id="tab-cancelled">
+          <div class="appt-list">
+
+            <div class="appt-card cancelled">
+              <div class="appt-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 6.5 4 9m13.5-2.5L20 9M4 9v6m16-6v6M4 15l2.5 2.5m13.5-2.5L17.5 17.5m-11 0h11"/></svg>
+              </div>
+              <div class="appt-info">
+                <div class="appt-biz">باشگاه پاور فیتنس</div>
+                <div class="appt-service">کلاس یوگا</div>
+                <div class="appt-meta">
+                  <div class="appt-meta-item digit-font">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span>۱۴۰۴/۰۱/۲۰</span>
+                  </div>
+                  <div class="appt-meta-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                    <span>توسط کاربر لغو شد</span>
+                  </div>
+                </div>
+              </div>
+              <div class="appt-side">
+                <div>
+                  <div class="appt-price">۱۵۰,۰۰۰</div>
+                  <div class="appt-price-lbl">تومان</div>
+                </div>
+                <span class="appt-status status-cancelled">لغو شده</span>
+                <div class="appt-actions">
+                  <button class="appt-btn appt-btn-outline">رزرو مجدد</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     EDIT PROFILE OVERLAY (bottom sheet)
+══════════════════════════════════════ -->
+<div class="edit-overlay" id="editOverlay">
+  <div class="overlay-backdrop" onclick="closeEdit()"></div>
+  <div class="edit-sheet">
+    <div class="edit-sheet-header">
+      <div class="edit-sheet-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        ویرایش پروفایل
+      </div>
+      <button class="close-btn" onclick="closeEdit()">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="edit-form">
+      <div class="avatar-edit-row">
+        <div class="avatar" style="width:64px;height:64px;font-size:22px;">ع</div>
+        <div class="avatar-change-info">
+          <p>تصویر پروفایل خود را تغییر دهید</p>
+          <button class="avatar-change-btn">انتخاب تصویر</button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            نام
+            <span class="required">*</span>
+          </label>
+          <input type="text" class="form-input" id="editFirstName" value="علی" placeholder="نام">
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            نام خانوادگی
+            <span class="required">*</span>
+          </label>
+          <input type="text" class="form-input" id="editLastName" value="رضایی" placeholder="نام خانوادگی">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 11"/></svg>
+          شماره موبایل
+          <span class="required">*</span>
+        </label>
+        <input type="tel" class="form-input digit-input" id="editMobile" value="09123456789" placeholder="09xxxxxxxxx">
+        <div class="form-hint">شماره موبایل برای ارسال یادآور SMS استفاده می‌شود</div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg>
+            کد ملی
+          </label>
+          <input type="text" class="form-input digit-input" id="editNid" value="0012345678" placeholder="کد ملی ۱۰ رقمی">
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            شهر
+          </label>
+          <select class="form-input" id="editCity">
+            <option value="تهران" selected>تهران</option>
+            <option value="اصفهان">اصفهان</option>
+            <option value="مشهد">مشهد</option>
+            <option value="شیراز">شیراز</option>
+            <option value="تبریز">تبریز</option>
+            <option value="اهواز">اهواز</option>
+            <option value="کرمانشاه">کرمانشاه</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          آدرس ایمیل
+        </label>
+        <input type="email" class="form-input" id="editEmail" value="ali@example.com" placeholder="example@email.com" style="direction:ltr;text-align:right;">
+      </div>
+    </div>
+
+    <div class="edit-form-actions">
+      <button class="cancel-btn" onclick="closeEdit()">انصراف</button>
+      <button class="save-btn" onclick="saveProfile()">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        ذخیره تغییرات
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastMsg">اطلاعات با موفقیت ذخیره شد</span>
+</div>
+
+  <script src="../JavaScript/MyProfile.js"></script>
+</body>
+</html>
