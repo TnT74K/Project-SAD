@@ -113,11 +113,13 @@ body {
 /* استایل بخش اصلی محتوا */
 /* ======================================== */
 .main {
-  flex: 1;                              /* رشد برای پر کردن فضای باقیمانده */
-  padding: 28px;                       /* فاصله داخلی */
-  animation: fadeInUp .4s ease;        /* انیمیشن ورود از پایین */
-  position: relative;                  /* موقعیت نسبی برای عناصر مطلق */
+  flex: 1;
+  padding: 28px;
+  padding-top: 100px; /* فاصله برای هدر fixed */
+  animation: fadeInUp .4s ease;
+  position: relative;
 }
+
 
 /* عنصر تزئینی قبل از main (دایره گرادیان) */
 .main::before {
@@ -649,7 +651,8 @@ body {
 /* صفحه‌های کوچکتر از ۷۶۸ پیکسل (تبلت) */
 @media (max-width: 768px) {
   .main { 
-    padding: 16px;                       /* کاهش فاصله داخلی */
+    padding: 16px;
+    padding-top:100px;
   }
   .stats-grid { 
     grid-template-columns: repeat(2, 1fr); /* ۲ ستون */
@@ -672,4 +675,27 @@ body {
   .topnav .nav-item span.icon { 
     display: none;                       /* مخفی کردن آیکون */
   }
+}
+
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../Fonts/Orbitron-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }

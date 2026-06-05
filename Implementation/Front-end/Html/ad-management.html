@@ -1,31 +1,13 @@
 <!DOCTYPE html>
-<!--
-  ╔══════════════════════════════════════════════════════╗
-  ║         مدیریت تبلیغات — رزروسنتر                   ║
-  ║  فایل اصلی HTML                                      ║
-  ║                                                      ║
-  ║  ساختار کلی:                                         ║
-  ║    • layout (sidebar + main)                         ║
-  ║    • view-list  → نمایش لیست کارت‌های تبلیغ          ║
-  ║    • view-form  → فرم افزودن تبلیغ جدید              ║
-  ║    • edit-modal → مودال ویرایش تبلیغ موجود           ║
-  ║                                                      ║
-  ║  وابستگی‌ها:                                          ║
-  ║    styles.css  — استایل‌های صفحه                     ║
-  ║    app.js      — منطق و رویدادهای جاوااسکریپت        ║
-  ╚══════════════════════════════════════════════════════╝
--->
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مدیریت تبلیغات | رزروسنتر</title>
 
-  <!-- فونت فارسی وزیرمتن از گوگل فونت -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- استایل‌شیت اصلی -->
-  <link rel="stylesheet" href="./ad-management.css" />
+  <link rel="stylesheet" href="../Css/ad-management.css" />
 </head>
 <body>
 
@@ -35,28 +17,7 @@
      ══════════════════════════════════════ -->
 <div class="layout">
 
-  <!-- ── SIDEBAR — منوی کناری ── -->
-  <aside class="sidebar">
-
-    <!-- لوگو و نام سایت -->
-    <div class="sidebar-logo">
-      <div class="logo-box">📅</div>
-      <span>رزرو<em>سنتر</em></span>
-    </div>
-
-    <!-- آیتم‌های منوی ناوبری -->
-    <nav class="sidebar-nav">
-      <a href="#" class="nav-item"><span class="nav-icon">🏠</span> داشبورد</a>
-      <a href="#" class="nav-item"><span class="nav-icon">🏢</span> کسب‌وکارها</a>
-      <a href="#" class="nav-item"><span class="nav-icon">📅</span> رزروها</a>
-      <!-- آیتم فعال — صفحه جاری: تبلیغات -->
-      <a href="#" class="nav-item active"><span class="nav-icon">📢</span> تبلیغات</a>
-      <a href="#" class="nav-item"><span class="nav-icon">👥</span> کاربران</a>
-      <a href="#" class="nav-item"><span class="nav-icon">📊</span> گزارش‌ها</a>
-      <a href="#" class="nav-item"><span class="nav-icon">⚙️</span> تنظیمات</a>
-    </nav>
-
-  </aside><!-- /sidebar -->
+  <div id="header-placeholder"></div>
 
   <!-- ══════════════════════════════════════
        MAIN — محتوای اصلی صفحه
@@ -207,6 +168,7 @@
     </div><!-- /view-form -->
 
   </main><!-- /main -->
+
 </div><!-- /layout -->
 
 
@@ -259,9 +221,13 @@
   </div><!-- /modal-box -->
 </div><!-- /edit-modal -->
 
+  <div id="footer-placeholder"></div>
 
 <!-- اسکریپت اصلی — در انتهای body برای سرعت بارگذاری -->
-<script src="./ad-management.js" defer></script>
+<script src="../JavaScript/ad-management.js" defer></script>
+<script src="../JavaScript/LoadHeader.js"></script>
+<script src="../JavaScript/Header.js"></script>
+<script src="../JavaScript/LoadFooter.js"></script>
 
 </body>
 </html>
