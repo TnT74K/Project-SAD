@@ -1,6 +1,6 @@
 // ─── ساعت‌ها را پر کن ───────────────────────────────────────
 function fillTimeSelects() {
-  const selects = ['openTime','closeTime','breakStart','breakEnd'];
+  const selects = ['openTime', 'closeTime', 'breakStart', 'breakEnd'];
   selects.forEach(id => {
     const el = document.getElementById(id);
     const first = el.options[0].cloneNode(true);
@@ -8,8 +8,8 @@ function fillTimeSelects() {
     el.appendChild(first);
     for (let h = 0; h < 24; h++) {
       for (let m = 0; m < 60; m += 30) {
-        const hh = String(h).padStart(2,'0');
-        const mm = String(m).padStart(2,'0');
+        const hh = String(h).padStart(2, '0');
+        const mm = String(m).padStart(2, '0');
         const val = `${hh}:${mm}`;
         const opt = document.createElement('option');
         opt.value = val;
@@ -27,31 +27,31 @@ function toPersian(n) {
 }
 
 // ─── شمارشگر کاراکتر ────────────────────────────────────────
-document.getElementById('bizName').addEventListener('input', function() {
+document.getElementById('bizName').addEventListener('input', function () {
   document.getElementById('nameHint').textContent =
     `${toPersian(this.value.length)} / ${toPersian(80)} کاراکتر`;
 });
-document.getElementById('bizDesc').addEventListener('input', function() {
+document.getElementById('bizDesc').addEventListener('input', function () {
   document.getElementById('descHint').textContent =
     `${toPersian(this.value.length)} / ${toPersian(500)} کاراکتر`;
 });
 
 // ─── فرمت تاریخ شمسی ────────────────────────────────────────
-document.getElementById('bizDate').addEventListener('input', function() {
-  let val = this.value.replace(/[^\d۰-۹]/g,'');
+document.getElementById('bizDate').addEventListener('input', function () {
+  let val = this.value.replace(/[^\d۰-۹]/g, '');
   val = val.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
-  if (val.length > 4) val = val.slice(0,4) + '/' + val.slice(4);
-  if (val.length > 7) val = val.slice(0,7) + '/' + val.slice(7);
-  if (val.length > 10) val = val.slice(0,10);
+  if (val.length > 4) val = val.slice(0, 4) + '/' + val.slice(4);
+  if (val.length > 7) val = val.slice(0, 7) + '/' + val.slice(7);
+  if (val.length > 10) val = val.slice(0, 10);
   // تبدیل به فارسی
   this.value = val.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 });
 
 // ─── آپلود تصویر ─────────────────────────────────────────────
 const imageInput = document.getElementById('imageInput');
-const uploadArea  = document.getElementById('uploadArea');
+const uploadArea = document.getElementById('uploadArea');
 const previewWrap = document.getElementById('previewWrap');
-const previewImg  = document.getElementById('previewImg');
+const previewImg = document.getElementById('previewImg');
 
 imageInput.addEventListener('change', handleImageSelect);
 
@@ -95,20 +95,20 @@ function removeImage() {
 
 // ─── خلاصه ساعات کاری ──────────────────────────────────────
 const dayNames = {
-  saturday:'شنبه', sunday:'یک‌شنبه', monday:'دوشنبه',
-  tuesday:'سه‌شنبه', wednesday:'چهارشنبه', thursday:'پنج‌شنبه', friday:'جمعه'
+  saturday: 'شنبه', sunday: 'یک‌شنبه', monday: 'دوشنبه',
+  tuesday: 'سه‌شنبه', wednesday: 'چهارشنبه', thursday: 'پنج‌شنبه', friday: 'جمعه'
 };
 
 function updateSummary() {
-  const checks   = document.querySelectorAll('.day-check:checked');
-  const openT    = document.getElementById('openTime').value;
-  const closeT   = document.getElementById('closeTime').value;
-  const breakS   = document.getElementById('breakStart').value;
-  const breakE   = document.getElementById('breakEnd').value;
-  const box      = document.getElementById('summaryBox');
-  const txt      = document.getElementById('summaryText');
+  const checks = document.querySelectorAll('.day-check:checked');
+  const openT = document.getElementById('openTime').value;
+  const closeT = document.getElementById('closeTime').value;
+  const breakS = document.getElementById('breakStart').value;
+  const breakE = document.getElementById('breakEnd').value;
+  const box = document.getElementById('summaryBox');
+  const txt = document.getElementById('summaryText');
 
-  if (!checks.length || !openT || !closeT) { box.style.display='none'; return; }
+  if (!checks.length || !openT || !closeT) { box.style.display = 'none'; return; }
 
   const selectedDays = Array.from(checks).map(c => dayNames[c.value]).join('، ');
   let html = `<strong>📆 روزهای کاری:</strong> ${selectedDays}<br>`;
@@ -126,33 +126,36 @@ document.getElementById('breakEnd').addEventListener('change', updateSummary);
 
 // ─── Validation ──────────────────────────────────────────────
 function validate() {
-  const name  = document.getElementById('bizName').value.trim();
-  const desc  = document.getElementById('bizDesc').value.trim();
-  const date  = document.getElementById('bizDate').value.trim();
+  const name = document.getElementById('bizName').value.trim();
+  const desc = document.getElementById('bizDesc').value.trim();
+  const date = document.getElementById('bizDate').value.trim();
   const openT = document.getElementById('openTime').value;
-  const closeT= document.getElementById('closeTime').value;
-  const hasImg= previewWrap.classList.contains('visible');
+  const closeT = document.getElementById('closeTime').value;
+  const bizType = document.getElementById('bizType').value;
   const hasDays = document.querySelectorAll('.day-check:checked').length > 0;
 
-  if (!name)    { shake('bizName');   showToast('⚠️ نام کسب‌وکار را وارد کنید', true); return false; }
-  if (!hasImg)  { shake('uploadArea'); showToast('⚠️ تصویر کسب‌وکار را آپلود کنید', true); return false; }
-  if (!desc)    { shake('bizDesc');   showToast('⚠️ توضیح مختصر را وارد کنید', true); return false; }
-  if (!date)    { shake('bizDate');   showToast('⚠️ تاریخ تأسیس را وارد کنید', true); return false; }
+  if (!name) { shake('bizName'); showToast('⚠️ نام کسب‌وکار را وارد کنید', true); return false; }
+  if (!desc) { shake('bizDesc'); showToast('⚠️ توضیح مختصر را وارد کنید', true); return false; }
+  if (!date) { shake('bizDate'); showToast('⚠️ تاریخ تأسیس را وارد کنید', true); return false; }
   if (!hasDays) { showToast('⚠️ حداقل یک روز کاری انتخاب کنید', true); return false; }
-  if (!openT)   { shake('openTime');  showToast('⚠️ ساعت شروع کار را انتخاب کنید', true); return false; }
-  if (!closeT)  { shake('closeTime'); showToast('⚠️ ساعت پایان کار را انتخاب کنید', true); return false; }
+  if (!openT) { shake('openTime'); showToast('⚠️ ساعت شروع کار را انتخاب کنید', true); return false; }
+  if (!closeT) { shake('closeTime'); showToast('⚠️ ساعت پایان کار را انتخاب کنید', true); return false; }
+  if (!bizType) { shake('bizType'); showToast('⚠️ نوع کسب‌وکار را انتخاب کنید', true); return false; }
   if (openT >= closeT) { showToast('⚠️ ساعت پایان باید بعد از شروع باشد', true); return false; }
   return true;
 }
 
 function shake(id) {
   const el = document.getElementById(id);
+  if(!el) return;
   el.style.transition = 'transform .1s';
   el.style.transform = 'translateX(6px)';
   setTimeout(() => el.style.transform = 'translateX(-6px)', 100);
   setTimeout(() => el.style.transform = 'translateX(4px)', 200);
   setTimeout(() => el.style.transform = 'translateX(0)', 300);
-  el.focus && el.focus();
+  if(!el.focus && el.tagName !=='SELECT'){
+    el.focus();
+  }
 }
 
 // ─── Toast ───────────────────────────────────────────────────
@@ -195,6 +198,7 @@ function resetForm() {
   document.getElementById('bizName').value = '';
   document.getElementById('bizDesc').value = '';
   document.getElementById('bizDate').value = '';
+  document.getElementById('bizType').value = '';
   document.getElementById('bizType').selectedIndex = 0;
   document.getElementById('openTime').selectedIndex = 0;
   document.getElementById('closeTime').selectedIndex = 0;

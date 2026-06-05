@@ -49,7 +49,7 @@
 
         <!-- ─── تصویر کسب‌وکار ─── -->
         <div class="form-group full">
-          <label class="form-label">🖼️ تصویر کسب‌وکار <span class="req">*</span></label>
+          <label class="form-label">🖼️ تصویر کسب‌وکار <span style="color: #8aa0b8; font-size: 0.75rem;">(اختیاری)</span></label>
 
           <!-- حالت آپلود -->
           <div class="image-upload-area" id="uploadArea">
@@ -108,9 +108,9 @@
         <!-- ─── نوع کسب‌وکار ─── -->
         <div class="form-group">
           <label class="form-label" for="bizType">
-            🏪 نوع کسب‌وکار
+            🏪 نوع کسب‌وکار <span class="req">*</span>
           </label>
-          <select class="form-select" id="bizType">
+          <select class="form-select" id="bizType" required>
             <option value="" disabled selected>انتخاب کنید...</option>
             <option value="beauty">آرایشی و بهداشتی</option>
             <option value="food">رستوران و کافه</option>
@@ -118,6 +118,7 @@
             <option value="sport">ورزشی و تندرستی</option>
             <option value="education">آموزشی</option>
             <option value="tech">فناوری و IT</option>
+            <option value="repair">تعمیرات</option>
             <option value="other">سایر</option>
           </select>
         </div>
