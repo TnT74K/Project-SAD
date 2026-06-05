@@ -46,4 +46,5 @@ Divisions Table:
 | Merging open MRs into `develop` | Ali + Hamed +‌ Mohammad Hossein | `------`              | Open        |
 | Final Test                      | Team             | `develop`             | Open        |
 | Document Skeleton               | Sajad            | `Doc/System-proposal` | Open        |
+| Website map | Sajad | `develop` | While connecting pages |
 

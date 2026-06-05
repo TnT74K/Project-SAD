@@ -6,3 +6,5 @@
 # Windows
 Thumbs.db
 Desktop.ini
+# Draw.io bkp files
+*.bkp
