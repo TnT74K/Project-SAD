@@ -6,5 +6,8 @@
 # Windows
 Thumbs.db
 Desktop.ini
+# VS Code
+.vscode
 # Draw.io bkp files
 *.bkp
+*.dtmp
