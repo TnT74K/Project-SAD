@@ -1,16 +1,3 @@
-/**
- * main.js — رزروسنتر | صفحه اصلی
- *
- * توضیح: منطق تعاملی صفحه اصلی سایت رزروسنتر
- * شامل:
- *   - سایه هدر هنگام اسکرول
- *   - باز/بستن منوی موبایل (همبرگر)
- *   - انتخاب چیپ و پر کردن فیلد جستجو
- *   - جستجو (دکمه + کلید Enter)
- *   - کلیک روی کارت دسته‌بندی
- *
- * وابستگی: DOM باید کاملاً بارگذاری شده باشه (script انتهای body قرار داره)
- */
 
 
 /* ──────────────────────────────────────────────
@@ -113,10 +100,14 @@ document.getElementById('mainSearch').addEventListener('keydown', (e) => {
 function filterCat(cat) {
   // پر کردن فیلد جستجو
   document.getElementById('mainSearch').value = cat;
-
+      window.location.href = '../Html/search-results.html'
   // فعال‌سازی اولین چیپ (نزدیک‌ترین به دسته)
   setChip(document.querySelector('.chip'), cat);
 
   // برگشت به بالای صفحه با انیمیشن
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+
+
+

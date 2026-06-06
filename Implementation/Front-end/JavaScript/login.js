@@ -42,3 +42,18 @@ document.querySelector('form').addEventListener('submit', function(e) {
     console.log('اطلاعات ورود:', { username, password, role });
     // اینجا می‌توانید درخواست AJAX یا fetch بفرستید
 });
+
+function CheckField() {
+
+  const Username = document.getElementById("username").value.trim();
+  const Password = document.getElementById("password").value.trim();
+  const Role = document.getElementById("role").value.trim();
+
+
+  if (Username === "" || Password === "" || Role === "") {
+    alert("لطفا نام کاربری و رمز عبور و نقش خود را وارد کنید");
+    return;
+  }
+
+  window.location.href = "../Html/home_page.html";
+}

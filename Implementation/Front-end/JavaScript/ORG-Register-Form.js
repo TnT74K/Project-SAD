@@ -299,7 +299,7 @@ function submitForm() {
     btn.textContent = '✅ ثبت کسب‌وکار';               // برگرداندن متن اصلی
     showToast('✅ کسب‌وکار با موفقیت ثبت شد!');        // نمایش پیام موفقیت
     
-    // به‌روزرسانیステップ‌های پروgress (اگر در صفحه وجود داشته باشد)
+
     document.getElementById('step2').classList.remove('active');
     document.getElementById('step2').classList.add('done');
     document.getElementById('step2').querySelector('.step-circle').textContent = '✓';
@@ -309,6 +309,8 @@ function submitForm() {
     document.getElementById('step4').classList.add('active');
     document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
   }, 1500);
+  
+   ; window.location.href = '../Html/home_page.html';
 }
 
 // ========================================
