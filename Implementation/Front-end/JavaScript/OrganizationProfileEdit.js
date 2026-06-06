@@ -127,7 +127,7 @@ let organization = {
 let slots = [
     { id: 1001, date: "2025-06-10", time: "10:00", status: "available" },
     { id: 1002, date: "2025-06-10", time: "11:30", status: "available" },
-    { id: 1003, date: "2025-06-12", time: "09:00", status: "booked", customer: { first: "احمد", last: "رضایی", phone: "0912xxx" } }
+    { id: 1003, date: "2025-06-12", time: "09:00", status: "booked", customer: { first: "احمد", last: "رضایی", phone: "09128893645" } }
 ];
 
 // -----------------------------------------------

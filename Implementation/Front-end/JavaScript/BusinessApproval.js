@@ -18,8 +18,7 @@ let businesses = [
     city: "تهران",
     address: "خیابان ولیعصر، نرسیده به میدان ونک",
     submitDate: "۱۴۰۴/۰۴/۰۱",
-    description: "آرایشگاه مردانه با بیش از ۱۰ سال سابقه، ارائه خدمات کوتاهی مو، اصلاح ریش و رنگ‌آمیزی.",
-    emoji: "✂️"
+    description: "آرایشگاه مردانه با بیش از ۱۰ سال سابقه، ارائه خدمات کوتاهی مو، اصلاح ریش و رنگ‌آمیزی."
   },
   {
     id: "BIZ-1002",
@@ -31,7 +30,6 @@ let businesses = [
     address: "نیاوران، خیابان کامرانیه شمالی",
     submitDate: "۱۴۰۴/۰۴/۰۳",
     description: "کلینیک زیبایی و پوست با تجهیزات پیشرفته، ارائه خدمات لیزر، بوتاکس و فیلر.",
-    emoji: "🏥"
   },
   {
     id: "BIZ-1003",
@@ -43,7 +41,6 @@ let businesses = [
     address: "سعادت‌آباد، بلوار دادمان",
     submitDate: "۱۴۰۴/۰۴/۰۵",
     description: "باشگاه بدنسازی مجهز با دستگاه‌های روز دنیا و مربیان دارای مدرک فدراسیون.",
-    emoji: "🏋️"
   },
   {
     id: "BIZ-1004",
@@ -55,7 +52,6 @@ let businesses = [
     address: "خیابان چهارباغ بالا، پلاک ۲۴",
     submitDate: "۱۴۰۴/۰۴/۰۶",
     description: "مطب تخصصی دندانپزشکی ارائه‌دهنده خدمات ایمپلنت، ارتودنسی، لمینت و بلیچینگ.",
-    emoji: "🦷"
   },
   {
     id: "BIZ-1005",
@@ -67,7 +63,6 @@ let businesses = [
     address: "خیابان امام رضا، نبش کوچه ۱۲",
     submitDate: "۱۴۰۴/۰۴/۰۸",
     description: "سالن زیبایی بانوان با خدمات کامل شامل آرایش عروس، کوتاهی و رنگ مو در فضایی لوکس.",
-    emoji: "💅"
   },
   {
     id: "BIZ-1006",
@@ -79,7 +74,6 @@ let businesses = [
     address: "بلوار زند، نبش خیابان لطفعلی خان زند",
     submitDate: "۱۴۰۴/۰۴/۰۸",
     description: "آموزشگاه زبان‌های خارجی با بیش از ۱۵ سال سابقه و اساتید بین‌المللی.",
-    emoji: "📚"
   },
 ];
 
@@ -145,7 +139,6 @@ function render(ids) {
         <!-- ستون نام: آیکون + اسم -->
         <td data-label="نام کسب‌وکار">
           <div class="biz-cell">
-            <div class="biz-emoji">${b.emoji}</div>
             <div>
               <div class="business-name">${b.name}</div>
             </div>
@@ -231,7 +224,6 @@ function openDetail(id) {
   if (!b) return; // اگه پیدا نشد کاری نمی‌کنیم
 
   // پر کردن هدر مدال
-  document.getElementById("detailCover").childNodes[0].textContent = b.emoji + " ";
   document.getElementById("detailName").textContent = b.name;
   document.getElementById("detailCat").textContent  = b.category + " · " + b.city;
 
