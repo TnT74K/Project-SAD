@@ -76,14 +76,14 @@ function render() {
   // data-init-badge-class و data-init-badge-text: ذخیره وضعیت اولیه برای clearStatus
   document.getElementById('appointmentsBody').innerHTML = rows.map((r, i) => `
     <tr data-init-badge-class="badge ${r.status}" data-init-badge-text="${r.statusText}">
-      <td>${toPersianNum(i + 1)}</td>
-      <td>${r.name}</td>
-      <td>${r.service}</td>
-      <td>${date}</td>
-      <td>${r.time}</td>
-      <td class="confirm-code">—</td>
-      <td><span class="badge ${r.status}">${r.statusText}</span></td>
-      <td><div class="actions">${getActionButtons(dateType)}</div></td>
+      <td data-label="#">${toPersianNum(i + 1)}</td>
+      <td data-label="مشتری">${r.name}</td>
+      <td data-label="سرویس">${r.service}</td>
+      <td data-label="تاریخ">${date}</td>
+      <td data-label="ساعت">${r.time}</td>
+      <td data-label="کد تأییدیه" class="confirm-code">—</td>
+      <td data-label="وضعیت"><span class="badge ${r.status}">${r.statusText}</span></td>
+      <td data-label="عملیات"><div class="actions">${getActionButtons(dateType)}</div></td>
     </tr>`).join('');
 }
 

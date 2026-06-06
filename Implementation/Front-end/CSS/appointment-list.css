@@ -187,6 +187,33 @@ tbody tr.row-gray   { background: rgba(100,100,100,.05); }
   .container { padding: 12px; }
   .card-header { flex-direction: column; align-items: flex-start; gap: 10px; }
   .actions { flex-wrap: wrap; }
+    .table-wrap { overflow-x: unset; }
+
+  thead { display: none; }
+
+  tbody tr {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    padding: 4px 0;
+  }
+
+  tbody td {
+    display: block;
+    text-align: right;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr td:last-child { border-bottom: none; }
+
+  tbody td::before {
+    content: attr(data-label) ": ";
+    font-weight: 600;
+    color: var(--text-2);
+    margin-left: 6px;
+  }
 }
 
 /* ===== فونت‌ها ===== */
