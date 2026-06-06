@@ -1,12 +1,4 @@
-/*
-  search-results.js
-  منطق صفحه نتایج جستجو - رزروسنتر
-  -----------------------------------------------
-  این فایل سه کار اصلی انجام میده:
-    1. نگه‌داشتن داده‌های کسب‌وکارها (فعلاً موک)
-    2. فیلتر و مرتب‌سازی بر اساس انتخاب کاربر
-    3. رندر کردن کارت‌ها توی DOM
-*/
+
 
 
 /* =============================================
@@ -240,7 +232,7 @@ function renderCards(list) {
           </div>
           <div class="card-footer">
             <div class="card-price"><strong>${b.price}</strong></div>
-            <button class="btn-reserve">رزرو نوبت</button>
+            <button class="btn-reserve" onclick="window.location.href = '../Html/OrganizationProfile.html'">مشاهده پروفايل</button>
           </div>
         </div>
       </div>`;
