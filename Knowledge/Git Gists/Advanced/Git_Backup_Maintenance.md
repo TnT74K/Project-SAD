@@ -1,3 +1,5 @@
+# Git Backup & Maintenance
+
 Great setup ✅ — having **GitHub as `origin` (primary)** and **GitLab as `gitlab` (backup)** is a solid redundancy strategy.
 
 Below is a **complete, practical guide** to maintaining the backup remote properly.
