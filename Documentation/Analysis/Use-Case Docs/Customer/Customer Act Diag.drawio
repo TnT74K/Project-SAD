@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" pages="3">
   <diagram name="Cancel Appo" id="AyHnQ4I53XLg8TXOc02F">
-    <mxGraphModel dx="405" dy="385" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="299" dy="284" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -53,9 +53,6 @@
         </mxCell>
         <mxCell id="1DmWSu8jtChmo7sEUvhP-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;fillColor=light-dark(#0B2545,#C0D6E8);" value="انتخاب یک نوبت&amp;nbsp; از لیست رزروشده‌ها" vertex="1">
           <mxGeometry height="60" width="120" x="365" y="710" as="geometry" />
-        </mxCell>
-        <mxCell id="EK1P4J0lPtHjB1_H9RC--1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Hello?" vertex="1">
-          <mxGeometry height="60" width="120" x="550" y="520" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
