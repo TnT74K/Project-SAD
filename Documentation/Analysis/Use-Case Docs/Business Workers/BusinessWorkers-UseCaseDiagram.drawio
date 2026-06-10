@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.1">
   <diagram name="Page-1" id="KkzAt5_DSfBoyemb6fQj">
-    <mxGraphModel dx="868" dy="602" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1042" dy="722" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -47,7 +47,7 @@
         <mxCell id="AoDCjcpJ4cE1ajerb_j3-11" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=zain;fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="&lt;span style=&quot;font-size: 13px; font-weight: 400; text-wrap-mode: nowrap;&quot;&gt;تغيير وضعيت نوبت&lt;/span&gt;" vertex="1">
           <mxGeometry height="70" width="140" x="360" y="360" as="geometry" />
         </mxCell>
-        <mxCell id="AoDCjcpJ4cE1ajerb_j3-12" edge="1" parent="1" source="AoDCjcpJ4cE1ajerb_j3-11" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=default;labelBackgroundColor=default;endArrow=open;endFill=0;startArrow=none;startFill=0;dashed=1;strokeWidth=3;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="AoDCjcpJ4cE1ajerb_j3-10">
+        <mxCell id="AoDCjcpJ4cE1ajerb_j3-12" edge="1" parent="1" source="AoDCjcpJ4cE1ajerb_j3-11" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=default;labelBackgroundColor=default;endArrow=open;endFill=0;startArrow=none;startFill=0;dashed=1;strokeWidth=3;exitX=0.671;exitY=0.023;exitDx=0;exitDy=0;exitPerimeter=0;" target="AoDCjcpJ4cE1ajerb_j3-10">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="466.1373386485873" y="329.5877625918006" as="sourcePoint" />
             <mxPoint x="330.1373386485873" y="279.5877625918006" as="targetPoint" />
@@ -67,7 +67,7 @@
         <mxCell id="AoDCjcpJ4cE1ajerb_j3-15" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=zain;fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="تماس با مشتري" vertex="1">
           <mxGeometry height="70" width="140" x="590" y="380" as="geometry" />
         </mxCell>
-        <mxCell id="AoDCjcpJ4cE1ajerb_j3-16" edge="1" parent="1" source="AoDCjcpJ4cE1ajerb_j3-15" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=default;labelBackgroundColor=default;endArrow=open;endFill=0;startArrow=none;startFill=0;dashed=1;strokeWidth=3;entryX=0.446;entryY=1.021;entryDx=0;entryDy=0;entryPerimeter=0;" target="AoDCjcpJ4cE1ajerb_j3-10">
+        <mxCell id="AoDCjcpJ4cE1ajerb_j3-16" edge="1" parent="1" source="AoDCjcpJ4cE1ajerb_j3-15" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=default;labelBackgroundColor=default;endArrow=open;endFill=0;startArrow=none;startFill=0;dashed=1;strokeWidth=3;entryX=0.927;entryY=0.712;entryDx=0;entryDy=0;entryPerimeter=0;" target="AoDCjcpJ4cE1ajerb_j3-11">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="520" y="445" as="sourcePoint" />
             <mxPoint x="595" y="380" as="targetPoint" />
@@ -82,7 +82,9 @@
           <mxGeometry height="60" width="30" x="130" y="250" as="geometry" />
         </mxCell>
         <mxCell id="AoDCjcpJ4cE1ajerb_j3-21" parent="1" style="swimlane;whiteSpace=wrap;html=1;gradientColor=none;swimlaneFillColor=none;strokeColor=#D4AC0D;fontFamily=zain;" value="&lt;font&gt;كارمند حضوري&lt;/font&gt;" vertex="1">
-          <mxGeometry height="360" width="490" x="250" y="120" as="geometry" />
+          <mxGeometry height="360" width="490" x="250" y="120" as="geometry">
+            <mxRectangle height="30" width="130" x="250" y="120" as="alternateBounds" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
