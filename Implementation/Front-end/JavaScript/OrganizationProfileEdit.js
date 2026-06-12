@@ -125,9 +125,9 @@ let organization = {
 
 // لیست نوبت‌ها (هر نوبت شامل id, date, time, status و در صورت رزرو شده customer)
 let slots = [
-    { id: 1001, date: "2025-06-10", time: "10:00", status: "available" },
-    { id: 1002, date: "2025-06-10", time: "11:30", status: "available" },
-    { id: 1003, date: "2025-06-12", time: "09:00", status: "booked", customer: { first: "احمد", last: "رضایی", phone: "09128893645" } }
+    { id: 1001, date: "2025-06-10", time: "10:00", status: "available", price: "10000" },
+    { id: 1002, date: "2025-06-10", time: "11:30", status: "available", price: "12000"  },
+    { id: 1003, date: "2025-06-12", time: "09:00", status: "booked", price: "15200" , customer: { first: "احمد", last: "رضایی", phone: "09128893645" } }
 ];
 
 // -----------------------------------------------
@@ -229,7 +229,7 @@ function renderSlots() {
             html += `
                 <div class="time-slot">
                     <button class="time-btn ${slot.status === "booked" ? "booked" : ""}" onclick="slotClick(${slot.id})">
-                        ${slot.time}
+                        ${slot.time} - ${slot.price ? formatPrice(slot.price) + " تومان" : "بدون قیمت"}
                     </button>
                     <div class="slot-actions">
                         <button onclick="editSlot(${slot.id})">✏️</button>
@@ -243,6 +243,9 @@ function renderSlots() {
         card.innerHTML = html;
         container.appendChild(card);
     }
+}
+function formatPrice(price) {
+    return Number(price).toLocaleString("en-US");
 }
 
 /**
@@ -258,6 +261,8 @@ function openSlotModal() {
     renderCalendar();            // رندر تقویم شمسی
     document.getElementById("slotTime").value = "";  // پاک کردن ساعت
     document.getElementById("slotModal").style.display = "flex";  // نمایش مودال
+    document.getElementById("slotPrice").value = "";
+
 }
 
 // -----------------------------------------------
@@ -341,13 +346,25 @@ function saveSlot() {
         alert("لطفاً ساعت را وارد کنید");
         return;
     }
+    
+    const priceInput = document.getElementById("slotPrice").value.trim();
+    if (priceInput === "") {
+        alert("لطفاً مبلغ را وارد کنید");
+        return;
+    }
+    const price = parseFloat(priceInput);
+    if (isNaN(price) || price < 0) {
+        alert("مبلغ نامعتبر است");
+        return;
+    }
+
 
     // تبدیل تاریخ انتخاب شده (شمسی) به میلادی برای ذخیره در داده
     const greg = jalaliToGregorian(selectedJalaliDate.jy, selectedJalaliDate.jm, selectedJalaliDate.jd);
     const dateStr = `${greg.year}-${pad2(greg.month)}-${pad2(greg.day)}`;
 
     // بررسی عدم تکراری بودن (ساعت تکراری برای یک روز)
-    const duplicate = slots.find(s => s.date === dateStr && s.time === timeVal && s.id !== editingSlot);
+    const duplicate = slots.find(s => s.date === dateStr && s.time === timeVal && (!editingSlot || s.id !== editingSlot));
     if (duplicate) {
         alert("این ساعت قبلاً ثبت شده است");
         return;
@@ -359,6 +376,7 @@ function saveSlot() {
         if (slot) {
             slot.date = dateStr;
             slot.time = timeVal;
+            slot.price = price;
         }
     } else {
         // حالت ایجاد جدید: اضافه کردن نوبت با id یکتا (timestamp)
@@ -366,6 +384,7 @@ function saveSlot() {
             id: Date.now(),
             date: dateStr,
             time: timeVal,
+            price: price,
             status: "available"
         });
     }
@@ -399,6 +418,7 @@ function editSlot(id) {
     renderCalendar();
     document.getElementById("slotTime").value = slot.time;
     document.getElementById("slotModal").style.display = "flex";
+    document.getElementById("slotPrice").value = slot.price || "";
 
     // هایلایت کردن روز انتخاب شده در تقویم (با کمی تأخیر برای اطمینان از رندر شدن)
     setTimeout(() => {
