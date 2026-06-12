@@ -1,0 +1,13 @@
+# macOS 
+.DS_Store
+/Local
+/Documentation/نگارش\ فنی
+*.alias
+
+# Drawio app files
+*.dtmp
+*.bkp
+
+# Windows
+Thumbs.db
+Desktop.ini
