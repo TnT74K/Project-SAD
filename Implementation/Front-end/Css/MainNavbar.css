@@ -1,0 +1,98 @@
+/* =========================
+   Navbar Component Styles
+========================== */
+
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  background: #0B2545;
+  padding: 0 20px;
+  min-height: 64px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.topnav-logo {
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-left: 30px;
+  white-space: nowrap;
+}
+
+.topnav-items {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+  height: 64px;
+  color: rgba(255,255,255,0.72);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+}
+
+.nav-item.active {
+  color: #fff;
+  background: rgba(255,255,255,0.10);
+  border-bottom-color: #2E86C1;
+}
+
+.nav-item .icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* =========================
+   Responsive
+========================== */
+@media (max-width: 768px) {
+  .topnav {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 12px;
+  }
+
+  .topnav-logo {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 8px;
+  }
+
+  .topnav-items {
+    width: 100%;
+    gap: 6px;
+  }
+
+  .nav-item {
+    height: 48px;
+    padding: 0 12px;
+    font-size: 0.86rem;
+    border-radius: 10px;
+    border-bottom: none;
+  }
+
+  .nav-item.active {
+    border-bottom-color: transparent;
+  }
+}
