@@ -4,11 +4,18 @@
 /Documentation/نگارش\ فنی
 *.alias
 
+# Drawio app files
+*.dtmp
+*.bkp
+
 # Windows
 Thumbs.db
 Desktop.ini
 # VS Code
+/.vscode
 .vscode
 # Draw.io bkp files
 *.bkp
 *.dtmp
+.gitignore
+.gitignore

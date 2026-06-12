@@ -1,5 +1,20 @@
+
+
 # Team division based on day
-We try to divide the responsibilities based on pages
+
+We divide the responsibilities based on pages and coordination meetings each day.
+
+## Day One (1405/3/11)
+| Page name or task     | Responsible      | Branch                         | Status     |
+| --------------------- | ---------------- | ------------------------------ | ---------- |
+| 403 / 404 Error pages | Ali              | ` Front/Errors`                | page ready |
+| User login            | Hamed            | `Front/Login`                  | page ready |
+| User register         | Hamed            | `Front/Register`               | page ready |
+| Uesr profile          | Mohammad Hossein | ` Front/my-profile`            | page ready |
+| Super admin dashboard | Abolfazl         | ` Front/super-admin-dashboard` | page ready |
+| Password restore      | Hamed            | `Front/password-restore`       | page ready |
+
+
 
 ## Day One
 - To be continued...
@@ -35,16 +50,15 @@ Division Table:
 
 * Hamed will also fix the MRs reviewed on day three
 
-## Day Five
+## Day Five(1405/3/15)
 
 Divisions Table:
 
 | Page Name or Task               | Responsible      | Branch                | Status      |
 | ------------------------------- | ---------------- | --------------------- | ----------- |
-| Nav-bar component               | Abolfazl         | `develop`             | Open        |
-| Connecting pages                | Abolfazl + Sajad | `develop`             | After Merge |
-| Merging open MRs into `develop` | Ali + Hamed +‌ Mohammad Hossein | `------`              | In progress |
-| Final Test                      | Team             | `develop`             | Open        |
-| Document Skeleton               | Sajad            | `Doc/system-proposal` | Open        |
-| Website map | Sajad | `develop` | While connecting pages |
-
+| Nav-bar component               | Abolfazl         | `develop`             | Page ready  |
+| Connecting pages                | Abolfazl + Sajad | `develop`             | Page ready  |
+| Merging open MRs into `develop` | Ali + Hamed +‌ Mohammad Hossein | `------`| complete    |
+| Final Test                      | Team             | `develop`             | Page ready  |
+| Document Skeleton               | Sajad            | `Doc/system-proposal` | Page ready  |
+| Website map                     | Sajad            | `develop`             | Complete    |
