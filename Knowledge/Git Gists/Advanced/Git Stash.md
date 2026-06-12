@@ -1,3 +1,5 @@
+# About Git Stash
+
 `git stash` is a way to **temporarily save** your local, uncommitted changes so you can switch branches or pull updates without committing half-finished work.
 
 ---

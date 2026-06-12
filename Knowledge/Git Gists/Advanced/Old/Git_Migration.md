@@ -1,3 +1,5 @@
+# Git Migration
+
 Here is a clean, ready-to-share **Markdown migration guide** tailored exactly to your repo URLs and your team’s situation (where teammates do NOT have a `github` remote yet).
 
 You can copy/paste this directly into your internal docs.
