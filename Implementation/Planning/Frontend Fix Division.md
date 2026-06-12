@@ -9,7 +9,7 @@ Division table:
 | Page to improve                                 | Description                                                  | Responsible      | Branch |
 | ----------------------------------------------- | ------------------------------------------------------------ | ---------------- | ------ |
 | register                                        | `Apply`: remove national ID; remove name/last name           | Hamed            |        |
-| Password restore                                | `Apply`: Restore with OTP + phone number                     | Hamed            |        |
+| Password restore                                | `Add`: Restore with OTP + phone number; `remove`: Restore with national ID, etc. | Hamed            |        |
 | Login                                           | `Apply`: Two methods: 1) Phone number + Password 2) OTP + phone number | Hamed            |        |
 | Homepage                                        | `Add`: Apply animations; `Add`: new temporary homepage after user login; ` Fix`: page does not navigate user when pressing enter in search field; | Mohammad Hossein |        |
 | Appointment list page for ORG Support ORG Admin | `Add`: باز شدن مودال وقتی روی اسم کاربر میزنیم. که اونجا کد نوبت و شماره تماس مشتری رو نشون بده | Ali              |        |
