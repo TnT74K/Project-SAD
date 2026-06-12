@@ -1,0 +1,653 @@
+
+:root {
+  /* پالت رنگ اصلی */
+  --navy:     #0B2545;   /* آبی تیره — رنگ برند اصلی */
+  --navy-mid: #1B4F72;   /* آبی میانه — هاور و اکسنت */
+  --blue:     #2E86C1;   /* آبی روشن — لینک و تمرکز */
+  --gold:     #D4AC0D;   /* طلایی — آیکون فعال منو */
+
+  /* رنگ‌های پس‌زمینه و کارت */
+  --bg:       #eef2f7;   /* پس‌زمینه کلی صفحه */
+  --card:     #ffffff;   /* پس‌زمینه کارت‌ها */
+
+  /* رنگ‌های متن */
+  --text:     #1a2a3a;   /* متن اصلی */
+  --text-sec: #4a6080;   /* متن ثانویه */
+  --muted:    #8aa0b8;   /* متن کمرنگ / placeholder */
+
+  /* حاشیه و سایه */
+  --border:   #d0dae8;
+  --shadow:   0 2px 10px rgba(11,37,69,0.09);
+
+  /* رنگ خطر/حذف */
+  --red:      #e05555;
+  --red-bg:   #fdf0f0;
+
+  /* شعاع گوشه و فونت پیش‌فرض */
+  --r:        10px;
+  --font:     'Vazirmatn', sans-serif;
+}
+
+
+/* ══════════════════════════════════════
+   2. ریست و پایه
+   ══════════════════════════════════════ */
+
+/* ریست box-sizing برای همه المان‌ها */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  direction: rtl;       /* راست به چپ برای فارسی */
+  min-height: 100vh;
+
+  display:flex;
+flex-direction:column;
+min-height:100vh;
+margin:0;
+}
+
+/* حذف underline از لینک‌ها */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* فونت یکسان برای همه دکمه‌ها */
+button {
+  cursor: pointer;
+  font-family: var(--font);
+  border: none;
+}
+
+/* فونت یکسان برای فیلدهای ورودی */
+input, select, textarea {
+  font-family: var(--font);
+}
+
+
+/* ══════════════════════════════════════
+   3. Sidebar — منوی کناری
+   ══════════════════════════════════════ */
+
+/* کانتینر کلی صفحه: sidebar + main کنار هم */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* نوار کناری با پس‌زمینه آبی تیره */
+.sidebar {
+  width: 220px;
+  background: var(--navy);
+  flex-shrink: 0;         /* در ریسپانسیو کوچک نشود */
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 24px;
+}
+
+/* بخش لوگو در بالای sidebar */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 20px 18px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 12px;
+}
+
+/* باکس آیکون لوگو */
+.logo-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--blue), var(--navy-mid));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+/* متن «رزروسنتر» — em برای رنگ طلایی «سنتر» */
+.logo-box + span         { color: #fff; }
+.logo-box + span em      { color: var(--gold); font-style: normal; }
+
+/* کانتینر آیتم‌های ناوبری */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 10px;
+}
+
+/* هر آیتم منو */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--r);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);    /* رنگ پیش‌فرض کمرنگ */
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.85);
+}
+
+/* آیتم فعال — صفحه جاری */
+.nav-item.active {
+  background: rgba(46,134,193,0.18);
+  color: #fff;
+}
+
+/* آیکون آیتم فعال به رنگ طلایی */
+.nav-item.active .nav-icon { color: var(--gold); }
+
+.nav-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+
+/* ══════════════════════════════════════
+   4. Main — محتوای اصلی
+   ══════════════════════════════════════ */
+.main {
+  flex: 1;                /* تمام فضای باقی‌مانده را بگیر */
+  padding: 32px 28px;
+  min-width: 0;           /* جلوگیری از overflow در flex */
+  padding-top:80px; /* فاصله برای هدر fixed */
+}
+
+
+/* ══════════════════════════════════════
+   5. Page Header — هدر صفحه
+   ══════════════════════════════════════ */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.page-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+/* نشانگر تعداد تبلیغات فعال */
+.page-title span {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-right: 10px;
+}
+
+/* دکمه «افزودن تبلیغ جدید» */
+.btn-add {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--navy);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: var(--r);
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: background 0.15s;
+}
+.btn-add:hover { background: var(--navy-mid); }
+
+
+/* ══════════════════════════════════════
+   6. Ad Grid — گرید کارت‌های تبلیغ
+   ══════════════════════════════════════ */
+
+/* نمایش پیش‌فرض view-list و پنهان view-form */
+#view-list { display: block; }
+#view-form { display: none; }
+
+/* گرید واکنش‌گرا: حداقل عرض ۲۶۰px برای هر ستون */
+.ads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+
+/* ══════════════════════════════════════
+   7. Ad Card — کارت تبلیغ
+   ══════════════════════════════════════ */
+.ad-card {
+  background: var(--card);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+/* افکت hover: کارت کمی بالا می‌آید */
+.ad-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(11,37,69,0.13);
+}
+
+/* تصویر واقعی تبلیغ */
+.ad-image {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(135deg, #c5d5e8, #a8c0d8);
+}
+
+/* جایگزین تصویر — ایموجی روی گرادیان رنگی */
+.ad-image-placeholder {
+  width: 100%;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+/* بدنه کارت: زیر تصویر */
+.ad-body {
+  padding: 14px;
+  border-top: 1px solid var(--border);
+}
+
+/* باکس اطلاعات: عنوان و توضیحات */
+.ad-meta {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 13px;
+  margin-bottom: 13px;
+}
+
+.ad-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.ad-desc {
+  font-size: 0.78rem;
+  color: var(--text-sec);
+  line-height: 1.6;
+}
+
+/* ردیف دکمه‌های ویرایش / حذف */
+.ad-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* دکمه ویرایش — آبی کمرنگ */
+.btn-edit {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 8px;
+  background: rgba(46,134,193,0.1);
+  color: var(--blue);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(46,134,193,0.2);
+  transition: background 0.15s;
+}
+.btn-edit:hover { background: rgba(46,134,193,0.18); }
+
+/* دکمه حذف — قرمز کمرنگ */
+.btn-delete {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 8px;
+  background: var(--red-bg);
+  color: var(--red);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(224,85,85,0.2);
+  transition: background 0.15s;
+}
+.btn-delete:hover { background: rgba(224,85,85,0.12); }
+
+
+/* ══════════════════════════════════════
+   8. Empty State — حالت خالی گرید
+   وقتی هیچ تبلیغی وجود ندارد نمایش داده می‌شود
+   ══════════════════════════════════════ */
+.empty-state {
+  grid-column: 1/-1;     /* تمام عرض گرید را بپوشاند */
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+}
+
+.empty-state .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.empty-state p { font-size: 0.9rem; }
+
+
+/* ══════════════════════════════════════
+   9. Form View — فرم افزودن تبلیغ جدید
+   ══════════════════════════════════════ */
+
+/* وقتی JS فرم را نمایش می‌دهد: display:flex */
+#view-form {
+  flex-direction: column;
+  align-items: center;
+}
+
+/* هدر فرم: دکمه بازگشت + عنوان */
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  width: 100%;
+  max-width: 560px;
+}
+
+/* دکمه «← بازگشت» */
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text-sec);
+  padding: 8px 16px;
+  border-radius: var(--r);
+  font-size: 0.83rem;
+  font-weight: 600;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-back:hover { border-color: var(--blue); color: var(--blue); }
+
+.form-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+/* کارت سفید حاوی فرم */
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  width: 100%;
+  max-width: 560px;
+}
+
+/* گرید داخلی فرم: تک ستونه */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* برای فیلدهای تمام‌عرض */
+.form-group.full { grid-column: 1; }
+
+/* لیبل فیلد */
+.form-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ستاره قرمز «اجباری» */
+.form-label span { color: var(--red); margin-right: 2px; }
+
+/* استایل مشترک input، select و textarea */
+.form-input,
+.form-select,
+.form-textarea {
+  padding: 10px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: var(--text);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+  direction: rtl;
+}
+
+/* حالت focus: حاشیه آبی */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--blue);
+}
+
+/* textarea: قابل تغییر اندازه عمودی */
+.form-textarea {
+  resize: vertical;
+  min-height: 88px;
+}
+
+/* خط جداکننده در فرم */
+.form-divider {
+  grid-column: 1/-1;
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+/* دکمه ثبت فرم */
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--navy);
+  color: #fff;
+  padding: 12px 32px;
+  border-radius: var(--r);
+  font-size: 0.92rem;
+  font-weight: 700;
+  transition: background 0.15s;
+  margin-top: 6px;
+}
+.btn-submit:hover { background: var(--navy-mid); }
+
+
+/* ══════════════════════════════════════
+   10. Upload Area — ناحیه آپلود تصویر
+   ══════════════════════════════════════ */
+
+/* باکس dashed با قابلیت drag & drop */
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  position: relative;     /* برای input مخفی روی آن */
+}
+.upload-area:hover {
+  border-color: var(--blue);
+  background: rgba(46,134,193,0.03);
+}
+
+/* input فایل مخفی — روی کل ناحیه کشیده شده */
+.upload-area input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+}
+
+.upload-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.upload-text {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.upload-text strong { color: var(--blue); }
+
+
+/* ══════════════════════════════════════
+   11. Modal — مودال ویرایش تبلیغ
+   ══════════════════════════════════════ */
+
+/* پس‌زمینه تاریک مودال — پیش‌فرض پنهان */
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(11,37,69,0.55);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* کلاس .open با JS اضافه می‌شود */
+.modal-backdrop.open { display: flex; }
+
+/* باکس محتوای مودال */
+.modal-box {
+  background: var(--card);
+  border-radius: var(--r);
+  box-shadow: 0 12px 40px rgba(11,37,69,0.22);
+  padding: 26px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* هدر مودال: عنوان + دکمه بستن */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.modal-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+/* دکمه ✕ دایره‌ای */
+.modal-close {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  color: var(--text-sec);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: var(--border); }
+
+
+/* ══════════════════════════════════════
+   12. Responsive — میدیا کوئری‌های واکنش‌گرا
+   ══════════════════════════════════════ */
+
+/* تبلت: sidebar کمی باریک‌تر */
+@media (max-width: 900px) {
+  .sidebar { width: 180px; }
+}
+
+/* موبایل: layout عمودی می‌شود */
+@media (max-width: 680px) {
+  .layout { flex-direction: column; }
+
+  /* sidebar افقی در بالای صفحه */
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+
+  .sidebar-logo {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding: 8px 12px;
+  }
+
+  /* منو افقی */
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 4px;
+  }
+
+  .nav-item {
+    padding: 7px 10px;
+    font-size: 0.78rem;
+  }
+
+  .main { padding: 20px 16px; }
+
+  /* فرم تک ستونه در موبایل */
+  .form-grid            { grid-template-columns: 1fr; }
+  .form-group.full      { grid-column: 1; }
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../Fonts/Orbitron-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

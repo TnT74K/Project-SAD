@@ -1,230 +1,600 @@
-/* =========================
-   Root Variables & Reset
-========================= */
+  /* ======================================== */
+/* تعریف متغیرهای رنگ و استایل اصلی */
+/* ======================================== */
 :root {
-  --primary: #0B2545;
-  --primary-mid: #1B4F72;
-  --primary-light: #2E86C1;
-  --accent: #D4AC0D;
-  --bg: #eef2f7;
-  --bg-card: #ffffff;
-  --text: #1a2a3a;
-  --text-2: #4a6080;
-  --text-3: #8aa0b8;
-  --border: rgba(11, 37, 69, 0.1);
-  --radius: 14px;
-  --radius-sm: 8px;
-  --shadow: 0 2px 16px rgba(11, 37, 69, 0.08);
+      --primary: #0B2545;           /* رنگ اصلی تیره */
+      --primary-mid: #1B4F72;       /* رنگ اصلی متوسط */
+      --primary-light: #2E86C1;     /* رنگ اصلی روشن */
+      --accent: #D4AC0D;            /* رنگ تأکیدی (طلایی) */
+      --bg: #eef2f7;                /* رنگ پس‌زمینه صفحه */
+      --bg-card: #ffffff;           /* رنگ پس‌زمینه کارت */
+      --text: #1a2a3a;              /* رنگ متن اصلی */
+      --text-2: #4a6080;            /* رنگ متن ثانویه */
+      --text-3: #8aa0b8;            /* رنگ متن کم‌رنگ */
+      --border: rgba(11,37,69,.1);  /* رنگ حاشیه */
+      --radius: 14px;               /* شعاع گوشه بزرگ */
+      --radius-sm: 8px;             /* شعاع گوشه کوچک */
+      --shadow: 0 2px 16px rgba(11,37,69,.08); /* سایه ملایم */
 }
 
-* {
-  box-sizing: border-box;
+/* ======================================== */
+/* تنظیمات جعبه‌مدل برای همه المنت‌ها */
+/* ======================================== */
+* { 
+  box-sizing: border-box;  /* محاسبه عرض شامل padding و border */
 }
 
+/* ======================================== */
+/* استایل بدنه اصلی صفحه */
+/* ======================================== */
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Vazirmatn', sans-serif;
-  color: var(--text);
+  margin: 0;                           /* حذف حاشیه بیرونی */
+  padding: 0;                          /* حذف حاشیه داخلی */
+  font-family: 'Vazirmatn', sans-serif; /* فونت وزیرمتن */
+  color: var(--text);                  /* رنگ متن از متغیر */
+  /* گرادیان پس‌زمینه با افکت رادیال */
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(46, 134, 193, 0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 100%, rgba(11, 37, 69, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
     linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
-  background-attachment: fixed;
-  min-height: 100vh;
+  background-attachment: fixed;       /* ثابت ماندن پس‌زمینه هنگام اسکرول */
+  min-height: 100vh;                  /* حداقل ارتفاع کل صفحه */
 }
 
-a {
-  text-decoration: none;
+/* ======================================== */
+/* استایل لینک‌ها */
+/* ======================================== */
+a { 
+  text-decoration: none;  /* حذف خط زیر لینک‌ها */
 }
 
+/* ======================================== */
+/* استایل کانتینر اصلی */
+/* ======================================== */
 .container {
-  width: min(1200px, calc(100% - 32px));
-  margin: 0 auto;
+  width: min(1200px, calc(100% - 32px)); /* حداکثر عرض 1200px با فاصله از لبه‌ها */
+  margin: 0 auto;                         /* وسط‌چین افقی */
 }
 
-/* =========================
-   Page Components Styles
-========================= */
-main {
-  padding: 30px 0 50px;
+/* ======================================== */
+/* استایل بخش اصلی محتوا */
+/* ======================================== */
+main { 
+  padding: 30px 0 50px;  /* فاصله داخلی عمودی: بالا 30، پایین 50 */
 }
 
+/* ======================================== */
+/* استایل عنوان صفحه */
+/* ======================================== */
 .page-title {
-  margin: 0 0 24px;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--primary);
+  margin: 0 0 24px;          /* فاصله از پایین */
+  font-size: 1.5rem;         /* اندازه فونت */
+  font-weight: 800;          /* ضخامت فونت (خیلی ضخیم) */
+  color: var(--primary);     /* رنگ از متغیر */
 }
 
+/* ======================================== */
+/* استایل کارت عمومی */
+/* ======================================== */
 .card {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  overflow: hidden;
+  background: var(--bg-card);                    /* پس‌زمینه سفید */
+  border-radius: var(--radius);                  /* گوشه گرد */
+  box-shadow: var(--shadow);                     /* سایه */
+  border: 1px solid rgba(255,255,255,0.7);       /* حاشیه سفید شفاف */
+  overflow: hidden;                              /* پنهان کردن سرریز */
 }
 
-.profile-card {
-  padding: 25px;
+/* ======================================== */
+/* استایل کارت پروفایل */
+/* ======================================== */
+.profile-card { 
+  padding: 25px;  /* فاصله داخلی */
 }
 
+/* هدر پروفایل - چیدمان دو ستونه */
 .profile-header {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 25px;
-  align-items: start;
+  display: grid;                       /* نمایش گرید */
+  grid-template-columns: 160px 1fr;    /* ستون اول 160px، ستون دوم بقیه فضا */
+  gap: 25px;                           /* فاصله بین ستون‌ها */
+  align-items: start;                  /* تراز از بالا */
 }
 
+/* ======================================== */
+/* استایل تصویر سازمان (لوگو) */
+/* ======================================== */
 .org-image-wrap {
-  width: 160px;
-  height: 160px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(11, 37, 69, 0.15);
-  border: 1px solid var(--border);
+  width: 160px;                        /* عرض ثابت */
+  height: 160px;                       /* ارتفاع ثابت */
+  border-radius: 20px;                 /* گوشه گرد */
+  overflow: hidden;                    /* پنهان کردن سرریز تصویر */
+  box-shadow: 0 10px 30px rgba(11,37,69,0.15); /* سایه */
+  border: 1px solid var(--border);     /* حاشیه */
 }
 
 .org-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 100%;                         /* عرض کامل */
+  height: 100%;                        /* ارتفاع کامل */
+  object-fit: cover;                   /* پوشش کامل بدون اعوجاج */
 }
 
-.org-info {
-  text-align: right;
+/* ======================================== */
+/* استایل اطلاعات سازمان */
+/* ======================================== */
+.org-info { 
+  text-align: right;  /* راست‌چین (برای RTL) */
 }
 
+/* نام سازمان */
 .org-name {
-  margin: 0 0 12px;
-  color: var(--primary);
-  font-size: 1.7rem;
-  font-weight: 800;
+  margin: 0 0 12px;                    /* فاصله از پایین */
+  color: var(--primary);               /* رنگ اصلی */
+  font-size: 1.7rem;                   /* فونت بزرگ */
+  font-weight: 800;                    /* خیلی ضخیم */
 }
 
+/* توضیحات سازمان */
 .org-description {
-  margin: 0 0 20px;
-  color: var(--text-2);
-  line-height: 1.9;
-  font-size: 0.95rem;
+  margin: 0 0 20px;                    /* فاصله از پایین */
+  color: var(--text-2);                /* رنگ متن ثانویه */
+  line-height: 1.9;                    /* فاصله بین خطوط */
+  font-size: 0.95rem;                  /* اندازه فونت */
 }
 
+/* ======================================== */
+/* استایل متادیتا (اطلاعات اضافی) */
+/* ======================================== */
 .org-meta {
-  display: grid;
-  gap: 12px;
-  padding: 16px;
-  background: rgba(11, 37, 69, 0.03);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  display: grid;                       /* نمایش گرید */
+  gap: 12px;                           /* فاصله بین آیتم‌ها */
+  padding: 16px;                       /* فاصله داخلی */
+  background: rgba(11,37,69,0.03);     /* پس‌زمینه شفاف تیره */
+  border: 1px solid var(--border);     /* حاشیه */
+  border-radius: 12px;                 /* گوشه گرد */
 }
 
+/* هر ردیف متادیتا */
 .meta-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+  display: flex;                       /* نمایش فلکس */
+  justify-content: space-between;      /* فاصله بین دو طرف */
+  align-items: center;                 /* عمود در مرکز */
+  gap: 12px;                           /* فاصله بین آیتم‌ها */
 }
 
+/* برچسب متادیتا */
 .meta-label {
-  color: var(--text-3);
-  font-size: 0.9rem;
+  color: var(--text-3);                /* رنگ کم‌رنگ */
+  font-size: 0.9rem;                   /* اندازه فونت */
 }
 
+/* مقدار متادیتا */
 .meta-value {
-  color: var(--text);
-  font-weight: 700;
+  color: var(--text);                  /* رنگ متن اصلی */
+  font-weight: 700;                    /* ضخیم */
 }
 
-.status-active {
-  color: #27ae60;
+/* ======================================== */
+/* استایل بخش نوبت‌ها (Appointments) */
+/* ======================================== */
+.appointments-section { 
+  margin-top: 30px;  /* فاصله از بالا */
 }
 
-.appointments-section {
-  margin-top: 30px;
-}
-
+/* عنوان بخش */
 .section-title {
-  margin: 0 0 18px;
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--primary);
+  margin: 0 0 18px;                    /* فاصله از پایین */
+  font-size: 1.25rem;                  /* اندازه فونت */
+  font-weight: 800;                    /* خیلی ضخیم */
+  color: var(--primary);               /* رنگ اصلی */
 }
 
+/* شبکه نوبت‌ها */
 .appointment-grid {
-  display: grid;
-  gap: 18px;
+  display: grid;                       /* نمایش گرید */
+  gap: 18px;                           /* فاصله بین آیتم‌ها */
 }
 
+/* گروه نوبت (هر روز) */
 .appointment-group {
-  padding: 20px;
+  padding: 20px;                       /* فاصله داخلی */
 }
 
+/* هدر تاریخ نوبت */
 .appointment-date {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-  color: var(--primary);
-  font-weight: 800;
-  gap: 12px;
+  display: flex;                       /* نمایش فلکس */
+  justify-content: space-between;      /* فاصله بین دو طرف */
+  align-items: center;                 /* عمود در مرکز */
+  margin-bottom: 16px;                /* فاصله از پایین */
+  padding-bottom: 12px;               /* فاصله داخلی پایین */
+  border-bottom: 1px solid var(--border); /* خط جداکننده */
+  color: var(--primary);               /* رنگ اصلی */
+  font-weight: 800;                    /* ضخیم */
+  gap: 12px;                           /* فاصله بین آیتم‌ها */
 }
 
+/* متن کوچک داخل هدر تاریخ */
 .appointment-date small {
-  color: var(--text-3);
-  font-weight: 500;
+  color: var(--text-3);                /* رنگ کم‌رنگ */
+  font-weight: 500;                    /* ضخامت متوسط */
 }
 
+/* کانتینر ساعت‌های نوبت */
 .appointment-times {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  display: flex;                       /* نمایش فلکس */
+  gap: 12px;                           /* فاصله بین دکمه‌ها */
+  flex-wrap: wrap;                     /* شکستن به خط بعد در صورت نیاز */
 }
 
+/* دکمه ساعت */
 .time-btn {
-  min-width: 95px;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #fff;
-  color: var(--primary);
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
+  min-width: 95px;                     /* حداقل عرض */
+  padding: 12px;                       /* فاصله داخلی */
+  border-radius: 10px;                 /* گوشه گرد */
+  border: 1px solid var(--border);     /* حاشیه */
+  background: #fff;                    /* پس‌زمینه سفید */
+  color: var(--primary);               /* رنگ متن */
+  font-family: 'Orbitron', sans-serif; /* فونت دیجیتال برای ساعت */
+  font-weight: 600;                    /* ضخیم */
+  cursor: pointer;                     /* تغییر مکان‌نما به دست */
+  transition: all 0.2s;                /* انیمیشن تغییرات */
 }
 
+/* افکت هاور دکمه ساعت */
 .time-btn:hover {
-  background: var(--primary-light);
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(46, 134, 193, 0.3);
+  background: var(--primary-light);    /* پس‌زمینه آبی */
+  color: #fff;                         /* متن سفید */
+  transform: translateY(-2px);         /* حرکت به بالا */
+  box-shadow: 0 4px 12px rgba(46,134,193,0.3); /* سایه آبی */
 }
 
+/* دکمه ساعت انتخاب شده */
 .time-btn.selected {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
+  background: var(--primary);          /* پس‌زمینه آبی تیره */
+  color: #fff;                         /* متن سفید */
+  border-color: var(--primary);        /* حاشیه همرنگ */
 }
 
+/* ======================================== */
+/* استایل واکنش‌گرا برای موبایل و تبلت */
+/* ======================================== */
 @media (max-width: 768px) {
+  /* تبدیل به یک ستون در موبایل */
   .profile-header {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;  /* یک ستون */
   }
 
+  /* تصویر با ارتفاع ثابت در موبایل */
   .org-image-wrap {
-    width: 100%;
-    height: 200px;
+    width: 100%;                 /* عرض کامل */
+    height: 200px;               /* ارتفاع ثابت */
   }
 
+  /* ردیف متادیتا در موبایل به صورت ستونی */
   .meta-row {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column;      /* جهت ستونی */
+    align-items: flex-start;     /* تراز از بالا */
   }
 
+  /* هدر تاریخ در موبایل به صورت ستونی */
   .appointment-date {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column;      /* جهت ستونی */
+    align-items: flex-start;     /* تراز از بالا */
   }
+}
+
+/* ======================================== */
+/* استایل مودال (پنجره بازشو) */
+/* ======================================== */
+
+/* لایه پشت مودال (Overlay) */
+.modal-overlay {
+  position: fixed;                     /* موقعیت ثابت */
+  inset: 0;                            /* پوشش کل صفحه (چپ، راست، بالا، پایین = 0) */
+  background: rgba(11, 37, 69, 0.55);  /* پس‌زمینه تیره شفاف */
+  backdrop-filter: blur(4px);          /* افکت بلور */
+  -webkit-backdrop-filter: blur(4px);  /* برای مرورگرهای وب‌کیت */
+  z-index: 1000;                       /* لایه بالایی */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: center;             /* افق در مرکز */
+  padding: 16px;                       /* فاصله داخلی */
+  opacity: 0;                          /* کاملاً شفاف (مخفی) */
+  pointer-events: none;                /* عدم دریافت رویدادها */
+  transition: opacity 0.25s ease;      /* انیمیشن محو شدن */
+}
+
+/* حالت فعال مودال (نمایش) */
+.modal-overlay.active {
+  opacity: 1;                          /* کاملاً مشخص */
+  pointer-events: all;                 /* دریافت رویدادها */
+}
+
+/* جعبه اصلی مودال */
+.modal-box {
+  background: #fff;                    /* پس‌زمینه سفید */
+  border-radius: 20px;                /* گوشه گرد */
+  box-shadow: 0 24px 60px rgba(11, 37, 69, 0.22); /* سایه بزرگ */
+  width: 100%;                         /* عرض کامل */
+  max-width: 480px;                    /* حداکثر عرض */
+  padding: 32px 28px 28px;             /* فاصله داخلی */
+  transform: translateY(30px) scale(0.97); /* کمی پایین و کوچک (حالت اولیه) */
+  transition: transform 0.28s cubic-bezier(.34,1.56,.64,1), opacity 0.25s ease;
+  opacity: 0;                          /* شفاف */
+  position: relative;                  /* موقعیت نسبی */
+  direction: rtl;                      /* راست به چپ (برای فارسی) */
+}
+
+/* حالت نمایش مودال (وقتی فعال است) */
+.modal-overlay.active .modal-box {
+  transform: translateY(0) scale(1);   /* موقعیت اصلی */
+  opacity: 1;                          /* کاملاً مشخص */
+}
+
+/* ======================================== */
+/* استایل مودال تأیید (Confirm Modal) */
+/* ======================================== */
+
+/* هدر مودال */
+.modal-header {
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  gap: 12px;                           /* فاصله بین آیتم‌ها */
+  margin-bottom: 24px;                 /* فاصله از پایین */
+  padding-bottom: 16px;                /* فاصله داخلی پایین */
+  border-bottom: 1px solid var(--border); /* خط جداکننده */
+}
+
+/* آیکون مودال */
+.modal-icon {
+  width: 44px;                         /* عرض */
+  height: 44px;                        /* ارتفاع */
+  border-radius: 12px;                 /* گوشه گرد */
+  background: rgba(11,37,69,0.07);     /* پس‌زمینه شفاف */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: center;             /* افق در مرکز */
+  font-size: 1.3rem;                   /* اندازه فونت */
+  flex-shrink: 0;                      /* عدم کوچک شدن */
+}
+
+/* عنوان مودال */
+.modal-title {
+  margin: 0;                           /* حذف حاشیه */
+  font-size: 1.15rem;                  /* اندازه فونت */
+  font-weight: 800;                    /* خیلی ضخیم */
+  color: var(--primary);               /* رنگ اصلی */
+}
+
+/* زیرنویس مودال */
+.modal-subtitle {
+  margin: 4px 0 0;                     /* فاصله از بالا */
+  font-size: 0.82rem;                  /* فونت کوچک */
+  color: var(--text-3);                /* رنگ کم‌رنگ */
+}
+
+/* شبکه اطلاعات مودال */
+.modal-info-grid {
+  display: grid;                       /* نمایش گرید */
+  gap: 14px;                           /* فاصله بین آیتم‌ها */
+  margin-bottom: 28px;                 /* فاصله از پایین */
+}
+
+/* هر ردیف اطلاعات */
+.modal-info-row {
+  display: flex;                       /* نمایش فلکس */
+  justify-content: space-between;      /* فاصله بین دو طرف */
+  align-items: center;                 /* عمود در مرکز */
+  padding: 12px 14px;                  /* فاصله داخلی */
+  background: rgba(11,37,69,0.03);     /* پس‌زمینه شفاف */
+  border: 1px solid var(--border);     /* حاشیه */
+  border-radius: 10px;                 /* گوشه گرد */
+  gap: 10px;                           /* فاصله بین آیتم‌ها */
+}
+
+/* برچسب اطلاعات */
+.modal-info-label {
+  color: var(--text-3);                /* رنگ کم‌رنگ */
+  font-size: 0.88rem;                  /* اندازه فونت */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  gap: 6px;                            /* فاصله بین آیکون و متن */
+}
+
+/* مقدار اطلاعات */
+.modal-info-value {
+  color: var(--primary);               /* رنگ اصلی */
+  font-weight: 700;                    /* ضخیم */
+  font-size: 0.95rem;                  /* اندازه فونت */
+  text-align: left;                    /* چپ‌چین (برای اعداد) */
+}
+
+/* مقدار ساعت (با فونت دیجیتال) */
+.modal-info-value.time-val {
+  font-family: 'Orbitron', sans-serif; /* فونت دیجیتال */
+  font-size: 1rem;                     /* اندازه فونت */
+  color: var(--primary-light);         /* رنگ آبی روشن */
+}
+
+/* ======================================== */
+/* استایل دکمه‌های مودال */
+/* ======================================== */
+.modal-actions {
+  display: flex;                       /* نمایش فلکس */
+  gap: 12px;                           /* فاصله بین دکمه‌ها */
+}
+
+/* دکمه انصراف */
+.btn-cancel {
+  flex: 1;                             /* رشد برای پر کردن فضا */
+  padding: 13px;                       /* فاصله داخلی */
+  border-radius: 10px;                 /* گوشه گرد */
+  border: 1px solid var(--border);     /* حاشیه */
+  background: transparent;              /* پس‌زمینه شفاف */
+  color: var(--text-2);                /* رنگ متن ثانویه */
+  font-family: 'Vazirmatn', sans-serif; /* فونت */
+  font-size: 0.95rem;                  /* اندازه فونت */
+  font-weight: 600;                    /* ضخیم */
+  cursor: pointer;                     /* تغییر مکان‌نما */
+  transition: all 0.18s;               /* انیمیشن تغییرات */
+}
+
+/* افکت هاور دکمه انصراف */
+.btn-cancel:hover {
+  background: rgba(11,37,69,0.05);     /* پس‌زمینه شفاف */
+  color: var(--primary);               /* رنگ اصلی */
+}
+
+/* دکمه تأیید */
+.btn-confirm {
+  flex: 2;                             /* دو برابر فضای دکمه انصراف */
+  padding: 13px;                       /* فاصله داخلی */
+  border-radius: 10px;                 /* گوشه گرد */
+  border: none;                        /* بدون حاشیه */
+  background: linear-gradient(135deg, var(--primary-light), var(--primary)); /* گرادیان آبی */
+  color: #fff;                         /* متن سفید */
+  font-family: 'Vazirmatn', sans-serif; /* فونت */
+  font-size: 0.95rem;                  /* اندازه فونت */
+  font-weight: 700;                    /* ضخیم */
+  cursor: pointer;                     /* تغییر مکان‌نما */
+  transition: all 0.2s;                /* انیمیشن تغییرات */
+  box-shadow: 0 4px 16px rgba(46,134,193,0.35); /* سایه آبی */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: center;             /* افق در مرکز */
+  gap: 8px;                            /* فاصله بین آیکون و متن */
+}
+
+/* افکت هاور دکمه تأیید */
+.btn-confirm:hover {
+  transform: translateY(-2px);         /* حرکت به بالا */
+  box-shadow: 0 8px 24px rgba(46,134,193,0.4); /* سایه بیشتر */
+}
+
+/* افکت کلیک دکمه تأیید */
+.btn-confirm:active {
+  transform: translateY(0);            /* بازگشت به حالت اول */
+}
+
+/* ======================================== */
+/* استایل مودال موفقیت (Success Modal) */
+/* ======================================== */
+
+/* آیکون موفقیت (دایره سبز با تیک) */
+.success-icon-wrap {
+  width: 80px;                         /* عرض */
+  height: 80px;                        /* ارتفاع */
+  border-radius: 50%;                  /* دایره کامل */
+  background: linear-gradient(135deg, #27ae60, #1e8449); /* گرادیان سبز */
+  display: flex;                       /* نمایش فلکس */
+  align-items: center;                 /* عمود در مرکز */
+  justify-content: center;             /* افق در مرکز */
+  margin: 0 auto 20px;                 /* فاصله خودکار برای وسط‌چین */
+  box-shadow: 0 8px 28px rgba(39,174,96,0.35); /* سایه سبز */
+  font-size: 2.2rem;                   /* اندازه آیکون */
+  animation: popIn 0.4s cubic-bezier(.34,1.56,.64,1) both; /* انیمیشن ورود */
+}
+
+/* انیمیشن پاپ شدن (بزرگ شدن از صفر) */
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }  /* شروع: صفر و شفاف */
+  to   { transform: scale(1); opacity: 1; }  /* پایان: اندازه عادی و مشخص */
+}
+
+/* عنوان موفقیت */
+.success-title {
+  text-align: center;                  /* وسط‌چین */
+  margin: 0 0 6px;                     /* فاصله از پایین */
+  font-size: 1.3rem;                   /* اندازه فونت */
+  font-weight: 800;                    /* خیلی ضخیم */
+  color: var(--primary);               /* رنگ اصلی */
+}
+
+/* توضیحات موفقیت */
+.success-desc {
+  text-align: center;                  /* وسط‌چین */
+  color: var(--text-2);                /* رنگ ثانویه */
+  font-size: 0.9rem;                   /* اندازه فونت */
+  margin: 0 0 24px;                    /* فاصله از پایین */
+  line-height: 1.8;                    /* فاصله بین خطوط */
+}
+
+/* باکس کد پیگیری */
+.tracking-box {
+  background: linear-gradient(135deg, rgba(11,37,69,0.05), rgba(46,134,193,0.08)); /* گرادیان شفاف */
+  border: 1.5px dashed rgba(11,37,69,0.18); /* حاشیه چین‌چین */
+  border-radius: 12px;                 /* گوشه گرد */
+  padding: 18px;                       /* فاصله داخلی */
+  text-align: center;                  /* وسط‌چین */
+  margin-bottom: 24px;                 /* فاصله از پایین */
+}
+
+/* برچسب کد پیگیری */
+.tracking-label {
+  font-size: 0.82rem;                  /* فونت کوچک */
+  color: var(--text-3);                /* رنگ کم‌رنگ */
+  margin: 0 0 8px;                     /* فاصله از پایین */
+}
+
+/* کد پیگیری (عدد) */
+.tracking-code {
+  font-family: 'Orbitron', sans-serif; /* فونت دیجیتال */
+  font-size: 1.4rem;                   /* فونت بزرگ */
+  font-weight: 700;                    /* ضخیم */
+  color: var(--primary);               /* رنگ اصلی */
+  letter-spacing: 3px;                 /* فاصله بین حروف */
+}
+
+/* دکمه بستن مودال موفقیت */
+.btn-close-success {
+  width: 100%;                         /* عرض کامل */
+  padding: 14px;                       /* فاصله داخلی */
+  border-radius: 10px;                 /* گوشه گرد */
+  border: none;                        /* بدون حاشیه */
+  background: linear-gradient(135deg, #27ae60, #1e8449); /* گرادیان سبز */
+  color: #fff;                         /* متن سفید */
+  font-family: 'Vazirmatn', sans-serif; /* فونت */
+  font-size: 1rem;                     /* اندازه فونت */
+  font-weight: 700;                    /* ضخیم */
+  cursor: pointer;                     /* تغییر مکان‌نما */
+  transition: all 0.2s;                /* انیمیشن تغییرات */
+  box-shadow: 0 4px 16px rgba(39,174,96,0.35); /* سایه سبز */
+}
+
+/* افکت هاور دکمه بستن موفقیت */
+.btn-close-success:hover {
+  transform: translateY(-2px);         /* حرکت به بالا */
+  box-shadow: 0 8px 24px rgba(39,174,96,0.45); /* سایه بیشتر */
+}
+
+/* ======================================== */
+/* استایل واکنش‌گرا برای موبایل‌های خیلی کوچک */
+/* ======================================== */
+@media (max-width: 480px) {
+  .modal-box {
+    padding: 24px 18px 20px;           /* کاهش فاصله داخلی */
+  }
+  .modal-actions {
+    flex-direction: column-reverse;    /* دکمه‌ها به صورت ستونی و معکوس */
+  }
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('../Fonts/Vazirmatn-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../Fonts/Orbitron-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }

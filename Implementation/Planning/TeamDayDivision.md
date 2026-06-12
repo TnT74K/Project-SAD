@@ -16,6 +16,8 @@ We divide the responsibilities based on pages and coordination meetings each day
 
 
 
+## Day One
+- To be continued...
 ## Day Two
 Division Table:
 | Page Name or Task    | Responsible      | Branch(for pages)     | Status     |

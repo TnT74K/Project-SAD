@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8"> <!-- تعریف encoding UTF-8 برای پشتیبانی از فارسی -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> 
+    <!-- viewport: باعث می‌شود صفحه در موبایل به درستی مقیاس شود -->
+    <!-- viewport-fit=cover: برای گوشی‌های دارای ناچ (notch) بهینه می‌کند -->
+
+    <title>مدیریت پروفایل سازمان | ریسپانسیو</title>
+
+    
+
+
+    <!-- لینک به فایل CSS اختصاصی این صفحه که جداگانه می‌نویسیم -->
+    <link rel="stylesheet" href="../Css/OrganizationProfileEdit.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+    <!-- محل قرارگیری نوار ناوبری که توسط MainNavbar.js ساخته می‌شود -->
+    <div id="navbar-container"></div>
+
+    <main>
+        <div class="container">
+            <!-- تیتر اصلی صفحه با سایز ریسپانسیو (clamp یعنی بین 1.4 تا 1.8 ریم تغییر می‌کند) -->
+            <h1 style="font-size: clamp(1.4rem, 6vw, 1.8rem);">مدیریت پروفایل سازمان</h1>
+
+            <!-- بخش کارت اطلاعات سازمان -->
+            <section class="card">
+                <!-- دکمه ویرایش اطلاعات که مودال ویرایش را باز می‌کند -->
+                <button class="edit-btn" onclick="openOrgModal()">✏️ ویرایش اطلاعات</button>
+                
+                <!-- هدر پروفایل شامل لوگو و متن -->
+                <div class="profile-header">
+                    <!-- محفظه عکس سازمان -->
+                    <div class="org-image-wrap">
+                        <img id="orgImage" class="org-image" alt="لوگو سازمان">
+                    </div>
+                    <div>
+                        <!-- نام سازمان -->
+                        <h2 id="orgName" class="org-name"></h2>
+                        <!-- توضیحات سازمان -->
+                        <p id="orgDesc" class="org-description"></p>
+                        <!-- باکس متادیتا (اطلاعات تکمیلی) -->
+                        <div class="org-meta">
+                            <div class="meta-row">
+                                <span class="meta-label">نام کامل واحد</span>
+                                <span id="orgFullName" class="meta-value"></span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">وضعیت فعالیت</span>
+                                <span id="orgStatus" class="meta-value status-active"></span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">ساعت پاسخگویی</span>
+                                <span id="orgHours" class="meta-value"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- بخش مدیریت نوبت‌ها -->
+            <section class="appointments-section">
+                <!-- هدر این بخش با دکمه افزودن نوبت -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+                    <h3 class="section-title">📅 مدیریت نوبت‌ها</h3>
+                    <button class="edit-btn" onclick="openSlotModal()" style="margin:0;">➕ افزودن نوبت</button>
+                </div>
+                <!-- جایی که لیست نوبت‌ها به صورت داینامیک توسط جاوااسکریپت نمایش داده می‌شود -->
+                <div id="appointments" class="appointment-grid"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ------------------------------------------------------ -->
+    <!-- مودال (پنجره بازشو) ویرایش اطلاعات سازمان -->
+    <!-- ------------------------------------------------------ -->
+    <div class="modal" id="orgModal">
+        <div class="modal-box">
+            <!-- دکمه بستن مودال -->
+            <span class="close-btn" onclick="closeModal('orgModal')">✖</span>
+            <h3>ویرایش سازمان</h3>
+            
+            <!-- فیلد نام سازمان -->
+            <input id="inputName" placeholder="نام سازمان">
+            <!-- فیلد نام کامل سازمان -->
+            <input id="inputFullName" placeholder="نام کامل">
+            
+            <label>وضعیت فعالیت</label>
+            <select id="orgActive">
+                <option value="true">فعال</option>
+                <option value="false">غیرفعال</option>
+            </select>
+            
+            <label>شروع پاسخگویی</label>
+            <input type="time" id="startHour">
+            
+            <label>پایان پاسخگویی</label>
+            <input type="time" id="endHour">
+            
+            <label>تصویر سازمان</label>
+            <input type="file" id="imageUpload" accept="image/*">
+            
+            <textarea id="inputDesc" rows="3" placeholder="توضیحات"></textarea>
+            
+            <!-- دکمه ذخیره که تابع saveOrg را صدا می‌زند -->
+            <button onclick="saveOrg()">💾 ذخیره تغییرات</button>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------ -->
+    <!-- مودال (پنجره بازشو) ثبت و ویرایش نوبت -->
+    <!-- ------------------------------------------------------ -->
+    <div class="modal" id="slotModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('slotModal')">✖</span>
+            <h3 id="slotTitle">📆 ثبت نوبت جدید</h3>
+            
+            <!-- بخش تقویم شمسی -->
+            <div class="calendar">
+                <div class="calendar-header">
+                    <button onclick="prevMonth()">❮</button> <!-- دکمه ماه قبل -->
+                    <span id="calendarTitle"></span> <!-- عنوان ماه و سال جاری -->
+                    <button onclick="nextMonth()">❯</button> <!-- دکمه ماه بعد -->
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div> <!-- گرید روزهای ماه -->
+            </div>
+            
+            <label>⏰ ساعت نوبت</label>
+            <input type="time" id="slotTime" style="margin-bottom:20px;">
+            
+            <button onclick="saveSlot()">ذخیره نوبت</button>
+        </div>
+    </div>
+  <div id="footer-placeholder"></div>
+    <!-- لینک به فایل جاوااسکریپت اصلی این صفحه -->
+    <script src="../JavaScript/OrganizationProfileEdit.js" defer></script>
+    <script src="../JavaScript/LoadHeader.js"></script>
+<script src="../JavaScript/Header.js"></script>
+<script src="../JavaScript/LoadFooter.js"></script>
+
+</body>
+</html>
