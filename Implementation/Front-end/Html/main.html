@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>داشبورد رزرو نوبت</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: #F5F8FA;
+    color: #0B2545;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* NAV */
+  nav {
+    background: #0B2545;
+    padding: 0 2rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;}
+  nav .logo { color: #D4AC0D; font-weight: 700; font-size: 1.1rem; }
+  nav ul { list-style: none; display: flex; gap: 1.5rem; }
+  nav ul a { color: #C0D6E8; text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+  nav ul a:hover { color: #D4AC0D; }
+
+  /* MAIN */
+  main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* PROFILE CARD */
+  .profile-card {
+    background: #fff;
+    border-radius: 12px;
+    border-top: 4px solid #2E86C1;
+    box-shadow: 0 2px 12px rgba(11,37,69,.08);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .75rem;
+    grid-row: 1 / 3;
+  }
+  .avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1B4F72, #2E86C1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; color: #fff;
+  }
+  .profile-card h2 { font-size: 1.1rem; font-weight: 700; }
+  .profile-card .role { color: #2E86C1; font-size: .85rem; }
+  .profile-card .org {
+    background: #C0D6E8;
+    color: #0B2545;
+    padding: .3rem .9rem;
+    border-radius: 20px;
+    font-size: .8rem;
+    font-weight: 600;
+  }
+
+  /* CLOCK CARD */
+  .clock-card {
+    background: #0B2545;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+  }
+  #clock {
+    font-family: 'Orbitron', monospace;
+    font-size: 3rem;
+    color: #D4AC0D;
+    letter-spacing: .15em;
+    text-shadow: 0 0 20px rgba(212,172,13,.4);
+    font-variant-numeric: tabular-nums;
+  }
+  .date-row {
+    display: flex;
+    gap: 1.5rem;
+    color: #C0D6E8;
+    font-size: .85rem;
+  }
+  .date-row span { opacity: .85; }
+
+  /* APPOINTMENTS */
+  .appointments {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(11,37,69,.08);
+    padding: 1.5rem;
+    overflow-y: auto;
+  }
+  .appointments h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1B4F72;
+    border-bottom: 2px solid #C0D6E8;
+    padding-bottom: .5rem;
+  }
+  .apt-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .75rem .5rem;
+    border-bottom: 1px solid #F5F8FA;
+    transition: background .15s;
+  }
+  .apt-item:hover { background: #F5F8FA; border-radius: 8px; }
+  .apt-item.done {
+    opacity: .5;
+    text-decoration: line-through;
+  }
+  .apt-time {
+    font-family: 'Orbitron', monospace;
+    font-size: .85rem;
+    color: #2E86C1;
+    min-width: 70px;
+    font-weight: 700;
+  }
+  .apt-item.done .apt-time { color: #999; }
+  .apt-name { flex: 1; font-size: .9rem; font-weight: 600; }
+  .badge {
+    padding: .25rem .7rem;
+    border-radius: 20px;
+    font-size: .75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge.present { background: #d4edda; color: #155724; }
+  .badge.absent  { background: #f8d7da; color: #721c24; }
+  .badge.pending { background: #fff3cd; color: #856404; }
+
+  /* FOOTER */
+  footer {
+    background: #0B2545;
+    color: #C0D6E8;
+    text-align: center;
+    padding: .9rem;
+    font-size: .8rem;
+  }
+
+  @media (max-width: 700px) {
+    main { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .profile-card { grid-row: auto; }
+    #clock { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">📅 سامانه رزرو نوبت</span>
+  <ul>
+    <li><a href="#">داشبورد</a></li>
+    <li><a href="#">رزرو جدید</a></li>
+    <li><a href="#">تاریخچه</a></li>
+    <li><a href="#">تنظیمات</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="profile-card">
+    <div class="avatar">👤</div>
+    <h2>علی محمدی</h2>
+    <span class="role">کارشناس سیستم</span>
+    <span class="org">سازمان خدمات شهری</span>
+  </div>
+
+  <div class="clock-card">
+    <div id="clock">00:00:00</div>
+    <div class="date-row">
+      <span id="date-shamsi">—</span>
+      <span>|</span>
+      <span id="date-miladi">—</span>
+    </div>
+  </div>
+
+  <div class="appointments">
+    <h3>📋 نوبت‌های رزرو شده امروز</h3>
+    <div id="apt-list"></div>
+  </div>
+</main>
+
+<footer>طراحی شده برای درس تحلیل</footer>
+
+<script>
+// ── تبدیل میلادی به شمسی ──────────────────────────────────────────────────
+function toShamsi(date) {
+  const d = new Date(date);
+  const gy = d.getFullYear(), gm = d.getMonth() + 1, gd = d.getDate();
+  let jy, jm, jd;
+  const g_d_no = 365 * gy + Math.floor((gy + 3) / 4) - Math.floor((gy + 99) / 100) + Math.floor((gy + 399) / 400);
+  const [gDays] = [[0,31,28+(gy%4==0&&(gy%100!=0||gy%400==0)?1:0),31,30,31,30,31,31,30,31,30,31]];
+  let g_d = g_d_no;
+  for (let i = 1; i < gm; i++) g_d += [0,31,28+(gy%4==0&&(gy%100!=0||gy%400==0)?1:0),31,30,31,30,31,31,30,31,30,31][i];
+  g_d += gd;
+  let j_d_no = g_d - 79;
+  const j_np = Math.floor(j_d_no / 12053); j_d_no %= 12053;
+  jy = 979 + 33 * j_np + 4 * Math.floor(j_d_no / 1461);
+  j_d_no %= 1461;
+  if (j_d_no >= 366) { jy += Math.floor((j_d_no - 1) / 365); j_d_no = (j_d_no - 1) % 365; }
+  const jMonths = [31,31,31,31,31,31,30,30,30,30,30,29];
+  const jMonthNames = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+  for (jm = 0; jm < 12; jm++) { if (j_d_no < jMonths[jm]) break; j_d_no -= jMonths[jm]; }
+  jd = j_d_no + 1;
+  const dayNames = ['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه','شنبه'];
+  return `${dayNames[d.getDay()]} ${jd} ${jMonthNames[jm]} ${jy}`;
+}
+
+// ── ساعت ──────────────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('clock').textContent = `${h}:${m}:${s}`;
+
+  document.getElementById('date-shamsi').textContent = toShamsi(now);
+
+  const miladi = now.toLocaleDateString('fa-IR-u-ca-gregory', {year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('date-miladi').textContent = miladi;
+
+  renderAppointments();
+}
+
+// ── داده‌های نوبت (نمونه) ──────────────────────────────────────────────────
+const appointments = [
+  { name: 'کلینیک دندانپزشکی دکتر رضایی', time: '08:30', attended: true  },
+  { name: 'اداره ثبت احوال',               time: '09:15', attended: false },
+  { name: 'بانک ملی شعبه مرکزی',           time: '10:00', attended: true  },
+  { name: 'مطب دکتر احمدی',                time: '11:30', attended: false },
+  { name: 'شهرداری منطقه ۵',               time: '13:00', attended: null  },
+  { name: 'آزمایشگاه پاتوبیولوژی',         time: '14:45', attended: null  },
+  { name: 'اداره پست',                     time: '16:00', attended: null  },
+];
+
+function isPast(timeStr) {
+  const now = new Date();
+  const [h, m] = timeStr.split(':').map(Number);
+  return now.getHours() > h || (now.getHours() === h && now.getMinutes() >= m);
+}
+
+function renderAppointments() {
+  const sorted = [...appointments].sort((a, b) => a.time.localeCompare(b.time));
+  const list = document.getElementById('apt-list');
+  list.innerHTML = sorted.map(apt => {
+    const past = isPast(apt.time);
+    const done = past || apt.attended === true;
+    let badge, badgeClass;
+    if (apt.attended === true)       { badge = '✅ حضور داشته';  badgeClass = 'present'; }
+    else if (apt.attended === false && past) { badge = '❌ غایب';  badgeClass = 'absent';  }
+    else if (past)                   { badge = '❌ غایب';         badgeClass = 'absent';  }
+    else                             { badge = '⏳ در انتظار';    badgeClass = 'pending'; }
+
+    return `
+      <div class="apt-item ${done ? 'done' : ''}">
+        <span class="apt-time">${apt.time}</span>
+        <span class="apt-name">${apt.name}</span>
+        <span class="badge ${badgeClass}">${badge}</span>
+      </div>`;
+  }).join('');
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+</body>
+</html>
