@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!--
+  index.html — رزروسنتر | صفحه اصلی
+-->
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>رزروسنتر | سیستم جامع نوبت‌دهی</title>
+
+  <!-- فونت فارسی Vazirmatn از Google Fonts -->
+
+  <!-- استایل‌های اصلی صفحه -->
+  <link rel="stylesheet" href="../Css/home_page.css"/>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     1. HEADER
+     هدر فیکس شده بالای صفحه
+     شامل: لوگو | لینک‌های ناوبار | دکمه‌های ورود/ثبت‌نام | منوی موبایل
+     کلاس .scrolled توسط JS هنگام اسکرول اضافه می‌شه
+══════════════════════════════════════════ -->
+<header id="header">
+  <div id="header-placeholder"></div>
+
+</header>
+
+
+<!-- ══════════════════════════════════════════
+     2. HERO
+     بخش اصلی صفحه با پس‌زمینه تیره
+     شامل: بج | عنوان | زیرعنوان | باکس جستجو | چیپ‌ها
+══════════════════════════════════════════ -->
+<section id="hero">
+
+  <!-- گرید تزئینی پس‌زمینه (CSS-only) -->
+  <div class="hero-grid"></div>
+
+  <div class="container">
+    <div class="hero-content">
+
+      <!-- بج بالای عنوان با نقطه چشمک‌زن -->
+      <div class="hero-badge">
+        <span class="hero-dot"></span>
+        سیستم هوشمند نوبت‌دهی آنلاین
+      </div>
+
+      <!-- عنوان اصلی — em برای رنگ طلایی -->
+      <h1 class="hero-title">نوبت بگیر،<br><em>وقتت رو هدر نده</em></h1>
+
+      <p class="hero-subtitle">
+        از آرایشگاه تا کلینیک، از باشگاه تا دندانپزشک —
+        همه نوبت‌هات رو با رزروسنتر در چند ثانیه رزرو کن
+      </p>
+
+      <!-- باکس جستجو: فیلد متن + انتخاب شهر + دکمه -->
+      <div class="search-box">
+        <div class="search-field">
+          <!-- آیکون ذره‌بین -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <input type="text" placeholder="جستجوی خدمت یا کسب‌وکار..." id="mainSearch">
+        </div>
+
+        <!-- جداکننده عمودی بین فیلد و انتخاب شهر -->
+        <div class="search-divider"></div>
+
+        <!-- انتخاب شهر -->
+        <select class="city-select" id="citySelect">
+          <option value="">📍 انتخاب شهر</option>
+          <option value="tehran">تهران</option>
+          <option value="mashhad">مشهد</option>
+          <option value="isfahan">اصفهان</option>
+          <option value="shiraz">شیراز</option>
+          <option value="tabriz">تبریز</option>
+          <option value="karaj">کرج</option>
+          <option value="ahvaz">اهواز</option>
+          <option value="qom">قم</option>
+        </select>
+
+        <!-- دکمه جستجو — doSearch() در main.js تعریف شده -->
+        <a href="../Html/search-results.html" class="search-btn" onclick="doSearch()">🔍 جستجو</a>
+      </div>
+
+      <!-- چیپ‌های میان‌بر دسته‌بندی — setChip() در main.js -->
+      <div class="hero-chips">
+        <span class="hero-chip-label">پرطرفدار:</span>
+        <button class="chip active" onclick="setChip(this,'آرایشگاه')">✂️ آرایشگاه</button>
+        <button class="chip"        onclick="setChip(this,'دندانپزشک')">🦷 دندانپزشک</button>
+        <button class="chip"        onclick="setChip(this,'باشگاه')">💪 باشگاه</button>
+        <button class="chip"        onclick="setChip(this,'کلینیک')">🏥 کلینیک</button>
+        <button class="chip"        onclick="setChip(this,'سالن زیبایی')">💅 سالن زیبایی</button>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     3. CATEGORIES
+     گرید دسته‌بندی‌های خدمات قابل رزرو
+     کلیک روی هر کارت → filterCat() در main.js
+══════════════════════════════════════════ -->
+<section id="categories">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-badge">📂 دسته‌بندی‌ها</div>
+      <h2 class="section-title">خدمات مورد نیازت را پیدا کن</h2>
+      <p class="section-subtitle">از هزاران کسب‌وکار در دسته‌بندی‌های مختلف، سریع و آسان انتخاب کن</p>
+    </div>
+
+    <div class="categories-grid">
+
+      <div class="cat-card" onclick="filterCat('آرایشگاه')">
+        <div class="cat-icon" style="background:rgba(11,37,69,0.08)">✂️</div>
+        <div class="cat-name">آرایشگاه</div>
+        <div class="cat-count">۲٬۳۴۵ کسب‌وکار</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('دندانپزشک')">
+        <div class="cat-icon" style="background:rgba(46,134,193,0.1)">🦷</div>
+        <div class="cat-name">دندانپزشک</div>
+        <div class="cat-count">۱٬۸۷۲ کلینیک</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('کلینیک')">
+        <div class="cat-icon" style="background:rgba(34,197,94,0.1)">🏥</div>
+        <div class="cat-name">کلینیک</div>
+        <div class="cat-count">۹۸۴ مرکز</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('باشگاه')">
+        <div class="cat-icon" style="background:rgba(239,68,68,0.1)">💪</div>
+        <div class="cat-name">باشگاه ورزشی</div>
+        <div class="cat-count">۱٬۱۲۳ باشگاه</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('سالن زیبایی')">
+        <div class="cat-icon" style="background:rgba(168,85,247,0.1)">💅</div>
+        <div class="cat-name">سالن زیبایی</div>
+        <div class="cat-count">۳٬۶۷۸ سالن</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('پت‌شاپ')">
+        <div class="cat-icon" style="background:rgba(251,146,60,0.1)">🐾</div>
+        <div class="cat-name">پت‌شاپ</div>
+        <div class="cat-count">۵۶۷ فروشگاه</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('پزشک')">
+        <div class="cat-icon" style="background:rgba(20,184,166,0.1)">⚕️</div>
+        <div class="cat-name">پزشک عمومی</div>
+        <div class="cat-count">۷۸۹ پزشک</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('آزمایشگاه')">
+        <div class="cat-icon" style="background:rgba(212,172,13,0.1)">🔬</div>
+        <div class="cat-name">آزمایشگاه</div>
+        <div class="cat-count">۴۳۲ آزمایشگاه</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     4. CTA BANNER
+     بنر دعوت به ثبت‌نام برای صاحبان کسب‌وکار
+══════════════════════════════════════════ -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-banner">
+
+      <div class="cta-banner-text">
+        <div class="cta-banner-icon">🚀</div>
+        <div>
+          <h2>کسب‌وکار داری؟ <em>رزرو آنلاین راه‌اندازی کن</em></h2>
+          <p>نظم بده به نوبت‌هات، کاربران بیشتری جذب کن. ثبت‌نام رایگانه!</p>
+        </div>
+      </div>
+
+      <div class="cta-banner-actions">
+        <button class="btn-cta-primary" onclick="window.location.href='../Html/ORG-Register-Form.html'">ثبت كسب و كار</button>
+        <button class="btn-cta-sec">بیشتر بدانید</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     5. FOOTER
+     نوار پایین صفحه — تک ردیف با لوگو، لینک‌ها و کپی‌رایت
+══════════════════════════════════════════ -->
+  <div id="footer-placeholder"></div>
+
+
+<!-- اسکریپت اصلی — انتهای body برای دسترسی به تمام عناصر DOM -->
+<script src="../JavaScript/home_page.js" defer></script>
+<script src="../JavaScript/LoadHeaderWithProfile.js"></script>
+<script src="../JavaScript/Header.js"></script>
+<script src="../JavaScript/LoadFooter.js"></script>
+
+</body>
+</html>
