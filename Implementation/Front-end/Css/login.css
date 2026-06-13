@@ -1,224 +1,397 @@
        :root {
-           --primary: #0B2545;
-           --primary-mid: #1B4F72;
-           --primary-light: #2E86C1;
-           --accent: #D4AC0D;
-           --bg: #eef2f7;
-           --bg-card: #ffffff;
-           --text: #1a2a3a;
-           --text-2: #4a6080;
-           --text-3: #8aa0b8;
-           --border: rgba(11, 37, 69, 0.1);
-           --radius: 14px;
-           --radius-sm: 8px;
-           --shadow: 0 2px 16px rgba(11, 37, 69, 0.08);
-       }
+            --primary: #0B2545;
+            --primary-mid: #1B4F72;
+            --primary-light: #2E86C1;
+            --accent: #D4AC0D;
+            --bg: #eef2f7;
+            --bg-card: #ffffff;
+            --text: #1a2a3a;
+            --text-2: #4a6080;
+            --text-3: #8aa0b8;
+            --border: rgba(11, 37, 69, 0.12);
+            --radius: 14px;
+            --radius-sm: 8px;
+            --shadow: 0 2px 16px rgba(11, 37, 69, 0.08);
+            --success: #27ae60;
+            --error: #e74c3c;
+        }
 
-       * {
-           box-sizing: border-box;
-       }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-       body {
-           font-family: 'Vazirmatn', sans-serif;
-           margin: 0;
-           min-height: 100vh;
-           display: flex;
-           justify-content: center;
-           align-items: center;
-           padding: 24px;
-           color: var(--text);
-           background:
-               radial-gradient(ellipse at 20% 0%, rgba(46, 134, 193, 0.12) 0%, transparent 55%),
-               radial-gradient(ellipse at 80% 100%, rgba(11, 37, 69, 0.10) 0%, transparent 50%),
-               linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
-           background-attachment: fixed;
-       }
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at 20% 0%, rgba(46, 134, 193, 0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 100%, rgba(11, 37, 69, 0.10) 0%, transparent 50%),
+                linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
+            background-attachment: fixed;
+        }
 
-       input,
-       button,
-       textarea,
-       select {
-           font-family: 'Vazirmatn', sans-serif;
-       }
-       /*استایل کارت فرم*/
-       .auth-card {
-           width: 420px;
-           max-width: 100%;
-           background: var(--bg-card);
-           border-radius: var(--radius);
-           box-shadow: var(--shadow);
-           padding: 36px 28px;
-           text-align: center;
-           border: 1px solid rgba(255, 255, 255, 0.35);
-           backdrop-filter: blur(10px);
-       }
-       /* استایل لوگوی متنی */
-       .logo-text {
-           font-size: 1.8rem;
-           font-weight: 700;
-           color: var(--primary);
-           margin-bottom: 8px;
-       }
-       /* استایل زیرنویس لوگو */
-       .logo-sub {
-           font-size: 0.95rem;
-           color: var(--text-2);
-           margin-bottom: 28px;
-       }
-       /* استایل هر گروه از فیلدهای فرم */
-       .form-group {
-           margin-bottom: 18px;
-           text-align: right;
-       }
-       /* استایل لیبل فیلدها */
-       .form-group label {
-           display: block;
-           margin-bottom: 8px;
-           color: var(--text-2);
-           font-weight: 600;
-           font-size: 0.95rem;
-       }
+        input, button, select {
+            font-family: 'Vazirmatn', sans-serif;
+        }
 
-       .input-group {
-           position: relative;
-       }
-       /* استایل فیلدهای ورودی (text, password) */
-       .input-group input {
-           width: 100%;
-           height: 46px;
-           padding: 12px 14px;
-           border: 1px solid var(--border);
-           border-radius: var(--radius-sm);
-           background-color: var(--bg-card);
-           color: var(--text);
-           font-size: 0.95rem;
-           box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-           transition: border-color .2s, box-shadow .2s;
-       }
+        /* ====== کارت ====== */
+        .auth-card {
+            width: 420px;
+            max-width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 36px 28px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.35);
+        }
 
-       .input-group input.has-icon {
-           padding-left: 44px;
-       }
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
 
-       .input-group input:focus {
-           outline: none;
-           border-color: var(--primary-light);
-           box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.2);
-       }
-       /* استایل سلکت باکس (انتخاب نقش) - اضافه شده */
-       .input-group select {
-           width: 100%;
-           height: 46px;
-           padding: 12px 14px;
-           border: 1px solid var(--border);
-           border-radius: var(--radius-sm);
-           background-color: var(--bg-card);
-           color: var(--text);
-           font-size: 0.95rem;
-           font-family: 'Vazirmatn', sans-serif;
-           cursor: pointer;
-           transition: border-color .2s, box-shadow .2s;
-       }
+        .logo-sub {
+            font-size: 0.95rem;
+            color: var(--text-2);
+            margin-bottom: 24px;
+        }
 
-       .input-group select:focus {
-           outline: none;
-           border-color: var(--primary-light);
-           box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.2);
-       }
-       /* استایل آیکون چشم (نمایش/مخفی کردن رمز) */
-       .toggle-icon {
-           position: absolute;
-           left: 12px;
-           top: 50%;
-           transform: translateY(-50%);
-           cursor: pointer;
-           user-select: none;
-           font-size: 18px;
-           color: var(--text-3);
-           line-height: 1;
-       }
-       /* استایل لینک فراموشی رمز */
-       .forgot-password {
-           display: block;
-           text-align: center;
-           margin: 4px 0 20px;
-           font-size: 0.88rem;
-           color: var(--primary-light);
-           text-decoration: none;
-           transition: color .2s;
-       }
+        /* ====== تب‌ها ====== */
+        .tabs {
+            display: flex;
+            background: #f0f4f9;
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            margin-bottom: 24px;
+            gap: 4px;
+        }
 
-       .forgot-password:hover {
-           color: var(--primary-mid);
-       }
-       /* استایل دکمه اصلی ورود */
-       .btn-primary {
-           width: 100%;
-           border: none;
-           border-radius: var(--radius-sm);
-           background: var(--primary-light);
-           color: #fff;
-           padding: 12px 24px;
-           font-size: 1rem;
-           font-weight: 600;
-           cursor: pointer;
-           transition: all .2s ease;
-           margin-top: 6px;
-       }
+        .tab-btn {
+            flex: 1;
+            padding: 9px 12px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
-       .btn-primary:hover {
-           background: var(--primary-mid);
-       }
+        .tab-btn.active {
+            background: var(--bg-card);
+            color: var(--primary);
+            box-shadow: 0 1px 6px rgba(11, 37, 69, 0.12);
+        }
 
-       .btn-primary:focus {
-           outline: none;
-           box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.25);
-       }
-       /* استایل لینک ثبت‌نام */
-       .signup-link {
-           margin-top: 22px;
-           font-size: 0.92rem;
-           color: var(--text-2);
-       }
-       /* استایل لینک داخل ثبت‌نام */
-       .signup-link a {
-           color: var(--primary-light);
-           text-decoration: none;
-           font-weight: 600;
-       }
+        .tab-btn:hover:not(.active) {
+            color: var(--primary-light);
+        }
 
-       .signup-link a:hover {
-           color: var(--primary-mid);
-       }
-       /*رسپانسیو*/
-       @media (max-width: 480px) {
-           .auth-card {
-               padding: 28px 18px;
-           }
+        /* ====== فرم‌ها ====== */
+        .form-panel {
+            display: none;
+        }
 
-           .logo-text {
-               font-size: 1.55rem;
-           }
-       }
+        .form-panel.active {
+            display: block;
+        }
 
-       @font-face {
-  font-family: 'Vazirmatn';
-  src: url('../Fonts/Vazirmatn-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Vazirmatn';
-  src: url('../Fonts/Vazirmatn-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Orbitron';
-  src: url('../Fonts/Orbitron-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+        .form-group {
+            margin-bottom: 18px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-2);
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            height: 46px;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            color: var(--text);
+            font-size: 0.95rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group input.has-icon {
+            padding-left: 44px;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.18);
+        }
+
+        .input-group input.error {
+            border-color: var(--error);
+        }
+
+        .input-group input.success {
+            border-color: var(--success);
+        }
+
+        /* آیکون چشم */
+        .toggle-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            user-select: none;
+            font-size: 18px;
+            color: var(--text-3);
+        }
+
+        /* ====== OTP ====== */
+        .otp-boxes {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            direction: ltr;
+            margin-top: 4px;
+        }
+
+        .otp-boxes input {
+            width: 48px !important;
+            height: 52px !important;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 0 !important;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            letter-spacing: 0;
+        }
+
+        .otp-boxes input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.18);
+        }
+
+        .otp-boxes input.filled {
+            border-color: var(--primary-light);
+            background: rgba(46, 134, 193, 0.04);
+        }
+
+        /* تایمر و ارسال مجدد */
+        .otp-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+
+        .timer {
+            color: var(--text-3);
+            font-weight: 600;
+            direction: ltr;
+        }
+
+        .timer.urgent {
+            color: var(--error);
+        }
+
+        .resend-btn {
+            background: none;
+            border: none;
+            color: var(--primary-light);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0;
+            transition: color 0.2s;
+        }
+
+        .resend-btn:disabled {
+            color: var(--text-3);
+            cursor: not-allowed;
+        }
+
+        .resend-btn:not(:disabled):hover {
+            color: var(--primary-mid);
+        }
+
+        /* مرحله‌ها در OTP */
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        /* پیام وضعیت */
+        .status-msg {
+            font-size: 0.85rem;
+            margin-top: 6px;
+            min-height: 18px;
+            text-align: right;
+        }
+
+        .status-msg.error { color: var(--error); }
+        .status-msg.success { color: var(--success); }
+
+        /* ====== دکمه‌ها ====== */
+        .btn-primary {
+            width: 100%;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--primary-light);
+            color: #fff;
+            padding: 13px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover { background: var(--primary-mid); }
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.25);
+        }
+
+        .btn-primary:disabled {
+            background: var(--text-3);
+            cursor: not-allowed;
+        }
+
+        .btn-primary .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        .btn-primary.loading .spinner { display: block; }
+        .btn-primary.loading .btn-text { opacity: 0.7; }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ====== سایر ====== */
+        .forgot-password {
+            display: block;
+            text-align: center;
+            margin: 4px 0 20px;
+            font-size: 0.88rem;
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .forgot-password:hover { color: var(--primary-mid); }
+
+        .select-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .signup-link {
+            margin-top: 22px;
+            font-size: 0.92rem;
+            color: var(--text-2);
+        }
+
+        .signup-link a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover { color: var(--primary-mid); }
+
+        /* نشانگر مرحله */
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: var(--primary-light);
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        .step-dot.done {
+            background: var(--success);
+        }
+
+        /* phone prefix */
+        .phone-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .phone-prefix {
+            height: 46px;
+            padding: 0 12px;
+            background: #f0f4f9;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-2);
+            font-size: 0.95rem;
+            font-weight: 600;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .phone-wrapper input {
+            flex: 1;
+            direction: ltr;
+        }
+
+        @media (max-width: 480px) {
+            .auth-card { padding: 28px 18px; }
+            .logo-text { font-size: 1.55rem; }
+            .otp-boxes input { width: 42px !important; height: 48px !important; }
+        }
