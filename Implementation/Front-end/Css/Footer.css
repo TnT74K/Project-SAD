@@ -1,0 +1,117 @@
+/* اصلاح بدنه برای استفاده از Flexbox */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* بخش اصلی که باید کش بیاید */
+main {
+    flex: 1;
+    padding-top: 80px;
+}
+
+/* فوتر */
+#footer {
+    background: #071b33;
+    color: #ddd;
+    margin-top: 20px;     /* کمتر شد */
+    padding: 20px 0;      /* قبلاً بزرگ‌تر بود */
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 16px;            /* کمتر شد */
+}
+
+.footer-logo{
+display:flex;
+align-items:center;
+gap:8px;
+font-weight:800;
+font-size:1.1rem;
+color:white;
+margin-bottom:8px;       /* کمتر شد */
+}
+
+.footer-logo span{
+color:#D4AC0D;
+}
+
+.footer-desc{
+font-size:.85rem;
+line-height:1.6;
+color:#aaa;
+max-width:320px;
+}
+
+.footer-col h4{
+color:white;
+font-size:.9rem;
+margin-bottom:8px;       /* کمتر شد */
+}
+
+.footer-col a{
+display:block;
+color:#aaa;
+font-size:.85rem;
+margin-bottom:6px;       /* کمتر شد */
+transition:.2s;
+}
+
+.footer-col a:hover{
+color:#D4AC0D;
+}
+
+.footer-bottom {
+    margin-top: 12px;     /* کمتر شد */
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 8px 0;       /* کمتر شد */
+    text-align: center;
+    font-size: .8rem;
+    color: #888;
+}
+
+@media(max-width:900px){
+
+.footer-grid{
+grid-template-columns:1fr 1fr;
+gap:20px;
+text-align:center;
+}
+
+.footer-logo{
+justify-content:center;
+}
+
+.footer-desc{
+margin:auto;
+}
+
+}
+
+@media(max-width:500px){
+
+.footer-grid{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.footer-logo{
+justify-content:center;
+}
+
+.footer-desc{
+max-width:100%;
+margin:auto;
+}
+
+.footer-col{
+text-align:center;
+}
+
+}
+
