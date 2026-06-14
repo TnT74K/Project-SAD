@@ -23,7 +23,7 @@ Division table:
 | `New`: ORG register guide | `Add`: from homepage, they can enter this page; We explain how to register page and tell them about the rules. |                  |         | Open   |
 | Search page               | `Add`: فیلتر برای کسب و کارهای برتر                          | Mohammad Hossein | develop | Open   |
 | Footer                    | `Add`: Mock emails + support numbers                         | Abolfazl         | develop | Open   |
-| Homepage                  | `Fix`: change homepage 'new ORGs' page profile images to a default image. |                  |         | Open   |
+| Homepage                  | `Fix`: change homepage 'new ORGs' page profile images to a default image. | Mohammad Hossein |         | Open   |
 
 ## Fix: Part Three (05/3/26)
 
@@ -32,16 +32,17 @@ Division table:
 | `new` role selection page | Opens **If** the user has more than 1 role.                  |                  |         | Open   |
 | `new` Ad page             | Opens after the user clicks on "Show More" button of 'Recent ADs' section. |                  |         | Open   |
 | Homepage                  | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein | develop | Open   |
-| ORG-Admin-Dashboard       | `add`: buttons to the profile based on use cases             | ???              | develop | Open   |
+| ORG-Admin-Dashboard       | `add`: buttons to the profile based on use cases             | Abolfazl         | develop | Open   |
 | Search-page               | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein | develop | Open   |
 | All dashboards            | `Fix`: nav bar still shows login / register                  | Abolfazl         | develop | Open   |
 
 ## Fix: Part Four(05/3/27)
 
-| Page to improve                    | Description                                           | Responsible      | Branch     | Status |
-| ---------------------------------- | ----------------------------------------------------- | ---------------- | ---------- | ------ |
-| Login / Register / Forgot password | `Idea`:  Appearance that users can better distinguish | Hamed            | develop    | ???    |
-| Homepage                           | `Idea`: راهنمای ثبت نوبت بذاریم                       | Mohammad Hossein | develop    | ???    |
-| All pages                          | `Idea`: Add dark mode                                 | Team             | Front/Dark | ???    |
-| My-profile                         | `Fix` : ثبت ستاره روی نوبت ها کار نمیکنه              |                  |            |        |
+| Page to improve                    | Description                                                | Responsible      | Branch     | Status |
+| ---------------------------------- | ---------------------------------------------------------- | ---------------- | ---------- | ------ |
+| Login / Register / Forgot password | `Idea`:  Appearance that users can better distinguish      | Hamed            | develop    | ???    |
+| Homepage                           | `Idea`: راهنمای ثبت نوبت بذاریم                            | Mohammad Hossein | develop    | ???    |
+| All pages                          | `Idea`: Add dark mode                                      | Team             | Front/Dark | ???    |
+| My-profile                         | `Fix` : ثبت ستاره روی نوبت ها کار نمیکنه                   | Mohammad hossein | develop    | Open   |
+| OG profile                         | `Add`: اگر نوبت جدید کاربر باقبلیا تداخل داشت خطا نشون بده | Abolfazl?        | develop    | Open   |
 

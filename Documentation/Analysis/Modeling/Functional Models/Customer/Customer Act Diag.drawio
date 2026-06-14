@@ -206,7 +206,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="xCSvMJbri0eAOq7d01rj" name="Reserve Appo">
-    <mxGraphModel dx="1764" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1639" dy="686" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -269,10 +269,8 @@
         <mxCell id="_L-aVTN3BIsu04gnwTUH-17" parent="1" style="whiteSpace=wrap;html=1;fontSize=11;fontFamily=zain;fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);fontColor=light-dark(#FFFFFF,#FFFFFF);rounded=1;strokeWidth=3;fontStyle=1;labelBackgroundColor=none;" value="هدایت کاربر برای ورود / ثبتنام" vertex="1">
           <mxGeometry height="60" width="120" x="640" y="950" as="geometry" />
         </mxCell>
-        <mxCell id="_L-aVTN3BIsu04gnwTUH-26" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-20" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;endArrow=open;endFill=0;" target="_L-aVTN3BIsu04gnwTUH-27">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="425" y="1260" as="targetPoint" />
-          </mxGeometry>
+        <mxCell id="DwpIG4gBSXaaS4trjbck-2" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="DwpIG4gBSXaaS4trjbck-1" value="">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="نمایش خلاصه فرآیند نوبت" vertex="1">
           <mxGeometry height="60" width="120" x="365" y="1140" as="geometry" />
@@ -285,15 +283,15 @@
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-28" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-27" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;endArrow=open;endFill=0;" target="_L-aVTN3BIsu04gnwTUH-29">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="425" y="1430" as="targetPoint" />
+            <mxPoint x="425" y="1700" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;fillColor=light-dark(#0B2545,#0B2545);" value="ارسال درخواست نوبت به&amp;nbsp; سازمان" vertex="1">
-          <mxGeometry height="60" width="120" x="365" y="1280" as="geometry" />
+          <mxGeometry height="60" width="120" x="365" y="1550" as="geometry" />
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-30" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-29" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;endArrow=open;endFill=0;" target="_L-aVTN3BIsu04gnwTUH-31">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="610" y="1430" as="targetPoint" />
+            <mxPoint x="610" y="1700" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-33" connectable="0" parent="_L-aVTN3BIsu04gnwTUH-30" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rounded=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=11;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="سازمان درخواست را رد میکند" vertex="1">
@@ -303,7 +301,7 @@
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-35" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-29" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;endArrow=open;endFill=0;" target="_L-aVTN3BIsu04gnwTUH-34" value="">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="425" y="1550" as="targetPoint" />
+            <mxPoint x="425" y="1820" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-36" connectable="0" parent="_L-aVTN3BIsu04gnwTUH-35" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rounded=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=11;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="سازمان درخواست را می‌پذیرد" vertex="1">
@@ -312,53 +310,53 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-29" parent="1" style="rhombus;whiteSpace=wrap;html=1;rounded=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;fillColor=light-dark(#0B2545,#0B2545);" value="" vertex="1">
-          <mxGeometry height="80" width="80" x="385" y="1390" as="geometry" />
+          <mxGeometry height="80" width="80" x="385" y="1660" as="geometry" />
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-31" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;fillColor=light-dark(#0B2545,#0B2545);" value="&amp;nbsp; نمایش پیام مناسب به مشتری" vertex="1">
-          <mxGeometry height="60" width="120" x="650" y="1400" as="geometry" />
+          <mxGeometry height="60" width="120" x="650" y="1670" as="geometry" />
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-45" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-34" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;endArrow=open;endFill=0;" target="_L-aVTN3BIsu04gnwTUH-46">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="425" y="1670" as="targetPoint" />
+            <mxPoint x="425" y="1940" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-34" parent="1" style="whiteSpace=wrap;html=1;fontSize=11;fontFamily=zain;fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);fontColor=light-dark(#FFFFFF,#FFFFFF);rounded=1;strokeWidth=3;fontStyle=1;labelBackgroundColor=none;resizable=0;" value="نمایش پیام مناسب به مشتری" vertex="1">
-          <mxGeometry height="60" width="120" x="365" y="1540" as="geometry" />
+          <mxGeometry height="60" width="120" x="365" y="1810" as="geometry" />
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-43" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-31" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;endArrow=open;endFill=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="_L-aVTN3BIsu04gnwTUH-44">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="710" y="1500" as="targetPoint" />
+            <mxPoint x="710" y="1770" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-44" parent="1" style="shape=sumEllipse;perimeter=ellipsePerimeter;html=1;backgroundOutline=1;rounded=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;fillColor=light-dark(#0B2545,#0B2545);" value="" vertex="1">
-          <mxGeometry height="30" width="30" x="695" y="1500" as="geometry" />
+          <mxGeometry height="30" width="30" x="695" y="1770" as="geometry" />
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-47" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-46" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;endArrow=open;endFill=0;" target="_L-aVTN3BIsu04gnwTUH-48">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="425" y="1780" as="targetPoint" />
+            <mxPoint x="425" y="2050" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-46" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;fillColor=light-dark(#0B2545,#0B2545);" value="دریافت کد نوبت و کارت رزرو" vertex="1">
-          <mxGeometry height="60" width="120" x="365" y="1650" as="geometry" />
+          <mxGeometry height="60" width="120" x="365" y="1920" as="geometry" />
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-49" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-48" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;endArrow=open;endFill=0;" target="_L-aVTN3BIsu04gnwTUH-50">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="425" y="1850" as="targetPoint" />
+            <mxPoint x="425" y="2120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-48" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;fillColor=light-dark(#0B2545,#0B2545);" value="مراجعه به سازمان و ارائه کارت رزرو" vertex="1">
-          <mxGeometry height="60" width="120" x="365" y="1760" as="geometry" />
+          <mxGeometry height="60" width="120" x="365" y="2030" as="geometry" />
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-51" edge="1" parent="1" source="_L-aVTN3BIsu04gnwTUH-50" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;endArrow=open;endFill=0;" target="vt9OtY_22omMeZOLgqVk-1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="425" y="1955" as="targetPoint" />
+            <mxPoint x="425" y="2225" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="_L-aVTN3BIsu04gnwTUH-50" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;fillColor=light-dark(#0B2545,#0B2545);" value="پذیرش توسط سازمان و دریافت خدمات" vertex="1">
-          <mxGeometry height="60" width="120" x="365" y="1860" as="geometry" />
+          <mxGeometry height="60" width="120" x="365" y="2130" as="geometry" />
         </mxCell>
         <mxCell id="vt9OtY_22omMeZOLgqVk-1" parent="1" style="ellipse;html=1;shape=endState;fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);rounded=1;strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
-          <mxGeometry height="30" width="30" x="410" y="1980" as="geometry" />
+          <mxGeometry height="30" width="30" x="410" y="2250" as="geometry" />
         </mxCell>
         <mxCell id="93J55uzrMlVFubEZ8TCH-5" parent="1" style="text;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=11;fontColor=light-dark(#000000,#FFFFFF);fontStyle=0;labelBackgroundColor=none;resizable=0;fillColor=default;strokeColor=default;" value="کارت رزرو | reserve card: a specific table that contains the useful information about the appointment&lt;br&gt;It&#39;s a kind of receipt&lt;div&gt;&lt;br&gt;the data it contains:&lt;br&gt;1. name and kind of the organization&lt;br&gt;2. location of the organization&lt;br&gt;3. date and time of appo approval&lt;br&gt;4. date and time of the appo referal&lt;br&gt;5. appo Code&lt;br&gt;6. name/phone number of the customer&lt;br&gt;7. price of the service&lt;br&gt;8. QR code referring to the link of the reserve card:&lt;br&gt;9.Current condition of the appointment: Done, waiting, rejected,&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="210" width="500" x="-180" y="1020" as="geometry" />
@@ -377,6 +375,31 @@
         </mxCell>
         <mxCell id="Hqg72Il__svhN0KKF5q0-3" parent="1" style="whiteSpace=wrap;html=1;fontSize=11;fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontStyle=1;labelBackgroundColor=none;rounded=1;align=center;verticalAlign=middle;fontFamily=zain;fontColor=light-dark(#FFFFFF,#FFFFFF);" value="ورود به پروفایل سازمان مورد نظر" vertex="1">
           <mxGeometry height="60" width="120" x="365" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="DwpIG4gBSXaaS4trjbck-4" edge="1" parent="1" source="DwpIG4gBSXaaS4trjbck-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" target="DwpIG4gBSXaaS4trjbck-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DwpIG4gBSXaaS4trjbck-6" connectable="0" parent="DwpIG4gBSXaaS4trjbck-4" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rounded=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="این نوبت بایکی از نوبت های قبلی کاربر تداخل دارد" vertex="1">
+          <mxGeometry relative="1" x="0.3889" y="2" as="geometry">
+            <mxPoint x="-55" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DwpIG4gBSXaaS4trjbck-9" edge="1" parent="1" source="DwpIG4gBSXaaS4trjbck-1" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;endArrow=classic;" target="_L-aVTN3BIsu04gnwTUH-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DwpIG4gBSXaaS4trjbck-1" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontSize=11;fontFamily=zain;fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);fontColor=light-dark(#FFFFFF,#FFFFFF);rounded=1;strokeWidth=3;fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="80" width="80" x="385" y="1270" as="geometry" />
+        </mxCell>
+        <mxCell id="DwpIG4gBSXaaS4trjbck-7" edge="1" parent="1" source="DwpIG4gBSXaaS4trjbck-3" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;endArrow=classic;" target="DwpIG4gBSXaaS4trjbck-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="785" y="1390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DwpIG4gBSXaaS4trjbck-3" parent="1" style="whiteSpace=wrap;html=1;fontSize=11;fontFamily=zain;fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);fontColor=light-dark(#FFFFFF,#FFFFFF);rounded=1;strokeWidth=3;fontStyle=1;labelBackgroundColor=none;" value="نمایش پیام مناسب به کاربر" vertex="1">
+          <mxGeometry height="60" width="120" x="725" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="DwpIG4gBSXaaS4trjbck-8" parent="1" style="shape=sumEllipse;perimeter=ellipsePerimeter;html=1;backgroundOutline=1;rounded=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="770" y="1375" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
