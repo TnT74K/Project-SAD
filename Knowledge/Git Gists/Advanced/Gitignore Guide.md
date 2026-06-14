@@ -296,3 +296,12 @@ git rm --cached filename
 ------
 
 A subtle but important rule: **`.gitignore`** **only affects untracked files.** If you’ve already committed a file, adding it to `.gitignore` won’t remove it from Git’s tracking until you use `git rm --cached`.
+
+## Remove files of gitignore from remote
+
+```bash
+git rm -r --cached
+git add .
+git commit -m "Remove bin and obj folders from repository"
+```
+

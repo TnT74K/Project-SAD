@@ -1,4 +1,4 @@
-<mxfile host="Electron">
+<mxfile host="Electron" pages="2">
   <diagram name="Page-1" id="Skc_rSWPS0m_5fg3R2lS">
     <mxGraphModel dx="1688" dy="1183" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -350,6 +350,23 @@
         </mxCell>
         <mxCell id="EckCtOn39rTn48HGhlbC-120" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="حذف کارمند" vertex="1">
           <mxGeometry height="50" width="120" x="920" y="-150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="CbTEnznXVDK5boZOv8vl" name="Remove Worker">
+    <mxGraphModel dx="347" dy="302" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="jGjlrRq8ZVY_CaWQqsky-3" edge="1" parent="1" source="jGjlrRq8ZVY_CaWQqsky-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;endArrow=open;endFill=0;" target="jGjlrRq8ZVY_CaWQqsky-2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jGjlrRq8ZVY_CaWQqsky-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="ثبت شماره تماس کارمند" vertex="1">
+          <mxGeometry height="60" width="120" x="390.0000000000002" y="370.0000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="jGjlrRq8ZVY_CaWQqsky-2" parent="1" style="rhombus;whiteSpace=wrap;html=1;fontFamily=zain;fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);fontColor=light-dark(#FFFFFF,#FFFFFF);rounded=1;strokeWidth=3;fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="80" width="80" x="410.0000000000002" y="500.0000000000001" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
