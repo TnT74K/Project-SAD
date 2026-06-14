@@ -1,6 +1,6 @@
 # Frontend Fix(1405/3/22)
 
-## Fix: Day One
+## Fix: Part One(05/3/22)
 
 Deadline: 1405/3/23
 
@@ -15,7 +15,7 @@ Division table:
 | Appointment list page for ORG Support ORG Admin | `Add`: باز شدن مودال وقتی روی اسم کاربر میزنیم. که اونجا کد نوبت و شماره تماس مشتری رو نشون بده | Ali              | develop | Open        |
 | ORG profile edit page                           | `Fix`: They can't set price for their appointments.          | Abolfazl         | develop | ???         |
 
-## Fix: Part Two
+## Fix: Part Two (05/3/25)
 
 | Page to improve           | Description                                                  | Responsible      | Branch  | Status |
 | ------------------------- | ------------------------------------------------------------ | ---------------- | ------- | ------ |
@@ -25,7 +25,7 @@ Division table:
 | Footer                    | `Add`: Mock emails + support numbers                         | Abolfazl         | develop | Open   |
 | Homepage                  | `Fix`: change homepage 'new ORGs' page profile images to a default image. |                  |         | Open   |
 
-## Fix: Part Three
+## Fix: Part Three (05/3/26)
 
 | Page to improve           | Description                                                  | Responsible      | Branch  | Status |
 | ------------------------- | ------------------------------------------------------------ | ---------------- | ------- | ------ |
@@ -36,7 +36,7 @@ Division table:
 | Search-page               | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein | develop | Open   |
 | All dashboards            | `Fix`: nav bar still shows login / register                  | Abolfazl         | develop | Open   |
 
-## Fix: Part Four
+## Fix: Part Four(05/3/27)
 
 | Page to improve                    | Description                                           | Responsible      | Branch     | Status |
 | ---------------------------------- | ----------------------------------------------------- | ---------------- | ---------- | ------ |

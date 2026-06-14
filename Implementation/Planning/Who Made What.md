@@ -1,6 +1,8 @@
 # Who Made What
 
-Here we write the main developer of each page
+Here we write the main developer of each page.
+
+Used as a refrence in future divisions.
 
 ## Abolfazl
 
