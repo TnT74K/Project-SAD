@@ -27,14 +27,14 @@ Division table:
 
 ## Fix: Part Three (05/3/26)
 
-| Page to improve           | Description                                                  | Responsible      | Branch  | Status |
-| ------------------------- | ------------------------------------------------------------ | ---------------- | ------- | ------ |
-| `new` role selection page | Opens **If** the user has more than 1 role.                  |                  |         | Open   |
-| `new` Ad page             | Opens after the user clicks on "Show More" button of 'Recent ADs' section. |                  |         | Open   |
-| Homepage                  | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein | develop | Open   |
-| ORG-Admin-Dashboard       | `add`: buttons to the profile based on use cases             | Abolfazl         | develop | Open   |
-| Search-page               | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein | develop | Open   |
-| All dashboards            | `Fix`: nav bar still shows login / register                  | Abolfazl         | develop | Open   |
+| Page to improve     | Description                                                  | Responsible      | Branch  | Status |
+| ------------------- | ------------------------------------------------------------ | ---------------- | ------- | ------ |
+| Login page          | `Add`: Role selection modal; Opens **If** the user has more than 1 role. |                  |         | Open   |
+| `new` Ad page       | Opens after the user clicks on "Show More" button of 'Recent ADs' section. |                  |         | Open   |
+| Homepage            | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein | develop | Open   |
+| ORG-Admin-Dashboard | `add`: buttons to the profile based on use cases             | Abolfazl         | develop | Open   |
+| Search-page         | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein | develop | Open   |
+| All dashboards      | `Fix`: nav bar still shows login / register                  | Abolfazl         | develop | Open   |
 
 ## Fix: Part Four(05/3/27)
 
