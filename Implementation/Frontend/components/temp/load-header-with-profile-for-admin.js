@@ -1,4 +1,4 @@
-fetch("../../components/temp/header-with-profile-for-admin.html")
+fetch("/components/header-with-profile.html")
 .then(res => res.text())
 .then(data => {
 
