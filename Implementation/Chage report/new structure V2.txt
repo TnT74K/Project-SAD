@@ -1,0 +1,115 @@
+.
+├── assets
+│   ├── fonts
+│   │   ├── orbiton
+│   │   │   ├── orbitron-black.ttf
+│   │   │   ├── orbitron-bold.ttf
+│   │   │   ├── orbitron-extrabold.ttf
+│   │   │   ├── orbitron-medium.ttf
+│   │   │   ├── orbitron-regular.ttf
+│   │   │   ├── orbitron-semibold.ttf
+│   │   │   └── orbitron-variablefont_wght.ttf
+│   │   └── vazirmatn
+│   │       ├── vazirmatn-black.ttf
+│   │       ├── vazirmatn-bold.ttf
+│   │       ├── vazirmatn-extrabold.ttf
+│   │       ├── vazirmatn-extralight.ttf
+│   │       ├── vazirmatn-light.ttf
+│   │       ├── vazirmatn-medium.ttf
+│   │       ├── vazirmatn-regular.ttf
+│   │       ├── vazirmatn-semibold.ttf
+│   │       ├── vazirmatn-thin.ttf
+│   │       └── vazirmatn-variablefont_wght.ttf
+│   ├── icons
+│   └── images
+├── color-palettes.html
+├── components
+│   ├── footer.css
+│   ├── footer.html
+│   ├── header-with-profile.css
+│   ├── header-with-profile.html
+│   ├── header.css
+│   ├── header.html
+│   ├── header.js
+│   ├── load-footer.js
+│   ├── load-header-with-profile.js
+│   ├── load-header.js
+│   └── navbar.js
+├── index.css
+├── index.html
+├── index.js
+└── pages
+    ├── admin
+    │   ├── ad-manage.css
+    │   ├── ad-manage.html
+    │   ├── ad-manage.js
+    │   ├── dashboard.css
+    │   ├── dashboard.html
+    │   ├── dashboard.js
+    │   ├── org manage
+    │   │   ├── approval-list.css
+    │   │   ├── approval-list.html
+    │   │   ├── approval-list.js
+    │   │   ├── suspend-list.css
+    │   │   ├── suspend-list.html
+    │   │   └── suspend-list.js
+    │   ├── user-list.css
+    │   ├── user-list.html
+    │   └── user-list.js
+    ├── auth
+    │   ├── forgot-password.css
+    │   ├── forgot-password.html
+    │   ├── forgot-password.js
+    │   ├── login.css
+    │   ├── login.html
+    │   ├── login.js
+    │   ├── sign-up.css
+    │   ├── sign-up.html
+    │   └── sign-up.js
+    ├── errors
+    │   ├── error-403.css
+    │   ├── error-403.html
+    │   ├── error-404.css
+    │   └── error-404.html
+    ├── org
+    │   ├── admin
+    │   │   ├── dashboard.css
+    │   │   ├── dashboard.html
+    │   │   └── dashboard.js
+    │   ├── appointment-list.css
+    │   ├── appointment-list.html
+    │   ├── appointment-list.js
+    │   ├── profile
+    │   │   ├── profile-edit.css
+    │   │   ├── profile-edit.html
+    │   │   ├── profile-edit.js
+    │   │   ├── profile.css
+    │   │   ├── profile.html
+    │   │   └── profile.js
+    │   ├── register.css
+    │   ├── register.html
+    │   ├── register.js
+    │   ├── staff
+    │   │   ├── dashboard.css
+    │   │   ├── dashboard.html
+    │   │   ├── dashboard.js
+    │   │   ├── staff-list.css
+    │   │   ├── staff-list.html
+    │   │   └── staff-list.js
+    │   └── support
+    │       ├── dashboard.css
+    │       ├── dashboard.html
+    │       └── dashboard.js
+    ├── review
+    │   ├── home-page-root-copy.html
+    │   └── home-page-with-header-profile.html
+    ├── search
+    │   ├── search.css
+    │   ├── search.html
+    │   └── search.js
+    └── user
+        ├── profile.css
+        ├── profile.html
+        └── profile.js
+
+21 directories, 92 files
