@@ -1,4 +1,4 @@
-       :root {
+        :root {
             --primary: #0B2545;
             --primary-mid: #1B4F72;
             --primary-light: #2E86C1;
@@ -16,7 +16,11 @@
             --error: #e74c3c;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'Vazirmatn', sans-serif;
@@ -33,11 +37,12 @@
             background-attachment: fixed;
         }
 
-        input, button, select {
+        input,
+        button,
+        select {
             font-family: 'Vazirmatn', sans-serif;
         }
 
-        /* ====== کارت ====== */
         .auth-card {
             width: 420px;
             max-width: 100%;
@@ -46,7 +51,7 @@
             box-shadow: var(--shadow);
             padding: 36px 28px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.35);
+            border: 1px solid rgba(255, 255, 255, 0.35);
         }
 
         .logo-text {
@@ -62,7 +67,6 @@
             margin-bottom: 24px;
         }
 
-        /* ====== تب‌ها ====== */
         .tabs {
             display: flex;
             background: #f0f4f9;
@@ -95,7 +99,6 @@
             color: var(--primary-light);
         }
 
-        /* ====== فرم‌ها ====== */
         .form-panel {
             display: none;
         }
@@ -149,11 +152,6 @@
             border-color: var(--error);
         }
 
-        .input-group input.success {
-            border-color: var(--success);
-        }
-
-        /* آیکون چشم */
         .toggle-icon {
             position: absolute;
             left: 12px;
@@ -165,7 +163,6 @@
             color: var(--text-3);
         }
 
-        /* ====== OTP ====== */
         .otp-boxes {
             display: flex;
             gap: 8px;
@@ -198,7 +195,6 @@
             background: rgba(46, 134, 193, 0.04);
         }
 
-        /* تایمر و ارسال مجدد */
         .otp-meta {
             display: flex;
             justify-content: space-between;
@@ -237,7 +233,6 @@
             color: var(--primary-mid);
         }
 
-        /* مرحله‌ها در OTP */
         .step {
             display: none;
         }
@@ -246,7 +241,6 @@
             display: block;
         }
 
-        /* پیام وضعیت */
         .status-msg {
             font-size: 0.85rem;
             margin-top: 6px;
@@ -254,10 +248,14 @@
             text-align: right;
         }
 
-        .status-msg.error { color: var(--error); }
-        .status-msg.success { color: var(--success); }
+        .status-msg.error {
+            color: var(--error);
+        }
 
-        /* ====== دکمه‌ها ====== */
+        .status-msg.success {
+            color: var(--success);
+        }
+
         .btn-primary {
             width: 100%;
             border: none;
@@ -276,7 +274,10 @@
             gap: 8px;
         }
 
-        .btn-primary:hover { background: var(--primary-mid); }
+        .btn-primary:hover {
+            background: var(--primary-mid);
+        }
+
         .btn-primary:focus {
             outline: none;
             box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.25);
@@ -287,24 +288,148 @@
             cursor: not-allowed;
         }
 
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 37, 69, 0.50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            width: 400px;
+            max-width: 100%;
+            text-align: center;
+            box-shadow: 0 8px 40px rgba(11, 37, 69, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
+        .modal-icon-wrap {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: rgba(46, 134, 193, 0.10);
+            border: 1.5px solid rgba(46, 134, 193, 0.20);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 26px;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .modal-sub {
+            font-size: 0.88rem;
+            color: var(--text-2);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .role-card {
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px 8px 12px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+            text-align: center;
+            background: var(--bg-card);
+            position: relative;
+        }
+
+        .role-card:hover {
+            border-color: var(--primary-light);
+            background: rgba(46, 134, 193, 0.05);
+        }
+
+        .role-card.selected {
+            border-color: var(--primary-light);
+            background: rgba(46, 134, 193, 0.07);
+            box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.13);
+        }
+
+        .role-card--full {
+            grid-column: span 2;
+        }
+
+        .role-check {
+            display: none;
+            position: absolute;
+            top: 7px;
+            left: 7px;
+            width: 18px;
+            height: 18px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            font-size: 10px;
+            color: #fff;
+            font-weight: 700;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .role-card.selected .role-check {
+            display: flex;
+        }
+
+        .role-icon {
+            display: block;
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .role-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .role-card.selected .role-label {
+            color: var(--primary-light);
+        }
+
         .btn-primary .spinner {
             width: 16px;
             height: 16px;
-            border: 2px solid rgba(255,255,255,0.4);
+            border: 2px solid rgba(255, 255, 255, 0.4);
             border-top-color: #fff;
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
             display: none;
         }
 
-        .btn-primary.loading .spinner { display: block; }
-        .btn-primary.loading .btn-text { opacity: 0.7; }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .btn-primary.loading .spinner {
+            display: block;
         }
 
-        /* ====== سایر ====== */
+        .btn-primary.loading .btn-text {
+            opacity: 0.7;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         .forgot-password {
             display: block;
             text-align: center;
@@ -315,12 +440,8 @@
             transition: color 0.2s;
         }
 
-        .forgot-password:hover { color: var(--primary-mid); }
-
-        .select-group select {
-            appearance: none;
-            -webkit-appearance: none;
-            cursor: pointer;
+        .forgot-password:hover {
+            color: var(--primary-mid);
         }
 
         .signup-link {
@@ -335,9 +456,10 @@
             font-weight: 600;
         }
 
-        .signup-link a:hover { color: var(--primary-mid); }
+        .signup-link a:hover {
+            color: var(--primary-mid);
+        }
 
-        /* نشانگر مرحله */
         .step-indicator {
             display: flex;
             justify-content: center;
@@ -364,7 +486,6 @@
             background: var(--success);
         }
 
-        /* phone prefix */
         .phone-wrapper {
             display: flex;
             gap: 8px;
@@ -391,7 +512,16 @@
         }
 
         @media (max-width: 480px) {
-            .auth-card { padding: 28px 18px; }
-            .logo-text { font-size: 1.55rem; }
-            .otp-boxes input { width: 42px !important; height: 48px !important; }
+            .auth-card {
+                padding: 28px 18px;
+            }
+
+            .logo-text {
+                font-size: 1.55rem;
+            }
+
+            .otp-boxes input {
+                width: 42px !important;
+                height: 48px !important;
+            }
         }
