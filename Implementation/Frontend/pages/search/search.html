@@ -8,7 +8,7 @@
   <!-- فونت وزیرمتن از گوگل - بهترین فونت فارسی برای وب -->
 
   <!-- استایل‌های صفحه -->
-  <link rel="stylesheet" href="../Css/search-results.css">
+  <link rel="stylesheet" href="search.css">
 </head>
 <body>
 
@@ -21,7 +21,7 @@
     <div class="header-inner">
 
       <!-- لوگو -->
-      <a href="../Html/home_page.html" class="logo">
+      <a href="index.html" class="logo">
         <div class="logo-icon">📅</div>
        <em>رزروسنتر</em>
       </a>
@@ -46,8 +46,8 @@
 
       <!-- دکمه‌های ورود/ثبت‌نام - توی موبایل مخفی میشن -->
       <div class="header-actions">
-        <button class="btn-login" onclick="window.location.href = '../Html/login.html'">ورود</button>
-        <button class="btn-signup" onclick="window.location.href = '../Html/register.html'">ثبت‌نام رایگان</button>
+        <button class="btn-login" onclick="window.location.href = 'pages/auth/login.html'">ورود</button>
+        <button class="btn-signup" onclick="window.location.href = 'pages/auth/sign-up.html'">ثبت‌نام رایگان</button>
       </div>
 
     </div>
@@ -143,8 +143,8 @@
 
 
 <!-- JS در آخر لود میشه تا DOM آماده باشه -->
-<script src="../JavaScript/search-results.js"></script>
-<script src="../JavaScript/LoadFooter.js"></script>
+<script src="search.js"></script>
+<script src="components/load-footer.js"></script>
 
 </body>
 </html>
