@@ -12,37 +12,44 @@ Division table:
 | Password restore                                | `Add`: Restore with OTP + phone number; `remove`: Restore with national ID, etc. | Hamed            | develop | Done        |
 | Login                                           | `Apply`: Two methods: 1) Phone number + Password 2) OTP + phone number | Hamed            | develop | Done        |
 | Homepage                                        | `Add`: Apply animations; `Add`: new temporary homepage after user login; ` Fix`: page does not navigate user when pressing enter in search field; | Mohammad Hossein | develop | In progress |
-| Appointment list page for ORG Support ORG Admin | `Add`: باز شدن مودال وقتی روی اسم کاربر میزنیم. که اونجا کد نوبت و شماره تماس مشتری رو نشون بده | Ali              | develop | Open        |
-| ORG profile edit page                           | `Fix`: They can't set price for their appointments.          | Abolfazl         | develop | ???         |
+| Appointment list page for ORG Support ORG Admin | `Add`: باز شدن مودال وقتی روی اسم کاربر میزنیم. که اونجا کد نوبت و شماره تماس مشتری رو نشون بده | Ali              | develop | Done        |
+| ORG profile edit page                           | `Fix`: They can't set price for their appointments.          | Abolfazl         | develop | Done        |
 
 ## Fix: Part Two (05/3/25)
 
-| Page to improve           | Description                                                  | Responsible      | Branch  | Status |
-| ------------------------- | ------------------------------------------------------------ | ---------------- | ------- | ------ |
-| `New`:  About Us          | `Add`: give a small description about the system             |                  |         | Open   |
-| `New`: ORG register guide | `Add`: from homepage, they can enter this page; We explain how to register page and tell them about the rules. |                  |         | Open   |
-| Search page               | `Add`: فیلتر برای کسب و کارهای برتر                          | Mohammad Hossein | develop | Open   |
-| Footer                    | `Add`: Mock emails + support numbers                         | Abolfazl         | develop | Open   |
-| Homepage                  | `Fix`: change homepage 'new ORGs' page profile images to a default image. | Mohammad Hossein |         | Open   |
+| Page to improve | Description                                                  | Responsible      | Branch  | Status |
+| --------------- | ------------------------------------------------------------ | ---------------- | ------- | ------ |
+| Search page     | `Add`: فیلتر برای کسب و کارهای برتر                          | Mohammad Hossein | develop | Open   |
+| Footer          | `Add`: Mock emails + support numbers                         | Abolfazl         | develop | Done   |
+| Homepage        | `Fix`: change homepage 'new ORGs' page profile images to a default image. | Mohammad Hossein |         | Open   |
 
-## Fix: Part Three (05/3/26)
+## Fix: Part Three (05/3/26) and (05/3/27)
 
-| Page to improve     | Description                                                  | Responsible      | Branch  | Status |
-| ------------------- | ------------------------------------------------------------ | ---------------- | ------- | ------ |
-| Login page          | `Add`: Role selection modal; Opens **If** the user has more than 1 role. |                  |         | Open   |
-| `new` Ad page       | Opens after the user clicks on "Show More" button of 'Recent ADs' section. |                  |         | Open   |
-| Homepage            | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein | develop | Open   |
-| ORG-Admin-Dashboard | `add`: buttons to the profile based on use cases             | Abolfazl         | develop | Open   |
-| Search-page         | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein | develop | Open   |
-| All dashboards      | `Fix`: nav bar still shows login / register                  | Abolfazl         | develop | Open   |
+| Page to improve           | Description                                                  | Responsible      | Branch          | Status |
+| ------------------------- | ------------------------------------------------------------ | ---------------- | --------------- | ------ |
+| Login page                | `Add`: Role selection modal; Opens **If** the user has more than 1 role. | Hamed            | develop         | Done   |
+| Homepage                  | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein | develop         | Open   |
+| ORG-Admin-Dashboard       | `add`: buttons to the profile based on use cases             | Abolfazl         | develop         | Open   |
+| Search-page               | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein | develop         | Open   |
+| All dashboards            | `Fix`: nav bar still shows login / register                  | Abolfazl         | develop         | Open   |
+| `New`:  About Us          | `Add`: give a small description about the system             | Ali?             | Front/InfoPages | Open   |
+| `New`: ORG register guide | `Add`: from homepage, they can enter this page; We explain how to register page and tell them about the rules. | Ali?             | Front/InfoPages | Open   |
 
-## Fix: Part Four(05/3/27)
+## Fix: Part Four(05/3/28)
 
-| Page to improve                    | Description                                                | Responsible      | Branch     | Status |
-| ---------------------------------- | ---------------------------------------------------------- | ---------------- | ---------- | ------ |
-| Login / Register / Forgot password | `Idea`:  Appearance that users can better distinguish      | Hamed            | develop    | ???    |
-| Homepage                           | `Idea`: راهنمای ثبت نوبت بذاریم                            | Mohammad Hossein | develop    | ???    |
-| All pages                          | `Idea`: Add dark mode                                      | Team             | Front/Dark | ???    |
-| My-profile                         | `Fix` : ثبت ستاره روی نوبت ها کار نمیکنه                   | Mohammad hossein | develop    | Open   |
-| OG profile                         | `Add`: اگر نوبت جدید کاربر باقبلیا تداخل داشت خطا نشون بده | Abolfazl?        | develop    | Open   |
+| Page to improve                    | Description                                                  | Responsible      | Branch     | Status |
+| ---------------------------------- | ------------------------------------------------------------ | ---------------- | ---------- | ------ |
+| Login / Register / Forgot password | `Idea`:  Appearance that users can better distinguish        | Hamed            | develop    | ???    |
+| Homepage                           | `Idea`: راهنمای ثبت نوبت بذاریم                              | Mohammad Hossein | develop    | ???    |
+| All pages                          | `Idea`: Add dark mode                                        | Team             | Front/Dark | ???    |
+| My-profile                         | `Fix` : ثبت ستاره روی نوبت ها کار نمیکنه                     | Mohammad hossein | develop    | Open   |
+| OG profile                         | `Add`: اگر نوبت جدید کاربر با نوبت‌های قبلی خودش تداخل داشت خطا نشون بده | Abolfazl?        | develop    | Open   |
+
+## Fix: Part Five
+
+| Page to improve       | Description                                                  | Responsible    | Branch | Status |
+| --------------------- | ------------------------------------------------------------ | -------------- | ------ | ------ |
+| ORG profile edit page | `Fix` : User can make new appointment for previous days!!; `Fix`: If the user sets a new appointment at 20th of Khordad, It will make a new row. `Fix`: Font for "تومان" is missing. `Fix`: عنوان فیلد قیمت، در مودال ویرایش نوبت، نمایش داده نمیشه. | Abolfazl / Ali |        |        |
+| appointment-list      | `Fix`: فرمت کد نوبت با فرمت صفحه پروفایل سازمان از دید مشتری(همونجایی نوبت میگیره) فرق داره | Ali            |        |        |
+| `new` Ad page         | Opens after the user clicks on "Show More" button of 'Recent ADs' section. | Ali?           |        | Open   |
 
