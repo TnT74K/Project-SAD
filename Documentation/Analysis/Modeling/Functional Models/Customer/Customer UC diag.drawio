@@ -1,6 +1,6 @@
 <mxfile host="Electron" pages="2">
   <diagram name="Main" id="lXqrbWaQJjMIC1zaTn2I">
-    <mxGraphModel dx="802" dy="503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1085" dy="944" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -126,7 +126,7 @@
           <mxGeometry height="70" width="140" x="1070" y="870" as="geometry" />
         </mxCell>
         <mxCell id="iW_0PJlMOMYVLgSKWpi3-34" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;strokeColor=light-dark(#0B2545,#C0D6E8);align=center;fontFamily=zain;fontSize=12;fontColor=light-dark(#0B2545,#C0D6E8);fillColor=default;strokeWidth=3;" value="System" vertex="1">
-          <mxGeometry height="60" width="30" x="1245" y="875" as="geometry" />
+          <mxGeometry height="60" width="30" x="1330" y="875" as="geometry" />
         </mxCell>
         <mxCell id="iW_0PJlMOMYVLgSKWpi3-35" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);align=center;verticalAlign=middle;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fillColor=light-dark(#0B2545,#0B2545);fontStyle=0;labelBackgroundColor=none;" value="تماس با پشتیبانی" vertex="1">
           <mxGeometry height="70" width="140" x="500" y="890" as="geometry" />
