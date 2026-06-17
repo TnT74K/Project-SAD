@@ -598,25 +598,3 @@ tbody tr:hover { background: rgba(11,37,69,0.02); }
   .actions { justify-content: flex-end; }
   .biz-cell { text-align: right; }
 }
-
-@font-face {
-  font-family: 'Vazirmatn';
-  src: url('../Fonts/Vazirmatn-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Vazirmatn';
-  src: url('../Fonts/Vazirmatn-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Orbitron';
-  src: url('../Fonts/Orbitron-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}

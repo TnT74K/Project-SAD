@@ -1,11 +1,4 @@
 
-
-
-/* =============================================
-   داده‌های نمونه کسب‌وکارها
-   TODO: بعداً اینا باید از API بیان
-   فعلاً برای تست اینجا hardcode شدن
-   ============================================= */
 const businesses = [
   {
     id: 1, premium: true,
@@ -232,7 +225,7 @@ function renderCards(list) {
           </div>
           <div class="card-footer">
             <div class="card-price"><strong>${b.price}</strong></div>
-            <button class="btn-reserve" onclick="window.location.href = '../Html/OrganizationProfile.html'">مشاهده پروفايل</button>
+            <button class="btn-reserve" onclick="window.location.href = '/pages/org/profile/profile.html'">مشاهده پروفايل</button>
           </div>
         </div>
       </div>`;
