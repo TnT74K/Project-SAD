@@ -48,11 +48,10 @@ Division table:
 |             OG profile             | `Add`: اگر نوبت جدید کاربر با نوبت‌های قبلی خودش تداخل داشت خطا نشون بده |    Abolfazl?     |  develop   |  Open  |
 |           Ad-management            | `Add`: Search feature; `Add`: links pointing to ORG public profile | Mohammad hossein |  develop   |  Open  |
 
-## Fix: Part Five
+## Fix: Part Five (not planned)
 
-|    Page to improve    | Description                                                  | Responsible | Branch |  Status  |
-| :-------------------: | ------------------------------------------------------------ | :---------: | :----: | :------: |
-| ORG profile edit page | `Fix` : User can make new appointment for previous days!!; `Fix`: If the user sets a new appointment at 20th of Khordad, It will make a new row. `Fix`: Font for "تومان" is missing. `Fix`: عنوان فیلد قیمت، در مودال ویرایش نوبت، نمایش داده نمیشه. |  Abolfazl   |        |          |
-|   appointment-list    | `Fix`: فرمت کد نوبت با فرمت صفحه پروفایل سازمان از دید مشتری(همونجایی نوبت میگیره) فرق داره |     Ali     |        |          |
-|  `new` AD view page   | Opens after the user clicks on "مشاهده بیشتر" button of 'تخفیف ها' section. |    Ali?     |        | not sure |
-
+|    Page to improve    | Description                                                  | Responsible | Branch |        Status        |
+| :-------------------: | ------------------------------------------------------------ | :---------: | :----: | :------------------: |
+| ORG profile edit page | `Fix` : User can make new appointment for previous days!!; `Fix`: If the user sets a new appointment at 20th of Khordad, It will make a new row. `Fix`: Font for "تومان" is missing. `Fix`: عنوان فیلد قیمت، در مودال ویرایش نوبت، نمایش داده نمیشه. |  Abolfazl   |        |                      |
+|   appointment-list    | `Fix`: فرمت کد نوبت با فرمت صفحه پروفایل سازمان از دید مشتری(همونجایی نوبت میگیره) فرق داره |     Ali     |        |                      |
+|  `new` AD view page   | Opens after the user clicks on "مشاهده بیشتر" button of 'تخفیف ها' section. |    Ali?     |        | Task will be removed |
