@@ -23,7 +23,7 @@ Division table:
 |     Footer      | `Add`: Mock emails + support numbers                         |     Abolfazl     | develop |  Done  |
 |    Homepage     | `Fix`: change homepage 'new ORGs' page profile images to a default image. | Mohammad Hossein |         |  Open  |
 
-## Fix: Part Three (05/3/26) and (05/3/27)
+## *Fix: Part Three (05/3/26) and (05/3/27)*
 
 |      Page to improve      | Description                                                  |   Responsible    |     Branch      |   Status    |
 | :-----------------------: | ------------------------------------------------------------ | :--------------: | :-------------: | :---------: |
