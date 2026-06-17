@@ -28,14 +28,14 @@ Division table:
 |      Page to improve      | Description                                                  |   Responsible    |     Branch      |   Status    |
 | :-----------------------: | ------------------------------------------------------------ | :--------------: | :-------------: | :---------: |
 |        Login page         | `Add`: Role selection modal; Opens **If** the user has more than 1 role. |      Hamed       |     develop     |    Done     |
-|         Homepage          | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein |     develop     |    Open     |
-|      All dashboards       | `add`: new nav bar having buttons to access lists.           |     Abolfazl     |     develop     | In progress |
-|        Search-page        | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein |     develop     |    Open     |
+|         Homepage          | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein |     develop     | In progress |
+|      All dashboards       | `add`: new nav bar having buttons to access lists.           |     Abolfazl     |     develop     |    Done     |
+|        Search-page        | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein |     develop     | In progress |
 |      All dashboards       | `Fix`: nav bar still shows login / register                  |     Abolfazl     |     develop     | In progress |
-|     `New`:  About Us      | `Add`: give a small description about the system             |       Ali        | Front/InfoPages |    Open     |
-| `New`: ORG register guide | `Add`: from homepage, they can enter this page; We explain how to register a business and tell them about the rules. |       Ali        | Front/InfoPages |    Open     |
-|         All pages         | Connect all pages together in the new folder structure       |     Abolfazl     | Front/new-names | In progress |
-|         All pages         | `Add`: One separate CSS for all fonts. Update the refs to match that file. |     Abolfazl     | Front/new-names | In progress |
+|     `New`:  About Us      | `Add`: give a small description about the system             |       Ali        | Front/InfoPages |    Done     |
+| `New`: ORG register guide | `Add`: from homepage, they can enter this page; We explain how to register a business and tell them about the rules. |       Ali        | Front/InfoPages |    Done     |
+|         All pages         | Connect all pages together in the new folder structure       |     Abolfazl     | Front/new-names |    Done?    |
+|         All pages         | `Add`: One separate CSS for all fonts. Update the refs to match that file. |     Abolfazl     | Front/new-names |    Done?    |
 
 ## Fix: Part Four(~05/3/28)
 
