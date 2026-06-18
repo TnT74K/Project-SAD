@@ -1,20 +1,20 @@
 @font-face {
   font-family: 'Vazirmatn';
-  src: url('/assets/fonts/vazirmatn/Vazirmatn-Regular.ttf') format('truetype');
+  src: url('./assets/fonts/vazirmatn/Vazirmatn-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Vazirmatn';
-  src: url('/assets/fonts/vazirmatn/Vazirmatn-Bold.ttf') format('truetype');
+  src: url('./assets/fonts/vazirmatn/Vazirmatn-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Orbitron';
-  src: url('/assets/fonts/orbitron/orbitron-regular.ttf') format('truetype');
+  src: url('./assets/fonts/orbitron/orbitron-regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;

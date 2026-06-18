@@ -100,7 +100,7 @@ document.getElementById('mainSearch').addEventListener('keydown', (e) => {
 function filterCat(cat) {
   // پر کردن فیلد جستجو
   document.getElementById('mainSearch').value = cat;
-      window.location.href = '/pages/search/search.html'
+      window.location.href = './pages/search/search.html'
   // فعال‌سازی اولین چیپ (نزدیک‌ترین به دسته)
   setChip(document.querySelector('.chip'), cat);
 
