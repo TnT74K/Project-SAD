@@ -43,14 +43,14 @@ Division table:
 
 ## *Fix: Part Four (05/3/28-05/03/29)*
 
-|          Page to improve           | Description                                                  |     Responsible      | Level  |  Status  |
-| :--------------------------------: | ------------------------------------------------------------ | :------------------: | :----: | :------: |
-| Login / Register / Forgot password | `Idea`:  Appearance that users can better distinguish        |        Hamed         |  Low   |   ???    |
-|              Homepage              | `Idea`: راهنمای ثبت نوبت بذاریم                              |   Mohammad Hossein   |  Low   |   Done   |
-|             All pages              | `Add`: dark mode in `Front/dark` branch.                     | Team except Abolfazl |  High  |   ???    |
-|             My-profile             | `Fix` : ثبت ستاره روی نوبت ها کار نمیکنه                     |   Mohammad hossein   |  High  |   Open   |
-|             OG profile             | `Add`: اگر نوبت جدید کاربر با نوبت‌های قبلی خودش تداخل داشت خطا نشون بده |      Abolfazl?       |  High  | Not sure |
-|           Ad-management            | `Add`: Search feature; `Add`: links pointing to ORG public profile |   Mohammad hossein   | Medium |   Open   |
+|          Page to improve           | Description                                                  |     Responsible      | Level |  Status  |
+| :--------------------------------: | ------------------------------------------------------------ | :------------------: | :---: | :------: |
+| Login / Register / Forgot password | `Idea`:  Appearance that users can better distinguish        |        Hamed         |  Low  |   ???    |
+|              Homepage              | `Idea`: راهنمای ثبت نوبت بذاریم                              |   Mohammad Hossein   |  Low  |   Done   |
+|             All pages              | `Add`: dark mode in `Front/dark` branch.                     | Team except Abolfazl |  Low  |  Remove  |
+|             My-profile             | `Fix` : ثبت ستاره روی نوبت ها کار نمیکنه                     |   Mohammad hossein   |  Low  |   Open   |
+|             OG profile             | `Add`: اگر نوبت جدید کاربر با نوبت‌های قبلی خودش تداخل داشت خطا نشون بده |      Abolfazl?       | High  | Not sure |
+|           Ad-management            | `Add`: Search feature; `Add`: links pointing to ORG public profile |   Mohammad hossein   |  Low  |   Open   |
 
 ## Fix: Part Five (05/3/29)
 
