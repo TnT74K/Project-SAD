@@ -243,8 +243,8 @@ a {
     border: none;
     background: #eef2fa;
     color: var(--primary);
-    font-family: 'Orbitron', monospace; /* فونت دیجیتال برای ساعت */
-    font-size: 0.85rem;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     transition: 0.2s;
