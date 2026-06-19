@@ -9,6 +9,26 @@
 function pad2(n) {
     return String(n).padStart(2, "0");
 }
+/**
+ * تبدیل یک تاریخ شمسی به آبجکت Date میلادی در ساعت 00:00
+ */
+function jalaliToDate(jy, jm, jd) {
+    const g = jalaliToGregorian(jy, jm, jd);
+    return new Date(g.year, g.month - 1, g.day);
+}
+
+/**
+ * بررسی اینکه آیا یک تاریخ شمسی قبل از امروز است یا نه
+ */
+function isPastJalaliDate(jy, jm, jd) {
+    const targetDate = jalaliToDate(jy, jm, jd);
+    targetDate.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return targetDate < today;
+}
 
 // -----------------------------------------------
 // توابع تبدیل تاریخ شمسی <-> میلادی
@@ -125,9 +145,9 @@ let organization = {
 
 // لیست نوبت‌ها (هر نوبت شامل id, date, time, status و در صورت رزرو شده customer)
 let slots = [
-    { id: 1001, date: "2025-06-10", time: "10:00", status: "available", price: "10000" },
-    { id: 1002, date: "2025-06-10", time: "11:30", status: "available", price: "12000"  },
-    { id: 1003, date: "2025-06-12", time: "09:00", status: "booked", price: "15200" , customer: { first: "احمد", last: "رضایی", phone: "09128893645" } }
+    { id: 1001, date: "2026-07-10", time: "10:00", status: "available", price: "10000" },
+    { id: 1002, date: "2026-07-10", time: "11:30", status: "available", price: "12000"  },
+    { id: 1003, date: "2026-07-12", time: "09:00", status: "booked", price: "15200" , customer: { first: "احمد", last: "رضایی", phone: "09128893645" } }
 ];
 
 // -----------------------------------------------
@@ -277,8 +297,8 @@ function renderCalendar() {
     const grid = document.getElementById("calendarGrid");
     grid.innerHTML = "";
 
-    const firstDayIndex = jalaliFirstWeekday(viewYear, viewMonth);  // اولین روز ماه
-    const daysInMonth = jalaliMonthDays(viewYear, viewMonth);       // تعداد روزهای ماه
+    const firstDayIndex = jalaliFirstWeekday(viewYear, viewMonth);
+    const daysInMonth = jalaliMonthDays(viewYear, viewMonth);
 
     // خانه‌های خالی ابتدای ماه
     for (let i = 0; i < firstDayIndex; i++) {
@@ -291,17 +311,39 @@ function renderCalendar() {
         cell.className = "calendar-day";
         cell.innerText = d;
 
-        // رویداد کلیک روی هر روز: انتخاب آن روز
-        cell.onclick = () => {
-            selectedJalaliDate = { jy: viewYear, jm: viewMonth, jd: d };
-            // حذف کلاس selected از همه روزها
-            document.querySelectorAll(".calendar-day").forEach(c => c.classList.remove("selected"));
+        const isPast = isPastJalaliDate(viewYear, viewMonth, d);
+
+        // اگر روز قبل از امروز است، غیرفعالش کن
+        if (isPast) {
+            cell.classList.add("disabled");
+        } else {
+            // فقط روزهای امروز و آینده قابل انتخاب باشند
+            cell.onclick = () => {
+                selectedJalaliDate = { jy: viewYear, jm: viewMonth, jd: d };
+
+                document
+                    .querySelectorAll(".calendar-day")
+                    .forEach(c => c.classList.remove("selected"));
+
+                cell.classList.add("selected");
+            };
+        }
+
+        // اگر قبلاً تاریخی انتخاب شده، هنگام رندر دوباره هایلایت شود
+        if (
+            selectedJalaliDate &&
+            selectedJalaliDate.jy === viewYear &&
+            selectedJalaliDate.jm === viewMonth &&
+            selectedJalaliDate.jd === d &&
+            !isPast
+        ) {
             cell.classList.add("selected");
-        };
+        }
 
         grid.appendChild(cell);
     }
 }
+
 
 /**
  * رفتن به ماه قبل در تقویم
@@ -338,6 +380,17 @@ function saveSlot() {
     // اعتبارسنجی: آیا روزی انتخاب شده؟
     if (!selectedJalaliDate) {
         alert("لطفاً یک روز از تقویم انتخاب کنید");
+        return;
+    }
+
+    if (
+        isPastJalaliDate(
+            selectedJalaliDate.jy,
+            selectedJalaliDate.jm,
+            selectedJalaliDate.jd
+        )
+    ) {
+        alert("امکان ثبت نوبت برای روزهای گذشته وجود ندارد");
         return;
     }
 
