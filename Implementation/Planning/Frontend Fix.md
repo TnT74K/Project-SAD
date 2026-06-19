@@ -51,10 +51,20 @@ Division table:
 
 ## Fix: Part Five (05/3/29)
 
-|  Page to improve   | Description                                                  | Responsible | Priority |       Status        |
-| :----------------: | ------------------------------------------------------------ | :---------: | :------: | :-----------------: |
-|  ORG profile page  | `Fix` : User can make new appointment for previous days!!; `Fix`: Font for "تومان" is missing -> use Vazirmatn. `Fix`: عنوان فیلد قیمت، در مودال ویرایش نوبت، نمایش داده نمیشه. |  Abolfazl   |   High   |        Open         |
-|  appointment-list  | `Fix`: فرمت کد نوبت با فرمت صفحه پروفایل سازمان از دید مشتری(همونجایی نوبت میگیره) فرق داره |     Ali     |   High   |        Open         |
-| `new` AD view page | Opens after the user clicks on "مشاهده بیشتر" button of 'تخفیف ها' section. |    Ali?     |  -----   | Task may be removed |
-|     All pages      | `Fix`: All numbers should be in English                      |  Abolfazl   |  Medium  |        Open         |
-|     All pages      | `Apply`: Coordinate all mock data to match.                  |    Sajad    |   High   |        Open         |
+|    Page to improve    | Description                                                  | Responsible | Priority |       Status        |
+| :-------------------: | ------------------------------------------------------------ | :---------: | :------: | :-----------------: |
+| ORG profile edit page | `Fix` : User can make new appointment for previous days!!; `Fix`: Font for "تومان" is missing -> use Vazirmatn. `Fix`: عنوان فیلد قیمت، در مودال ویرایش نوبت، نمایش داده نمیشه. |  Abolfazl   |   High   |        Open         |
+|   appointment-list    | `Fix`: فرمت کد نوبت با فرمت صفحه پروفایل سازمان از دید مشتری(همونجایی نوبت میگیره) فرق داره |     Ali     |   High   |        Open         |
+|  `new` AD view page   | Opens after the user clicks on "مشاهده بیشتر" button of 'تخفیف ها' section. |    Ali?     |  -----   | Task may be removed |
+|       All pages       | `Fix`: All numbers should be in English                      |  Abolfazl   |  Medium  |        Open         |
+|       All pages       | `Apply`: Coordinate all mock data to match.                  |    Sajad    |   High   |        Open         |
+
+## Fix: Part Six (05/3/30)
+
+| Page to improve | Description                                                  | Responsible | Priority | Status |
+| --------------- | ------------------------------------------------------------ | ----------- | -------- | ------ |
+| ORG Profile     | `Fix`: Tapping on TimeSections does not show appointment price | Abolfazl    | High     | Open   |
+|                 |                                                              |             |          |        |
+|                 |                                                              |             |          |        |
+|                 |                                                              |             |          |        |
+
