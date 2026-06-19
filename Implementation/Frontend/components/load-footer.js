@@ -1,7 +1,7 @@
 fetch("./components/footer.html")
-.then(res => res.text())
-.then(data => {
+    .then(res => res.text())
+    .then(data => {
 
-document.getElementById("footer-placeholder").innerHTML = data;
+        document.getElementById("footer-placeholder").innerHTML = data;
 
-});
+    });
