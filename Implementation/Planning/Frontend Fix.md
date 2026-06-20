@@ -1,4 +1,6 @@
-# Frontend Fix(1405/3/22)
+# Frontend Fix List
+
+### For CSharpers team
 
 - اسم صفحات براساس آنچه در شاخه `main` موجود است نوشته شده.
 - ساختار متن از چپ به راست است
