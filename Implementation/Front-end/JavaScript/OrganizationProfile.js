@@ -13,6 +13,7 @@
     const modalOrgname   = document.getElementById('modal-orgname');
     const modalDate      = document.getElementById('modal-date');
     const modalTime      = document.getElementById('modal-time');
+    const modalPrice      = document.getElementById('modal-price');
     const trackingCode   = document.getElementById('trackingCode');
 
     /* ---- تولید کد رهگیری تصادفی ---- */
@@ -59,6 +60,7 @@
         modalOrgname.textContent  = ORG_NAME;
         modalDate.textContent     = selectedDate;
         modalTime.textContent     = selectedTime;
+        modalPrice.textContent    = "180,000";
 
         /* باز کردن مودال تأیید */
         openModal(confirmModal);
