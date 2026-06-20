@@ -143,6 +143,27 @@ function jalaliToGregorian(jy, jm, jd) {
     return { year: gy, month: gm, day: gd };
 }
 
+/**
+ * تبدیل یک تاریخ شمسی به آبجکت Date میلادی در ساعت 00:00
+ */
+function jalaliToDate(jy, jm, jd) {
+    const g = jalaliToGregorian(jy, jm, jd);
+    return new Date(g.year, g.month - 1, g.day);
+}
+
+/**
+ * بررسی اینکه آیا یک تاریخ شمسی قبل از امروز است یا نه
+ */
+function isPastJalaliDate(jy, jm, jd) {
+    const targetDate = jalaliToDate(jy, jm, jd);
+    targetDate.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return targetDate < today;
+}
+
 function jalaliMonthDays(jy, jm) {
     if (jm <= 6) return 31;
     if (jm <= 11) return 30;
@@ -183,7 +204,7 @@ let slots = [
     {
         id: 1001,
         serviceId: 1,
-        date: "2025-06-10",
+        date: "2026-08-10",
         time: "10:00",
         status: "available",
         price: 10000,
@@ -192,7 +213,7 @@ let slots = [
     {
         id: 1002,
         serviceId: 2,
-        date: "2025-06-10",
+        date: "2026-08-10",
         time: "11:30",
         status: "available",
         price: 12000,
@@ -201,7 +222,7 @@ let slots = [
     {
         id: 1003,
         serviceId: 1,
-        date: "2025-06-12",
+        date: "2026-08-12",
         time: "09:00",
         status: "booked",
         price: 15200,
@@ -631,6 +652,18 @@ function saveSlot() {
         return;
     }
 
+    // جلوگیری از ثبت نوبت برای روزهای گذشته
+    if (
+        isPastJalaliDate(
+            selectedJalaliDate.jy,
+            selectedJalaliDate.jm,
+            selectedJalaliDate.jd
+        )
+    ) {
+        alert("امکان ثبت نوبت برای روزهای گذشته وجود ندارد");
+        return;
+    }
+
     const timeVal = document.getElementById("slotTime").value;
 
     if (!timeVal) {
@@ -819,29 +852,37 @@ function renderCalendar() {
         cell.className = "calendar-day";
         cell.innerText = d;
 
+        const isPast = isPastJalaliDate(viewYear, viewMonth, d);
+
         const isSelected =
             selectedJalaliDate &&
             selectedJalaliDate.jy === viewYear &&
             selectedJalaliDate.jm === viewMonth &&
-            selectedJalaliDate.jd === d;
+            selectedJalaliDate.jd === d &&
+            !isPast;
 
-        if (isSelected) {
-            cell.classList.add("selected");
-        }
+        if (isPast) {
+            // روزهای گذشته غیرفعال می‌شوند و قابل انتخاب نیستند
+            cell.classList.add("disabled");
+        } else {
+            if (isSelected) {
+                cell.classList.add("selected");
+            }
 
-        cell.onclick = () => {
-            selectedJalaliDate = {
-                jy: viewYear,
-                jm: viewMonth,
-                jd: d
+            cell.onclick = () => {
+                selectedJalaliDate = {
+                    jy: viewYear,
+                    jm: viewMonth,
+                    jd: d
+                };
+
+                document.querySelectorAll(".calendar-day").forEach(dayCell => {
+                    dayCell.classList.remove("selected");
+                });
+
+                cell.classList.add("selected");
             };
-
-            document.querySelectorAll(".calendar-day").forEach(dayCell => {
-                dayCell.classList.remove("selected");
-            });
-
-            cell.classList.add("selected");
-        };
+        }
 
         grid.appendChild(cell);
     }
