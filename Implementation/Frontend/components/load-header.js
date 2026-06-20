@@ -1,4 +1,4 @@
-fetch("components/header.html")
+fetch("/components/header.html")
 .then(res => res.text())
 .then(data => {
 
