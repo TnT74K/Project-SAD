@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>پروفایل سازمان</title>
+
+
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="/components/fonts.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+
+  <div id="header-placeholder"></div>
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <h1 class="page-title">پروفایل سازمان</h1>
+
+      <section class="card profile-card">
+        <div class="profile-header">
+          <div class="org-image-wrap">
+            <img class="org-image"
+              src="https://formafzar.com/attachment/images/%D8%B1%D8%B2%D8%B1%D9%88-%D8%A2%D9%86%D9%84%D8%A7%DB%8C%D9%86.jpg"
+              alt="سازمان">
+          </div>
+
+          <div class="org-info">
+            <h2 class="org-name">مرکز تخصصی رزروسنتر</h2>
+            <p class="org-description">
+              این مرکز با بهره‌گیری از کادری مجرب و سیستم نوبت‌دهی هوشمند،
+              خدماتی با کیفیت در حوزه‌های تخصصی ارائه می‌دهد.
+              هدف ما تسهیل فرآیند رزرو و ارائه بهترین تجربه کاربری برای کاربران است.
+            </p>
+
+            <div class="org-meta">
+              <div class="meta-row">
+                <span class="meta-label">نام کامل واحد</span>
+                <span class="meta-value">سازمان خدمات نمونه کشوری</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">وضعیت فعالیت</span>
+                <span class="meta-value" style="color: #27ae60;">● فعال</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">ساعت پاسخگویی</span>
+                <span class="meta-value">08:00 الی 18:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="appointments-section">
+        <h3 class="section-title">نوبت‌های قابل رزرو</h3>
+
+        <div class="appointment-grid">
+          <div class="card appointment-group">
+            <div class="appointment-date">
+              <span>شنبه 1405/04/22</span>
+              <small>۴ نوبت آزاد</small>
+            </div>
+            <div class="appointment-times">
+              <button class="time-btn">08:00</button>
+              <button class="time-btn">09:30</button>
+              <button class="time-btn">11:00</button>
+              <button class="time-btn">12:30</button>
+            </div>
+          </div>
+
+          <div class="card appointment-group">
+            <div class="appointment-date">
+              <span>یکشنبه 1405/04/23</span>
+              <small>۳ نوبت آزاد</small>
+            </div>
+            <div class="appointment-times">
+              <button class="time-btn">10:00</button>
+              <button class="time-btn">14:30</button>
+              <button class="time-btn">16:00</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <!-- =========================
+       Modal 1: Confirm Appointment
+  ========================== -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-icon">📋</div>
+        <div>
+          <h2 class="modal-title">تأیید رزرو نوبت</h2>
+          <p class="modal-subtitle">لطفاً اطلاعات نوبت را بررسی کنید</p>
+        </div>
+      </div>
+
+      <div class="modal-info-grid">
+        <div class="modal-info-row">
+          <span class="modal-info-label">👤 نام و نام خانوادگی</span>
+          <span class="modal-info-value" id="modal-username">کاربر مهمان</span>
+        </div>
+        <div class="modal-info-row">
+          <span class="modal-info-label">🏢 نام سازمان</span>
+          <span class="modal-info-value" id="modal-orgname">مرکز تخصصی رزروسنتر</span>
+        </div>
+        <div class="modal-info-row">
+          <span class="modal-info-label">📅 تاریخ نوبت</span>
+          <span class="modal-info-value" id="modal-date">—</span>
+        </div>
+        <div class="modal-info-row">
+          <span class="modal-info-label">🕐 ساعت نوبت</span>
+          <span class="modal-info-value time-val" id="modal-time">—</span>
+        </div>
+        <div class="modal-info-row">
+          <span class="modal-info-label">💵 مبلغ</span>
+          <span class="modal-info-value" id="modal-price"></span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btnCancel">انصراف</button>
+        <button class="btn-confirm" id="btnConfirmPay">
+          <span>✓</span> تایید و پرداخت
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       Modal 2: Success
+  ========================== -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      <div class="success-icon-wrap">✓</div>
+      <h2 class="success-title">نوبت با موفقیت ثبت شد!</h2>
+      <p class="success-desc">
+        رزرو شما با موفقیت انجام شد.<br>
+        کد رهگیری زیر را برای پیگیری نزد خود نگه دارید.
+      </p>
+      <div class="tracking-box">
+        <p class="tracking-label">کد رهگیری شما</p>
+        <div class="tracking-code" id="trackingCode">—</div>
+      </div>
+      <button class="btn-close-success" id="btnCloseSuccess">متوجه شدم</button>
+    </div>
+  </div>
+  <div id="footer-placeholder"></div>
+
+  <!-- Page JS -->
+  <script src="profile.js"></script>
+
+<script src="/components/load-header.js"></script>
+<script src="/components/header.js"></script>
+<script src="/components/load-footer.js"></script>
+
+</body>
+
+</html>
