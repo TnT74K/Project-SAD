@@ -6,8 +6,8 @@
   <title>رزروسنتر | سامانه جامع نوبت‌دهی</title>
 
   <!-- استایل‌های اصلی -->
-  <link rel="stylesheet" href="./components/fonts.css">
-  <link rel="stylesheet" href="./index.css"/>
+  <link rel="stylesheet" href="components/fonts.css">
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
@@ -16,7 +16,6 @@
 ══════════════════════════════════════════ -->
 <header id="header">
   <div id="header-placeholder"></div>
-
 </header>
 
 
@@ -46,7 +45,7 @@
               <circle cx="11" cy="11" r="8" />
               <path d="M21 21l-4.35-4.35" />
           </svg>
-            <input type="text" placeholder="جستجوی خدمت یا کسب‌وکار..." id="mainSearch" />
+            <input type="text" placeholder="جست‌وجوی کسب‌وکارها" id="mainSearch" />
         </div>
 
         <div class="search-divider"></div>
@@ -67,7 +66,7 @@
         <a href="./pages/search/search.html" class="search-btn" onclick="doSearch()">🔍 جستجو</a>
       </div>
 
-      <!-- چیپ‌های میان‌بر دسته‌بندی — setChip() در main.js -->
+      <!-- چیپ‌های میان‌بر دسته‌بندی -->
       <div class="hero-chips">
         <span class="hero-chip-label">پرطرفدار:</span>
         <button class="chip active" onclick="setChip(this,'آرایشگاه')">✂️ آرایشگاه</button>
@@ -76,6 +75,69 @@
           <button class="chip" onclick="setChip(this,'کلینیک')">🏥 کلینیک</button>
           <button class="chip" onclick="setChip(this,'سالن زیبایی')">💅 سالن زیبایی</button>
         </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ══════════════════════════════════════════
+       CATEGORIES
+══════════════════════════════════════════ -->
+<section id="categories">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">📂 دسته‌بندی‌ها</div>
+      <h2 class="section-title">خدمات مورد نیازت را پیدا کن</h2>
+      <p class="section-subtitle">از هزاران کسب‌وکار در دسته‌بندی‌های مختلف، سریع و آسان انتخاب کن</p>
+    </div>
+
+    <div class="categories-grid">
+      <div class="cat-card" onclick="filterCat('آرایشگاه')">
+        <div class="cat-icon" style="background:rgba(11,37,69,0.08)">✂️</div>
+        <div class="cat-name">آرایشگاه</div>
+        <div class="cat-count">۲٬۳۴۵ کسب‌وکار</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('دندانپزشک')">
+        <div class="cat-icon" style="background:rgba(46,134,193,0.1)">🦷</div>
+        <div class="cat-name">دندانپزشک</div>
+        <div class="cat-count">۱٬۸۷۲ کلینیک</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('کلینیک')">
+        <div class="cat-icon" style="background:rgba(34,197,94,0.1)">🏥</div>
+        <div class="cat-name">کلینیک</div>
+        <div class="cat-count">۹۸۴ مرکز</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('باشگاه')">
+        <div class="cat-icon" style="background:rgba(239,68,68,0.1)">💪</div>
+        <div class="cat-name">باشگاه ورزشی</div>
+        <div class="cat-count">۱٬۱۲۳ باشگاه</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('سالن زیبایی')">
+        <div class="cat-icon" style="background:rgba(168,85,247,0.1)">💅</div>
+        <div class="cat-name">سالن زیبایی</div>
+        <div class="cat-count">۳٬۶۷۸ سالن</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('پت‌شاپ')">
+        <div class="cat-icon" style="background:rgba(251,146,60,0.1)">🐾</div>
+        <div class="cat-name">پت‌شاپ</div>
+        <div class="cat-count">۵۶۷ فروشگاه</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('پزشک')">
+        <div class="cat-icon" style="background:rgba(20,184,166,0.1)">⚕️</div>
+        <div class="cat-name">پزشک عمومی</div>
+        <div class="cat-count">۷۸۹ پزشک</div>
+      </div>
+
+      <div class="cat-card" onclick="filterCat('آزمایشگاه')">
+        <div class="cat-icon" style="background:rgba(212,172,13,0.1)">🔬</div>
+        <div class="cat-name">آزمایشگاه</div>
+        <div class="cat-count">۴۳۲ آزمایشگاه</div>
+      </div>
       </div>
     </div>
   </section>
@@ -242,68 +304,7 @@
     </div>
   </section>
 
-<!-- ══════════════════════════════════════════
-       CATEGORIES
-══════════════════════════════════════════ -->
-<section id="categories">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-badge">📂 دسته‌بندی‌ها</div>
-      <h2 class="section-title">خدمات مورد نیازت را پیدا کن</h2>
-      <p class="section-subtitle">از هزاران کسب‌وکار در دسته‌بندی‌های مختلف، سریع و آسان انتخاب کن</p>
-    </div>
 
-    <div class="categories-grid">
-      <div class="cat-card" onclick="filterCat('آرایشگاه')">
-        <div class="cat-icon" style="background:rgba(11,37,69,0.08)">✂️</div>
-        <div class="cat-name">آرایشگاه</div>
-        <div class="cat-count">۲٬۳۴۵ کسب‌وکار</div>
-      </div>
-
-      <div class="cat-card" onclick="filterCat('دندانپزشک')">
-        <div class="cat-icon" style="background:rgba(46,134,193,0.1)">🦷</div>
-        <div class="cat-name">دندانپزشک</div>
-        <div class="cat-count">۱٬۸۷۲ کلینیک</div>
-      </div>
-
-      <div class="cat-card" onclick="filterCat('کلینیک')">
-        <div class="cat-icon" style="background:rgba(34,197,94,0.1)">🏥</div>
-        <div class="cat-name">کلینیک</div>
-        <div class="cat-count">۹۸۴ مرکز</div>
-      </div>
-
-      <div class="cat-card" onclick="filterCat('باشگاه')">
-        <div class="cat-icon" style="background:rgba(239,68,68,0.1)">💪</div>
-        <div class="cat-name">باشگاه ورزشی</div>
-        <div class="cat-count">۱٬۱۲۳ باشگاه</div>
-      </div>
-
-      <div class="cat-card" onclick="filterCat('سالن زیبایی')">
-        <div class="cat-icon" style="background:rgba(168,85,247,0.1)">💅</div>
-        <div class="cat-name">سالن زیبایی</div>
-        <div class="cat-count">۳٬۶۷۸ سالن</div>
-      </div>
-
-      <div class="cat-card" onclick="filterCat('پت‌شاپ')">
-        <div class="cat-icon" style="background:rgba(251,146,60,0.1)">🐾</div>
-        <div class="cat-name">پت‌شاپ</div>
-        <div class="cat-count">۵۶۷ فروشگاه</div>
-      </div>
-
-      <div class="cat-card" onclick="filterCat('پزشک')">
-        <div class="cat-icon" style="background:rgba(20,184,166,0.1)">⚕️</div>
-        <div class="cat-name">پزشک عمومی</div>
-        <div class="cat-count">۷۸۹ پزشک</div>
-      </div>
-
-      <div class="cat-card" onclick="filterCat('آزمایشگاه')">
-        <div class="cat-icon" style="background:rgba(212,172,13,0.1)">🔬</div>
-        <div class="cat-name">آزمایشگاه</div>
-        <div class="cat-count">۴۳۲ آزمایشگاه</div>
-      </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ══════════════════════════════════════════
        HOW IT WORKS
@@ -355,7 +356,10 @@
       </div>
       <div class="cta-banner-actions">
         <button class="btn-cta-primary" onclick="window.location.href='./pages/org/register.html'">ثبت كسب و كار</button>
-        <button class="btn-cta-sec">بیشتر بدانید</button>
+        <button class="btn-cta-sec">
+          <a href="./pages/info/org-register-help.html">بیشتر بدانید</a>
+        </button>
+        
       </div>
     </div>
   </div>
@@ -368,10 +372,10 @@
 
 
 <!-- اسکریپت اصلی — انتهای body برای دسترسی به تمام عناصر DOM -->
-<script src="./index.js" defer></script>
-<script src="./components/load-header.js"></script>
-<script src="./components/header.js"></script>
-<script src="./components/load-footer.js"></script>
+<script src="index.js" defer></script>
+<script src="components/load-header.js"></script>
+<script src="components/header.js"></script>
+<script src="components/load-footer.js"></script>
 
 </body>
 </html>
