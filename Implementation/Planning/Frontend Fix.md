@@ -22,23 +22,23 @@ Division table:
 
 | Page to improve | Description                                                  |   Responsible    | Priority | Status |
 | :-------------: | ------------------------------------------------------------ | :--------------: | :------: | :----: |
-|   Search page   | `Add`: فیلتر برای کسب و کارهای برتر                          | Mohammad Hossein |   High   | Cancel |
+|   Search page   | `Add`: فیلتر برای کسب و کارهای برتر                          | Mohammad Hossein |  Medium  | Cancel |
 |     Footer      | `Add`: Mock emails + support numbers                         |     Abolfazl     |  Medium  |  Done  |
-|    Homepage     | `Fix`: change homepage 'کسب و کارهای جدید' profile images to a default image. | Mohammad Hossein |   High   |  Open  |
+|    Homepage     | `Fix`: change homepage 'کسب و کارهای جدید' profile images to a default image. | Mohammad Hossein |   High   |  Done  |
 
 ## Fix: Part Three (05/3/26) and (05/3/27)
 
 |      Page to improve      | Description                                                  |   Responsible    | Priority |   Status    |
 | :-----------------------: | ------------------------------------------------------------ | :--------------: | :------: | :---------: |
 |        Login page         | `Add`: Role selection modal; Opens **If** the user has more than 1 role. |      Hamed       |   High   |    Done     |
-|         Homepage          | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein |   High   | In progress |
+|         Homepage          | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein |   High   |    Done     |
 |      All dashboards       | `add`: new nav bar having buttons to access lists.           |     Abolfazl     |   High   |    Done     |
 |        Search-page        | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein |  Medium  | In progress |
 |      All dashboards       | `Fix`: nav bar still shows login / register                  |     Abolfazl     |   High   | In progress |
 |     `New`:  About Us      | `Add`: give a small description about the system             |       Ali        |  Medium  |    Done     |
 | `New`: ORG register guide | `Add`: from homepage, they can enter this page; We explain how to register a business and tell them about the rules. |       Ali        |  Medium  |    Done     |
-|         All pages         | Connect all pages together in the new folder structure branch |     Abolfazl     |   High   |    Done?    |
-|         All pages         | `Add`: One separate CSS for all fonts. Update the refs to match that file. |     Abolfazl     |   High   |    Done?    |
+|         All pages         | Connect all pages together in the new folder structure branch |     Abolfazl     |   High   | In progress |
+|         All pages         | `Add`: One separate CSS for all fonts. Update the refs to match that file. |     Abolfazl     |   High   | In progress |
 
 ## *Fix: Part Four (05/3/28-05/03/29)*
 
@@ -53,18 +53,17 @@ Division table:
 
 |    Page to improve    | Description                                                  | Responsible | Priority |       Status        |
 | :-------------------: | ------------------------------------------------------------ | :---------: | :------: | :-----------------: |
-| ORG profile edit page | `Fix` : User can make new appointment for previous days!!; `Fix`: Font for "تومان" is missing -> use Vazirmatn. `Fix`: عنوان فیلد قیمت، در مودال ویرایش نوبت، نمایش داده نمیشه. |  Abolfazl   |   High   |        Open         |
-|   appointment-list    | `Fix`: فرمت کد نوبت با فرمت صفحه پروفایل سازمان از دید مشتری(همونجایی نوبت میگیره) فرق داره |     Ali     |   High   |        Open         |
-|  `new` AD view page   | Opens after the user clicks on "مشاهده بیشتر" button of 'تخفیف ها' section. |    Ali?     |  -----   | Task may be removed |
-|       All pages       | `Fix`: All numbers should be in English                      |  Abolfazl   |  Medium  |        Open         |
-|       All pages       | `Apply`: Coordinate all mock data to match.                  |    Sajad    |   High   |        Open         |
+| ORG profile edit page | `Fix` : User can make new appointment for previous days!!; `Fix`: Font for "تومان" is missing -> use Vazirmatn. `Fix`: عنوان فیلد قیمت، در مودال ویرایش نوبت، نمایش داده نمیشه. |  Abolfazl   |   High   |     In progress     |
+|  `new` AD view page   | Opens after the user clicks on "مشاهده بیشتر" button of 'تخفیف ها' section. |    -----    |  -----   | Task may be removed |
+|       All pages       | `Fix`: All numbers be in English                             |  Abolfazl   |  Medium  |        Open         |
+|       All pages       | `Apply`: Coordinate all mock data to match.                  |    Sajad    |  Medium  |     Unapproved      |
 
 ## Fix: Part Six (05/3/30)
 
-| Page to improve | Description                                                  | Responsible | Priority | Status |
-| --------------- | ------------------------------------------------------------ | ----------- | -------- | ------ |
-| ORG Profile     | `Fix`: Tapping on TimeSections does not show appointment price | Abolfazl    | High     | Open   |
-|                 |                                                              |             |          |        |
-|                 |                                                              |             |          |        |
-|                 |                                                              |             |          |        |
+| Page to improve    | Description                                                  | Responsible | Priority | Status               |
+| ------------------ | ------------------------------------------------------------ | ----------- | -------- | -------------------- |
+| ORG Profile        | `Fix`: Tapping on TimeSections does not show appointment price | Abolfazl    | High     | Done                 |
+| appointment-list   | `Fix`: فرمت کد نوبت با فرمت صفحه پروفایل سازمان از دید مشتری(همونجایی نوبت میگیره) فرق داره | Sajad       | High     | Open                 |
+| ORG Public Profile | `Add`: Editing the horizontal list 'نوع خدمات'               | ???         | High     | Waiting for approval |
+| ORG Profile Edit   | `Add`: A horizontal list of the types of service the ORG can do for customers. It's name is 'نوع' | ???         | High     | Waiting for approval |
 
