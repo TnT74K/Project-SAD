@@ -1,7 +1,6 @@
 # Project ReserveCenter
 یکپارچگی مشتری با سازمان ها
 
-Test
 Customer integration with the organization
 
 ## Markdown File Count

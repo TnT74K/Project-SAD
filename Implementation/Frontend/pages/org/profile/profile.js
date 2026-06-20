@@ -1,5 +1,5 @@
  /* ---- داده‌های نمونه (در پروژه واقعی از API می‌آید) ---- */
-    const USER_NAME   = 'علی محمدی';
+    const USER_NAME   = 'علی رضایی';
     const ORG_NAME    = 'مرکز تخصصی رزروسنتر';
 
     /* ---- وضعیت انتخاب ---- */
@@ -13,6 +13,7 @@
     const modalOrgname   = document.getElementById('modal-orgname');
     const modalDate      = document.getElementById('modal-date');
     const modalTime      = document.getElementById('modal-time');
+    const modalPrice      = document.getElementById('modal-price');
     const trackingCode   = document.getElementById('trackingCode');
     /* ---- انتخاب خدمت ---- */
     const serviceSelect = document.getElementById('serviceSelect');
@@ -98,6 +99,15 @@ document.addEventListener('click', function(e){
 
 });
 
+<<<<<<< HEAD
+=======
+        /* پر کردن مودال */
+        modalUsername.textContent = USER_NAME;
+        modalOrgname.textContent  = ORG_NAME;
+        modalDate.textContent     = selectedDate;
+        modalTime.textContent     = selectedTime;
+        modalPrice.textContent    = "180,000";
+>>>>>>> c9cf8f84232f61150ab032d26c22281af7963935
 
 
     /* ---- دکمه انصراف ---- */

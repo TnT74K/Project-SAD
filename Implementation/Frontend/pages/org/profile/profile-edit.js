@@ -22,6 +22,26 @@ let editingServiceId = null;
 function pad2(n) {
     return String(n).padStart(2, "0");
 }
+/**
+ * تبدیل یک تاریخ شمسی به آبجکت Date میلادی در ساعت 00:00
+ */
+function jalaliToDate(jy, jm, jd) {
+    const g = jalaliToGregorian(jy, jm, jd);
+    return new Date(g.year, g.month - 1, g.day);
+}
+
+/**
+ * بررسی اینکه آیا یک تاریخ شمسی قبل از امروز است یا نه
+ */
+function isPastJalaliDate(jy, jm, jd) {
+    const targetDate = jalaliToDate(jy, jm, jd);
+    targetDate.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return targetDate < today;
+}
 
 function formatPrice(price) {
     return Number(price).toLocaleString("en-US");
@@ -652,7 +672,6 @@ function saveSlot() {
         return;
     }
 
-    // جلوگیری از ثبت نوبت برای روزهای گذشته
     if (
         isPastJalaliDate(
             selectedJalaliDate.jy,
@@ -661,6 +680,12 @@ function saveSlot() {
         )
     ) {
         alert("امکان ثبت نوبت برای روزهای گذشته وجود ندارد");
+        return;
+    }
+
+    const timeVal = document.getElementById("slotTime").value;
+    if (!timeVal) {
+        alert("لطفاً ساعت را وارد کنید");
         return;
     }
 
