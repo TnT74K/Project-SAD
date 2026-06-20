@@ -42,7 +42,7 @@ Division table:
 |         All pages         | Connect all pages together in the new folder structure branch |     Abolfazl     |   High   | In progress |
 |         All pages         | `Add`: One separate CSS for all fonts. Update the refs to match that file. |     Abolfazl     |   High   | In progress |
 
-## *Fix: Part Four (05/3/28-05/03/29)*
+## Fix: Part Four (05/3/28-05/03/29)
 
 | Page to improve | Description                                                  |   Responsible    | Priority | Status |
 | :-------------: | ------------------------------------------------------------ | :--------------: | :------: | :----: |
@@ -57,10 +57,10 @@ Division table:
 | :-------------------: | ------------------------------------------------------------ | :---------: | :------: | :-----------------: |
 | ORG profile edit page | `Fix` : User can make new appointment for previous days!!; `Fix`: Font for "تومان" is missing -> use Vazirmatn. `Fix`: عنوان فیلد قیمت، در مودال ویرایش نوبت، نمایش داده نمیشه. |  Abolfazl   |   High   |     In progress     |
 |  `new` AD view page   | Opens after the user clicks on "مشاهده بیشتر" button of 'تخفیف ها' section. |    -----    |  -----   | Task may be removed |
-|       All pages       | `Fix`: All numbers be in English                             |  Abolfazl   |  Medium  |        Open         |
+|       All pages       | `Fix`: All numbers be in English                             |  Abolfazl   |  Medium  |     In progress     |
 |       All pages       | `Apply`: Coordinate all mock data to match.                  |    Sajad    |  Medium  |     Unapproved      |
 
-## Fix: Part Six (05/3/30)
+## *Fix: Part Six (05/3/30)*
 
 | Page to improve    | Description                                                  | Responsible | Priority | Status               |
 | ------------------ | ------------------------------------------------------------ | ----------- | -------- | -------------------- |
