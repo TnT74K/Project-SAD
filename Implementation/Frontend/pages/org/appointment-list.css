@@ -144,7 +144,7 @@ tbody tr.row-gray   { background: rgba(100,100,100,.05); }
 
 /* کد تأییدیه */
 .confirm-code {
-  font-family: 'Orbitron', monospace;
+  font-family: 'Vazirmatn', sans-serif;
   font-size: .82rem;
   color: var(--text-2);
   letter-spacing: 1px;

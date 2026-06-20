@@ -232,8 +232,9 @@ main {
   border: 1px solid var(--border);     /* حاشیه */
   background: #fff;                    /* پس‌زمینه سفید */
   color: var(--primary);               /* رنگ متن */
-  font-family: 'Orbitron', sans-serif; /* فونت دیجیتال برای ساعت */
+  font-family: 'Vazirmatn', sans-serif;
   font-weight: 600;                    /* ضخیم */
+  font-size: 1rem;
   cursor: pointer;                     /* تغییر مکان‌نما به دست */
   transition: all 0.2s;                /* انیمیشن تغییرات */
 }

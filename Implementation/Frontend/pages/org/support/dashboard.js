@@ -232,7 +232,7 @@ function renderCalendar() {
   for (let d = 1; d <= totalDays; d++) {
     const el = document.createElement("div");
     el.className = "cal-day";
-    el.textContent = toPersianNum(d);  // نمایش عدد به فارسی
+    el.textContent = d;  // نمایش عدد به فارسی
 
     // محاسبه روز هفته (۰=شنبه تا ۶=جمعه)
     const weekday = (firstWday + d - 1) % 7;
@@ -292,11 +292,6 @@ document.getElementById("calNext").addEventListener("click", () => {
 // بخش ۵: ساعت و تاریخ (Clock & Dates)
 // ========================================
 
-// ─── تبدیل عدد به فارسی ───────────────────────────────────────────────
-// تابع کمکی برای تبدیل اعداد انگلیسی به فارسی
-function toPersianNum(n) {
-  return String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-}
 
 // ─── به‌روزرسانی ساعت و تاریخ ─────────────────────────────────────────
 // تابع به‌روزرسانی ویجت ساعت و نمایش تاریخ‌ها
@@ -318,7 +313,7 @@ function updateClock() {
 
   // نمایش تاریخ شمسی با فرمت سال/ماه/روز
   document.getElementById("jalaliDate").textContent =
-    `${toPersianNum(j.year)}/${toPersianNum(String(j.month).padStart(2, "0"))}/${toPersianNum(String(j.day).padStart(2, "0"))}`;
+    `${j.year}/${String(j.month).padStart(2, "0")}/${String(j.day).padStart(2, "0")}`;
 
   // ─── تاریخ میلادی ──────────────────────────────────────────────
   const months = [
@@ -331,7 +326,7 @@ function updateClock() {
 
   // ─── تاریخ در نوار بالایی (Topbar) ────────────────────────────
   document.getElementById("topbarDate").textContent =
-    `${MONTH_NAMES[j.month - 1]} ${toPersianNum(j.day)}، ${toPersianNum(j.year)}`;
+    `${MONTH_NAMES[j.month - 1]} ${j.day}، ${j.year}`;
 }
 
 // ========================================
