@@ -93,21 +93,13 @@ document.addEventListener('click', function(e){
   modalOrgname.textContent  = ORG_NAME;
   modalDate.textContent     = selectedDate;
   modalTime.textContent     = selectedTime;
+  modalPrice.textContent     = "180,000";
   modalService.textContent  = serviceSelect.options[serviceSelect.selectedIndex].text;
 
   openModal(confirmModal);
 
 });
 
-<<<<<<< HEAD
-=======
-        /* پر کردن مودال */
-        modalUsername.textContent = USER_NAME;
-        modalOrgname.textContent  = ORG_NAME;
-        modalDate.textContent     = selectedDate;
-        modalTime.textContent     = selectedTime;
-        modalPrice.textContent    = "180,000";
->>>>>>> c9cf8f84232f61150ab032d26c22281af7963935
 
 
     /* ---- دکمه انصراف ---- */

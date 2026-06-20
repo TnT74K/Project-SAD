@@ -163,26 +163,7 @@ function jalaliToGregorian(jy, jm, jd) {
     return { year: gy, month: gm, day: gd };
 }
 
-/**
- * تبدیل یک تاریخ شمسی به آبجکت Date میلادی در ساعت 00:00
- */
-function jalaliToDate(jy, jm, jd) {
-    const g = jalaliToGregorian(jy, jm, jd);
-    return new Date(g.year, g.month - 1, g.day);
-}
 
-/**
- * بررسی اینکه آیا یک تاریخ شمسی قبل از امروز است یا نه
- */
-function isPastJalaliDate(jy, jm, jd) {
-    const targetDate = jalaliToDate(jy, jm, jd);
-    targetDate.setHours(0, 0, 0, 0);
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    return targetDate < today;
-}
 
 function jalaliMonthDays(jy, jm) {
     if (jm <= 6) return 31;
@@ -684,12 +665,6 @@ function saveSlot() {
     }
 
     const timeVal = document.getElementById("slotTime").value;
-    if (!timeVal) {
-        alert("لطفاً ساعت را وارد کنید");
-        return;
-    }
-
-    const timeVal = document.getElementById("slotTime").value;
 
     if (!timeVal) {
         alert("لطفاً ساعت نوبت را وارد کنید");
@@ -761,6 +736,7 @@ function saveSlot() {
     closeModal("slotModal");
     renderSlots();
 }
+
 
 function editSlot(id) {
     const slot = slots.find(s => Number(s.id) === Number(id));
