@@ -560,3 +560,20 @@ input, button, textarea, select {
   font-style: normal;
   font-display: swap;
 }
+
+.calendar-day.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    background: #f1f1f1;
+    color: #999;
+    pointer-events: none;
+}
+
+.calendar-day.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #eeeeee;
+    color: #999999;
+    text-decoration: line-through;
+    pointer-events: none;
+}
