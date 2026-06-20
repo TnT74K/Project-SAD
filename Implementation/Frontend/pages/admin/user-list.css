@@ -1,0 +1,283 @@
+/* ===============================
+   متغیرهای رنگی پروژه
+================================*/
+:root {
+  --primary: #0B2545;
+  --primary-mid: #1B4F72;
+  --primary-light: #2E86C1;
+  --accent: #D4AC0D;
+  --bg: #eef2f7;
+  --bg-card: #ffffff;
+  --text: #1a2a3a;
+  --border: rgba(11,37,69,.1);
+  --radius: 14px;
+  --shadow: 0 2px 16px rgba(11,37,69,.08);
+}
+
+/* ریست پایه */
+*{
+box-sizing:border-box;
+}
+
+/* استایل بدنه صفحه */
+body{
+margin:0;
+padding:0;
+font-family:'Vazirmatn',sans-serif;
+color:var(--text);
+
+display:flex;
+flex-direction:column;
+min-height:100vh;
+
+/* بکگراند */
+background:
+radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
+radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
+linear-gradient(160deg,#dde8f4 0%,#eef2f7 40%,#e8f0f8 100%);
+
+background-attachment:fixed;
+}
+main{
+flex:1;
+padding-top:80px;
+}
+
+
+/* کانتینر اصلی */
+.container{
+width:min(1200px,calc(100% - 32px));
+margin:auto;
+padding:30px 0;
+}
+
+/* کارت صفحه */
+.card{
+background:var(--bg-card);
+border-radius:var(--radius);
+box-shadow:var(--shadow);
+border:1px solid rgba(255,255,255,0.7);
+padding:20px;
+margin-bottom:20px;
+}
+
+/* عنوان صفحه */
+.page-title{
+font-size:1.5rem;
+font-weight:800;
+color:var(--primary);
+margin-bottom:20px;
+text-align:center;
+}
+
+/* نوار ابزار */
+.toolbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+gap:10px;
+flex-wrap:wrap;
+}
+
+/* بخش جستجو */
+.search-box{
+display:flex;
+gap:10px;
+}
+
+/* فیلدهای فرم */
+input,select{
+padding:10px 12px;
+border-radius:8px;
+border:1px solid var(--border);
+font-family:inherit;
+}
+
+/* دکمه‌ها */
+button{
+border:none;
+cursor:pointer;
+border-radius:8px;
+padding:10px 14px;
+font-family:inherit;
+}
+
+/* دکمه اصلی */
+.btn-primary{
+background:var(--primary);
+color:white;
+}
+
+.btn-primary:hover{
+background:var(--primary-light);
+}
+
+/* دکمه هشدار */
+.btn-warning{
+background:var(--accent);
+color:#000;
+}
+
+/* دکمه خطر */
+.btn-danger{
+background:#e74c3c;
+color:white;
+}
+
+/* دکمه خطر */
+.btn-success{
+background:#27ae60;
+color:white;
+}
+
+/* جدول */
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+/* سلول‌ها */
+th,td{
+padding:12px;
+border-bottom:1px solid var(--border);
+text-align:center;
+}
+
+/* هدر جدول */
+th{
+color:var(--primary);
+font-weight:700;
+background:rgba(11,37,69,0.03);
+}
+
+/* وضعیت‌ها */
+.personstatus-active{
+color:#27ae60;
+font-weight:700;
+}
+
+.personstatus-inactive{
+color:#e74c3c;
+font-weight:700;
+}
+
+/* دکمه‌های عملیات */
+.actions{
+display:flex;
+gap:6px;
+justify-content:right;
+flex-wrap:wrap;
+}
+
+/* ===============================
+   MODAL
+================================*/
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.4);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.modal-content{
+background:white;
+width:450px;
+max-width:95%;
+padding:25px;
+border-radius:14px;
+}
+
+.form-grid{
+display:grid;
+gap:12px;
+margin-top:10px;
+}
+
+.password-wrap{
+display:flex;
+gap:6px;
+}
+
+.show-pass{
+background:#ddd;
+}
+
+.modal-header{
+font-weight:800;
+color:var(--primary);
+margin-bottom:10px;
+}
+
+.modal-actions{
+margin-top:15px;
+display:flex;
+justify-content:flex-end;
+gap:10px;
+}
+
+.modal.open {
+  display: flex;
+}
+
+/* ===============================
+   Responsive
+================================*/
+
+@media (max-width:768px){
+
+.toolbar{
+flex-direction:column;
+align-items:stretch;
+gap:12px;
+}
+
+.search-box{
+flex-direction:column;
+width:100%;
+}
+
+.search-box input,
+.search-box button{
+width:100%;
+}
+
+table{
+border-collapse:separate;
+border-spacing:0 12px;
+}
+
+thead{
+display:none;
+}
+
+tbody{
+display:block;
+}
+
+tr{
+display:block;
+background:#fff;
+padding:15px;
+border-radius:12px;
+box-shadow:var(--shadow);
+margin-bottom:12px;
+}
+
+td{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border:none;
+}
+
+td::before{
+content:attr(data-label);
+font-weight:700;
+color:var(--primary);
+}
+
+}

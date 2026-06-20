@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مدیریت تبلیغات | رزروسنتر</title>
+
+
+  <!-- استایل‌شیت اصلی -->
+   <link rel="stylesheet" href="/components/fonts.css">
+  <link rel="stylesheet" href="ad-manage.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     LAYOUT — کانتینر اصلی صفحه
+     شامل sidebar (چپ) و main (راست)
+     ══════════════════════════════════════ -->
+<div class="layout">
+
+  <div id="header-placeholder"></div>
+
+  <!-- ══════════════════════════════════════
+       MAIN — محتوای اصلی صفحه
+       ══════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- ────────────────────────────────────
+         VIEW: LIST — نمایش لیست تبلیغات
+         این div در حالت پیش‌فرض نمایش داده
+         می‌شود و با showForm() پنهان می‌شود
+         ──────────────────────────────────── -->
+    <div id="view-list">
+
+      <!-- هدر صفحه: عنوان + دکمه افزودن -->
+      <div class="page-header">
+        <div class="page-title">
+          مدیریت تبلیغات
+          <!-- تعداد تبلیغات فعال — با updateCount() به‌روز می‌شود -->
+          <span id="ad-count">۴ تبلیغ فعال</span>
+        </div>
+        <!-- دکمه افزودن تبلیغ جدید — showForm(null) فراخوانی می‌کند -->
+        <button class="btn-add" onclick="showForm(null)">
+          ＋ افزودن تبلیغ جدید
+        </button>
+      </div>
+
+      <!-- گرید کارت‌های تبلیغ
+           کارت‌های جدید نیز اینجا اضافه می‌شوند (submitForm) -->
+      <div class="ads-grid" id="ads-grid">
+
+        <!-- ── کارت تبلیغ ۱ ── -->
+        <div class="ad-card" data-id="1">
+          <div class="ad-image-placeholder" style="background:linear-gradient(135deg,#1a2d45,#2e5f8a)">🏥</div>
+          <div class="ad-body">
+            <div class="ad-meta">
+              <div class="ad-title">کلینیک پوست و مو دکتر احمدی</div>
+              <div class="ad-desc">مشاوره رایگان اول ماه — ثبت نوبت آنلاین با ۲۰٪ تخفیف ویژه</div>
+            </div>
+            <div class="ad-actions">
+              <button class="btn-edit"   onclick="showForm(1)">✏️ ویرایش</button>
+              <button class="btn-delete" onclick="deleteCard(this)">🗑 حذف</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── کارت تبلیغ ۲ ── -->
+        <div class="ad-card" data-id="2">
+          <div class="ad-image-placeholder" style="background:linear-gradient(135deg,#2d1a4a,#6b21a8)">💅</div>
+          <div class="ad-body">
+            <div class="ad-meta">
+              <div class="ad-title">سالن زیبایی لونا — پاییز ۱۴۰۳</div>
+              <div class="ad-desc">پکیج ویژه عروس و پاتیناژ مو با قیمت استثنایی</div>
+            </div>
+            <div class="ad-actions">
+              <button class="btn-edit"   onclick="showForm(2)">✏️ ویرایش</button>
+              <button class="btn-delete" onclick="deleteCard(this)">🗑 حذف</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── کارت تبلیغ ۳ ── -->
+        <div class="ad-card" data-id="3">
+          <div class="ad-image-placeholder" style="background:linear-gradient(135deg,#0d3d2a,#1a7a55)">🦷</div>
+          <div class="ad-body">
+            <div class="ad-meta">
+              <div class="ad-title">دندانپزشکی دکتر رضایی</div>
+              <div class="ad-desc">جرم‌گیری و بلیچینگ حرفه‌ای — اقساط بدون بهره</div>
+            </div>
+            <div class="ad-actions">
+              <button class="btn-edit"   onclick="showForm(3)">✏️ ویرایش</button>
+              <button class="btn-delete" onclick="deleteCard(this)">🗑 حذف</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── کارت تبلیغ ۴ ── -->
+        <div class="ad-card" data-id="4">
+          <div class="ad-image-placeholder" style="background:linear-gradient(135deg,#1a0d0d,#a83232)">💪</div>
+          <div class="ad-body">
+            <div class="ad-meta">
+              <div class="ad-title">باشگاه فیتنس ایران‌زمین</div>
+              <div class="ad-desc">ثبت‌نام ماهانه با هدیه یک ماه رایگان — محدود!</div>
+            </div>
+            <div class="ad-actions">
+              <button class="btn-edit"   onclick="showForm(4)">✏️ ویرایش</button>
+              <button class="btn-delete" onclick="deleteCard(this)">🗑 حذف</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /ads-grid -->
+    </div><!-- /view-list -->
+
+
+    <!-- ────────────────────────────────────
+         VIEW: FORM — فرم افزودن تبلیغ جدید
+         پیش‌فرض: display:none
+         با showForm(null) با display:flex نمایش داده می‌شود
+         ──────────────────────────────────── -->
+    <div id="view-form">
+
+      <!-- هدر فرم: دکمه بازگشت + عنوان -->
+      <div class="form-header">
+        <button class="btn-back" onclick="showList()">← بازگشت</button>
+        <div class="form-title" id="form-title">افزودن تبلیغ جدید</div>
+      </div>
+
+      <!-- کارت فرم -->
+      <div class="form-card">
+        <div class="form-grid">
+
+          <!-- فیلد عنوان تبلیغ — اجباری -->
+          <div class="form-group">
+            <label class="form-label">عنوان تبلیغ <span>*</span></label>
+            <input type="text" class="form-input" id="f-title"
+                   placeholder="عنوانی که روی کارت تبلیغ نمایش داده می‌شود">
+          </div>
+
+          <!-- فیلد توضیحات کوتاه -->
+          <div class="form-group">
+            <label class="form-label">توضیحات کوتاه</label>
+            <textarea class="form-textarea" id="f-desc"
+                      placeholder="توضیح مختصری درباره تبلیغ (حداکثر ۱۲۰ کاراکتر)"></textarea>
+          </div>
+
+          <!-- آپلود تصویر تبلیغ -->
+          <div class="form-group">
+            <label class="form-label">تصویر تبلیغ</label>
+            <div class="upload-area">
+              <input type="file" accept="image/*">
+              <div class="upload-icon">🖼️</div>
+              <div class="upload-text">
+                <strong>انتخاب فایل</strong> یا اینجا رها کنید<br>
+                PNG، JPG — حداکثر ۲ مگابایت
+              </div>
+            </div>
+          </div>
+
+          <!-- دکمه ثبت فرم — submitForm() را فراخوانی می‌کند -->
+          <div class="form-group">
+            <button class="btn-submit" id="btn-submit" onclick="submitForm()">
+              ✓ ثبت و ذخیره
+            </button>
+          </div>
+
+        </div>
+      </div><!-- /form-card -->
+    </div><!-- /view-form -->
+
+  </main><!-- /main -->
+
+</div><!-- /layout -->
+
+
+<!-- ══════════════════════════════════════
+     MODAL: EDIT — مودال ویرایش تبلیغ
+     با کلیک روی دکمه "ویرایش" هر کارت باز می‌شود
+     کلیک روی بک‌دراپ یا دکمه ✕ آن را می‌بندد
+     ══════════════════════════════════════ -->
+<div id="edit-modal" class="modal-backdrop" onclick="closeModal(event)">
+  <div class="modal-box">
+
+    <!-- هدر مودال -->
+    <div class="modal-header">
+      <div class="modal-title">✏️ ویرایش تبلیغ</div>
+      <!-- دکمه بستن مودال -->
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <!-- فیلدهای ویرایش -->
+    <div class="form-grid" style="gap:16px">
+
+      <!-- عنوان — اجباری -->
+      <div class="form-group">
+        <label class="form-label">عنوان تبلیغ <span style="color:var(--red)">*</span></label>
+        <input type="text" class="form-input" id="edit-title" placeholder="عنوان تبلیغ">
+      </div>
+
+      <!-- توضیحات -->
+      <div class="form-group">
+        <label class="form-label">توضیحات کوتاه</label>
+        <textarea class="form-textarea" id="edit-desc" placeholder="توضیحات کوتاه"></textarea>
+      </div>
+
+      <!-- آپلود تصویر جدید -->
+      <div class="form-group">
+        <label class="form-label">تصویر تبلیغ</label>
+        <div class="upload-area">
+          <input type="file" accept="image/*" id="edit-image">
+          <div class="upload-icon">🖼️</div>
+          <div class="upload-text"><strong>انتخاب فایل</strong> یا اینجا رها کنید</div>
+        </div>
+      </div>
+
+      <!-- دکمه ذخیره تغییرات — saveEdit() را فراخوانی می‌کند -->
+      <div class="form-group">
+        <button class="btn-submit" onclick="saveEdit()">✓ ذخیره تغییرات</button>
+      </div>
+
+    </div>
+  </div><!-- /modal-box -->
+</div><!-- /edit-modal -->
+
+  <div id="footer-placeholder"></div>
+
+<!-- اسکریپت اصلی — در انتهای body برای سرعت بارگذاری -->
+<script src="ad-manage.js" defer></script>
+<script src="/components/load-header.js"></script>
+<script src="/components/header.js"></script>
+<script src="/components/load-footer.js"></script>
+
+</body>
+</html>
