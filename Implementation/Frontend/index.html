@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<!--
-  index.html — رزروسنتر | صفحه اصلی
--->
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>رزروسنتر | سامانه جامع نوبت‌دهی</title>
 
-  <!-- فونت فارسی Vazirmatn از Google Fonts -->
-
-  <!-- استایل‌های اصلی صفحه -->
+  <!-- استایل‌های اصلی -->
   <link rel="stylesheet" href="./components/fonts.css">
   <link rel="stylesheet" href="./index.css"/>
 </head>
 <body>
 
 <!-- ══════════════════════════════════════════
-     1. HEADER
-     هدر فیکس شده بالای صفحه
-     شامل: لوگو | لینک‌های ناوبار | دکمه‌های ورود/ثبت‌نام | منوی موبایل
-     کلاس .scrolled توسط JS هنگام اسکرول اضافه می‌شه
+       HEADER
 ══════════════════════════════════════════ -->
 <header id="header">
   <div id="header-placeholder"></div>
@@ -29,19 +21,12 @@
 
 
 <!-- ══════════════════════════════════════════
-     2. HERO
-     بخش اصلی صفحه با پس‌زمینه تیره
-     شامل: بج | عنوان | زیرعنوان | باکس جستجو | چیپ‌ها
+       HERO
 ══════════════════════════════════════════ -->
 <section id="hero">
-
-  <!-- گرید تزئینی پس‌زمینه (CSS-only) -->
   <div class="hero-grid"></div>
-
   <div class="container">
     <div class="hero-content">
-
-      <!-- بج بالای عنوان با نقطه چشمک‌زن -->
       <div class="hero-badge">
         <span class="hero-dot"></span>
         سامانه جامع نوبت‌دهی کسب‌وکارهای خدماتی رزروسنتر
@@ -55,23 +40,17 @@
         همه نوبت‌هات رو با رزروسنتر در چند ثانیه رزرو کن
       </p>
 
-      <!-- باکس جستجو: فیلد متن + انتخاب شهر + دکمه -->
       <div class="search-box">
         <div class="search-field">
-          <!-- آیکون ذره‌بین -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2.5"
-               stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="M21 21l-4.35-4.35"/>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
           </svg>
-          <input type="text" placeholder="جستجوی خدمت یا کسب‌وکار..." id="mainSearch">
+            <input type="text" placeholder="جستجوی خدمت یا کسب‌وکار..." id="mainSearch" />
         </div>
 
-        <!-- جداکننده عمودی بین فیلد و انتخاب شهر -->
         <div class="search-divider"></div>
 
-        <!-- انتخاب شهر -->
         <select class="city-select" id="citySelect">
           <option value="">📍 انتخاب شهر</option>
           <option value="tehran">تهران</option>
@@ -82,9 +61,9 @@
           <option value="karaj">کرج</option>
           <option value="ahvaz">اهواز</option>
           <option value="qom">قم</option>
+            <option value="kerman">کرمان</option>
         </select>
-
-        <!-- دکمه جستجو — doSearch() در main.js تعریف شده -->
+        <!-- We will make this a button later we implement backend and DB -->
         <a href="./pages/search/search.html" class="search-btn" onclick="doSearch()">🔍 جستجو</a>
       </div>
 
@@ -92,26 +71,182 @@
       <div class="hero-chips">
         <span class="hero-chip-label">پرطرفدار:</span>
         <button class="chip active" onclick="setChip(this,'آرایشگاه')">✂️ آرایشگاه</button>
-        <button class="chip"        onclick="setChip(this,'دندانپزشک')">🦷 دندانپزشک</button>
-        <button class="chip"        onclick="setChip(this,'باشگاه')">💪 باشگاه</button>
-        <button class="chip"        onclick="setChip(this,'کلینیک')">🏥 کلینیک</button>
-        <button class="chip"        onclick="setChip(this,'سالن زیبایی')">💅 سالن زیبایی</button>
+          <button class="chip" onclick="setChip(this,'دندانپزشک')">🦷 دندانپزشک</button>
+          <button class="chip" onclick="setChip(this,'باشگاه')">💪 باشگاه</button>
+          <button class="chip" onclick="setChip(this,'کلینیک')">🏥 کلینیک</button>
+          <button class="chip" onclick="setChip(this,'سالن زیبایی')">💅 سالن زیبایی</button>
+        </div>
       </div>
+    </div>
+  </section>
 
+  <!-- ══════════════════════════════════════════
+       NEW PROVIDERS
+  ══════════════════════════════════════════ -->
+  <section id="new-providers">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">🆕 تازه‌ها</div>
+        <h2 class="section-title">خدمات دهندگان جدید</h2>
+        <p class="section-subtitle">جدیدترین کسب‌وکارهایی که به رزروسنتر پیوسته‌اند</p>
+      </div>
+      <div class="providers-grid">
+
+        <div class="provider-card">
+          <div class="provider-avatar"><div class="av-fallback">💅</div></div>
+          <div class="provider-name">سالن رزا</div>
+          <div class="provider-info">
+            <div class="pv-box">✔ آرایشگاه زنانه</div>
+            <div class="pv-box pv-loc-box">📍 تهران-تهران</div>
+          </div>
+        </div>
+
+        <div class="provider-card">
+          <div class="provider-avatar"><div class="av-fallback">✂️</div></div>
+          <div class="provider-name">سالن زیبایی حجت استایل</div>
+          <div class="provider-info">
+            <div class="pv-box">✔ آرایشگاه مردانه</div>
+            <div class="pv-box pv-loc-box">📍 خراسان رضوی-تربت جام</div>
+          </div>
+        </div>
+
+        <div class="provider-card">
+          <div class="provider-avatar"><div class="av-fallback">✂️</div></div>
+          <div class="provider-name">آقای مو</div>
+          <div class="provider-info">
+            <div class="pv-box">✔ آرایشگاه مردانه</div>
+            <div class="pv-box pv-loc-box">📍 اصفهان-آران و بیدگل</div>
+          </div>
+        </div>
+
+        <div class="provider-card">
+          <div class="provider-avatar"><div class="av-fallback">✂️</div></div>
+          <div class="provider-name">پیرایش کارینو#داود کردلو</div>
+          <div class="provider-info">
+            <div class="pv-box">✔ آرایشگاه مردانه</div>
+            <div class="pv-box pv-loc-box">📍 تهران-فردوسیه</div>
+          </div>
+        </div>
+
+        <div class="provider-card">
+          <div class="provider-avatar"><div class="av-fallback">💪</div></div>
+          <div class="provider-name">باشگاه ورزشی</div>
+          <div class="provider-info">
+            <div class="pv-box">✔ سانس باشگاه</div>
+            <div class="pv-box pv-loc-box">📍 کرج</div>
+          </div>
+        </div>
+
+        <div class="provider-card">
+          <div class="provider-avatar"><div class="av-fallback">✂️</div></div>
+          <div class="provider-name">مطب مو</div>
+          <div class="provider-info">
+            <div class="pv-box">✔ آرایشگاه مردانه</div>
+            <div class="pv-box pv-loc-box">📍 هرمزگان-بندرلنگه</div>
+          </div>
+        </div>
+
+        <div class="provider-card">
+          <div class="provider-avatar"><div class="av-fallback">🔧</div></div>
+          <div class="provider-name">مکانیک ماشین</div>
+          <div class="provider-info">
+            <div class="pv-box">✔ تعمیرات خودرو</div>
+            <div class="pv-box pv-loc-box">📍 کرمان</div>
     </div>
   </div>
 
+      </div>
+    </div>
 </section>
 
+  <!-- ══════════════════════════════════════════
+       RECENT ADS
+  ══════════════════════════════════════════ -->
+  <section id="recent-ads">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">📣 آگهی‌های اخیر</div>
+        <h2 class="section-title">جدیدترین آگهی‌ها</h2>
+        <p class="section-subtitle">آخرین آگهی‌های ثبت‌شده توسط کسب‌وکارهای فعال</p>
+      </div>
+
+      <div class="ads-grid">
+        <div class="ad-card">
+          <div class="ad-header">
+            <div class="ad-avatar">✂️</div>
+            <div class="ad-meta">
+              <div class="ad-biz-name">آرایشگاه دایموند</div>
+              <div class="ad-biz-cat">آرایشگاه مردانه</div>
+            </div>
+            <span class="ad-badge new">جدید</span>
+          </div>
+          <div class="ad-title">تخفیف ویژه کوتاهی مو</div>
+          <p class="ad-desc">به مناسبت افتتاح شعبه جدید، ۳۰٪ تخفیف روی تمامی خدمات کوتاهی مو تا پایان هفته</p>
+          <div class="ad-footer">
+            <span class="ad-loc">📍 تهران</span>
+            <span class="ad-time">۲ ساعت پیش</span>
+          </div>
+        </div>
+
+        <div class="ad-card">
+          <div class="ad-header">
+            <div class="ad-avatar">💪</div>
+            <div class="ad-meta">
+              <div class="ad-biz-name">باشگاه ورزشی</div>
+              <div class="ad-biz-cat">سانس باشگاه</div>
+            </div>
+            <span class="ad-badge offer">پیشنهاد</span>
+          </div>
+          <div class="ad-title">ثبت‌نام ترم پاییز</div>
+          <p class="ad-desc">ثبت‌نام ترم پاییز با امکانات کامل شامل استخر، سونا و جکوزی با بهترین قیمت</p>
+          <div class="ad-footer">
+            <span class="ad-loc">📍 کرج</span>
+            <span class="ad-time">۵ ساعت پیش</span>
+          </div>
+        </div>
+
+        <div class="ad-card">
+          <div class="ad-header">
+            <div class="ad-avatar">🦷</div>
+            <div class="ad-meta">
+              <div class="ad-biz-name">کلینیک دکتر رضایی</div>
+              <div class="ad-biz-cat">دندانپزشکی</div>
+            </div>
+            <span class="ad-badge urgent">فوری</span>
+          </div>
+          <div class="ad-title">نوبت فوری دندانپزشکی</div>
+          <p class="ad-desc">نوبت‌های فوری برای جرم‌گیری و بلیچینگ دندان در تمام روزهای هفته موجود است</p>
+          <div class="ad-footer">
+            <span class="ad-loc">📍 تهران</span>
+            <span class="ad-time">۱ روز پیش</span>
+          </div>
+        </div>
+
+        <div class="ad-card">
+          <div class="ad-header">
+            <div class="ad-avatar">🔧</div>
+            <div class="ad-meta">
+              <div class="ad-biz-name">مکانیک ماشین</div>
+              <div class="ad-biz-cat">تعمیرات خودرو</div>
+            </div>
+            <span class="ad-badge new">جدید</span>
+          </div>
+          <div class="ad-title">تعمیرات تخصصی خودرو</div>
+          <p class="ad-desc">تعمیر موتور، گیربکس و سیستم تعلیق با ضمانت ۶ ماهه و قطعات اصلی</p>
+          <div class="ad-footer">
+            <span class="ad-loc">📍 کرمان</span>
+            <span class="ad-time">۱ روز پیش</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 <!-- ══════════════════════════════════════════
-     3. CATEGORIES
-     گرید دسته‌بندی‌های خدمات قابل رزرو
-     کلیک روی هر کارت → filterCat() در main.js
+       CATEGORIES
 ══════════════════════════════════════════ -->
 <section id="categories">
   <div class="container">
-
     <div class="section-header">
       <div class="section-badge">📂 دسته‌بندی‌ها</div>
       <h2 class="section-title">خدمات مورد نیازت را پیدا کن</h2>
@@ -119,7 +254,6 @@
     </div>
 
     <div class="categories-grid">
-
       <div class="cat-card" onclick="filterCat('آرایشگاه')">
         <div class="cat-icon" style="background:rgba(11,37,69,0.08)">✂️</div>
         <div class="cat-name">آرایشگاه</div>
@@ -167,20 +301,51 @@
         <div class="cat-name">آزمایشگاه</div>
         <div class="cat-count">۴۳۲ آزمایشگاه</div>
       </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ══════════════════════════════════════════
+       HOW IT WORKS
+  ══════════════════════════════════════════ -->
+  <section id="how">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">🚀 راهنمای سریع</div>
+        <h2 class="section-title">چطور استفاده کنم؟</h2>
+        <p class="section-subtitle">در کمتر از یک دقیقه نوبتت را ثبت کن</p>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="step-icon">🔍</div>
+          <div class="step-title">جستجو کن</div>
+          <p class="step-desc">نام خدمت یا کسب‌وکار مورد نظرت را جستجو کن و نزدیک‌ترین را انتخاب کن</p>
+        </div>
+        <div class="how-step">
+          <div class="step-icon">📅</div>
+          <div class="step-title">زمان انتخاب کن</div>
+          <p class="step-desc">از بین نوبت‌های خالی، روز و ساعت دلخواهت را انتخاب کن</p>
+        </div>
+        <div class="how-step">
+          <div class="step-icon">📝</div>
+          <div class="step-title">رزرو کن</div>
+          <p class="step-desc">اطلاعات خود را وارد کن و با یک کلیک نوبت را رزرو کن</p>
+        </div>
+        <div class="how-step">
+          <div class="step-icon">✅</div>
+          <div class="step-title">تأیید بگیر</div>
+          <p class="step-desc">پیامک تأیید دریافت کن و روز موعود بدون معطلی مراجعه کن</p>
+        </div>
     </div>
   </div>
 </section>
 
-
 <!-- ══════════════════════════════════════════
-     4. CTA BANNER
-     بنر دعوت به ثبت‌نام برای صاحبان کسب‌وکار
+       CTA BANNER
 ══════════════════════════════════════════ -->
 <section id="cta">
   <div class="container">
     <div class="cta-banner">
-
       <div class="cta-banner-text">
         <div class="cta-banner-icon">🚀</div>
         <div>
@@ -188,20 +353,16 @@
           <p>نظم بده به نوبت‌هات، کاربران بیشتری جذب کن. ثبت‌نام رایگانه!</p>
         </div>
       </div>
-
       <div class="cta-banner-actions">
         <button class="btn-cta-primary" onclick="window.location.href='./pages/org/register.html'">ثبت كسب و كار</button>
         <button class="btn-cta-sec">بیشتر بدانید</button>
       </div>
-
     </div>
   </div>
 </section>
 
-
 <!-- ══════════════════════════════════════════
-     5. FOOTER
-     نوار پایین صفحه — تک ردیف با لوگو، لینک‌ها و کپی‌رایت
+       FOOTER
 ══════════════════════════════════════════ -->
   <div id="footer-placeholder"></div>
 

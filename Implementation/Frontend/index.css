@@ -35,7 +35,9 @@
    2. ریست پایه
    حذف مارجین/پدینگ پیش‌فرض مرورگر و تنظیمات کلی
 ────────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -50,10 +52,23 @@ body {
   overflow-x: hidden; /* جلوگیری از اسکرول افقی */
 }
 
-a    { text-decoration: none; color: inherit; }
-ul   { list-style: none; }
-button { cursor: pointer; font-family: var(--font); border: none; background: none; }
-img  { max-width: 100%; display: block; }
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  list-style: none;
+}
+button {
+  cursor: pointer;
+  font-family: var(--font);
+  border: none;
+  background: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
 
 /* اسکرول‌بار سفارشی */
 ::-webkit-scrollbar       { width: 5px; }
@@ -72,19 +87,27 @@ img  { max-width: 100%; display: block; }
   padding: 0 24px;
 }
 
-/* هدر بالای هر بخش (بج + عنوان + زیرعنوان) */
-.section-header { text-align: center; margin-bottom: 52px; }
+.section-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
 
 .section-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(46,134,193,0.1); color: var(--blue);
-  border: 1px solid rgba(46,134,193,0.2);
-  padding: 5px 16px; border-radius: 99px;
-  font-size: 0.82rem; font-weight: 600; margin-bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(46, 134, 193, 0.1);
+  color: var(--blue);
+  border: 1px solid rgba(46, 134, 193, 0.2);
+  padding: 5px 16px;
+  border-radius: 99px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 14px;
 }
 
 .section-title {
-  font-size: clamp(1.6rem, 3vw, 2.3rem); /* fluid typography */
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
   font-weight: 800;
   color: var(--navy);
   line-height: 1.3;
@@ -98,25 +121,31 @@ img  { max-width: 100%; display: block; }
   margin: 0 auto;
 }
 
-
 /* ──────────────────────────────────────────────
    4. هدر و ناوبار
-   هدر فیکس شده بالای صفحه با منوی موبایل
 ────────────────────────────────────────────── */
 
 #header {
-  position: fixed; top: 0; right: 0; left: 0; z-index: 1000;
-  background: rgba(11,37,69,0.97);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(11, 37, 69, 0.97);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   transition: box-shadow var(--ease);
 }
 
-/* سایه هنگام اسکرول — کلاس توسط JS اضافه می‌شه */
-#header.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+#header.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
 
 .nav-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 66px; gap: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 66px;
+  gap: 24px;
 }
 
 /* لوگو */
@@ -197,8 +226,6 @@ img  { max-width: 100%; display: block; }
 
 /* ──────────────────────────────────────────────
    5. هیرو
-   بخش اصلی صفحه با پس‌زمینه تیره گرادیانت
-   و گرید تزئینی در پس‌زمینه
 ────────────────────────────────────────────── */
 
 #hero {
@@ -258,7 +285,6 @@ img  { max-width: 100%; display: block; }
 
 /* ──────────────────────────────────────────────
    6. باکس جستجو
-   باکس ترکیبی شامل فیلد متن + انتخاب شهر + دکمه
 ────────────────────────────────────────────── */
 
 .search-box {
@@ -474,6 +500,391 @@ img  { max-width: 100%; display: block; }
 
 /* موبایل کوچک (زیر ۴۸۰px) */
 @media (max-width: 480px) {
-  /* گرید دسته‌بندی‌ها — دو ستونه */
-  .categories-grid { grid-template-columns: repeat(2, 1fr); }
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ──────────────────────────────────────────────
+   12. انیمیشن‌ها
+────────────────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-content {
+  animation: fadeIn 0.7s ease both;
+}
+
+.section-header {
+  animation: fadeSlideUp 0.55s ease both;
+  animation-delay: 0.1s;
+}
+
+.cta-banner {
+  animation: fadeSlideUp 0.55s ease both;
+  animation-delay: 0.15s;
+}
+
+.cat-card {
+  animation: fadeSlideUp 0.5s ease both;
+}
+.cat-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.cat-card:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.cat-card:nth-child(3) {
+  animation-delay: 0.19s;
+}
+.cat-card:nth-child(4) {
+  animation-delay: 0.26s;
+}
+.cat-card:nth-child(5) {
+  animation-delay: 0.33s;
+}
+.cat-card:nth-child(6) {
+  animation-delay: 0.40s;
+}
+.cat-card:nth-child(7) {
+  animation-delay: 0.47s;
+}
+.cat-card:nth-child(8) {
+  animation-delay: 0.54s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-content,
+  .section-header,
+  .cta-banner,
+  .cat-card {
+    animation: none;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   13. بخش خدمات دهندگان جدید
+────────────────────────────────────────────── */
+#new-providers {
+  padding: 80px 0;
+  background: var(--bg);
+}
+
+.providers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.provider-card {
+  background: var(--card);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+}
+.provider-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(46, 134, 193, 0.22);
+}
+
+.provider-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  overflow: hidden;
+  border: 3px solid var(--border);
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--ease);
+}
+.provider-card:hover .provider-avatar {
+  border-color: var(--blue);
+}
+.provider-avatar img {
+  display: none;
+}
+.av-fallback {
+  font-size: 2rem;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+}
+
+.provider-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+  line-height: 1.4;
+  min-height: 2.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.provider-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pv-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: var(--r);
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: rgba(46, 134, 193, 0.07);
+  border: 1px solid rgba(46, 134, 193, 0.14);
+  color: var(--blue);
+}
+.pv-box.pv-loc-box {
+  background: var(--bg);
+  border-color: var(--border);
+  color: var(--text-sec);
+}
+
+@media (max-width: 480px) {
+  .providers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ──────────────────────────────────────────────
+   14. آگهی‌های اخیر
+────────────────────────────────────────────── */
+#recent-ads {
+  padding: 80px 0 0;
+  background: var(--bg);
+}
+
+.ads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.ad-card {
+  background: var(--card);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ad-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(46, 134, 193, 0.22);
+}
+
+.ad-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ad-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(46, 134, 193, 0.08);
+  border: 1px solid rgba(46, 134, 193, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.ad-meta {
+  flex: 1;
+}
+.ad-biz-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.ad-biz-cat {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.ad-badge {
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.ad-badge.new {
+  background: rgba(46, 134, 193, 0.12);
+  color: var(--blue);
+}
+.ad-badge.offer {
+  background: rgba(212, 172, 13, 0.12);
+  color: #a0800a;
+}
+.ad-badge.urgent {
+  background: rgba(239, 68, 68, 0.10);
+  color: #dc2626;
+}
+
+.ad-title {
+  font-size: 0.93rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.ad-desc {
+  font-size: 0.78rem;
+  color: var(--text-sec);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.ad-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.ad-loc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+.ad-time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ──────────────────────────────────────────────
+   15. بخش چطور استفاده کنم
+────────────────────────────────────────────── */
+#how {
+  padding: 80px 0;
+  background: var(--navy);
+}
+#how .section-badge {
+  background: rgba(212, 172, 13, 0.12);
+  border-color: rgba(212, 172, 13, 0.25);
+  color: var(--gold-lt);
+}
+#how .section-title {
+  color: #fff;
+}
+#how .section-subtitle {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.how-steps::before {
+  content: '';
+  position: absolute;
+  top: 36px;
+  right: 12%;
+  left: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12) 20%, rgba(255, 255, 255, 0.12) 80%, transparent);
+  pointer-events: none;
+}
+
+.how-step {
+  padding: 0 20px;
+  text-align: center;
+}
+
+.step-num {
+  display: none;
+}
+
+.step-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin: 0 auto 16px;
+  position: relative;
+  z-index: 1;
+  transition: background var(--ease), border-color var(--ease), transform var(--ease);
+}
+.how-step:hover .step-icon {
+  background: rgba(46, 134, 193, 0.15);
+  border-color: rgba(46, 134, 193, 0.35);
+  transform: translateY(-3px);
+}
+
+.step-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.step-desc {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .how-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .how-steps::before {
+    display: none;
+  }
+  .ads-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .how-steps {
+    grid-template-columns: 1fr;
+  }
 }
