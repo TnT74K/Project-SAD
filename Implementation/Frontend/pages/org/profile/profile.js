@@ -14,6 +14,31 @@
     const modalDate      = document.getElementById('modal-date');
     const modalTime      = document.getElementById('modal-time');
     const trackingCode   = document.getElementById('trackingCode');
+    /* ---- انتخاب خدمت ---- */
+    const serviceSelect = document.getElementById('serviceSelect');
+    const appointmentGroups = document.querySelectorAll('.appointment-group');
+    const modalService = document.getElementById('modal-service');
+
+    let selectedService = '';
+    /* در ابتدا هیچ خدمتی انتخاب نشده → نوبت‌ها مخفی */
+    appointmentGroups.forEach(group=>{
+      group.style.display = 'none';
+    });
+    serviceSelect.addEventListener('change', function(){
+
+      selectedService = this.value;
+
+      appointmentGroups.forEach(group=>{
+
+        if(group.dataset.service === selectedService){
+          group.style.display = 'block';
+        }else{
+          group.style.display = 'none';
+        }
+
+      });
+
+    });
 
     /* ---- تولید کد رهگیری تصادفی ---- */
     function generateTrackingCode() {
@@ -40,30 +65,40 @@
     /* ---- کلیک روی دکمه‌های ساعت ---- */
     const timeButtons = document.querySelectorAll('.time-btn');
 
-    timeButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const parentGroup = btn.closest('.appointment-group');
-        if (!parentGroup) return;
+document.addEventListener('click', function(e){
 
-        /* حذف انتخاب قبلی در همان گروه */
-        parentGroup.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
+  const btn = e.target.closest('.time-btn');
+  if(!btn) return;
 
-        /* گرفتن تاریخ از عنوان گروه */
-        const dateEl = parentGroup.querySelector('.appointment-date span');
-        selectedDate = dateEl ? dateEl.textContent.trim() : '—';
-        selectedTime = btn.textContent.trim();
+  if(!selectedService){
+    alert('ابتدا نوع خدمت را انتخاب کنید');
+    return;
+  }
 
-        /* پر کردن مودال */
-        modalUsername.textContent = USER_NAME;
-        modalOrgname.textContent  = ORG_NAME;
-        modalDate.textContent     = selectedDate;
-        modalTime.textContent     = selectedTime;
+  const parentGroup = btn.closest('.appointment-group');
+  if (!parentGroup) return;
 
-        /* باز کردن مودال تأیید */
-        openModal(confirmModal);
-      });
-    });
+  /* حذف انتخاب قبلی در همان گروه */
+  parentGroup.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  /* گرفتن تاریخ */
+  const dateEl = parentGroup.querySelector('.appointment-date span');
+  selectedDate = dateEl ? dateEl.textContent.trim() : '—';
+  selectedTime = btn.textContent.trim();
+
+  /* پر کردن مودال */
+  modalUsername.textContent = USER_NAME;
+  modalOrgname.textContent  = ORG_NAME;
+  modalDate.textContent     = selectedDate;
+  modalTime.textContent     = selectedTime;
+  modalService.textContent  = serviceSelect.options[serviceSelect.selectedIndex].text;
+
+  openModal(confirmModal);
+
+});
+
+
 
     /* ---- دکمه انصراف ---- */
     document.getElementById('btnCancel').addEventListener('click', () => {
@@ -93,7 +128,7 @@
     document.getElementById('btnCloseSuccess').addEventListener('click', () => {
       closeModal(successModal);
       /* حذف انتخاب دکمه‌های ساعت */
-      timeButtons.forEach(b => b.classList.remove('selected'));
+document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
     });
 
     /* ---- بستن با کلید Escape ---- */
