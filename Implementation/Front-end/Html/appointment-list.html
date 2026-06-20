@@ -4,50 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>رزروسنتر — نوبت‌ها</title>
-
   <link rel="stylesheet" href="../Css/appointment-list.css">
 </head>
 <body>
-    <div id="header-placeholder"></div>
+  <div id="header-placeholder"></div>
   <main class="main">
     <div class="container">
 
-    <div class="card"><!-- کلاس not-today از JS اضافه/حذف می‌شود -->
-      <div class="card-header">
-        <h2>لیست نوبت‌ها</h2>
-
-        <!-- ناوبری تاریخ: دکمه راست/چپ + نمایش تاریخ جاری -->
-        <div class="date-nav">
-          <!-- ‹ : رفتن به روز بعد (چون RTL است، dir=-1) -->
-          <button onclick="changeDay(-1)">&#8249;</button>
-          <!-- تاریخ از JS داخل این span نوشته می‌شود -->
-          <span id="currentDate"></span>
-          <!-- › : رفتن به روز قبل -->
-          <button onclick="changeDay(1)">&#8250;</button>
+      <div class="card">
+        <div class="card-header">
+          <h2>لیست نوبت‌ها</h2>
+          <div class="date-nav">
+            <button onclick="changeDay(-1)">&#8249;</button>
+            <span id="currentDate"></span>
+            <button onclick="changeDay(1)">&#8250;</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th><th>مشتری</th><th>سرویس</th><th>تاریخ</th><th>ساعت</th>
+                  <th>کد تأییدیه</th><th>وضعیت</th><th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody id="appointmentsBody"></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      <div class="card-body">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>#</th><th>مشتری</th><th>سرویس</th><th>تاریخ</th><th>ساعت</th>
-                <th>کد تأییدیه</th><th>وضعیت</th><th>عملیات</th>
-              </tr>
-            </thead>
-            <!-- ردیف‌ها کاملاً توسط render() در JS ساخته می‌شوند -->
-            <tbody id="appointmentsBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
     </div>
   </main>
 
-    <div id="footer-placeholder"></div>
+  <!-- مودال اطلاعات مشتری -->
+  <div class="modal-overlay" id="customerModal" onclick="closeModal(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModalDirect()">&#10005;</button>
+      <h3>اطلاعات مشتری</h3>
+      <div class="modal-row">
+        <span class="modal-label">نام:</span>
+        <span id="modal-name"></span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">شماره تماس:</span>
+        <span id="modal-phone"></span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">کد نوبت:</span>
+        <span id="modal-code" style="font-family:'Orbitron',monospace; letter-spacing:1px;"></span>
+      </div>
+    </div>
+  </div>
 
+  <div id="footer-placeholder"></div>
   <script src="../JavaScript/appointment-list.js"></script>
   <script src="../JavaScript/LoadHeader.js"></script>
   <script src="../JavaScript/Header.js"></script>

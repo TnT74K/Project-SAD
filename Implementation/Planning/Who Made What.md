@@ -19,6 +19,8 @@ Used as a refrence in future divisions.
 - Error pages
 - Appo list
 - Appo list table
+- About Us
+- ORG Register Guide
 
 ## Hamed
 
