@@ -399,8 +399,9 @@ img {
    9. بنر CTA
    بنر دعوت به ثبت‌نام کسب‌وکارها
 ────────────────────────────────────────────── */
-
-#cta { padding: 0 0 72px; }
+#cta {
+  padding: 72px 0 72px;
+}
 
 .cta-banner {
   background: var(--navy); border-radius: var(--r-lg);
