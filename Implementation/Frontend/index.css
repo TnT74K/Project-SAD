@@ -70,11 +70,6 @@ img {
   display: block;
 }
 
-/* اسکرول‌بار سفارشی */
-::-webkit-scrollbar       { width: 5px; }
-::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 99px; }
-
-
 /* ──────────────────────────────────────────────
    3. لایه‌بندی عمومی
    Container محدودکننده عرض و هدر بخش‌ها
