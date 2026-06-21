@@ -14,7 +14,7 @@
 <body>
 
   <!-- ══════════════════════════════════════════
-       HEADER fjldfjld
+       HEADER 
 ══════════════════════════════════════════ -->
   <header id="header">
     <div id="header-placeholder"></div>
@@ -124,22 +124,16 @@
           <div class="cat-count">۳٬۶۷۸ سالن</div>
         </div>
 
-        <div class="cat-card" onclick="filterCat('پت‌شاپ')">
-          <div class="cat-icon" style="background:rgba(251,146,60,0.1)">🐾</div>
-          <div class="cat-name">پت‌شاپ</div>
-          <div class="cat-count">۵۶۷ فروشگاه</div>
-        </div>
-
         <div class="cat-card" onclick="filterCat('پزشک')">
           <div class="cat-icon" style="background:rgba(20,184,166,0.1)">⚕️</div>
           <div class="cat-name">پزشک عمومی</div>
           <div class="cat-count">۷۸۹ پزشک</div>
         </div>
 
-        <div class="cat-card" onclick="filterCat('آزمایشگاه')">
-          <div class="cat-icon" style="background:rgba(212,172,13,0.1)">🔬</div>
-          <div class="cat-name">آزمایشگاه</div>
-          <div class="cat-count">۴۳۲ آزمایشگاه</div>
+        <div class="cat-card" onclick="filterCat('خدمات خودرو')">
+          <div class="cat-icon" style="background:rgba(0, 187, 255, 0.1)">⚙️</div>
+          <div class="cat-name">خدمات خودرو</div>
+          <div class="cat-count">۳۲۱ کسب‌وکار</div>
         </div>
       </div>
     </div>
@@ -257,7 +251,7 @@
               <div class="ad-biz-name">آرایشگاه دایموند</div>
               <div class="ad-biz-cat">آرایشگاه مردانه</div>
             </div>
-            <span class="ad-badge new">جدید</span>
+            <span class="ad-badge offer">📣</span>
           </div>
           <div class="ad-title">تخفیف ویژه کوتاهی مو</div>
           <p class="ad-desc">به مناسبت افتتاح شعبه جدید، ۳۰٪ تخفیف روی تمامی خدمات کوتاهی مو تا پایان هفته</p>
@@ -274,7 +268,7 @@
               <div class="ad-biz-name">باشگاه ورزشی</div>
               <div class="ad-biz-cat">سانس باشگاه</div>
             </div>
-            <span class="ad-badge offer">پیشنهاد</span>
+            <span class="ad-badge offer">📣</span>
           </div>
           <div class="ad-title">ثبت‌نام ترم پاییز</div>
           <p class="ad-desc">ثبت‌نام ترم پاییز با امکانات کامل شامل استخر، سونا و جکوزی با بهترین قیمت</p>
@@ -291,7 +285,7 @@
               <div class="ad-biz-name">کلینیک دکتر رضایی</div>
               <div class="ad-biz-cat">دندانپزشکی</div>
             </div>
-            <span class="ad-badge urgent">فوری</span>
+            <span class="ad-badge offer">📣</span>
           </div>
           <div class="ad-title">نوبت فوری دندانپزشکی</div>
           <p class="ad-desc">نوبت‌های فوری برای جرم‌گیری و بلیچینگ دندان در تمام روزهای هفته موجود است</p>
@@ -308,7 +302,7 @@
               <div class="ad-biz-name">مکانیک ماشین</div>
               <div class="ad-biz-cat">تعمیرات خودرو</div>
             </div>
-            <span class="ad-badge new">جدید</span>
+            <span class="ad-badge offer">📣</span>
           </div>
           <div class="ad-title">تعمیرات تخصصی خودرو</div>
           <p class="ad-desc">تعمیر موتور، گیربکس و سیستم تعلیق با ضمانت ۶ ماهه و قطعات اصلی</p>
@@ -331,28 +325,38 @@
       <div class="section-header">
         <div class="section-badge">🚀 راهنمای سریع</div>
         <h2 class="section-title">چطور استفاده کنم؟</h2>
-        <p class="section-subtitle">در کمتر از یک دقیقه نوبتت را ثبت کن</p>
+        <p class="section-subtitle">در کمتر از پنج دقیقه نوبتت را ثبت کن</p>
       </div>
       <div class="how-steps">
-        <div class="how-step">
+        <div class="how-step">  <!-- step 1 -->
           <div class="step-icon">🔍</div>
+          <div class="step-number">1</div>
           <div class="step-title">جستجو کن</div>
-          <p class="step-desc">نام خدمت یا کسب‌وکار مورد نظرت را جستجو کن و نزدیک‌ترین را انتخاب کن</p>
+          <p class="step-desc">نام خدمت یا کسب‌وکار مورد نظرت را جستجو کن </p>
         </div>
-        <div class="how-step">
+        <div class="how-step"> <!-- step 2 -->
           <div class="step-icon">📅</div>
+          <div class="step-number">2</div>
           <div class="step-title">زمان انتخاب کن</div>
           <p class="step-desc">از بین نوبت‌های خالی، روز و ساعت دلخواهت را انتخاب کن</p>
         </div>
-        <div class="how-step">
-          <div class="step-icon">📝</div>
-          <div class="step-title">رزرو کن</div>
-          <p class="step-desc">اطلاعات خود را وارد کن و با یک کلیک نوبت را رزرو کن</p>
+        <div class="how-step"> <!-- step 3 -->
+          <div class="step-icon">👤</div>
+          <div class="step-number">3</div>
+          <div class="step-title">حساب کاربری بساز</div>
+          <p class="step-desc">یک حساب کاربری ایجاد کن و اطلاعات خود را وارد کن</p>
         </div>
-        <div class="how-step">
+        <div class="how-step"> <!-- step 4 -->
+          <div class="step-icon">💳</div>
+            <div class="step-number">4</div>
+          <div class="step-title">پرداخت کن</div>
+          <p class="step-desc">پرداخت را تکمیل کن و نوبت خود را تأیید کن</p>
+        </div>
+        <div class="how-step"> <!-- step 5 -->
           <div class="step-icon">✅</div>
+          <div class="step-number">5</div>
           <div class="step-title">تأیید بگیر</div>
-          <p class="step-desc">پیامک تأیید دریافت کن و روز موعود بدون معطلی مراجعه کن</p>
+          <p class="step-desc">کد نوبت دریافت کن و روز موعود نشون بده</p>
         </div>
       </div>
     </div>
