@@ -60,11 +60,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // ===== 5. کارت دسته‌بندی =====
-  window.filterCat = function (cat) {
-    document.getElementById('mainSearch').value = cat;
-    window.setChip(document.querySelector('.chip'), cat);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+// ===== 5. کارت دسته‌بندی =====
+window.filterCat = function (cat) {
+  var searchInput = document.getElementById('mainSearch');
+  searchInput.value = cat;
+  searchInput.focus();
+  
+  // غیرفعال کردن همه چیپ‌ها و فعال کردن چیپ مربوطه
+  document.querySelectorAll('.chip').forEach(function(chip) {
+    chip.classList.toggle('active', chip.textContent.includes(cat));
+  });
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+
 
 });
