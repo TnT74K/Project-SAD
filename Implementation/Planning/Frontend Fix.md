@@ -5,6 +5,8 @@
 - اسم صفحات براساس آنچه در شاخه `main` موجود است نوشته شده.
 - ساختار متن از چپ به راست است
 
+---
+
 ## Fix: Part One(05/3/22)
 
 Deadline: 1405/3/23
@@ -20,6 +22,8 @@ Division table:
 | Appointment list page for ORG Support ORG Admin | `Add`: باز شدن مودال وقتی روی اسم کاربر میزنیم. که اونجا کد نوبت و شماره تماس مشتری رو نشون بده |       Ali        |   High   |    Done     |
 |              ORG profile edit page              | `Fix`: They can't set price for their appointments!          |     Abolfazl     |   High   |    Done     |
 
+---
+
 ## Fix: Part Two (05/3/25)
 
 | Page to improve | Description                                                  |   Responsible    | Priority | Status |
@@ -27,6 +31,8 @@ Division table:
 |   Search page   | `Add`: فیلتر برای کسب و کارهای برتر                          | Mohammad Hossein |  Medium  | Cancel |
 |     Footer      | `Add`: Mock emails + support numbers                         |     Abolfazl     |  Medium  |  Done  |
 |    Homepage     | `Fix`: change homepage 'کسب و کارهای جدید' profile images to a default image. | Mohammad Hossein |   High   |  Done  |
+
+---
 
 ## Fix: Part Three (05/3/26) and (05/3/27)
 
@@ -42,6 +48,8 @@ Division table:
 |         All pages         | Connect all pages together in the new folder structure branch |     Abolfazl     |   High   |  Done  |
 |         All pages         | `Add`: One separate CSS for all fonts. Update the refs to match that file. |     Abolfazl     |   High   |  Done  |
 
+---
+
 ## Fix: Part Four (05/3/28-05/03/29)
 
 | Page to improve | Description                                                  |   Responsible    | Priority | Status |
@@ -51,6 +59,8 @@ Division table:
 |   My-profile    | `Fix` : ثبت ستاره روی نوبت ها کار نمیکنه                     | Mohammad hossein |   Low    | Cancel |
 |  Ad-management  | `Add`: Search feature; `Add`: links pointing to ORG public profile | Mohammad hossein |   Low    |  Open  |
 
+---
+
 ## Fix: Part Five (05/3/29)
 
 |    Page to improve    | Description                                                  | Responsible | Priority |       Status        |
@@ -59,6 +69,8 @@ Division table:
 |  `new` AD view page   | Opens after the user clicks on "مشاهده بیشتر" button of 'تخفیف ها' section. |    -----    |  -----   | Task may be removed |
 |       All pages       | `Fix`: All numbers be in English                             |  Abolfazl   |  Medium  |        Done         |
 |       All pages       | `Apply`: Coordinate all mock data to match.                  |    Sajad    |  Medium  |       Cancel        |
+
+---
 
 ## Fix: Part Six (05/3/30)
 
@@ -71,13 +83,15 @@ Division table:
 | user profile       | `Fix`: numbers of appointments are not working.              | Mohammad Hossein | Medium   | Cancel |
 | User profile       | `Fix`: icons to match the website                            | Sajad            | Medium   | Cancel |
 
+---
+
 ## *Fix: Part Seven(05/3/31-05/4/1)*
 
-| Page to improve    | Description                                                  | Responsible      | Priority | Status     |
-| ------------------ | ------------------------------------------------------------ | ---------------- | -------- | ---------- |
-| Org register form  | `Apply`: Background to be like hero section background in index page; `Apply`: Make form titles bigger | Mohammad Hossein | Medium   | Open       |
-| All pages          | Numbers to be in Persian except clock and statistics         | Ali              | Low      | Unapproved |
-| homepage           | `Fix`: Tapping on categories does not redirect to search page | Ali              | Medium   | Open       |
-| Search-page        | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده; `Add`: تعداد امتیاز دهنده | Mohammad Hossein | Medium   | Open       |
-| Org public profile | `Add`: تعداد امتیاز دهنده؛ امتیاز کسب و کار؛ تعداد نوبت موفقش؛ اینکه کسب‌وکار برتر هست یا نه | Abolfazl?        | Medium   | Unapproved |
+| Page to improve    | Description                                                  | Responsible      | Priority | Status      |
+| ------------------ | ------------------------------------------------------------ | ---------------- | -------- | ----------- |
+| Org register form  | `Apply`: Background to be like hero section background in index page; `Apply`: Make form titles bigger | Mohammad Hossein | Medium   | Open        |
+| All pages          | Numbers to be in Persian except clock and statistics         | Ali              | Low      | Unapproved  |
+| homepage           | `Fix`: Tapping on categories does not redirect to search page | Ali              | Medium   | Open        |
+| Search-page        | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده; `Add`: تعداد امتیاز دهنده | Mohammad Hossein | Medium   | Open        |
+| Org public profile | `Add`: تعداد امتیاز دهنده؛ امتیاز کسب و کار؛ تعداد نوبت موفقش؛ اینکه کسب‌وکار برتر هست یا نه | Abolfazl?        | Medium   | In progress |
 
