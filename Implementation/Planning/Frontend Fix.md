@@ -30,17 +30,17 @@ Division table:
 
 ## Fix: Part Three (05/3/26) and (05/3/27)
 
-|      Page to improve      | Description                                                  |   Responsible    | Priority |   Status    |
-| :-----------------------: | ------------------------------------------------------------ | :--------------: | :------: | :---------: |
-|        Login page         | `Add`: Role selection modal; Opens **If** the user has more than 1 role. |      Hamed       |   High   |    Done     |
-|         Homepage          | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein |   High   |    Done     |
-|      All dashboards       | `add`: new nav bar having buttons to access lists.           |     Abolfazl     |   High   |    Done     |
-|        Search-page        | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده       | Mohammad Hossein |  Medium  | In progress |
-|      All dashboards       | `Fix`: nav bar still shows login / register                  |     Abolfazl     |   High   | In progress |
-|     `New`:  About Us      | `Add`: give a small description about the system             |       Ali        |  Medium  |    Done     |
-| `New`: ORG register guide | `Add`: from homepage, they can enter this page; We explain how to register a business and tell them about the rules. |       Ali        |  Medium  |    Done     |
-|         All pages         | Connect all pages together in the new folder structure branch |     Abolfazl     |   High   | In progress |
-|         All pages         | `Add`: One separate CSS for all fonts. Update the refs to match that file. |     Abolfazl     |   High   | In progress |
+|      Page to improve      | Description                                                  |   Responsible    | Priority | Status |
+| :-----------------------: | ------------------------------------------------------------ | :--------------: | :------: | :----: |
+|        Login page         | `Add`: Role selection modal; Opens **If** the user has more than 1 role. |      Hamed       |   High   |  Done  |
+|         Homepage          | `add` "Recent ADs" section below 'new ORGs' section.         | Mohammad Hossein |   High   |  Done  |
+|      All dashboards       | `add`: new nav bar having buttons to access lists.           |     Abolfazl     |   High   |  Done  |
+|                           |                                                              |                  |          |        |
+|      All dashboards       | `Fix`: nav bar still shows login / register                  |     Abolfazl     |   High   |  Done  |
+|     `New`:  About Us      | `Add`: give a small description about the system             |       Ali        |  Medium  |  Done  |
+| `New`: ORG register guide | `Add`: from homepage, they can enter this page; We explain how to register a business and tell them about the rules. |       Ali        |  Medium  |  Done  |
+|         All pages         | Connect all pages together in the new folder structure branch |     Abolfazl     |   High   |  Done  |
+|         All pages         | `Add`: One separate CSS for all fonts. Update the refs to match that file. |     Abolfazl     |   High   |  Done  |
 
 ## Fix: Part Four (05/3/28-05/03/29)
 
@@ -57,15 +57,27 @@ Division table:
 | :-------------------: | ------------------------------------------------------------ | :---------: | :------: | :-----------------: |
 | ORG profile edit page | `Fix` : User can make new appointment for previous days!!; `Fix`: Font for "تومان" is missing -> use Vazirmatn. `Fix`: عنوان فیلد قیمت، در مودال ویرایش نوبت، نمایش داده نمیشه. |  Abolfazl   |   High   |     In progress     |
 |  `new` AD view page   | Opens after the user clicks on "مشاهده بیشتر" button of 'تخفیف ها' section. |    -----    |  -----   | Task may be removed |
-|       All pages       | `Fix`: All numbers be in English                             |  Abolfazl   |  Medium  |     In progress     |
-|       All pages       | `Apply`: Coordinate all mock data to match.                  |    Sajad    |  Medium  |     Unapproved      |
+|       All pages       | `Fix`: All numbers be in English                             |  Abolfazl   |  Medium  |        Done         |
+|       All pages       | `Apply`: Coordinate all mock data to match.                  |    Sajad    |  Medium  |       Cancel        |
 
-## *Fix: Part Six (05/3/30)*
+## Fix: Part Six (05/3/30)
 
-| Page to improve    | Description                                                  | Responsible | Priority | Status               |
-| ------------------ | ------------------------------------------------------------ | ----------- | -------- | -------------------- |
-| ORG Profile        | `Fix`: Tapping on TimeSections does not show appointment price | Abolfazl    | High     | Done                 |
-| appointment-list   | `Fix`: فرمت کد نوبت با فرمت صفحه پروفایل سازمان از دید مشتری(همونجایی نوبت میگیره) فرق داره | Sajad       | High     | Open                 |
-| ORG Public Profile | `Add`: Editing the horizontal list 'نوع خدمات'               | ???         | High     | Waiting for approval |
-| ORG Profile Edit   | `Add`: A horizontal list of the types of service the ORG can do for customers. It's name is 'نوع' | ???         | High     | Waiting for approval |
+| Page to improve    | Description                                                  | Responsible      | Priority | Status |
+| ------------------ | ------------------------------------------------------------ | ---------------- | -------- | ------ |
+| ORG Profile        | `Fix`: Tapping on TimeSections does not show appointment price | Abolfazl         | High     | Done   |
+| appointment-list   | `Fix`: فرمت کد نوبت با فرمت صفحه پروفایل سازمان از دید مشتری(همونجایی نوبت میگیره) فرق داره | Sajad            | High     | Open   |
+| ORG Public Profile | `Add`: Editing the horizontal list 'نوع خدمات'               | Abolfazl         | High     | Done   |
+| ORG Profile Edit   | `Add`: A horizontal list of the types of service the ORG can do for customers. It's name is 'نوع' | Abolfazl         | High     | Done   |
+| user profile       | `Fix`: numbers of appointments are not working.              | Mohammad Hossein | Medium   | Cancel |
+| User profile       | `Fix`: icons to match the website                            | Sajad            | Medium   | Cancel |
+
+## *Fix: Part Seven(05/3/31-05/4/1)*
+
+| Page to improve    | Description                                                  | Responsible      | Priority | Status     |
+| ------------------ | ------------------------------------------------------------ | ---------------- | -------- | ---------- |
+| Org register form  | `Apply`: Background to be like hero section background in index page; `Apply`: Make form titles bigger | Mohammad Hossein | Medium   | Open       |
+| All pages          | Numbers to be in Persian except clock and statistics         | Ali              | Low      | Unapproved |
+| homepage           | `Fix`: Tapping on categories does not redirect to search page | Ali              | Medium   | Open       |
+| Search-page        | `remove`: تعداد نظرات هر سازمان که روی کارتش نوشته شده; `Add`: تعداد امتیاز دهنده | Mohammad Hossein | Medium   | Open       |
+| Org public profile | `Add`: تعداد امتیاز دهنده؛ امتیاز کسب و کار؛ تعداد نوبت موفقش؛ اینکه کسب‌وکار برتر هست یا نه | Abolfazl?        | Medium   | Unapproved |
 

@@ -1,0 +1,509 @@
+  :root {
+      --primary: #0B2545;
+      /* رنگ اصلی تیره (نیلی سرمه‌ای) */
+      --primary-mid: #1B4F72;
+      /* رنگ اصلی میانه */
+      --primary-light: #2E86C1;
+      /* رنگ اصلی روشن */
+      --accent: #D4AC0D;
+      /* رنگ تأکیدی (طلایی) */
+      --bg: #eef2f7;
+      /* پس‌زمینه صفحه */
+      --bg-card: #ffffff;
+      /* پس‌زمینه کارت‌ها */
+      --text: #1a2a3a;
+      /* رنگ متن اصلی */
+      --text-2: #4a6080;
+      /* رنگ متن ثانویه */
+      --text-3: #8aa0b8;
+      /* رنگ متن کم‌رنگ */
+      --border: rgba(11, 37, 69, .1);
+      /* رنگ خطوط جداکننده */
+      --radius: 14px;
+      /* گردی گوشه‌های بزرگ */
+      --radius-sm: 8px;
+      /* گردی گوشه‌های کوچک */
+      --shadow: 0 2px 16px rgba(11, 37, 69, .08);
+      /* سایه استاندارد */
+      --green: #27ae60;
+      /* رنگ سبز برای وضعیت فعال */
+      --red: #e74c3c;
+      /* رنگ قرمز برای وضعیت مسدود */
+  }
+
+  /* Reset پایه - box-sizing برای همه المان‌ها */
+  * {
+      box-sizing: border-box;
+  }
+
+  /* =============================================
+     استایل body و پس‌زمینه گرادیانت
+     ============================================= */
+  body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      color: var(--text);
+      /* پس‌زمینه چندلایه با گرادیان‌های شعاعی و خطی */
+      background:
+          radial-gradient(ellipse at 20% 0%, rgba(46, 134, 193, 0.12) 0%, transparent 55%),
+          radial-gradient(ellipse at 80% 100%, rgba(11, 37, 69, 0.10) 0%, transparent 50%),
+          linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
+      background-attachment: fixed;
+      /* پس‌زمینه هنگام اسکرول ثابت می‌ماند */
+      min-height: 100vh;
+  }
+
+  /* =============================================
+     کانتینر اصلی - محدود‌کننده عرض محتوا
+     ============================================= */
+  .container {
+      width: min(1200px, calc(100% - 32px));
+      /* حداکثر ۱۲۰۰px، با margin لبه‌ها */
+      margin: auto;
+      padding: 30px 0;
+  }
+
+  /* =============================================
+     کارت - بلوک سفید با سایه و گردی گوشه
+     ============================================= */
+  .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      padding: 20px;
+      margin-bottom: 20px;
+  }
+
+  /* عنوان اصلی صفحه */
+  .page-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-align: center;
+  }
+
+  /* =============================================
+     نوار ابزار - جستجو و دکمه‌های بالای جدول
+     ============================================= */
+  .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      gap: 10px;
+      flex-wrap: wrap;
+      /* در صفحه‌های کوچک به خط بعد می‌رود */
+  }
+
+  /* گروه‌بندی ورودی جستجو و دکمه‌های مرتبط */
+  .search-box {
+      display: flex;
+      gap: 10px;
+  }
+
+  /* استایل پایه برای input و select */
+  input,
+  select {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color .2s;
+      /* انیمیشن تغییر رنگ حاشیه */
+  }
+
+  /* تغییر رنگ حاشیه هنگام فوکوس */
+  input:focus {
+      border-color: var(--primary-light);
+  }
+
+  /* استایل پایه برای همه دکمه‌ها */
+  button {
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: opacity .2s, background .2s;
+  }
+
+  /* هاور پیش‌فرض دکمه‌ها */
+  button:hover {
+      opacity: .88;
+  }
+
+  /* دکمه اصلی (آبی تیره) */
+  .btn-primary {
+      background: var(--primary);
+      color: white;
+  }
+
+  .btn-primary:hover {
+      background: var(--primary-light);
+      opacity: 1;
+  }
+
+  /* دکمه هشدار (طلایی) */
+  .btn-warning {
+      background: var(--accent);
+      color: #000;
+  }
+
+  /* دکمه مسدودسازی (قرمز) */
+  .btn-block {
+      background: var(--red);
+      color: white;
+      font-size: 0.82rem;
+      padding: 8px 12px;
+  }
+
+  /* دکمه رفع مسدودیت (سبز) */
+  .btn-unblock {
+      background: var(--green);
+      color: white;
+      font-size: 0.82rem;
+      padding: 8px 12px;
+  }
+
+  /* =============================================
+     نوار آمار - نمایش تعداد کل / فعال / مسدود
+     ============================================= */
+  .stats-bar {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+  }
+
+  /* بج (pill) برای نمایش هر آمار */
+  .stat-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      /* شکل capsule */
+      font-size: 0.85rem;
+      font-weight: 700;
+  }
+
+  /* بج آبی برای کل */
+  .stat-badge.total {
+      background: rgba(11, 37, 69, 0.07);
+      color: var(--primary);
+  }
+
+  /* بج سبز برای کسب‌وکارهای فعال */
+  .stat-badge.active {
+      background: rgba(39, 174, 96, 0.12);
+      color: var(--green);
+  }
+
+  /* بج قرمز برای کسب‌وکارهای مسدود */
+  .stat-badge.blocked {
+      background: rgba(231, 76, 60, 0.12);
+      color: var(--red);
+  }
+
+  /* =============================================
+     جدول اصلی لیست کسب‌وکارها
+     ============================================= */
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      /* حذف فاصله بین سلول‌ها */
+  }
+
+  /* استایل سلول‌های هدر و داده */
+  th,
+  td {
+      padding: 13px 12px;
+      border-bottom: 1px solid var(--border);
+      /* خط جداکننده ردیف‌ها */
+      text-align: center;
+  }
+
+  /* هدر ستون‌ها */
+  th {
+      color: var(--primary);
+      font-weight: 700;
+      background: rgba(11, 37, 69, 0.03);
+      /* پس‌زمینه خیلی کم‌رنگ */
+      font-size: 0.93rem;
+  }
+
+  /* سلول‌های داده */
+  td {
+      font-size: 0.92rem;
+      color: var(--text);
+  }
+
+  /* انیمیشن هاور ردیف‌های جدول */
+  tbody tr {
+      transition: background .15s;
+  }
+
+  tbody tr:hover {
+      background: rgba(11, 37, 69, 0.02);
+  }
+
+  /* =============================================
+     نشانگر وضعیت - فعال (سبز)
+     نقطه رنگی + متن با ::before pseudo-element
+     ============================================= */
+  .status-active {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.88rem;
+  }
+
+  /* نقطه سبز کنار متن "فعال" */
+  .status-active::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      display: inline-block;
+  }
+
+  /* =============================================
+     نشانگر وضعیت - مسدود (قرمز)
+     ============================================= */
+  .status-blocked {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 0.88rem;
+  }
+
+  /* نقطه قرمز کنار متن "مسدود" */
+  .status-blocked::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      display: inline-block;
+  }
+
+  /* ستون عملیات - دکمه‌ها را در کنار هم قرار می‌دهد */
+  .actions {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+  }
+
+  /* نام سازمان با فونت بولد و رنگ اصلی */
+  .business-name {
+      font-weight: 700;
+      color: var(--primary);
+      text-align: right;
+  }
+
+  /* شناسه کسب‌وکار (در صورت نیاز) */
+  .business-id {
+      font-size: 0.78rem;
+      color: var(--text-3);
+  }
+
+  /* بج دسته‌بندی - pill آبی روشن */
+  .category-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(46, 134, 193, 0.1);
+      color: var(--primary-light);
+  }
+
+  /* نمایش پیام خالی هنگامی که نتیجه‌ای یافت نشود */
+  .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-3);
+      font-size: 1rem;
+  }
+
+  /* =============================================
+     مودال تأیید عملیات
+     ============================================= */
+
+  /* پوشش تاریک پشت مودال */
+  .modal {
+      position: fixed;
+      inset: 0;
+      /* کل صفحه را می‌پوشاند */
+      background: rgba(0, 0, 0, .45);
+      display: none;
+      /* پیش‌فرض: پنهان */
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      /* بالاتر از همه المان‌ها */
+  }
+
+  /* کلاس open مودال را نمایش می‌دهد */
+  .modal.open {
+      display: flex;
+  }
+
+  /* محتوای داخلی مودال */
+  .modal-content {
+      background: white;
+      width: 420px;
+      max-width: 95%;
+      /* در موبایل از لبه‌ها فاصله می‌گیرد */
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .18);
+  }
+
+  /* عنوان مودال */
+  .modal-header {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 14px;
+  }
+
+  /* متن توضیحات مودال */
+  .modal-body {
+      color: var(--text-2);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+  }
+
+  /* نام کسب‌وکار درون متن مودال - برجسته */
+  .modal-body span {
+      font-weight: 700;
+      color: var(--primary);
+  }
+
+  /* ردیف دکمه‌های مودال */
+  .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+  }
+
+  /* دکمه انصراف مودال */
+  .btn-cancel {
+      background: #f0f3f7;
+      color: var(--text);
+  }
+
+  /* =============================================
+     ریسپانسیو - تبلت (تا ۹۹۲px)
+     ============================================= */
+  @media (max-width: 992px) {
+      .container {
+          width: 100%;
+          padding: 20px 16px;
+      }
+  }
+
+  /* =============================================
+     ریسپانسیو - موبایل (تا ۷۶۸px)
+     جدول به حالت کارت تبدیل می‌شود
+     ============================================= */
+  @media (max-width: 768px) {
+      .container {
+          padding: 20px 12px;
+      }
+
+      /* نوار ابزار عمودی می‌شود */
+      .toolbar {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 12px;
+      }
+
+      /* جستجو عمودی */
+      .search-box {
+          flex-direction: column;
+          gap: 10px;
+          width: 100%;
+      }
+
+      .search-box input,
+      .search-box button {
+          width: 100%;
+      }
+
+      .toolbar>button {
+          width: 100%;
+      }
+
+      /* جدول به حالت کارت‌شده تبدیل می‌شود */
+      table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0 12px;
+          /* فاصله عمودی بین کارت‌ها */
+      }
+
+      /* هدر جدول در موبایل پنهان می‌شود */
+      thead {
+          display: none;
+      }
+
+      tbody {
+          display: block;
+      }
+
+      /* هر ردیف به یک کارت مستقل تبدیل می‌شود */
+      tr {
+          display: block;
+          width: 100%;
+          background: #fff;
+          padding: 15px;
+          border-radius: 12px;
+          box-shadow: var(--shadow);
+          border: 1px solid var(--border);
+          margin-bottom: 12px;
+      }
+
+      /* هر سلول به یک ردیف label: value تبدیل می‌شود */
+      td {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          text-align: right;
+          padding: 8px 0;
+          border: none;
+      }
+
+      /* نام ستون از data-label خوانده و قبل از مقدار نمایش داده می‌شود */
+      td::before {
+          content: attr(data-label);
+          font-weight: 700;
+          color: var(--primary);
+          flex-shrink: 0;
+          margin-left: 12px;
+      }
+
+      .business-name {
+          text-align: right;
+      }
+
+      .actions {
+          justify-content: space-between;
+      }
+  }
+  
