@@ -1,6 +1,6 @@
-<mxfile host="Electron">
+<mxfile host="Electron" pages="2">
   <diagram name="Page-1" id="9gedAWy2c7m3En1Djgb9">
-    <mxGraphModel dx="775" dy="408" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1736" dy="1510" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -91,7 +91,7 @@
         <mxCell id="ep139rWNzX_71971nXDY-5" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="&lt;font color=&quot;#ffffff&quot;&gt;Organization&lt;/font&gt;" vertex="1">
           <mxGeometry height="260" width="160" x="390" y="750" as="geometry" />
         </mxCell>
-        <mxCell id="ep139rWNzX_71971nXDY-6" parent="ep139rWNzX_71971nXDY-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="orgId:string&lt;div&gt;NameofOrg:string&lt;/div&gt;&lt;div&gt;responseStartTime:string&lt;/div&gt;&lt;div&gt;responseEndTime:string&lt;/div&gt;&lt;div&gt;coverImageUrl:string&lt;/div&gt;&lt;div&gt;cityOfOrg:string&lt;/div&gt;&lt;div&gt;restTimeOfOrg:string&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="ep139rWNzX_71971nXDY-6" parent="ep139rWNzX_71971nXDY-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="orgId:string&lt;div&gt;NameofOrg:string&lt;/div&gt;&lt;div&gt;coverImageUrl:string&lt;/div&gt;&lt;div&gt;cityOfOrg:string&lt;/div&gt;&lt;div&gt;restTimeOfOrg:string&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="110" width="160" y="30" as="geometry" />
         </mxCell>
         <mxCell id="ep139rWNzX_71971nXDY-7" parent="ep139rWNzX_71971nXDY-5" style="line;strokeWidth=3;fillColor=light-dark(#0B2545,#0B2545);align=center;verticalAlign=middle;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=light-dark(#D4AC0D,#D4AC0D);fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
@@ -172,7 +172,7 @@
         <mxCell id="0ckyP6ET-hT8baIaH0NJ-13" parent="0ckyP6ET-hT8baIaH0NJ-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="&lt;font color=&quot;#000000&quot;&gt;add()&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;getByBusiness()&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;getAverageRating()&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;delete()&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;update()&lt;/font&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="90" width="160" y="150" as="geometry" />
         </mxCell>
-        <mxCell id="0ckyP6ET-hT8baIaH0NJ-14" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="&lt;font color=&quot;#ffffff&quot;&gt;WorkingHours&lt;/font&gt;" vertex="1">
+        <mxCell id="0ckyP6ET-hT8baIaH0NJ-14" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="&lt;font color=&quot;#ffffff&quot;&gt;Schedule&lt;/font&gt;" vertex="1">
           <mxGeometry height="250" width="160" x="730" y="1790" as="geometry" />
         </mxCell>
         <mxCell id="0ckyP6ET-hT8baIaH0NJ-15" parent="0ckyP6ET-hT8baIaH0NJ-14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="workingHourId:string&lt;div&gt;businessId:string&lt;/div&gt;&lt;div&gt;dayOfWeek:string&lt;/div&gt;&lt;div&gt;isWorking:Boolean&lt;/div&gt;&lt;div&gt;openTime:string&lt;/div&gt;&lt;div&gt;closeTime:string&lt;/div&gt;&lt;div&gt;restStart:string&lt;/div&gt;&lt;div&gt;restEnd:string&lt;/div&gt;" vertex="1">
@@ -187,13 +187,13 @@
         <mxCell id="0ckyP6ET-hT8baIaH0NJ-18" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="&lt;font color=&quot;#ffffff&quot;&gt;Advertisements&lt;/font&gt;" vertex="1">
           <mxGeometry height="280" width="160" x="480" y="1790" as="geometry" />
         </mxCell>
-        <mxCell id="0ckyP6ET-hT8baIaH0NJ-19" parent="0ckyP6ET-hT8baIaH0NJ-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="addId:string&lt;div&gt;businessId:string&lt;/div&gt;&lt;div&gt;title:string&lt;/div&gt;&lt;div&gt;description:string&lt;/div&gt;&lt;div&gt;imageUrl:string&lt;/div&gt;&lt;div&gt;startDate:Date&lt;/div&gt;&lt;div&gt;endDate:Date&lt;/div&gt;&lt;div&gt;views:int&lt;/div&gt;&lt;div&gt;status:string&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="0ckyP6ET-hT8baIaH0NJ-19" parent="0ckyP6ET-hT8baIaH0NJ-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="adId:string&lt;div&gt;businessId:string&lt;/div&gt;&lt;div&gt;title:string&lt;/div&gt;&lt;div&gt;description:string&lt;/div&gt;&lt;div&gt;imageUrl:string&lt;/div&gt;&lt;div&gt;startDate:Date&lt;/div&gt;&lt;div&gt;endDate:Date&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="130" width="160" y="30" as="geometry" />
         </mxCell>
         <mxCell id="0ckyP6ET-hT8baIaH0NJ-20" parent="0ckyP6ET-hT8baIaH0NJ-18" style="line;strokeWidth=3;fillColor=light-dark(#0B2545,#0B2545);align=center;verticalAlign=middle;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=light-dark(#D4AC0D,#D4AC0D);fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
           <mxGeometry height="10" width="160" y="160" as="geometry" />
         </mxCell>
-        <mxCell id="0ckyP6ET-hT8baIaH0NJ-21" parent="0ckyP6ET-hT8baIaH0NJ-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="&lt;font color=&quot;#000000&quot;&gt;create()&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;update()&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;delete()&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;getViews()&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;getActiveAds()&lt;/font&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="0ckyP6ET-hT8baIaH0NJ-21" parent="0ckyP6ET-hT8baIaH0NJ-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="&lt;font color=&quot;#000000&quot;&gt;create()&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;update()&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;delete()&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(237, 237, 237)); background-color: transparent;&quot;&gt;getActiveAds()&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="110" width="160" y="170" as="geometry" />
         </mxCell>
         <mxCell id="0ckyP6ET-hT8baIaH0NJ-22" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="&lt;font color=&quot;#ffffff&quot;&gt;Appointment&lt;/font&gt;" vertex="1">
@@ -211,7 +211,7 @@
         <mxCell id="0ckyP6ET-hT8baIaH0NJ-26" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="&lt;font color=&quot;#ffffff&quot;&gt;Payment&lt;/font&gt;" vertex="1">
           <mxGeometry height="230" width="160" x="1160" y="700" as="geometry" />
         </mxCell>
-        <mxCell id="0ckyP6ET-hT8baIaH0NJ-27" parent="0ckyP6ET-hT8baIaH0NJ-26" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="paymentId:string&lt;div&gt;appointmentId:string&lt;/div&gt;&lt;div&gt;amount:int&lt;/div&gt;&lt;div&gt;method:string&lt;/div&gt;&lt;div&gt;status:string&lt;/div&gt;&lt;div&gt;transavtionId:string&lt;/div&gt;&lt;div&gt;paidAt:Date&lt;/div&gt;" vertex="1">
+        <mxCell id="0ckyP6ET-hT8baIaH0NJ-27" parent="0ckyP6ET-hT8baIaH0NJ-26" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="paymentId:string&lt;div&gt;appointmentId:string&lt;/div&gt;&lt;div&gt;amount:int&lt;/div&gt;&lt;div&gt;method:string&lt;/div&gt;&lt;div&gt;status:string&lt;/div&gt;&lt;div&gt;transactionId:string&lt;/div&gt;&lt;div&gt;paidAt:Date&lt;/div&gt;" vertex="1">
           <mxGeometry height="110" width="160" y="30" as="geometry" />
         </mxCell>
         <mxCell id="0ckyP6ET-hT8baIaH0NJ-28" parent="0ckyP6ET-hT8baIaH0NJ-26" style="line;strokeWidth=3;fillColor=light-dark(#0B2545,#0B2545);align=center;verticalAlign=middle;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=light-dark(#D4AC0D,#D4AC0D);fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
@@ -567,6 +567,23 @@
             <mxPoint x="800" y="420" as="sourcePoint" />
             <mxPoint x="860" y="1040" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="OgwEmvwYEss_2-Gf7A6J" name="Page-2">
+    <mxGraphModel dx="377" dy="328" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="a3SKWiLUvodQD3L7Q_QZ-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="فقط یک کلاس کسب و کار" vertex="1">
+          <mxGeometry height="60" width="120" x="210" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="a3SKWiLUvodQD3L7Q_QZ-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;br&gt;&amp;nbsp;کلاس کسب و کار" vertex="1">
+          <mxGeometry height="60" width="120" x="430" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="a3SKWiLUvodQD3L7Q_QZ-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="کسب و کار در انتظار تایید" vertex="1">
+          <mxGeometry height="60" width="120" x="430" y="290" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
