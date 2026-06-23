@@ -13,6 +13,9 @@ Recorder: writes down the problems and notes
 
 Facilitator: manages the session and time
 
+- Part one: 28 Khordad 9-10AM
+- Part two: not planned
+
 ## Time Table
 
 تقریبی
