@@ -310,7 +310,7 @@ function submitForm() {
     document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
   }, 1500);
   
-   ; window.location.href = '../Html/home_page.html';
+   ; window.location.href = '../../index.html';
 }
 
 // ========================================
