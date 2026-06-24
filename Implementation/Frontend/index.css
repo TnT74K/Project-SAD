@@ -356,6 +356,13 @@ img {
   margin-bottom: 26px;
 }
 
+/* بج مخصوص پیام (اطلاعات آزمایشی) */
+.hero-badge--notice {
+  background: rgba(46, 134, 193, 0.10);
+  border: 1px solid rgba(46, 134, 193, 0.22);
+  color: rgba(255, 255, 255, 0.78);
+}
+
 /* نقطه چشمک‌زن کنار بج */
 .hero-dot {
   width: 7px;
