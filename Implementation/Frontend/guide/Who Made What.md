@@ -1,5 +1,7 @@
 # Who Made What
 
+By Sajad
+
 Here we write the main developer of each page.
 
 Used as a refrence in future divisions.
@@ -31,6 +33,8 @@ Used as a refrence in future divisions.
 - Suspend OG
 
 ## Sajad
+
+- The `guide` folder and it's contents
 
 ## Mohammad Hossein
 

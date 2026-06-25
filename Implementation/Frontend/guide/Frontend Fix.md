@@ -1,5 +1,7 @@
 # Frontend Fix List
 
+By Sajad
+
 ### For CSharpers team
 
 - اسم صفحات براساس آنچه در شاخه `main` موجود است نوشته شده.
@@ -71,7 +73,7 @@ Division table:
 | user profile       | `Fix`: numbers of appointments are not working.              | Mohammad Hossein | Medium   | Cancel |
 | User profile       | `Fix`: icons to match the website                            | Sajad            | Medium   | Cancel |
 
-## *Fix: Part Seven(05/3/31-05/4/1)*
+## Fix: Part Seven(05/3/31-05/4/1)
 
 | Page to improve    | Description                                                  | Responsible      | Priority | Status     |
 | ------------------ | ------------------------------------------------------------ | ---------------- | -------- | ---------- |
