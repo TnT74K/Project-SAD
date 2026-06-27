@@ -192,7 +192,7 @@ logs/2026/june/error.txt
 
 ------
 
-# **Exceptions (****`!`****)**
+# **Exceptions (`!`)
 
 You can un-ignore files.
 
