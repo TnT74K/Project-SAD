@@ -216,7 +216,7 @@ function renderCards(list) {
           <div class="card-stats">
             <div class="stat-item">
               <span class="stat-star">★</span>
-              <span class="stat-val">${b.rating}</span>
+              <span class="stat-val">${toFa(b.rating)}</span>
             </div>
             <div class="stat-dot"></div>
             <div class="stat-item">${toFa(b.reviews)} نظر</div>

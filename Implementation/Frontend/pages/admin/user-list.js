@@ -19,7 +19,7 @@ password:"123456"
 first:"زهرا",
 last:"کریمی",
 phone:"09121235062",
-role:"كاربر عادي",
+role:"كاربر عادی",
 personstatus:"active",
 nationalcode:"0023456789",
 username:"zahra.k",
@@ -30,7 +30,7 @@ password:"123456"
 first:"مهدی",
 last:"رضایی",
 phone:"09121235461",
-role:"كاربر عادي",
+role:"كاربر عادی",
 personstatus:"inactive",
 nationalcode:"0034567891",
 username:"mehdi.r",
@@ -41,7 +41,7 @@ password:"123456"
 first:"سمیرا",
 last:"قاسمی",
 phone:"09121287061",
-role:"كارمند حضوري",
+role:"كارمند حضوری",
 personstatus:"active",
 nationalcode:"0045678912",
 username:"samira.q",
@@ -103,14 +103,14 @@ ${u.personstatus=='active'
 
 <td data-label="عملیات" class="actions">
 
-<button class="btn-warning"
+<button class="btn-warning-staff"
 onclick="editUser(${i})">
 
 ویرایش
 
 </button>
 
-<button class="btn-danger" onclick="askToggle(${i})">
+<button class="btn-primary-staff" onclick="askToggle(${i})">
 
 
 تغییر وضعیت

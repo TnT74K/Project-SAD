@@ -6,28 +6,28 @@
 /* ---------- داده‌ها ---------- */
 
 // تاریخ امروز (برای مقایسه و تعیین نوع روز)
-const TODAY = '۱۴۰۵/۰۳/۱۳';
+const TODAY = '1405/03/13';
 
 // تمام نوبت‌ها به تفکیک روز
 // هر آیتم شامل: نام، تلفن، کد نوبت، سرویس، ساعت، وضعیت اولیه
 const DAYS_DATA = {
-  '۱۴۰۵/۰۳/۱۱': [
-    { name: 'حسن موسوی',    phone: '۰۹۱۲۱۱۱۲۲۳۳', code: 'A-۱۰۱', service: 'ماساژ',     time: '۰۹:۰۰', status: 'badge-green',  statusText: 'حضور یافت'  },
-    { name: 'زینب نوری',    phone: '۰۹۳۵۴۴۴۵۵۶۶', code: 'A-۱۰۲', service: 'کوتاهی مو', time: '۱۱:۳۰', status: 'badge-red',    statusText: 'لغو شده'    },
+  '1405/03/11': [
+    { name: 'حسن موسوی',    phone: '09121112233', code: 'A-101', service: 'ماساژ',     time: '09:00', status: 'badge-green',  statusText: 'حضور یافت'  },
+    { name: 'زینب نوری',    phone: '09354445566', code: 'A-102', service: 'کوتاهی مو', time: '11:30', status: 'badge-red',    statusText: 'لغو شده'    },
   ],
-  '۱۴۰۵/۰۳/۱۲': [
-    { name: 'علی رضایی',    phone: '۰۹۱۰۲۲۲۳۳۴۴', code: 'A-۱۰۳', service: 'کوتاهی مو', time: '۱۰:۳۰', status: 'badge-green',  statusText: 'حضور یافت'  },
-    { name: 'سارا محمدی',   phone: '۰۹۱۵۳۳۳۴۴۵۵', code: 'A-۱۰۴', service: 'رنگ مو',    time: '۱۱:۰۰', status: 'badge-yellow', statusText: 'حضور نیافت' },
-    { name: 'مهدی کریمی',   phone: '۰۹۱۸۵۵۵۶۶۷۷', code: 'A-۱۰۵', service: 'اصلاح ریش', time: '۱۲:۳۰', status: 'badge-green',  statusText: 'حضور یافت'  },
-    { name: 'نیلوفر احمدی', phone: '۰۹۳۰۶۶۶۷۷۸۸', code: 'A-۱۰۶', service: 'مانیکور',   time: '۱۴:۰۰', status: 'badge-red',    statusText: 'لغو شده'    },
-    { name: 'رضا حسینی',    phone: '۰۹۳۷۷۷۷۸۸۹۹', code: 'A-۱۰۷', service: 'ماساژ',     time: '۱۵:۳۰', status: 'badge-red',    statusText: 'لغو شده'    },
+  '1405/03/12': [
+    { name: 'علی رضایی',    phone: '09102223344', code: 'A-103', service: 'کوتاهی مو', time: '10:30', status: 'badge-green',  statusText: 'حضور یافت'  },
+    { name: 'سارا محمدی',   phone: '09153334455', code: 'A-104', service: 'رنگ مو',    time: '11:00', status: 'badge-yellow', statusText: 'حضور نیافت' },
+    { name: 'مهدی کریمی',   phone: '09185556677', code: 'A-105', service: 'اصلاح ریش', time: '12:30', status: 'badge-green',  statusText: 'حضور یافت'  },
+    { name: 'نیلوفر احمدی', phone: '09306667788', code: 'A-106', service: 'مانیکور',   time: '14:00', status: 'badge-red',    statusText: 'لغو شده'    },
+    { name: 'رضا حسینی',    phone: '09377778899', code: 'A-107', service: 'ماساژ',     time: '15:30', status: 'badge-red',    statusText: 'لغو شده'    },
   ],
-  '۱۴۰۵/۰۳/۱۳': [
-    { name: 'مریم صادقی',   phone: '۰۹۱۲۸۸۸۹۹۰۰', code: 'A-۱۰۸', service: 'پاکسازی',   time: '۰۹:۳۰', status: 'badge-blue', statusText: 'جدید' },
-    { name: 'امیر تهرانی',  phone: '۰۹۱۹۹۹۹۰۰۱۱', code: 'A-۱۰۹', service: 'کوتاهی مو', time: '۱۲:۰۰', status: 'badge-blue', statusText: 'جدید' },
+  '1405/03/13': [
+    { name: 'مریم صادقی',   phone: '09128889900', code: 'A-108', service: 'پاکسازی',   time: '09:30', status: 'badge-blue', statusText: 'جدید' },
+    { name: 'امیر تهرانی',  phone: '09199990011', code: 'A-109', service: 'کوتاهی مو', time: '12:00', status: 'badge-blue', statusText: 'جدید' },
   ],
-  '۱۴۰۵/۰۳/۱۴': [
-    { name: 'فاطمه کرمی',   phone: '۰۹۱۶۰۰۰۱۱۲۲', code: 'A-۱۱۰', service: 'رنگ مو',    time: '۱۰:۰۰', status: 'badge-blue', statusText: 'جدید' },
+  '1405/03/14': [
+    { name: 'فاطمه کرمی',   phone: '09160001122', code: 'A-110', service: 'رنگ مو',    time: '10:00', status: 'badge-blue', statusText: 'جدید' },
   ],
 };
 
@@ -91,7 +91,7 @@ function render() {
   // data-init-* برای بازگشت به وضعیت اولیه هنگام کلیک «پاک» ذخیره می‌شود
   document.getElementById('appointmentsBody').innerHTML = rows.map((r, i) => `
     <tr data-init-badge-class="badge ${r.status}" data-init-badge-text="${r.statusText}">
-      <td data-label="#">${toPersianNum(i + 1)}</td>
+      <td data-label="#">${i + 1}</td>
 
       <!-- نام مشتری: کلیک‌پذیر است و مودال اطلاعات را باز می‌کند -->
       <td data-label="مشتری">
@@ -154,12 +154,7 @@ function clearStatus(btn) {
   row.className = '';
 }
 
-/* ---------- ابزار ---------- */
 
-// تبدیل اعداد انگلیسی به فارسی (مثلاً ۱، ۲، ۳ ...)
-function toPersianNum(n) {
-  return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
-}
 
 /* ---------- مودال اطلاعات مشتری ---------- */
 

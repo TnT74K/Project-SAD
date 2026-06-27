@@ -102,20 +102,23 @@ font-family:inherit;
 }
 
 /* دکمه اصلی */
-.btn-primary{
+.btn-primary-staff{
 background:var(--primary);
 color:white;
 }
 
 /* hover دکمه */
-.btn-primary:hover{
+.btn-primary-staff:hover{
 background:var(--primary-light);
 }
 
 /* دکمه هشدار */
-.btn-warning{
+.btn-warning-staff{
 background:var(--accent);
 color:#000;
+}
+.btn-warning-staff:hover{
+background:#e7d58f;
 }
 
 /* دکمه خطر */
@@ -123,7 +126,9 @@ color:#000;
 background:#e74c3c;
 color:white;
 }
-
+.btn-danger:hover{
+background:#b7473a;
+}
 /* دکمه خطر */
 .btn-success{
 background:#27ae60;

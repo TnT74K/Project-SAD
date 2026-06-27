@@ -7,7 +7,7 @@ let users=[
 first:"علی",
 last:"محمدی",
 phone:"09121235061",
-role:"پشتيبان سازمان",
+role:"پشتيبان کسب و کار",
 personstatus:"active",
 nationalcode:"0012345678",
 username:"ali.m",
@@ -17,7 +17,7 @@ password:"123456"
 first:"زهرا",
 last:"کریمی",
 phone:"09121235060",
-role:"كارمند حضوري",
+role:"كارمند حضوری",
 personstatus:"active",
 nationalcode:"0023456789",
 username:"zahra.k",
@@ -27,7 +27,7 @@ password:"123456"
 first:"مهدی",
 last:"رضایی",
 phone:"09121235590",
-role:"پشتيبان سازمان",
+role:"پشتيبان کسب و کار ",
 personstatus:"inactive",
 nationalcode:"0034567891",
 username:"mehdi.r",
@@ -37,7 +37,7 @@ password:"123456"
 first:"سمیرا",
 last:"قاسمی",
 phone:"09121246060",
-role:"كارمند حضوري",
+role:"كارمند حضوری",
 personstatus:"active",
 nationalcode:"0045678912",
 username:"samira.q",
@@ -47,7 +47,7 @@ password:"123456"
 first:"حسین",
 last:"نعمتی",
 phone:"09135635060",
-role:"كارمند حضوري",
+role:"كارمند حضوری",
 personstatus:"inactive",
 nationalcode:"0056789123",
 username:"hossein.n",
@@ -91,12 +91,16 @@ ${u.personstatus=='active'?'فعال':'غیرفعال'}
 
 <td data-label="عملیات" class="actions">
 
-<button class="btn-warning" onclick="editUser(${i})">
+<button class="btn-warning-staff" onclick="editUser(${i})">
 ویرایش
 </button>
 
-<button class="btn-danger" onclick="askToggle(${i})">
+<button class="btn-primary-staff" onclick="askToggle(${i})">
 تغییر وضعیت
+</button>
+
+<button class="btn-danger" onclick="askDelete(${i})">
+حدف
 </button>
 
 </td>
@@ -107,14 +111,52 @@ ${u.personstatus=='active'?'فعال':'غیرفعال'}
 })
 
 }
+// ======================================
+// پرسيدن براي حذف كاربر
+// ======================================
+function askDelete(i){
 
+pendingIndex = i;
+actionType = "delete";
+
+const item = users[i];
+
+document.getElementById('confirmTitle').innerText = 'حذف کاربر';
+
+document.getElementById('confirmText').innerHTML =
+`آیا از حذف <span>${item.first} ${item.last}</span> مطمئن هستید؟`;
+
+const btn = document.getElementById('confirmBtn');
+btn.innerText = 'حذف';
+btn.className = 'btn-danger';
+
+document.getElementById('confirmModal').classList.add('open');
+
+}
 
 // ======================================
-// پرسيدن براي حذف كردن
+// حذف کاربر
+// ======================================
+function deleteUser(i){
+
+const user = users[i]
+
+if(confirm(`آیا از حذف ${user.first} ${user.last} مطمئن هستید؟`)){
+
+users.splice(i,1)
+
+render()
+
+}
+
+}
+
+// ======================================
+// پرسيدن براي غیرفعال كردن
 // ======================================
 function askToggle(i) {
   pendingIndex = i;
-
+  actionType = "toggle";
   const item = users[i];
   const isActive = item.personstatus === 'active';
 
@@ -140,12 +182,23 @@ function confirmAction(){
 
 if (pendingIndex === null) return;
 
+if(actionType === "delete"){
+
+users.splice(pendingIndex,1);
+
+}
+
+else if(actionType === "toggle"){
+
 users[pendingIndex].personstatus =
 users[pendingIndex].personstatus === 'active'
 ? 'inactive'
 : 'active';
 
+}
+
 pendingIndex = null;
+actionType = null;
 
 render();
 

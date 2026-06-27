@@ -17,7 +17,7 @@ let businesses = [
     ownerPhone: "09123456789",
     city: "تهران",
     address: "خیابان ولیعصر، نرسیده به میدان ونک",
-    submitDate: "۱۴۰۴/۰۴/۰۱",
+    submitDate: "1405/03/01",
     description: "آرایشگاه مردانه با بیش از ۱۰ سال سابقه، ارائه خدمات کوتاهی مو، اصلاح ریش و رنگ‌آمیزی."
   },
   {
@@ -28,7 +28,7 @@ let businesses = [
     ownerPhone: "09387654321",
     city: "تهران",
     address: "نیاوران، خیابان کامرانیه شمالی",
-    submitDate: "۱۴۰۴/۰۴/۰۳",
+    submitDate: "1405/03/03",
     description: "کلینیک زیبایی و پوست با تجهیزات پیشرفته، ارائه خدمات لیزر، بوتاکس و فیلر.",
   },
   {
@@ -39,7 +39,7 @@ let businesses = [
     ownerPhone: "09211234567",
     city: "تهران",
     address: "سعادت‌آباد، بلوار دادمان",
-    submitDate: "۱۴۰۴/۰۴/۰۵",
+    submitDate: "1405/03/05",
     description: "باشگاه بدنسازی مجهز با دستگاه‌های روز دنیا و مربیان دارای مدرک فدراسیون.",
   },
   {
@@ -50,7 +50,7 @@ let businesses = [
     ownerPhone: "09141122334",
     city: "اصفهان",
     address: "خیابان چهارباغ بالا، پلاک ۲۴",
-    submitDate: "۱۴۰۴/۰۴/۰۶",
+    submitDate: "1405/03/06",
     description: "مطب تخصصی دندانپزشکی ارائه‌دهنده خدمات ایمپلنت، ارتودنسی، لمینت و بلیچینگ.",
   },
   {
@@ -61,19 +61,8 @@ let businesses = [
     ownerPhone: "09369988776",
     city: "مشهد",
     address: "خیابان امام رضا، نبش کوچه ۱۲",
-    submitDate: "۱۴۰۴/۰۴/۰۸",
+    submitDate: "1405/03/08",
     description: "سالن زیبایی بانوان با خدمات کامل شامل آرایش عروس، کوتاهی و رنگ مو در فضایی لوکس.",
-  },
-  {
-    id: "BIZ-1006",
-    name: "آموزشگاه زبان پارسیان",
-    category: "آموزش",
-    owner: "نیلوفر قاسمی",
-    ownerPhone: "09124455667",
-    city: "شیراز",
-    address: "بلوار زند، نبش خیابان لطفعلی خان زند",
-    submitDate: "۱۴۰۴/۰۴/۰۸",
-    description: "آموزشگاه زبان‌های خارجی با بیش از ۱۵ سال سابقه و اساتید بین‌المللی.",
   },
 ];
 
@@ -152,7 +141,7 @@ function render(ids) {
         <td data-label="شهر">${b.city}</td>
 
         <!-- تاریخ ثبت — LTR چون عدده -->
-        <td data-label="تاریخ ثبت" style="direction:ltr;font-size:0.82rem;color:var(--text-3);">${b.submitDate}</td>
+        <td data-label="تاریخ ثبت" style="direction:ltr;font-size:0.82rem;color:var(--text);">${b.submitDate}</td>
 
         <!-- دکمه‌های عملیات -->
         <td data-label="عملیات" class="actions">

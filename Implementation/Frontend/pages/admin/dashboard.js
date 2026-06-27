@@ -165,7 +165,7 @@ function renderCalendar() {
   for (let d = 1; d <= totalDays; d++) {
     const el = document.createElement("div");
     el.className = "cal-day";
-    el.textContent = toPersianNum(d);
+    el.textContent = (d);
 
     const weekday = (firstWday + d - 1) % 7;
     const isFriday = weekday === 6;
@@ -210,10 +210,6 @@ document.getElementById("calNext").addEventListener("click", () => {
   renderCalendar();
 });
 
-// ─── Clock & Dates ───────────────────────────────────────────────
-function toPersianNum(n) {
-  return String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-}
 
 function updateClock() {
   const now = new Date();
@@ -229,7 +225,7 @@ function updateClock() {
   );
 
   document.getElementById("jalaliDate").textContent =
-    `${toPersianNum(j.year)}/${toPersianNum(String(j.month).padStart(2, "0"))}/${toPersianNum(String(j.day).padStart(2, "0"))}`;
+    `${(j.year)}/${(String(j.month).padStart(2, "0"))}/${(String(j.day).padStart(2, "0"))}`;
 
   const months = [
     "ژانویه","فوریه","مارس","آوریل","مه","ژوئن",
@@ -241,7 +237,7 @@ function updateClock() {
 
   // topbar date
   document.getElementById("topbarDate").textContent =
-    `${MONTH_NAMES[j.month - 1]} ${toPersianNum(j.day)}، ${toPersianNum(j.year)}`;
+    `${MONTH_NAMES[j.month - 1]} ${(j.day)}، ${(j.year)}`;
 }
 
 // ─── Init ────────────────────────────────────────────────────────

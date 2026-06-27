@@ -243,8 +243,8 @@ a {
     border: none;
     background: #eef2fa;
     color: var(--primary);
-    font-family: 'Orbitron', monospace; /* فونت دیجیتال برای ساعت */
-    font-size: 0.85rem;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     transition: 0.2s;
@@ -537,4 +537,138 @@ button, .time-btn, .calendar-day, .close-btn, .edit-btn {
 /* اطمینان از یکسان بودن فونت در همه عناصر فرم */
 input, button, textarea, select {
     font-family: 'Vazirmatn', sans-serif;
+}
+
+/* ------------------------------------------------------- */
+/* 🎨 دکمه‌های جدید سیستم (همه یک‌دست و استاندارد)        */
+/* ------------------------------------------------------- */
+
+.btn {
+    padding: 10px 18px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    border: none;
+}
+
+/* دکمه اصلی (آبی) */
+.btn-primary-profile {
+    background: var(--primary-light) ;
+    color: #fff;
+}
+
+/* دکمه خطی (outline) */
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary-light);
+    color: var(--primary-light);
+}
+
+/* حالت لمس */
+.btn:active {
+    transform: scale(0.96);
+}
+
+/* ------------------------------------------------------- */
+/* 🎨 دکمه‌های داخل نوبت‌ها (ویرایش / حذف)                */
+/* ------------------------------------------------------- */
+
+.slot-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.slot-actions button {
+    width: 32px;
+    height: 32px;
+    border-radius: 40px;
+    border: 1px solid var(--border);
+    background: #f1f4fa;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slot-actions button:hover {
+    background: #e5eaf3;
+}
+
+/* ------------------------------------------------------- */
+/* 🎨 دکمه‌های مدیریت خدمات                               */
+/* ------------------------------------------------------- */
+
+.service-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.service-actions button {
+    width: 32px;
+    height: 32px;
+    border-radius: 40px;
+    background: #eef2fa;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-actions button:hover {
+    background: #dde4f1;
+}
+
+/* مکمل برای چیدمان فرم‌ها در مودال */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* هماهنگی آیکون‌های خدمات */
+.styled-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.styled-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+}
+
+/* استایل فیلتر بار */
+.filter-bar {
+    background: var(--bg-card);
+    padding: 15px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.calendar-day.disabled{
+opacity:0.35;
+cursor:not-allowed;
+pointer-events:none;
 }

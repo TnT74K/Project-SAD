@@ -1,146 +1,223 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8"> <!-- تعریف encoding UTF-8 برای پشتیبانی از فارسی -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> 
-    <!-- viewport: باعث می‌شود صفحه در موبایل به درستی مقیاس شود -->
-    <!-- viewport-fit=cover: برای گوشی‌های دارای ناچ (notch) بهینه می‌کند -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>مدیریت پروفایل و نوبت‌دهی | پنل کسب و کار</title>
 
-    <title>مدیریت پروفایل سازمان | ریسپانسیو</title>
-
-    
-
-
-    <!-- لینک به فایل CSS اختصاصی این صفحه که جداگانه می‌نویسیم -->
-     <link rel="stylesheet" href="/components/fonts.css">
+    <!-- استایل‌های پایه و فونت -->
+    <link rel="stylesheet" href="/components/fonts.css">
     <link rel="stylesheet" href="profile-edit.css">
 </head>
 <body>
-  <div id="header-placeholder"></div>
-    <!-- محل قرارگیری نوار ناوبری که توسط MainNavbar.js ساخته می‌شود -->
+      <div id="header-placeholder"></div>
+
+    <!-- نوار ناوبری (توسط اسکریپت لود می‌شود) -->
     <div id="navbar-container"></div>
 
-    <main>
+    <main class="main-content">
         <div class="container">
-            <!-- تیتر اصلی صفحه با سایز ریسپانسیو (clamp یعنی بین 1.4 تا 1.8 ریم تغییر می‌کند) -->
-            <h1 style="font-size: clamp(1.4rem, 6vw, 1.8rem);">مدیریت پروفایل سازمان</h1>
+            <h1 class="page-title">مدیریت پروفایل کسب و کار</h1>
 
-            <!-- بخش کارت اطلاعات سازمان -->
-            <section class="card">
-                <!-- دکمه ویرایش اطلاعات که مودال ویرایش را باز می‌کند -->
-                <button class="edit-btn" onclick="openOrgModal()">✏️ ویرایش اطلاعات</button>
+            <!-- بخش 1: اطلاعات سازمان -->
+            <section class="card org-card">
+                <button class="edit-btn" onclick="openOrgModal()" title="ویرایش اطلاعات">✏️ ویرایش</button>
                 
-                <!-- هدر پروفایل شامل لوگو و متن -->
                 <div class="profile-header">
-                    <!-- محفظه عکس سازمان -->
                     <div class="org-image-wrap">
-                        <img id="orgImage" class="org-image" alt="لوگو سازمان">
+                        <img id="orgImage" class="org-image" src="default-org.png" alt="لوگو سازمان">
                     </div>
-                    <div>
-                        <!-- نام سازمان -->
-                        <h2 id="orgName" class="org-name"></h2>
-                        <!-- توضیحات سازمان -->
+                    <div class="org-info">
+                        <h2 id="orgName" class="org-name">در حال بارگذاری...</h2>
                         <p id="orgDesc" class="org-description"></p>
-                        <!-- باکس متادیتا (اطلاعات تکمیلی) -->
-                        <div class="org-meta">
-                            <div class="meta-row">
-                                <span class="meta-label">نام کامل واحد</span>
-                                <span id="orgFullName" class="meta-value"></span>
+                        
+                        <div class="org-meta-grid">
+                            <div class="meta-item">
+                                <span class="meta-label">نام کامل:</span>
+                                <span id="orgFullName" class="meta-value">-</span>
                             </div>
-                            <div class="meta-row">
-                                <span class="meta-label">وضعیت فعالیت</span>
-                                <span id="orgStatus" class="meta-value status-active"></span>
+                            <div class="meta-item">
+                                <span class="meta-label">وضعیت:</span>
+                                <span id="orgStatus" class="status-inactive">نامشخص</span>
                             </div>
-                            <div class="meta-row">
-                                <span class="meta-label">ساعت پاسخگویی</span>
-                                <span id="orgHours" class="meta-value"></span>
+                            <div class="meta-item">
+                                <span class="meta-label">ساعت پاسخگویی:</span>
+                                <span id="orgHours" class="meta-value">-</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- بخش مدیریت نوبت‌ها -->
+            <!-- بخش 2: مدیریت نوبت‌ها و خدمات -->
             <section class="appointments-section">
-                <!-- هدر این بخش با دکمه افزودن نوبت -->
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
-                    <h3 class="section-title">📅 مدیریت نوبت‌ها</h3>
-                    <button class="edit-btn" onclick="openSlotModal()" style="margin:0;">➕ افزودن نوبت</button>
+                <div class="section-header">
+                    <h3 class="section-title">📅 مدیریت برنامه زمانی</h3>
+                    
+                    <div class="action-group">
+                        <button class="btn btn-primary-profile" style="margin-bottom:16px;" onclick="openServicesModal()">⚙️ خدمات</button>
+                        <button class="btn btn-primary-profile" style="margin-bottom:16px;"onclick="openSlotModal()">➕ نوبت جدید</button>
+                    </div>
                 </div>
-                <!-- جایی که لیست نوبت‌ها به صورت داینامیک توسط جاوااسکریپت نمایش داده می‌شود -->
-                <div id="appointments" class="appointment-grid"></div>
+
+                <!-- نوار فیلتر و ابزارها -->
+                <div class="filter-bar">
+                    <div class="filter-item">
+                        <label for="filterService">فیلتر بر اساس خدمت:</label>
+                        <select id="filterService" onchange="renderSlots()">
+                            <option value="">همه خدمات</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- کانتینر نمایش نوبت‌ها -->
+                <div id="appointments" class="appointment-grid">
+                    <!-- نوبت‌ها توسط profile-edit.js در اینجا رندر می‌شوند -->
+                </div>
             </section>
         </div>
     </main>
 
-    <!-- ------------------------------------------------------ -->
-    <!-- مودال (پنجره بازشو) ویرایش اطلاعات سازمان -->
-    <!-- ------------------------------------------------------ -->
+    <!-- ========================================== -->
+    <!-- 1. مودال ویرایش سازمان -->
+    <!-- ========================================== -->
     <div class="modal" id="orgModal">
         <div class="modal-box">
-            <!-- دکمه بستن مودال -->
-            <span class="close-btn" onclick="closeModal('orgModal')">✖</span>
-            <h3>ویرایش سازمان</h3>
+            <span class="close-btn" onclick="closeModal('orgModal')">×</span>
+            <h3>ویرایش پروفایل کسب و کار </h3>
             
-            <!-- فیلد نام سازمان -->
-            <input id="inputName" placeholder="نام سازمان">
-            <!-- فیلد نام کامل سازمان -->
-            <input id="inputFullName" placeholder="نام کامل">
-            
-            <label>وضعیت فعالیت</label>
-            <select id="orgActive">
-                <option value="true">فعال</option>
-                <option value="false">غیرفعال</option>
-            </select>
-            
-            <label>شروع پاسخگویی</label>
-            <input type="time" id="startHour">
-            
-            <label>پایان پاسخگویی</label>
-            <input type="time" id="endHour">
-            
-            <label>تصویر سازمان</label>
-            <input type="file" id="imageUpload" accept="image/*">
-            
-            <textarea id="inputDesc" rows="3" placeholder="توضیحات"></textarea>
-            
-            <!-- دکمه ذخیره که تابع saveOrg را صدا می‌زند -->
-            <button onclick="saveOrg()">💾 ذخیره تغییرات</button>
-        </div>
-    </div>
+            <div class="form-group">
+                <label>نام برند / کسب و کار</label>
+                <input id="inputName" type="text" placeholder="مثلاً: کلینیک رازی">
+            </div>
 
-    <!-- ------------------------------------------------------ -->
-    <!-- مودال (پنجره بازشو) ثبت و ویرایش نوبت -->
-    <!-- ------------------------------------------------------ -->
-    <div class="modal" id="slotModal">
-        <div class="modal-box">
-            <span class="close-btn" onclick="closeModal('slotModal')">✖</span>
-            <h3 id="slotTitle">📆 ثبت نوبت جدید</h3>
-            
-            <!-- بخش تقویم شمسی -->
-            <div class="calendar">
-                <div class="calendar-header">
-                    <button onclick="prevMonth()">❮</button> <!-- دکمه ماه قبل -->
-                    <span id="calendarTitle"></span> <!-- عنوان ماه و سال جاری -->
-                    <button onclick="nextMonth()">❯</button> <!-- دکمه ماه بعد -->
-                </div>
-                <div class="calendar-grid" id="calendarGrid"></div> <!-- گرید روزهای ماه -->
+            <div class="form-group">
+                <label>نام کامل ثبتی</label>
+                <input id="inputFullName" type="text" placeholder="نام کامل واحد">
             </div>
             
-            <label>⏰ ساعت نوبت</label>
-            <input type="time" id="slotTime" style="margin-bottom:20px;">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>وضعیت فعالیت</label>
+                    <select id="orgActive">
+                        <option value="true">فعال (آماده پذیرش)</option>
+                        <option value="false">غیرفعال (موقت)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>تصویر لوگو</label>
+                    <input type="file" id="imageUpload" accept="image/*">
+                </div>
+            </div>
             
-            <input type="number" id="slotPrice" placeholder="قیمت نوبت" min="0" style="margin-bottom:20px;">
-
-            <button onclick="saveSlot()">ذخیره نوبت</button>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>شروع پاسخگویی</label>
+                    <input type="time" id="startHour">
+                </div>
+                <div class="form-group">
+                    <label>پایان پاسخگویی</label>
+                    <input type="time" id="endHour">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>توضیحات معرفی</label>
+                <textarea id="inputDesc" rows="3" placeholder="توضیحات کوتاهی درباره سازمان..."></textarea>
+            </div>
+            
+            <button class="btn btn-primary-profile" onclick="saveOrg()">💾 ذخیره تغییرات</button>
         </div>
     </div>
-  <div id="footer-placeholder"></div>
-    <!-- لینک به فایل جاوااسکریپت اصلی این صفحه -->
+
+    <!-- ========================================== -->
+    <!-- 2. مودال مدیریت خدمات (CRUD) -->
+    <!-- ========================================== -->
+    <div id="servicesModal" class="modal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('servicesModal')">×</span>
+            <h3>🛠 مدیریت لیست خدمات</h3>
+
+            <div class="services-list-container">
+                <ul id="servicesList" class="styled-list"></ul>
+            </div>
+
+            <hr>
+            <h4>افزودن / ویرایش خدمت</h4>
+            <div class="form-group">
+                <input type="text" id="serviceName" placeholder="نام خدمت (مثلاً: مشاوره تلفنی)">
+            </div>
+            <div class="form-group">
+                <input type="number" id="serviceDuration" placeholder="مدت زمان (دقیقه)">
+            </div>
+            
+            <div class="form-actions">
+                <button class="btn btn-primary-profile" onclick="saveService()">ذخیره خدمت</button>
+                <button class="btn btn-outline" onclick="closeModal('servicesModal')">انصراف</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 3. مودال ثبت/ویرایش نوبت (Slot) -->
+    <!-- ========================================== -->
+    <div class="modal" id="slotModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeModal('slotModal')">×</span>
+            <h3 id="slotTitle">📆 برنامه‌ریزی نوبت جدید</h3>
+            
+            <div class="form-group">
+                <label>انتخاب خدمت مربوطه</label>
+                <select id="slotService" class="full-width"></select>
+            </div>
+
+            <!-- اصلاح کلاس‌های تقویم در مودال Slot -->
+            <div class="calendar"> <!-- کلاس اصلی از calendar-container به calendar تغییر کند -->
+                <div class="calendar-header">
+                    <button onclick="prevMonth()">❮</button> <!-- حذف کلاس cal-nav چون در CSS نیست -->
+                    <span id="calendarTitle">ماه جاری</span>
+                    <button onclick="nextMonth()">❯</button>
+                </div>
+                <!-- روزهای هفته را در یک div با کلاس calendar-grid قرار دهید (مشابه روزهای ماه) -->
+                <div class="calendar-grid" style="margin-bottom: 8px; border-bottom: 1px solid var(--border);">
+                    <div class="calendar-day" style="background:none; font-weight:bold; color:var(--text-3);">ش</div>
+                    <div class="calendar-day" style="background:none; font-weight:bold; color:var(--text-3);">ی</div>
+                    <div class="calendar-day" style="background:none; font-weight:bold; color:var(--text-3);">د</div>
+                    <div class="calendar-day" style="background:none; font-weight:bold; color:var(--text-3);">س</div>
+                    <div class="calendar-day" style="background:none; font-weight:bold; color:var(--text-3);">چ</div>
+                    <div class="calendar-day" style="background:none; font-weight:bold; color:var(--text-3);">پ</div>
+                    <div class="calendar-day" style="background:none; font-weight:bold; color:var(--text-3);">ج</div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+
+            </div>
+
+            
+            <div class="form-row" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label>⏰ ساعت شروع</label>
+                    <input type="time" id="slotTime">
+                </div>
+                <div class="form-group">
+                    <label>💰 مبلغ (تومان)</label>
+                    <input type="number" id="slotPrice" placeholder="0" min="0">
+                </div>
+            </div>
+
+            <button class="btn btn-primary-profile" onclick="saveSlot()">✅ تایید و ثبت نوبت</button>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- اسکریپت‌ها -->
+    <!-- ابتدا کامپوننت‌های پایه -->
+    <script src="/components/load-header.js" defer></script>
+    <script src="/components/header.js" defer></script>
+    <script src="/components/load-footer.js" defer></script>
+    
+    <!-- سپس منطق اصلی اپلیکیشن -->
     <script src="profile-edit.js" defer></script>
-<script src="/components/load-header.js"></script>
-<script src="/components/header.js"></script>
-<script src="/components/load-footer.js"></script>
 
 </body>
 </html>
