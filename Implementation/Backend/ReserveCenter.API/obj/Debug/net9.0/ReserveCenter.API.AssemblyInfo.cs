@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReserveCenter.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8ae36371100c0bb0bf29f32fcabcc1dfcd671ad")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48e5fe23e894f8cc5a0a06d9f95ba1b5f8043dd4")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReserveCenter.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReserveCenter.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
