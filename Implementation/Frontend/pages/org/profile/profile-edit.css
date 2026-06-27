@@ -128,7 +128,7 @@ a {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 8px;
-    font-size: 0.85rem;
+    font-size: 1.0rem;
 }
 
 .meta-label {
