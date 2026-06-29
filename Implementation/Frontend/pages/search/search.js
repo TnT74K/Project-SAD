@@ -219,7 +219,7 @@ function renderCards(list) {
               <span class="stat-val">${toFa(b.rating)}</span>
             </div>
             <div class="stat-dot"></div>
-            <div class="stat-item">${toFa(b.reviews)} نظر</div>
+            <div class="stat-item">${toFa(b.reviews)} تعدادامتیازدهنده</div>
             <div class="stat-dot"></div>
             <div class="stat-item">✅ ${toFa(b.success)}+ نوبت موفق</div>
           </div>
