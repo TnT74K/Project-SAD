@@ -9,9 +9,9 @@ Desktop.ini
 *.alias
 
 # ------------------------------
-# Local-only project files
+# Local-only project files(all with the name 'Local')
 # ------------------------------
-/Local/
+Local/
 
 # ------------------------------
 # Visual Studio Code
