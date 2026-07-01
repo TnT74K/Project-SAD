@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.1">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36">
   <diagram name="Page-1" id="RSgaipoYHYRRNNQOnnog">
-    <mxGraphModel dx="2934" dy="2544" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1639" dy="1817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -288,6 +288,17 @@
         </mxCell>
         <mxCell id="B-zei__ZKEaII6CAh_98-97" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=25;" value="&lt;font&gt;0..*&lt;/font&gt;" vertex="1">
           <mxGeometry height="30" width="60" x="900" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="wFi9EAnLPY_okgwt8WwJ-4" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;textDirection=rtl;" value="&lt;font face=&quot;zain&quot;&gt;هر شئ در این نمودار نمایاینگر یک ردیف در جدول مربوطه در دیتابیس است&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;zain&quot;&gt;مثال: فیلد های شئ ORG، اطلاعاتی را نشان میدهند که در یک ردیف جدول ORGs در دیتابیس ذخیره میشود&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;zain&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;zain&quot;&gt;به بیان دیگر، هر شئ اینجا، نشان میدهد در لیست مربوط به خودش چه اطلاعاتی ذخیره میشود&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="420" x="720" y="-520" as="geometry" />
+        </mxCell>
+        <mxCell id="wFi9EAnLPY_okgwt8WwJ-9" edge="1" parent="1" source="wFi9EAnLPY_okgwt8WwJ-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;textDirection=rtl;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-195" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wFi9EAnLPY_okgwt8WwJ-8" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;fontFamily=zain;strokeColor=default;fontSize=12;fontColor=default;textDirection=rtl;fillColor=default;" value="یعنی دقیقاً یک یوزر به ازای هر چند تا نقشی که به آن اختصاص داده میشود، در جدول StaffLists میتواند برای خود، ردیف داشته باشد.&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;یا هیچ نقش ثانویه‌ای نداشته باشد -&amp;gt; هیچ ردیفی به او اختصاص داده نمیشود&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;نکته: یک یوزر میتواند کارمند بیش‌از یک کسب و کار باشد.&lt;/div&gt;&lt;div&gt;پس از لاگین، لیست نقش‌های او در کسب‌وکارها نمایش داده میشود.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;مثال: محمد کارمند ۵ کسب وکار هست. او پس از لاگین میتواند یکی از ۶ نقش موجود، (۵ نقش کارمند ساده + ۱ نقش مشتری) را انتخاب کند و صفحه مربوطه شود.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="215" width="450" x="-420" y="575" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
