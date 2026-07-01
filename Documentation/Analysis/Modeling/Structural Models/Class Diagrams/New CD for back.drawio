@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36">
   <diagram name="Page-1" id="RSgaipoYHYRRNNQOnnog">
-    <mxGraphModel dx="1764" dy="1931" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1605" dy="1786" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -40,16 +40,16 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="hL3EeUpKe5668U5P-LeS-6" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#0e8088;strokeWidth=3;fontFamily=zain;fontSize=12;labelBackgroundColor=none;fillColor=#b0e3e6;" value="&lt;font&gt;PendingORG&lt;/font&gt;" vertex="1">
+        <mxCell id="hL3EeUpKe5668U5P-LeS-6" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);comic=0;fontColor=light-dark(#000000,#FFFFFF);" value="&lt;font&gt;PendingORG&lt;/font&gt;" vertex="1">
           <mxGeometry height="240" width="200" x="750" y="570" as="geometry" />
         </mxCell>
         <mxCell id="hL3EeUpKe5668U5P-LeS-7" parent="hL3EeUpKe5668U5P-LeS-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="&lt;div&gt;- name:string&lt;/div&gt;&lt;div&gt;- image:string&lt;/div&gt;&lt;div&gt;- description:string&lt;/div&gt;&lt;div&gt;- establishmentDate:date&lt;/div&gt;&lt;div&gt;- category:ORGCat&lt;/div&gt;&lt;div&gt;- city:City&lt;/div&gt;&lt;div&gt;- address:string&lt;/div&gt;&lt;div&gt;- owner:User&lt;/div&gt;&lt;div&gt;- dateOfRequest:date&lt;/div&gt;&lt;div&gt;- schedule:Schedule&lt;/div&gt;" vertex="1">
           <mxGeometry height="160" width="200" y="30" as="geometry" />
         </mxCell>
-        <mxCell id="hL3EeUpKe5668U5P-LeS-8" parent="hL3EeUpKe5668U5P-LeS-6" style="line;strokeWidth=3;fillColor=#b0e3e6;align=center;verticalAlign=middle;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#0e8088;fontFamily=zain;fontSize=12;fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
+        <mxCell id="hL3EeUpKe5668U5P-LeS-8" parent="hL3EeUpKe5668U5P-LeS-6" style="line;strokeWidth=3;fillColor=light-dark(#0B2545,#0B2545);align=center;verticalAlign=middle;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=light-dark(#D4AC0D,#D4AC0D);fontFamily=zain;fontSize=12;fontStyle=1;labelBackgroundColor=none;comic=0;fontColor=light-dark(#000000,#FFFFFF);" value="" vertex="1">
           <mxGeometry height="8" width="200" y="190" as="geometry" />
         </mxCell>
-        <mxCell id="hL3EeUpKe5668U5P-LeS-9" parent="hL3EeUpKe5668U5P-LeS-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=default;fontStyle=1;labelBackgroundColor=none;" value="&lt;font&gt;+ showRegisteredInfo()&lt;/font&gt;&lt;div&gt;&lt;font&gt;+ showOwnerInfo()&lt;/font&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="hL3EeUpKe5668U5P-LeS-9" parent="hL3EeUpKe5668U5P-LeS-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="&lt;font&gt;+ showRegisteredInfo()&lt;/font&gt;&lt;div&gt;&lt;font&gt;+ showOwnerInfo()&lt;/font&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="42" width="200" y="198" as="geometry" />
         </mxCell>
         <mxCell id="hL3EeUpKe5668U5P-LeS-10" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="&lt;font style=&quot;color: light-dark(rgb(255, 255, 255), rgb(255, 255, 255));&quot;&gt;ORG&lt;/font&gt;" vertex="1">
@@ -423,7 +423,7 @@
         <mxCell id="pdcATC1YOQoOqekk2we3-5" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="Customer" vertex="1">
           <mxGeometry height="86" width="160" x="-20" y="110" as="geometry" />
         </mxCell>
-        <mxCell id="pdcATC1YOQoOqekk2we3-6" parent="pdcATC1YOQoOqekk2we3-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ field: type&lt;/font&gt;" vertex="1">
+        <mxCell id="pdcATC1YOQoOqekk2we3-6" parent="pdcATC1YOQoOqekk2we3-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;reservations&lt;/font&gt;" vertex="1">
           <mxGeometry height="26" width="160" y="26" as="geometry" />
         </mxCell>
         <mxCell id="pdcATC1YOQoOqekk2we3-7" parent="pdcATC1YOQoOqekk2we3-5" style="line;strokeWidth=3;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
@@ -443,6 +443,15 @@
         </mxCell>
         <mxCell id="_UBz86DVQzl3pKbE1I0e-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontFamily=Helvetica;fontSize=20;fontColor=default;labelBackgroundColor=none;" value="1..1" vertex="1">
           <mxGeometry height="30" width="60" x="10" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="7pUAQRoqGwiKxf9vut6i-1" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;comic=0;strokeColor=#0e8088;strokeWidth=3;fontFamily=zain;fontSize=12;fontStyle=1;labelBackgroundColor=none;fillColor=#b0e3e6;textDirection=rtl;" value="سوال از حامد: آیا اطلاعاتی که تو صفحات نشون داده میشه، مثل تاریخچه نوبت ها تو پروفایل مشتری،&amp;nbsp; فیلد هاشو تو کلاس یوزر بنویسیم؟؟؟" vertex="1">
+          <mxGeometry height="155" width="120" x="-80" y="-345" as="geometry" />
+        </mxCell>
+        <mxCell id="7pUAQRoqGwiKxf9vut6i-2" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;comic=0;strokeColor=#0e8088;strokeWidth=3;fontFamily=zain;fontSize=12;fontStyle=1;labelBackgroundColor=none;fillColor=#b0e3e6;textDirection=rtl;" value="سوال از حامد: جای متد های اکتورا چی بنویسیم؟&lt;div&gt;&lt;hr&gt;جای فیلد هاشون چی؟&lt;/div&gt;" vertex="1">
+          <mxGeometry height="155" width="120" x="-220" y="-345" as="geometry" />
+        </mxCell>
+        <mxCell id="7pUAQRoqGwiKxf9vut6i-3" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;comic=0;strokeColor=#0e8088;strokeWidth=3;fontFamily=zain;fontSize=12;fontStyle=1;labelBackgroundColor=none;fillColor=#b0e3e6;textDirection=rtl;" value="بعدش با حامد باید یه سری سناریو بازی کنیم و نمودار رو تست کنیم" vertex="1">
+          <mxGeometry height="155" width="120" x="-370" y="-345" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
