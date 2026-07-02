@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36">
   <diagram name="Page-1" id="RSgaipoYHYRRNNQOnnog">
-    <mxGraphModel dx="1639" dy="1817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1544" dy="1731" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -449,6 +449,9 @@
         </mxCell>
         <mxCell id="ZELS6n94hJiyqH0eoMT9-28" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontFamily=Helvetica;fontSize=20;fontColor=default;labelBackgroundColor=none;" value="1..1" vertex="1">
           <mxGeometry height="30" width="60" x="490" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="gnX5EOPK8szsHahXpgiu-1" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;fontFamily=zain;" value="&lt;div&gt;manageORGAccess(ORG,bool)&lt;/div&gt;If the boolean is true, it bans the ORG,&lt;div&gt;manageUserAccess is the same for users&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="200" x="1075" y="350" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
