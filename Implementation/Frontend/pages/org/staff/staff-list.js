@@ -254,52 +254,49 @@ editIndex=null
 // ======================================
 // ثبت یا ویرایش کاربر
 // ======================================
-function saveUser(){
+function saveUser() {
 
-const first = firstName.value.trim()
-const last = lastName.value.trim()
-const phone = phoneNumber.value.trim()
-const national = nationalCode.value.trim()
-const usern = username.value.trim()
-const pass = password.value.trim()
-const r = role.value
+  const first = document.getElementById("firstName")?.value.trim() || "ابوالفضل";
+  const last = document.getElementById("lastName")?.value.trim() || "وزیری";
+  const phone = document.getElementById("phoneNumber")?.value.trim() || "";
+  const national = document.getElementById("nationalCode")?.value.trim() || "2981542898";
+  const usern = document.getElementById("username")?.value.trim() || "Username";
+  const pass = document.getElementById("password")?.value.trim() || "1234";
+  const r = document.getElementById("role")?.value || "پشتيبان کسب و کار";
 
-// جلوگیری از ثبت فیلد خالی
-if(!first || !phone || !last || !national || !usern || !pass){
-alert("لطفاً تمام فیلدها را تکمیل کنید")
-return
+  // جلوگیری از خالی بودن شماره موبایل (الزامی)
+  if(!phone){
+    alert("شماره موبایل نمی‌تواند خالی باشد!");
+    return;
+  }
+
+  let currentStatus = "active";
+
+  if(editIndex != null){
+    currentStatus = users[editIndex].personstatus;
+  }
+
+  const user = {
+    first: first,
+    last: last,
+    phone: phone,
+    nationalcode: national,
+    username: usern,
+    password: pass,
+    role: r,
+    personstatus: currentStatus
+  };
+
+  if(editIndex != null){
+    users[editIndex] = user;
+  } else {
+    users.push(user);
+  }
+
+  render();
+  closeModal();
 }
 
-// وضعیت پیشفرض
-let currentStatus="active"
-
-// اگر ویرایش باشد وضعیت قبلی حفظ شود
-if(editIndex!=null){
-currentStatus=users[editIndex].personstatus
-}
-
-const user={
-first:first,
-last:last,
-phone:phone,
-role:r,
-nationalcode:national,
-username:usern,
-password:pass,
-personstatus:currentStatus
-}
-
-// اگر ویرایش باشد
-if(editIndex!=null){
-users[editIndex]=user
-}else{
-users.push(user)
-}
-
-render()
-closeModal()
-
-}
 
 
 // ======================================
@@ -311,17 +308,15 @@ editIndex=i
 
 const u=users[i]
 
-firstName.value=u.first
-lastName.value=u.last
+
 phoneNumber.value=u.phone
 role.value=u.role
-nationalCode.value=u.nationalcode
-username.value=u.username
-password.value=u.password
+
 
 openModal()
 
 }
+
 
 
 // ======================================
@@ -374,17 +369,50 @@ r.style.display=r.innerText.includes(text)
 
 
 // ======================================
-// نمایش / مخفی کردن رمز عبور
+// بررسی وضعیت آنلاین بودن کاربر (تغییر رنگ)
 // ======================================
-function togglePass(){
+let colorTimer;
+let resetTimer;
 
-const p=document.getElementById("password")
+function ChangeColor() {
+  const p = document.getElementById("phoneNumber");
+  const bp = document.getElementById("btnPhoneNumber");
 
-p.type=p.type==="password"
-?"text"
-:"password"
+  // رنگ اولیه: در حال بررسی
+  p.style.transition = "all 0.5s ease";
+  bp.style.transition = "all 0.5s ease";
 
+  p.style.backgroundColor = "#fff3cd";
+  p.style.borderColor = "#ffc107";
+
+  bp.style.backgroundColor = "#fff3cd";
+  bp.style.borderColor = "#ffc107";
+
+  // اگر قبلاً تایمری بوده پاک شود
+  clearTimeout(colorTimer);
+  clearTimeout(resetTimer);
+
+  // بعد از 2 ثانیه سبز شود
+  colorTimer = setTimeout(() => {
+    p.style.backgroundColor = "#3fa657";
+    p.style.borderColor = "#28a745";
+
+    bp.style.backgroundColor = "#3fa657";
+    bp.style.borderColor = "#28a745";
+
+    // بعد از 2 ثانیه دیگر به حالت عادی برگردد
+    resetTimer = setTimeout(() => {
+      p.style.backgroundColor = "";
+      p.style.borderColor = "";
+
+      bp.style.backgroundColor = "";
+      bp.style.borderColor = "";
+    }, 2000);
+
+  }, 2000);
 }
+
+
 
 
 // اجرای اولیه رندر
