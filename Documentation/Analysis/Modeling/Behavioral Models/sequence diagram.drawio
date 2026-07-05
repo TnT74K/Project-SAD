@@ -246,7 +246,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="qIfRDeacOc-aKRkH7Rsz" name="login">
-    <mxGraphModel dx="1144" dy="696" grid="1" gridSize="3" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="868" dy="789" grid="1" gridSize="3" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -378,7 +378,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="8Xun0f1pcbiGIVz6O-iV" name="Sign-up">
-    <mxGraphModel dx="1030" dy="626" grid="1" gridSize="3" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="868" dy="789" grid="1" gridSize="3" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -504,10 +504,13 @@
     </mxGraphModel>
   </diagram>
   <diagram id="EveEmAzC7-g0JiEK2bIW" name="reserve">
-    <mxGraphModel dx="1030" dy="626" grid="1" gridSize="3" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="868" dy="789" grid="1" gridSize="3" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="-Yj1tiE7skp1__0JaLyP-1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=150;height=15;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="sd Reserve USE CASE" vertex="1">
+          <mxGeometry height="555" width="753" x="60" y="57" as="geometry" />
+        </mxCell>
         <mxCell id="54qM0QqgnImT7l88t036-1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);size=41;" value="" vertex="1">
           <mxGeometry height="431" width="20" x="138" y="135" as="geometry" />
         </mxCell>
@@ -663,9 +666,6 @@
         </mxCell>
         <mxCell id="lO-Ie7jbxS8v7A1BxhZp-28" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="display success()" vertex="1">
           <mxGeometry height="30" width="99" x="171" y="459" as="geometry" />
-        </mxCell>
-        <mxCell id="-Yj1tiE7skp1__0JaLyP-1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=150;height=15;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="sd Reserve USE CASE" vertex="1">
-          <mxGeometry height="555" width="753" x="60" y="57" as="geometry" />
         </mxCell>
         <mxCell id="W3MyPJwZ_MrJnWFlAkoS-1" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
           <mxGeometry height="42" width="10" x="143" y="192" as="geometry" />
@@ -833,17 +833,20 @@
     </mxGraphModel>
   </diagram>
   <diagram id="t7Lbr1o8RflY7-2_uA0b" name="accept/reject ORG">
-    <mxGraphModel dx="1084" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="694" dy="631" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="DWXsBcA7j050NEN4fiwt-1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=180;height=15;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="sd accept/reject ORG USE CASE" vertex="1">
+          <mxGeometry height="567" width="690" x="70" y="40" as="geometry" />
+        </mxCell>
         <mxCell id="FPMJL1drG64Zh28SZgjy-1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);size=41;" value="" vertex="1">
           <mxGeometry height="431" width="20" x="150" y="119" as="geometry" />
         </mxCell>
         <mxCell id="FPMJL1drG64Zh28SZgjy-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Admin" vertex="1">
           <mxGeometry height="30" width="60" x="130" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="WHuEk9QyLUxhM8JGT3x9-1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="Admin Dasjboard&lt;div&gt;UI&lt;/div&gt;" vertex="1">
+        <mxCell id="WHuEk9QyLUxhM8JGT3x9-1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="Admin Dashboard&lt;div&gt;UI&lt;/div&gt;" vertex="1">
           <mxGeometry height="450" width="100" x="260" y="109.5" as="geometry" />
         </mxCell>
         <mxCell id="WHuEk9QyLUxhM8JGT3x9-2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="Admin Controller" vertex="1">
@@ -990,9 +993,6 @@
         <mxCell id="I1SI1HF0UGVQ6rCEfdg8-25" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="show success()" vertex="1">
           <mxGeometry height="30" width="100" x="175" y="470" as="geometry" />
         </mxCell>
-        <mxCell id="DWXsBcA7j050NEN4fiwt-1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=180;height=15;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="sd accept/reject ORG USE CASE" vertex="1">
-          <mxGeometry height="567" width="690" x="70" y="40" as="geometry" />
-        </mxCell>
         <mxCell id="DREfnTniVk81OVQjWBnT-1" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
           <mxGeometry height="30" width="10" x="155" y="180" as="geometry" />
         </mxCell>
@@ -1021,10 +1021,13 @@
     </mxGraphModel>
   </diagram>
   <diagram id="bFmAacTSTQEfFmHTZQUq" name="manage users">
-    <mxGraphModel dx="1212" dy="736" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="868" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="K8ULs_quupWGQUDRyFmU-1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=180;height=15;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="sd&amp;nbsp; manage users USE CASE" vertex="1">
+          <mxGeometry height="567" width="740" x="100" y="162.5" as="geometry" />
+        </mxCell>
         <mxCell id="zcYBJXtH3QAulWXZ6X1B-1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);size=41;" value="" vertex="1">
           <mxGeometry height="431" width="20" x="180" y="240" as="geometry" />
         </mxCell>
@@ -1165,9 +1168,6 @@
         <mxCell id="aprq-Ujcqh6BFscr62tD-26" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="show success()" vertex="1">
           <mxGeometry height="30" width="110" x="225" y="590" as="geometry" />
         </mxCell>
-        <mxCell id="K8ULs_quupWGQUDRyFmU-1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=180;height=15;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="sd&amp;nbsp; manage users USE CASE" vertex="1">
-          <mxGeometry height="567" width="740" x="100" y="162.5" as="geometry" />
-        </mxCell>
         <mxCell id="rOr1nK0aBUThl1N-eOw--1" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=light-dark(#0B2545,#0B2545);strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="" vertex="1">
           <mxGeometry height="25" width="10" x="185" y="305" as="geometry" />
         </mxCell>
@@ -1202,10 +1202,13 @@
     </mxGraphModel>
   </diagram>
   <diagram id="xB7WTaJdYkjc6HLJD_2D" name="create appo">
-    <mxGraphModel dx="1373" dy="835" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="868" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="z5_6eks0Peq2alBOlZYI-1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=180;height=15;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="sd&amp;nbsp; create appointment USE CASE" vertex="1">
+          <mxGeometry height="567" width="740" x="80" y="81.5" as="geometry" />
+        </mxCell>
         <mxCell id="KW6unSPthAoZPdOILCWY-1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);size=41;" value="" vertex="1">
           <mxGeometry height="440" width="20" x="180" y="170" as="geometry" />
         </mxCell>
@@ -1374,9 +1377,6 @@
         </mxCell>
         <mxCell id="UeEVG_kFWjvHC95oSDC0-26" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="show success()" vertex="1">
           <mxGeometry height="30" width="90" x="230" y="550" as="geometry" />
-        </mxCell>
-        <mxCell id="z5_6eks0Peq2alBOlZYI-1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=180;height=15;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="sd&amp;nbsp; create appointment USE CASE" vertex="1">
-          <mxGeometry height="567" width="740" x="80" y="81.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
