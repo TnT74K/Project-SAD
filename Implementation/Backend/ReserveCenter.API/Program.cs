@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Middlewares; 
