@@ -8,13 +8,13 @@ Management by Sajad
 
 Branch: Back/auth
 
-| Index | Task                                                         | Responsible      | Status   |
-| :---: | ------------------------------------------------------------ | ---------------- | -------- |
-|   1   | AuthController (Login, Register, ForgotPass)                 | Hamed            | Open     |
-|   2   | AuthService + JWT + Role-based Auth                          | Sajad            | Open     |
-|   3   | نوشتن تمام Entities (User, Organization, Service, Staff, Appointment, Review) + AppDbContext + Migration | Abolfazl         | Complete |
-|   4   | ExceptionHandlingMiddleware                                  | Ali              | Open     |
-|   5   | DTOهای Auth + Constants (Roles, Status)                      | Mohammad Hossein | Complete |
+| Index | Task                                                         | Responsible      | Status      |
+| :---: | ------------------------------------------------------------ | ---------------- | ----------- |
+|   1   | AuthController (Login, Register, ForgotPass)                 | Hamed            | Done        |
+|   2   | AuthService + JWT + Role-based Auth                          | Sajad            | In progress |
+|   3   | نوشتن تمام Entities (User, Organization, Service, Staff, Appointment, Review) + AppDbContext + Migration | Abolfazl         | Done        |
+|   4   | ExceptionHandlingMiddleware                                  | Ali              | Done        |
+|   5   | DTOهای Auth + Constants (Roles, Status)                      | Mohammad Hossein | Done        |
 
 خروجی: ✅ ثبت‌نام/ورود/فراموشی رمز ✅ Migration اولیه ✅ مدیریت خطاها
 

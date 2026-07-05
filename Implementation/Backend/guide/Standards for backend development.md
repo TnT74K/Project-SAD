@@ -2,6 +2,11 @@
 
 By Sajad
 
+مستندات رسمی مایکروسافت:
+Documentations: [here](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/apis?view=aspnetcore-8.0&WT.mc_id=dotnet-35129-website)
+
+
+
 از هوش مصنوعی کمک گرفتم
 
 در پایین یک سری استاندارد تعریف شده که به هماهنگی تیم برای پیاده‌سازی بک کمک میکنه
