@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ReserveCenter.API.DatabaseModels;
+using ReserveCenter.API.Services.Interfaces;
+using System.Text;
 using ReserveCenter.API.Middlewares; 
 
 var builder = WebApplication.CreateBuilder(args);
