@@ -14,9 +14,10 @@ Desktop.ini
 Local/
 
 # ------------------------------
-# Visual Studio Code
+# Visual Studio Code / Visual Studio
 # ------------------------------
 .vscode/
+.vs/
 
 # ------------------------------
 # Draw.io
