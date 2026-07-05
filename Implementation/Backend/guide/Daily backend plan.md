@@ -6,13 +6,13 @@ Management by Sajad
 
 ### روز ۱ - احراز هویت + پایه‌سازی☀️
 
-| نفر  | وظیفه                                                        |
-| ---- | ------------------------------------------------------------ |
-| 1    | AuthController (Login, Register, ForgotPass)                 |
-| 2    | AuthService + JWT + Role-based Auth                          |
-| 3    | نوشتن تمام Entities (User, Organization, Service, Staff, Appointment, Review) + AppDbContext + Migration |
-| 4    | ExceptionHandlingMiddleware                                  |
-| 5    | DTOهای Auth + Constants (Roles, Status)                      |
+| Index | Task                                                         | Responsible      | Status    |
+| :---: | ------------------------------------------------------------ | ---------------- | --------- |
+|   1   | AuthController (Login, Register, ForgotPass)                 | Hamed            | After 3,5 |
+|   2   | AuthService + JWT + Role-based Auth                          | Sajad            | After 3,5 |
+|   3   | نوشتن تمام Entities (User, Organization, Service, Staff, Appointment, Review) + AppDbContext + Migration | Abolfazl         | Open      |
+|   4   | ExceptionHandlingMiddleware                                  | Ali              | After 3,5 |
+|   5   | DTOهای Auth + Constants (Roles, Status)                      | Mohammad Hossein | Open      |
 
 خروجی: ✅ ثبت‌نام/ورود/فراموشی رمز ✅ Migration اولیه ✅ مدیریت خطاها
 
@@ -71,3 +71,22 @@ Management by Sajad
 | 5    | مستندسازی Swagger + Deploy Prep              |
 
 خروجی: ✅ جستجوی پیشرفته ✅ ارورهای استاندارد ✅ اعتبارسنجی کامل ✅ مستندسازی
+
+---
+
+## Checklist
+
+این صفحات باید کار کنند
+
+- [ ] login / register / forrgot pass
+- [ ] approval list / suspend list
+- [ ] همه داشبوردا
+- [ ] user list
+- [ ] نمایش ارور ها
+- [ ] staff list
+- [ ] appointment list
+- [ ] user profile
+- [ ] org profile
+- [ ] org profile edit
+- [ ] org register
+- [ ] search
