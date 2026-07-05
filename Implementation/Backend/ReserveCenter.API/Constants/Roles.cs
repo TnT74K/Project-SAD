@@ -2,15 +2,15 @@
 {
     public static class Roles
     {
-        public const string Admin = "Admin";           // مدیرکل سیستم
-        public const string User = "User";             // کاربر عادی
-        public const string Staff = "Staff";           // کارمند سازمان
-        public const string Organization = "Organization"; // سازمان
+        public const string Admin = "Admin";             // مدیرکل سیستم
+        public const string Organization = "Organization"; // مدیر کسب‌وکار
+        public const string Support = "Support";         // پشتیبان کسب‌وکار
+        public const string Staff = "Staff";             // کارمند حضوری
 
         // بررسی معتبر بودن نقش
         public static bool IsValidRole(string role)
         {
-            return role == Admin || role == User || role == Staff || role == Organization;
+            return role == Admin || role == Organization || role == Support || role == Staff;
         }
     }
 }
