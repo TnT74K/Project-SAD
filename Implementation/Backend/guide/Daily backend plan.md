@@ -6,13 +6,13 @@ Management by Sajad
 
 ### روز ۱ - احراز هویت + پایه‌سازی☀️
 
-| نفر  | وظیفه                                        |
-| ---- | -------------------------------------------- |
-| 1    | AuthController (Login, Register, ForgotPass) |
-| 2    | AuthService + JWT + Role-based Auth          |
-| 3    | AppDbContext + Migration (همه جداول)         |
-| 4    | ExceptionHandlingMiddleware                  |
-| 5    | DTOهای Auth + Constants (Roles, Status)      |
+| نفر  | وظیفه                                                        |
+| ---- | ------------------------------------------------------------ |
+| 1    | AuthController (Login, Register, ForgotPass)                 |
+| 2    | AuthService + JWT + Role-based Auth                          |
+| 3    | نوشتن تمام Entities (User, Organization, Service, Staff, Appointment, Review) + AppDbContext + Migration |
+| 4    | ExceptionHandlingMiddleware                                  |
+| 5    | DTOهای Auth + Constants (Roles, Status)                      |
 
 خروجی: ✅ ثبت‌نام/ورود/فراموشی رمز ✅ Migration اولیه ✅ مدیریت خطاها
 
