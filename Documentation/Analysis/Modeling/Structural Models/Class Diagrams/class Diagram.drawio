@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.1">
   <diagram name="Page-1" id="RSgaipoYHYRRNNQOnnog">
     <mxGraphModel dx="2130" dy="2970" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
-=======
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36">
-  <diagram name="Page-1" id="RSgaipoYHYRRNNQOnnog">
-    <mxGraphModel dx="1295" dy="1505" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
->>>>>>> 0d2208255ae81ca8c9089e1cba323b43b2e1de0c
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
