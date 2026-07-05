@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.DatabaseModels;
-
+using ReserveCenter.API.Middlewares; 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 
 // OpenAPI / Swagger
@@ -46,8 +44,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlingMiddleware>(); // 1. اول خطاها
 
-//app.MapControllers();
+app.UseAuthorization(); // 2. بعد احراز هویت
+
+app.MapControllers(); // 3. آخر کنترلرها
 
 app.Run();
