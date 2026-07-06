@@ -22,6 +22,7 @@ public class AppointmentRepository : IAppointmentRepository
         return appointment;
     }
 
+    //برای گرفتن لیست نوبت های مربوط به کسب و کار مدنظر
     public async Task<List<Appointment>> AppointmentListByOrgIdAsync(int orgId)
     {
         return await _dbContext.Appointments
@@ -48,6 +49,7 @@ public class AppointmentRepository : IAppointmentRepository
         return true;
     }
 
+    //برای گرفتن یک نوبت بر اساس ای دی ان
     public async Task<Appointment?> GetByIdAsync(int appointmentId)
     {
         return await _dbContext.Appointments
