@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Services.Interfaces;
+using ReserveCenter.API.Services.Implementations; // ✅ اضافه کن
 using System.Text;
-using ReserveCenter.API.Middlewares; 
+using ReserveCenter.API.Middlewares;
 using ReserveCenter.API.Models.Settings;
 using ReserveCenter.API.Repositories.Interfaces;
 using ReserveCenter.API.Repositories.Implementations;
@@ -21,7 +22,9 @@ builder.Services.AddDbContext<ReserveCenterDBContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register repositories
+// ============================
+// ✅ Register Repositories
+// ============================
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrgRepository, OrgRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
@@ -30,7 +33,9 @@ builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 //builder.Services.AddScoped<IAdRepository, AdRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
-// Register services
+// ============================
+// ✅ Register Services (تغییرات اینجاست!)
+// ============================
 //builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddScoped<IOrgService, OrgService>();
 //builder.Services.AddScoped<IAppointmentService, AppointmentService>();
@@ -42,12 +47,16 @@ builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 //builder.Services.AddScoped<IAdminUserService, AdminUserService>();
 //builder.Services.AddScoped<ISearchService, SearchService>();
 
-// Register JWT settings
+// ✅✅✅ این ۲ خط رو اضافه کن:
+builder.Services.AddScoped<IOrgProfileService, OrgProfileService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
+
+// ============================
+// ✅ Register JWT settings
+// ============================
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));
 
-
-    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
