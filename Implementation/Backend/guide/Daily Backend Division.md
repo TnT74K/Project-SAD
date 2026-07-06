@@ -4,13 +4,15 @@ Made by Hamed and Sajad with help of AI
 
 Management by Sajad
 
+همه ددلاین ها به صورت پیش‌فرض تا قبل جلسه روز بعد هستند. مگر اینکه حالت خاصی پیش بیاید
+
 ---
 
 ### روز ۱ - احراز هویت + پایه‌سازی☀️
 
  (05/4/14)
 
-Branch: Back/auth
+Branch: `Back/auth`
 
 | Index | Task                                                         | Responsible      | Status      |
 | :---: | ------------------------------------------------------------ | ---------------- | ----------- |
@@ -28,13 +30,15 @@ Branch: Back/auth
 
 (05/4/15)
 
-| Index | Task                                                         | Responsible      | Status  | Dependency |
-| ----- | ------------------------------------------------------------ | ---------------- | ------- | ---------- |
-| 1     | OrgController (ثبت سازمان)                                   | Hamed            | After 3 | 3          |
-| 2     | OrgProfileController (پروفایل از دید مدیر کسب و کار + ویرایش کامل) | Ali              | After 3 | 3          |
-| 3     | OrgRepository + ~~ServiceRepository~~ + UnregisteredORGRepository + UserRepository | Abolfazl         | After 5 | 5          |
-| 4     | AdminOrgController (لیست تایید + تایید/رد)                   | Sajad            | After 3 | 3          |
-| 5     | DTOهای Org + Service                                         | Mohammad Hossein | Open    |            |
+‌Branch: `Back/day2`
+
+| Index | Task                                                         | Responsible      | Status | Dependency |
+| ----- | ------------------------------------------------------------ | ---------------- | ------ | ---------- |
+| 1     | OrgController.cs (ثبت سازمان), IOrgService.cs, OrgService.cs, | Hamed            | Open   | 3          |
+| 2     | OrgProfileController.cs (پروفایل از دید مدیر کسب و کار + ویرایش کامل), IOrgProfileService.cs, OrgProfileService.cs, IServiceService.cs, ServiceService.cs | Ali              | Open   | 3          |
+| 3     | UnregisteredORGRepository, UserRepository, IOrgRepository.cs, OrgRepository.cs, IServiceRepository.cs, ServiceRepository.cs | Abolfazl         | Open   | 5          |
+| 4     | AdminOrgController.cs (لیست تایید + تایید/رد), IAdminOrgService.cs, AdminOrgService.cs | Sajad            | Open   | 3          |
+| 5     | DTOهای Org + Service + connect `day 1` part to frontend      | Mohammad Hossein | Open   |            |
 
 خروجی: ✅ ثبت/پروفایل/ویرایش سازمان ✅ تعریف/ویرایش/حذف سرویس ✅ لیست تایید
 

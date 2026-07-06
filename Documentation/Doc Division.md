@@ -6,13 +6,15 @@ Document name: System proposal.docx
 
 Document place: [here](https://1drv.ms/w/c/91A951D53E78F14D/AYAKeO1lJxZKgyEkaItU_Ns?e=RGbVcM)
 
+Related WBS task number: 56
+
 ---
 
 ## Part One
 
 (1405/4/15)-(4/17)
 
-WBS-57
+WBS-56.1
 
 | Index | Document part                      | Source                                               | Responsible | Status      |
 | :---: | ---------------------------------- | ---------------------------------------------------- | ----------- | ----------- |
