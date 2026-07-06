@@ -4,7 +4,7 @@ namespace ReserveCenter.API.Repositories.Interfaces;
 
 public interface IOrgRepository
 {
-    // برای برای گرفتن پروفایل کسب و کار مدنظر
+    // برای گرفتن پروفایل کسب و کار مدنظر
     Task<Org?> GetByIdAsync(int orgId);
 
     //برای زمانی که ما یک درخواست ثبت کسب و کار رو می پذیریم
