@@ -5,7 +5,10 @@ using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Services.Interfaces;
 using System.Text;
 using ReserveCenter.API.Middlewares; 
+// JWT configs
 using ReserveCenter.API.Models.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,12 +42,37 @@ builder.Services.AddDbContext<ReserveCenterDBContext>(options =>
 //builder.Services.AddScoped<IAdminUserService, AdminUserService>();
 //builder.Services.AddScoped<ISearchService, SearchService>();
 
+// ========= JWT section ===========
 // Register JWT settings
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));
 
+// To tell ASP.NET "Whenever someone sends a JWT token, validate it using JWT settings"
+var jwtSettings = builder.Configuration
+    .GetSection("JwtSettings")
+    .Get<JwtSettings>();
 
-    
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = jwtSettings!.Issuer,
+            ValidAudience = jwtSettings.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
+        };
+    });
+// =================
+
+// setup [Authorize] and [Authorize(Roles = Roles.Admin)]
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -57,6 +85,7 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>(); // 1. اول خطاها
 
+app.UseAuthentication(); // must come before authorizatoin
 app.UseAuthorization(); // 2. بعد احراز هویت
 
 app.MapControllers(); // 3. آخر کنترلرها

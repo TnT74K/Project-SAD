@@ -21,6 +21,9 @@ namespace ReserveCenter.API.Services.Interfaces
         
         // توکن
         Task<TokenResponse> RefreshTokenAsync(string refreshToken);
+
+        // JWT Token
+        string GenerateJwtToken(User user);
         
         // کاربر
         Task<bool> ValidateUserAsync(int userId, string role = null);
