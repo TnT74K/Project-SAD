@@ -99,6 +99,7 @@ public class OrgRepository : IOrgRepository
         return true;
     }
 
+    // برای برای گرفتن پروفایل کسب و کار مدنظر
     public async Task<Org?> GetByIdAsync(int orgId)
     {
         return await _dbContext.Orgs
