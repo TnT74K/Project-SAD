@@ -72,4 +72,31 @@ public class ServiceRepository : IServiceRepository
         return true;
     }
 
+    // چک تکراری بودن یا نبودن سرویس که می خواند ثبت بشه
+    public async Task<bool> CheckByOrgAndNameAsync(int orgId, string name)
+    {
+        var service = await _dbContext.Orgservices
+            .FirstOrDefaultAsync(existing => existing.OrgId == orgId && existing.Name == name.Trim());
+
+        if (service is null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    // بررسی وجود خدمت با ای دی مشخص در سازمان
+    public async Task<bool> ExistByOrgIdAndServiceIdAsync(int serviceId, int orgId)
+    {
+        var service = await _dbContext.Orgservices
+            .FirstOrDefaultAsync(existing => existing.Id == serviceId && existing.OrgId == orgId);
+        
+        if (service is null)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
