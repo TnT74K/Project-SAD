@@ -39,9 +39,9 @@ body {
   display: fixed;                         /* نمایش ثابت (توجه: مقدار fixed صحیح نیست، بهتر است flex یا block باشد) */
   /* گرادیان پس‌زمینه با افکت رادیال */
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
-    linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
+  radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.15) 0%, transparent 55%),
+  radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.3) 0%, transparent 50%),
+  linear-gradient(160deg, #0B2545 0%, #0d2d52 40%, #0B2545 100%);
   background-attachment: fixed;  /* ثابت ماندن پس‌زمینه هنگام اسکرول */
 }
 
@@ -82,13 +82,13 @@ body {
 .topbar-title h1 { 
   font-size: 1.4rem;           /* اندازه فونت */
   font-weight: 700;            /* ضخامت فونت */
-  color: var(--primary);       /* رنگ از متغیر */
+  color: #ffffff;     /* رنگ از متغیر */
 }
 
 /* زیرنویس نوار بالایی */
 .topbar-title p  { 
   font-size: .82rem;           /* اندازه فونت کوچک */
-  color: var(--text-2);        /* رنگ متن ثانویه */
+  color: #a8c4dc;        /* رنگ متن ثانویه */
   margin-top: 2px;             /* فاصله از بالا */
 }
 
@@ -122,8 +122,8 @@ body {
 /* دکمه حاشیه‌دار */
 .btn-outline {
   background: transparent;      /* پس‌زمینه شفاف */
-  border: 1.5px solid var(--border); /* حاشیه */
-  color: var(--text-2);         /* رنگ متن */
+  border: 1.5px solid raba(255,255,255,0.5); /* حاشیه */
+  color: #ffffff;         /* رنگ متن */
 }
 
 /* افکت هاور دکمه حاشیه‌دار */
@@ -136,11 +136,11 @@ body {
 /* استایل کارت فرم */
 /* ======================================== */
 .card {
-  background: rgba(255,255,255,0.88);  /* پس‌زمینه نیمه شفاف */
+  background: rgba(255,255,255,0.10);  /* پس‌زمینه نیمه شفاف */
   backdrop-filter: blur(12px);         /* افکت بلور */
   -webkit-backdrop-filter: blur(12px); /* برای مرورگرهای مبتنی بر وب‌کیت */
   border-radius: var(--radius);        /* گوشه گرد */
-  box-shadow: 0 2px 20px rgba(11,37,69,0.08), 0 1px 0 rgba(255,255,255,0.9) inset;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.05) inset;
   border: 1px solid rgba(255,255,255,0.7); /* حاشیه سفید نیمه شفاف */
   overflow: hidden;                    /* پنهان کردن سرریز */
 }
@@ -199,9 +199,9 @@ body {
 
 /* لیبل فیلدها */
 .form-label {
-  font-size: .82rem;                   /* اندازه فونت */
+  font-size: 1rem;                   /* اندازه فونت */
   font-weight: 600;                    /* ضخامت فونت */
-  color: var(--primary);               /* رنگ از متغیر */
+  color: #ffffff;               /* رنگ از متغیر */
   display: flex;                       /* نمایش فلکس */
   align-items: center;                 /* عمود در مرکز */
   gap: 6px;                            /* فاصله بین آیتم‌ها */

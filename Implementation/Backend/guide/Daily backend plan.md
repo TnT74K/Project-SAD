@@ -6,13 +6,15 @@ Management by Sajad
 
 ### روز ۱ - احراز هویت + پایه‌سازی☀️
 
-| Index | Task                                                         | Responsible      | Status    |
-| :---: | ------------------------------------------------------------ | ---------------- | --------- |
-|   1   | AuthController (Login, Register, ForgotPass)                 | Hamed            | After 3,5 |
-|   2   | AuthService + JWT + Role-based Auth                          | Sajad            | After 3,5 |
-|   3   | نوشتن تمام Entities (User, Organization, Service, Staff, Appointment, Review) + AppDbContext + Migration | Abolfazl         | Open      |
-|   4   | ExceptionHandlingMiddleware                                  | Ali              | After 3,5 |
-|   5   | DTOهای Auth + Constants (Roles, Status)                      | Mohammad Hossein | Open      |
+Branch: Back/auth
+
+| Index | Task                                                         | Responsible      | Status      |
+| :---: | ------------------------------------------------------------ | ---------------- | ----------- |
+|   1   | AuthController (Login, Register, ForgotPass)                 | Hamed            | Done        |
+|   2   | AuthService + JWT + Role-based Auth                          | Sajad            | In progress |
+|   3   | نوشتن تمام Entities (User, Organization, Service, Staff, Appointment, Review) + AppDbContext + Migration | Abolfazl         | Done        |
+|   4   | ExceptionHandlingMiddleware                                  | Ali              | Done        |
+|   5   | DTOهای Auth + Constants (Roles, Status)                      | Mohammad Hossein | Done        |
 
 خروجی: ✅ ثبت‌نام/ورود/فراموشی رمز ✅ Migration اولیه ✅ مدیریت خطاها
 
