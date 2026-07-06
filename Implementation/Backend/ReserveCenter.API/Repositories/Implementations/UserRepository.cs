@@ -32,19 +32,21 @@ public class UserRepository : IUserRepository
     //برای اپدیت از طریق صفحه پروفایل من
     public async Task<bool> UpdateUserProfileAsync(User user)
     {
-        var existingService = await _dbContext.Users.FirstOrDefaultAsync(existing => existing.Id == user.Id);
+        var existingUser = await _dbContext.Users.FirstOrDefaultAsync(existing => existing.Id == user.Id);
 
-        if (existingService is null)
+        if (existingUser is null)
         {
             return false;
         }
 
-        existingService.FirstName = user.FirstName;
-        existingService.LastName = user.LastName;
-        existingService.PhoneNumber = user.PhoneNumber;
-        existingService.NationalCode = user.NationalCode;
-        existingService.CityId = user.CityId;
-
+        existingUser.FirstName = user.FirstName;
+        existingUser.LastName = user.LastName;
+        existingUser.PhoneNumber = user.PhoneNumber;
+        existingUser.NationalCode = user.NationalCode;
+        existingUser.CityId = user.CityId;
+        //TODO : باید آی دی کاربری که داره این رو تغییر می ده پیدا کینم
+        //org.ModifiedBy = ??
+        //org.ModifiedDate = ??
 
         await _dbContext.SaveChangesAsync();
         return true;
