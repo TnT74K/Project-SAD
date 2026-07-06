@@ -27,19 +27,19 @@ public class OrgRepository : IOrgRepository
 
         Org org = new Org();
 
-        org.Name = org.Name;
-        org.Image = org.Image;
-        org.Description = org.Description;
-        org.EstablishmentDate = org.EstablishmentDate;
-        org.Orgtype = org.Orgtype;
-        org.ActiveDaysPerWeek = org.ActiveDaysPerWeek;
-        org.StartWorkTime = org.StartWorkTime;
-        org.EndWorkTime = org.EndWorkTime;
-        org.StartRestTime = org.StartRestTime;
-        org.EndRestTime = org.EndRestTime;
-        org.CityId = org.CityId;
-        org.CreatedBy = org.CreatedBy;
-        org.CreatedDate = org.CreatedDate;
+        org.Name = existingUnregisteredOrg.Name;
+        org.Image = existingUnregisteredOrg.Image;
+        org.Description = existingUnregisteredOrg.Description;
+        org.EstablishmentDate = existingUnregisteredOrg.EstablishmentDate;
+        org.Orgtype = existingUnregisteredOrg.Orgtype;
+        org.ActiveDaysPerWeek = existingUnregisteredOrg.ActiveDaysPerWeek;
+        org.StartWorkTime = existingUnregisteredOrg.StartWorkTime;
+        org.EndWorkTime = existingUnregisteredOrg.EndWorkTime;
+        org.StartRestTime = existingUnregisteredOrg.StartRestTime;
+        org.EndRestTime = existingUnregisteredOrg.EndRestTime;
+        org.CityId = existingUnregisteredOrg.CityId;
+        org.CreatedBy = existingUnregisteredOrg.CreatedBy;
+        org.CreatedDate = existingUnregisteredOrg.CreatedDate;
         org.IsPremier = false;
         org.SuccessAppointmentCount = 0;
         org.StarCount = 0;
@@ -104,40 +104,51 @@ public class OrgRepository : IOrgRepository
     {
         return await _dbContext.Orgs
                                .AsNoTracking()
-                               .FirstOrDefaultAsync(service => service.Id == orgId && service.IsDeleted == false);
+                               .FirstOrDefaultAsync(org => org.Id == orgId && org.IsDeleted == false);
     }
+
+    public async Task<Org?> GetWithDetailsByIdAsync(int orgId)
+    {
+        return await _dbContext.Orgs
+            .AsNoTracking()
+            .Include(org => org.City)
+            .Include(org => org.Orgtype)
+            .Include(org => org.CreatedByNavigation)
+            .FirstOrDefaultAsync(org => org.Id == orgId && org.IsDeleted == false);
+    }
+
 
     public async Task<bool> UpdateAsync(Org org)
     {
-        var existingOrg = await _dbContext.Orgservices.FirstOrDefaultAsync(existing => existing.Id == org.Id);
+        var existingOrg = await _dbContext.Orgs.FirstOrDefaultAsync(existing => existing.Id == org.Id);
 
         if (existingOrg is null)
         {
             return false;
         }
 
-        org.Name = org.Name;
-        org.Image = org.Image;
-        org.Description = org.Description;
-        org.EstablishmentDate = org.EstablishmentDate;
-        org.Orgtype = org.Orgtype;
-        org.ActiveDaysPerWeek = org.ActiveDaysPerWeek;
-        org.StartWorkTime = org.StartWorkTime;
-        org.EndWorkTime = org.EndWorkTime;
-        org.StartRestTime = org.StartRestTime;
-        org.EndRestTime = org.EndRestTime;
-        org.CityId = org.CityId;
-        org.CreatedBy = org.CreatedBy;
-        org.CreatedDate = org.CreatedDate;
-        org.IsPremier = org.IsPremier;
-        org.SuccessAppointmentCount = org.SuccessAppointmentCount;
-        org.StarCount = org.StarCount;
-        org.IsActive = org.IsActive;
-        org.IsBanned = org.IsBanned;
-        org.IsDeleted = org.IsDeleted;
+        existingOrg.Name = org.Name;
+        existingOrg.Image = org.Image;
+        existingOrg.Description = org.Description;
+        existingOrg.EstablishmentDate = org.EstablishmentDate;
+        existingOrg.Orgtype = org.Orgtype;
+        existingOrg.ActiveDaysPerWeek = org.ActiveDaysPerWeek;
+        existingOrg.StartWorkTime = org.StartWorkTime;
+        existingOrg.EndWorkTime = org.EndWorkTime;
+        existingOrg.StartRestTime = org.StartRestTime;
+        existingOrg.EndRestTime = org.EndRestTime;
+        existingOrg.CityId = org.CityId;
+        existingOrg.CreatedBy = org.CreatedBy;
+        existingOrg.CreatedDate = org.CreatedDate;
+        existingOrg.IsPremier = org.IsPremier;
+        existingOrg.SuccessAppointmentCount = org.SuccessAppointmentCount;
+        existingOrg.StarCount = org.StarCount;
+        existingOrg.IsActive = org.IsActive;
+        existingOrg.IsBanned = org.IsBanned;
+        existingOrg.IsDeleted = org.IsDeleted;
         //TODO : باید آی دی کاربری که داره این رو تغییر می ده پیدا کینم
-        //org.ModifiedBy = ??
-        //org.ModifiedDate = ??
+        //existingOrg.ModifiedBy = ??
+        //existingOrg.ModifiedDate = ??
 
         await _dbContext.SaveChangesAsync();
         return true;

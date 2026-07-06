@@ -18,4 +18,6 @@ public interface IOrgRepository
     Task<bool> ChangeActiveStatusAsync(int orgId);
 
     Task<bool> ChangeBannedStatusAsync(int orgId);
+
+    Task<Org?> GetWithDetailsByIdAsync(int orgId);
 }

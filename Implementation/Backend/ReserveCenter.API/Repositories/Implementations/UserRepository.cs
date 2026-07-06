@@ -18,6 +18,8 @@ public class UserRepository : IUserRepository
     {
         return await _dbContext.Users
                                .AsNoTracking()
+                               .Include(user => user.City)
+                               .Include(user => user.ModifiedByNavigation)
                                .FirstOrDefaultAsync(user => user.Id == userId && user.IsDeleted == false);
     }
 

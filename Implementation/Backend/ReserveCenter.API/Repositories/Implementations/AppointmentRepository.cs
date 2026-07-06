@@ -27,6 +27,10 @@ public class AppointmentRepository : IAppointmentRepository
     {
         return await _dbContext.Appointments
                                .AsNoTracking()
+                               .Include(appo => appo.AppointmentStatus)
+                               .Include(appo => appo.BookingUser)
+                               .Include(appo => appo.Org)
+                               .Include(appo => appo.Orgservice)
                                .Where(service => service.OrgId == orgId)
                                .OrderBy(service => service.Id)
                                .ToListAsync();
@@ -54,6 +58,10 @@ public class AppointmentRepository : IAppointmentRepository
     {
         return await _dbContext.Appointments
                                .AsNoTracking()
+                               .Include(appo => appo.AppointmentStatus)
+                               .Include(appo => appo.BookingUser)
+                               .Include(appo => appo.Org)
+                               .Include(appo => appo.Orgservice)
                                .FirstOrDefaultAsync(appointment => appointment.Id == appointmentId);
     }
 
