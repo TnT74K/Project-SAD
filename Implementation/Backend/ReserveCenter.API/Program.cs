@@ -5,6 +5,7 @@ using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Services.Interfaces;
 using System.Text;
 using ReserveCenter.API.Middlewares; 
+using ReserveCenter.API.Models.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,12 +33,18 @@ builder.Services.AddDbContext<ReserveCenterDBContext>(options =>
 //builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 //builder.Services.AddScoped<IReviewService, ReviewService>();
 //builder.Services.AddScoped<IStaffService, StaffService>();
-//builder.Services.AddScoped<IAuthService, AuthService>();
+// builder.Services.AddScoped<IAuthService, AuthService>();
 //builder.Services.AddScoped<IAdminAdService, AdminAdService>();
 //builder.Services.AddScoped<IAdminOrgService, AdminOrgService>();
 //builder.Services.AddScoped<IAdminUserService, AdminUserService>();
 //builder.Services.AddScoped<ISearchService, SearchService>();
 
+// Register JWT settings
+builder.Services.Configure<JwtSettings>(
+    builder.Configuration.GetSection("JwtSettings"));
+
+
+    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
