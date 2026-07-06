@@ -6,6 +6,8 @@ using ReserveCenter.API.Services.Interfaces;
 using System.Text;
 using ReserveCenter.API.Middlewares; 
 using ReserveCenter.API.Models.Settings;
+using ReserveCenter.API.Repositories.Interfaces;
+using ReserveCenter.API.Repositories.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,7 @@ builder.Services.AddDbContext<ReserveCenterDBContext>(options =>
 //builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 //builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 //builder.Services.AddScoped<IAdRepository, AdRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 // Register services
 //builder.Services.AddScoped<IUserService, UserService>();

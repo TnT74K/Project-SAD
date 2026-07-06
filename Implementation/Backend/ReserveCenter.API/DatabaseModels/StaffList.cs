@@ -13,7 +13,7 @@ public partial class StaffList
 
     public int RoleId { get; set; }
 
-    public int Orgid { get; set; }
+    public int OrgId { get; set; }
 
     public bool IsActive { get; set; }
 

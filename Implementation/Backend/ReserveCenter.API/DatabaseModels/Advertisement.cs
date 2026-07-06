@@ -15,7 +15,7 @@ public partial class Advertisement
 
     public string Image { get; set; }
 
-    public int Orgid { get; set; }
+    public int OrgId { get; set; }
 
     public int CreatedBy { get; set; }
 
