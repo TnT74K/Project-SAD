@@ -1,7 +1,11 @@
-﻿namespace ReserveCenter.API.Models.DTOs.Auth
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ReserveCenter.API.Models.DTOs.Auth
 {
     public class ForgotPasswordRequest
     {
-        public string PhoneNumber { get; set; }    // شماره تلفن کاربر
+        [Required(ErrorMessage = "شماره تلفن الزامی است")]
+        [RegularExpression(@"^09[0-9]{9}$", ErrorMessage = "شماره تلفن معتبر نیست")]
+        public string PhoneNumber { get; set; }
     }
 }

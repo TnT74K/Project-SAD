@@ -1,16 +1,27 @@
-﻿namespace ReserveCenter.API.Constants
+﻿using ReserveCenter.API.DatabaseModels;
+
+namespace ReserveCenter.API.Constants
 {
     public static class Roles
     {
-        public const string Admin = "Admin";             // مدیرکل سیستم
-        public const string Organization = "Organization"; // مدیر کسب‌وکار
+        public const string User = "User";
+        public const string SuperAdmin = "SuperAdmin";             // مدیرکل سیستم
+        public const string OrgAdmin = "OrgAdmin"; // مدیر کسب‌وکار
         public const string Support = "Support";         // پشتیبان کسب‌وکار
-        public const string Staff = "Staff";             // کارمند حضوری
+        public const string Staff = "Staff";
+        public static readonly Dictionary<string, int> RoleIds = new()
+        {
+            { User, 1 },
+            { Staff, 2 },
+            { Support, 3 },
+            { OrgAdmin, 4 },
+            { SuperAdmin, 5}
 
-        // بررسی معتبر بودن نقش
+        };
+
         public static bool IsValidRole(string role)
         {
-            return role == Admin || role == Organization || role == Support || role == Staff;
+            return RoleIds.ContainsKey(role);
         }
     }
 }

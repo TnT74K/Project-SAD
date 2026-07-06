@@ -1,13 +1,30 @@
-﻿namespace ReserveCenter.API.Models.DTOs.Auth
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ReserveCenter.API.Models.DTOs.Auth
 {
     public class SignUpRequest
     {
-        public string FirstName { get; set; }      // نام کاربر
-        public string LastName { get; set; }       // نام خانوادگی کاربر
-        public string PhoneNumber { get; set; }    // شماره تلفن (نام کاربری)
-        public string Password { get; set; }       // رمز عبور (ساده)
-        public string NationalCode { get; set; }   // کد ملی (اختیاری)
-        public int? CityId { get; set; }           // شناسه شهر (اختیاری)
-        public string Role { get; set; }           // نقش کاربر (پیش‌فرض User)
+        [Required(ErrorMessage = "نام الزامی است")]
+        [StringLength(256, MinimumLength = 2, ErrorMessage = "نام باید بین 2 تا 256 کاراکتر باشد")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "نام خانوادگی الزامی است")]
+        [StringLength(256, MinimumLength = 2, ErrorMessage = "نام خانوادگی باید بین 2 تا 256 کاراکتر باشد")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "شماره تلفن الزامی است")]
+        [RegularExpression(@"^09[0-9]{9}$", ErrorMessage = "شماره تلفن معتبر نیست (مثال: 09123456789)")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "رمز عبور الزامی است")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "رمز عبور باید حداقل 6 کاراکتر باشد")]
+        public string Password { get; set; }
+
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "کد ملی باید 10 رقم باشد")]
+        public string NationalCode { get; set; }
+
+        public int? CityId { get; set; }
+
+        public string Role { get; set; } = "User";
     }
 }
