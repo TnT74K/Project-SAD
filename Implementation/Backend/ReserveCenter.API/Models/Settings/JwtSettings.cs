@@ -1,3 +1,5 @@
+namespace ReserveCenter.API.Models.Settings;
+
 // This lets ASP.NET automatically bind Jwt to a C# object.
 public class JwtSettings
 {
