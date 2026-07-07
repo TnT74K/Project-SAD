@@ -9,6 +9,9 @@ using ReserveCenter.API.Middlewares;
 using ReserveCenter.API.Models.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+// Database Connection checker
+using ReserveCenter.API;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +77,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+DatabaseConnectionChecker.PrintConnectionStatus(connectionString);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
