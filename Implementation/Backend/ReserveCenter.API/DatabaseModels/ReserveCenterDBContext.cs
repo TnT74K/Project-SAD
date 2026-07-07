@@ -192,10 +192,10 @@ public partial class ReserveCenterDBContext : DbContext
 
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
-            entity.Property(e => e.Orgid).HasColumnName("ORGId");
+            entity.Property(e => e.OrgId).HasColumnName("ORGId");
 
             entity.HasOne(d => d.Org).WithMany(p => p.StaffLists)
-                .HasForeignKey(d => d.Orgid)
+                .HasForeignKey(d => d.OrgId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StaffLists_Organizations");
 

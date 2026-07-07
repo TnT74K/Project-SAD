@@ -8,6 +8,7 @@ using ReserveCenter.API.Models.Settings;
 using ReserveCenter.API.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.Models.DTOs.Auth;
+using ReserveCenter.API.Constants;
 
 namespace ReserveCenter.API.Services.Implementations;
 
@@ -62,14 +63,47 @@ public class AuthService : IAuthService
 
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber);
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber);
 
         if (user is null)
         {
             throw new UnauthorizedAccessException("شماره موبایل یا رمز عبور معتبر نیست.");
         }
 
-        throw new NotImplementedException();
+        if (user.Password != request.Password)
+        {
+            throw new UnauthorizedAccessException("شماره موبایل یا رمز عبور معتبر نیست.");
+        }
+
+        //find all roles for this user.
+        var roles = new List<RoleSelectionDto>();
+
+        roles.Add(new RoleSelectionDto
+        {
+            RoleName = Roles.Customer,
+            OrgId = null,
+            OrganizationName = null
+        });
+
+        var staffRoles = await _context.StaffLists
+            .Include(s => s.Org)
+            .Where(s => s.UserId == user.Id && s.IsActive)
+            .ToListAsync();
+
+        foreach (var staffRole in staffRoles)
+        {
+            roles.Add(new RoleSelectionDto
+            {
+                RoleName = Roles.RoleNames[staffRole.RoleId],
+                OrgId = staffRole.OrgId,
+                OrganizationName = staffRole.Org.Name
+            });
+        }
+        return new LoginResponse
+        {
+            Roles = roles
+        };
     }
 
     public Task<TokenResponse> SelectRoleAsync(int userId, string roleName, int? orgId)
