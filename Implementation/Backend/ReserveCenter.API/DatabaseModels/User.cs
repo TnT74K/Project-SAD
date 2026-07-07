@@ -52,4 +52,6 @@ public partial class User
     public virtual ICollection<Org> Orgs { get; set; } = new List<Org>();
 
     public virtual ICollection<StaffList> StaffLists { get; set; } = new List<StaffList>();
+
+    public virtual ICollection<UnregisteredOrg> UnregisteredOrgs { get; set; } = new List<UnregisteredOrg>();
 }

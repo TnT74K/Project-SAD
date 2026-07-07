@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.DatabaseModels;
+using ReserveCenter.API.Models.Enums;
 using ReserveCenter.API.Repositories.Interfaces;
 using System.Security.Cryptography;
 
@@ -34,7 +35,7 @@ namespace ReserveCenter.API.Repositories.Implementations
             }
 
             await _orgRepository.AddAsync(unregisterdOrgId);
-             
+
             return true;
         }
 
@@ -44,6 +45,7 @@ namespace ReserveCenter.API.Repositories.Implementations
                         .AsNoTracking()
                         .Include(i => i.City)
                         .Include(i => i.Orgtype)
+                        .Include(i => i.CreatedByNavigation)
                         .OrderBy(o => o.Id)
                         .ToListAsync();
         }
@@ -54,6 +56,7 @@ namespace ReserveCenter.API.Repositories.Implementations
                        .AsNoTracking()
                        .Include(i => i.City)
                        .Include(i => i.Orgtype)
+                       .Include(i => i.CreatedByNavigation)
                        .FirstOrDefaultAsync(x => x.Id == unregisterdOrgId);
         }
 
@@ -72,6 +75,35 @@ namespace ReserveCenter.API.Repositories.Implementations
             await _dbContext.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<List<UnregisteredOrg>?> SearchAsync(string searchPhrase, OrgTypeEnum orgTypeEnum)
+        {
+            //اگر دسته بندی خاصی انتخاب نشده بود 
+            if (orgTypeEnum == OrgTypeEnum.All)
+            {
+                return await _dbContext.UnregisteredOrgs
+                .AsNoTracking()
+                .Include(i => i.City)
+                .Include(i => i.Orgtype)
+                .Include(i => i.CreatedByNavigation)
+                .Where(w => w.Name.Contains(searchPhrase) || w.CreatedByNavigation.FirstName.Contains(searchPhrase) || w.CreatedByNavigation.LastName.Contains(searchPhrase) || w.City.Name.Contains(searchPhrase))
+                .OrderBy(o => o.Id)
+                .ToListAsync();
+            }
+            // اگر دسته بندی خاصی مدنظر بود
+            else
+            {
+                return await _dbContext.UnregisteredOrgs
+                .AsNoTracking()
+                .Include(i => i.City)
+                .Include(i => i.Orgtype)
+                .Include(i => i.CreatedByNavigation)
+                .Where(w => (w.Name.Contains(searchPhrase) || w.CreatedByNavigation.FirstName.Contains(searchPhrase) || w.CreatedByNavigation.LastName.Contains(searchPhrase) || w.City.Name.Contains(searchPhrase)) && w.OrgtypeId == (int)orgTypeEnum)
+                .OrderBy(o => o.Id)
+                .ToListAsync();
+            }
+
         }
     }
 }
