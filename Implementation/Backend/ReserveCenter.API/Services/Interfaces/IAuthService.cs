@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using ReserveCenter.API.Models.DTOs.Auth;
+using ReserveCenter.API.DatabaseModels;
 
 namespace ReserveCenter.API.Services.Interfaces
 {
@@ -9,8 +10,10 @@ namespace ReserveCenter.API.Services.Interfaces
         Task<TokenResponse> RegisterAsync(SignUpRequest request);
         
         // ورود
-        Task<TokenResponse> LoginAsync(LoginRequest request);
-        
+        Task<LoginResponse> LoginAsync(LoginRequest request);
+
+        // انتخاب نقش بعد ورود
+        Task<TokenResponse> SelectRoleAsync(int userId, string roleName, int? orgId);
         // بازیابی رمز عبور
         Task<bool> ForgotPasswordAsync(string phoneNumber);
         Task<string> VerifyOtpAsync(string phoneNumber, string otpCode);
@@ -23,10 +26,10 @@ namespace ReserveCenter.API.Services.Interfaces
         Task<TokenResponse> RefreshTokenAsync(string refreshToken);
 
         // JWT Token
-        string GenerateJwtToken(User user);
+        string GenerateJwtToken(User user, string role, int? orgId = null);
         
         // کاربر
-        Task<bool> ValidateUserAsync(int userId, string role = null);
+        Task<bool> ValidateUserAsync(int userId, string? role = null);
         Task<UserInfoDto> GetUserByIdAsync(int userId);
     }
 }

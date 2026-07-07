@@ -64,10 +64,10 @@ namespace ReserveCenter.API.Controllers.Auth
             }
 
             var result = await _authService.LoginAsync(request);
-            
-            if (!result.IsSuccess)
+
+            if (result == null)
             {
-                return BadRequest(result);
+                return BadRequest(new { IsSuccess = false, Message = "ورود ناموفق" });
             }
 
             return Ok(result);
