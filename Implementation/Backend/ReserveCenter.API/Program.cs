@@ -37,11 +37,11 @@ builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 // ✅ Register Services (تغییرات اینجاست!)
 // ============================
 //builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<IOrgService, OrgService>();
+builder.Services.AddScoped<IOrgService, OrgService>();
 //builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 //builder.Services.AddScoped<IReviewService, ReviewService>();
 //builder.Services.AddScoped<IStaffService, StaffService>();
-// builder.Services.AddScoped<IAuthService, AuthService>();
+ //builder.Services.AddScoped<IAuthService, AuthService>();
 //builder.Services.AddScoped<IAdminAdService, AdminAdService>();
 //builder.Services.AddScoped<IAdminOrgService, AdminOrgService>();
 //builder.Services.AddScoped<IAdminUserService, AdminUserService>();
