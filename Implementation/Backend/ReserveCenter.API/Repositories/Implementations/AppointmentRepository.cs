@@ -36,6 +36,20 @@ public class AppointmentRepository : IAppointmentRepository
                                .ToListAsync();
     }
 
+    // 
+    public async Task<List<Appointment>> GetByServiceAndDateAsync(int serviceId,DateOnly date)
+    {
+        return await _dbContext.Appointments
+                               .AsNoTracking()
+                               .Include(appo => appo.AppointmentStatus)
+                               .Include(appo => appo.BookingUser)
+                               .Include(appo => appo.Org)
+                               .Include(appo => appo.Orgservice)
+                               .Where(service => service.OrgserviceId == serviceId && service.AppointmentDate == date)
+                               .OrderBy(service => service.Id)
+                               .ToListAsync();
+    }
+
     public async Task<bool> DeleteAsync(int appintmentId)
     {
         var appointment = await _dbContext.Appointments

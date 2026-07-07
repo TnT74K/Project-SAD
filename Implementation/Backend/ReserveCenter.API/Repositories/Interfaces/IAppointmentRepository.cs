@@ -16,4 +16,5 @@ public interface IAppointmentRepository
     //برای گرفتن لیست نوبت های مربوط به کسب و کار مدنظر
     Task<List<Appointment>> AppointmentListByOrgIdAsync(int orgId);
 
+    Task<List<Appointment>> GetByServiceAndDateAsync(int serviceId, DateOnly date);
 }
