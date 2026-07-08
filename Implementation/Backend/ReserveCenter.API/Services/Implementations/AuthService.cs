@@ -58,10 +58,36 @@ public class AuthService : IAuthService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public Task<TokenResponse> RegisterAsync(SignUpRequest request)
+    public async Task<TokenResponse> RegisterAsync(SignUpRequest request)
     {
-        throw new NotImplementedException();
-    } 
+        // Check phone number existance
+        if (await _context.Users.AnyAsync(u => u.PhoneNumber == request.PhoneNumber))
+        {
+            throw new InvalidOperationException("شماره تلفن قبلاً ثبت شده است.");
+        }
+        // Create user object
+        var user = new User
+        {
+            FirstName = "",
+            LastName = "",
+            PhoneNumber = request.PhoneNumber,
+            Password = request.Password,
+            IsBlocked = false,
+            IsDeleted = false,
+            WrongPasswordCount = 0
+        };
+
+        // Save the object to database
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+
+        return new TokenResponse
+        {
+            IsSuccess = true,
+            Message = "ثبت‌نام با موفقیت انجام شد."
+        };
+    }
+
     #region Login and Role Selection
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
@@ -167,7 +193,6 @@ public class AuthService : IAuthService
         };
     }
 
-
     #endregion
     public Task<bool> ForgotPasswordAsync(string phoneNumber)
     {
@@ -194,7 +219,40 @@ public class AuthService : IAuthService
         throw new NotImplementedException();
     }
 
-    public Task<bool> ValidateUserAsync(int userId, string role = null)
+public async Task<bool> ValidateUserAsync(int userId, string? role = null)
+{
+    var user = await _context.Users
+        .FirstOrDefaultAsync(u => u.Id == userId);
+
+    if (user is null || user.IsBlocked || user.IsDeleted)
+    {
+        return false;
+    }
+
+    if (string.IsNullOrWhiteSpace(role))
+    {
+        return true;
+    }
+
+    if (role == Roles.Customer)
+    {
+        return true;
+    }
+
+    var roleEntry = Roles.RoleNames.FirstOrDefault(r => r.Value == role);
+
+    if (roleEntry.Equals(default(KeyValuePair<int, string>)))
+    {
+        return false;
+    }
+
+    return await _context.StaffLists.AnyAsync(s =>
+        s.UserId == userId &&
+        s.RoleId == roleEntry.Key &&
+        s.IsActive);
+}
+    // Also validate the org with the role. (not yet to be implemented)
+    public Task<bool> ValidateUserAsync(int userId, string role, int? orgId)
     {
         throw new NotImplementedException();
     }
