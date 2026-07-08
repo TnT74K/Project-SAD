@@ -8,7 +8,7 @@ namespace ReserveCenter.API.Models.Enums
         All = 0,
 
         [Display(Name = "حضور یافته")]
-        Presence = 1,
+        Presenced = 1,
 
         [Display(Name = "لغو شده")]
         Canceled = 2,

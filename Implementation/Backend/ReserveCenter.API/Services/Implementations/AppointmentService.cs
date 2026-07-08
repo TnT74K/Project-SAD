@@ -30,7 +30,7 @@ public class AppointmentService : IAppointmentService
         if (service is null)
             return new();
 
-        var org = await _orgRepository.GetWithDetailsByIdAsync(service.Orgid);
+        var org = await _orgRepository.GetWithDetailsByIdAsync(service.OrgId);
 
         if (org is null)
             return new();

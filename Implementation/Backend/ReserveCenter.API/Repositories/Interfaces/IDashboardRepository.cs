@@ -11,7 +11,7 @@ namespace ReserveCenter.API.Repositories.Interfaces
         Task<int> CountAllAppointmentByOrgIdAsync(int orgId);
 
         // امتیاز سازمان
-        Task<int> GetOrgStarByOrgIdAsync(int orgId);
+        Task<decimal> GetOrgStarByOrgIdAsync(int orgId);
 
         // تعداد امتیاز دهنده ها
         Task<int> GetVoterCountByOrgIdAsync(int orgId);

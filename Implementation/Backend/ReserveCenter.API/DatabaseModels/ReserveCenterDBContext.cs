@@ -49,7 +49,7 @@ public partial class ReserveCenterDBContext : DbContext
                 .IsRequired()
                 .HasMaxLength(256);
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
-            entity.Property(e => e.Orgid).HasColumnName("ORGId");
+            entity.Property(e => e.OrgId).HasColumnName("ORGId");
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(256);
@@ -60,7 +60,7 @@ public partial class ReserveCenterDBContext : DbContext
                 .HasConstraintName("FK_Advertisements_Users");
 
             entity.HasOne(d => d.Org).WithMany(p => p.Advertisements)
-                .HasForeignKey(d => d.Orgid)
+                .HasForeignKey(d => d.OrgId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Advertisements_Organizations");
         });
@@ -70,7 +70,7 @@ public partial class ReserveCenterDBContext : DbContext
             entity.ToTable("Appointments", "org");
 
             entity.Property(e => e.BookingConfirmCode).HasMaxLength(256);
-            entity.Property(e => e.Orgid).HasColumnName("ORGId");
+            entity.Property(e => e.OrgId).HasColumnName("ORGId");
             entity.Property(e => e.OrgserviceId).HasColumnName("ORGServiceId");
 
             entity.HasOne(d => d.AppointmentStatus).WithMany(p => p.Appointments)
@@ -82,7 +82,7 @@ public partial class ReserveCenterDBContext : DbContext
                 .HasConstraintName("FK_Appointments_Users");
 
             entity.HasOne(d => d.Org).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.Orgid)
+                .HasForeignKey(d => d.OrgId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Appointments_Organizations");
 
@@ -161,7 +161,7 @@ public partial class ReserveCenterDBContext : DbContext
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(256);
-            entity.Property(e => e.Orgid).HasColumnName("ORGId");
+            entity.Property(e => e.OrgId).HasColumnName("ORGId");
         });
 
         modelBuilder.Entity<Orgtype>(entity =>
@@ -192,10 +192,10 @@ public partial class ReserveCenterDBContext : DbContext
 
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
-            entity.Property(e => e.Orgid).HasColumnName("ORGId");
+            entity.Property(e => e.OrgId).HasColumnName("ORGId");
 
             entity.HasOne(d => d.Org).WithMany(p => p.StaffLists)
-                .HasForeignKey(d => d.Orgid)
+                .HasForeignKey(d => d.OrgId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_StaffLists_Organizations");
 

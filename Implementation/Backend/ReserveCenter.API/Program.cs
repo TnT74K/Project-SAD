@@ -31,6 +31,7 @@ builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 //builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 //builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 //builder.Services.AddScoped<IAdRepository, AdRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 // ============================
