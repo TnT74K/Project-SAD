@@ -17,4 +17,5 @@ public interface IAppointmentRepository
     Task<List<Appointment>> AppointmentListByOrgIdAsync(int orgId);
 
     Task<List<Appointment>> GetByServiceAndDateAsync(int serviceId, DateOnly date);
+    Task<Appointment?> GetByTrackingCodeAsync(string trackingCode);
 }

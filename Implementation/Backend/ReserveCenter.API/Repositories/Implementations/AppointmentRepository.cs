@@ -101,4 +101,14 @@ public class AppointmentRepository : IAppointmentRepository
         await _dbContext.SaveChangesAsync();
         return true;
     }
+
+    public async Task<Appointment?> GetByTrackingCodeAsync(string trackingCode)
+    {
+        return await _dbContext.Appointments
+                               .Include(a => a.Org)
+                               .Include(a => a.Orgservice)
+                               .Include(a => a.BookingUser)
+                               .Include(a => a.AppointmentStatus)
+                               .FirstOrDefaultAsync(a => a.BookingConfirmCode == trackingCode);
+    }
 }
