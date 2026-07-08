@@ -28,7 +28,6 @@ namespace ReserveCenter.API.Services.Implementations
             _userRepository = userRepository;
             _logger = logger;
         }
-
         /// <summary>
         /// دریافت لیست نوبت‌های یک سازمان در یک تاریخ خاص
         /// </summary>
@@ -218,6 +217,88 @@ namespace ReserveCenter.API.Services.Implementations
 
             return appointment.OrgId == orgId;
         }
+            public async Task<AppointmentDto> CreateAppointmentAsync(int orgId, AppointmentCreateRequest request)
+        {
+            try
+            {
+                // 1. بررسی وجود سازمان
+                var org = await _orgRepository.GetByIdAsync(orgId);
+                if (org == null)
+                    throw new KeyNotFoundException("سازمان مورد نظر یافت نشد.");
+
+                // 2. بررسی وجود سرویس و تعلق آن به سازمان
+                var service = await _dbContext.Orgservices
+                    .FirstOrDefaultAsync(s => s.Id == request.OrgserviceId && s.OrgId == orgId && !s.IsDeleted);
+                if (service == null)
+                    throw new KeyNotFoundException("سرویس مورد نظر یافت نشد یا به این سازمان تعلق ندارد.");
+
+                // 3. بررسی تداخل زمانی
+                var existingAppointment = await _dbContext.Appointments
+                    .FirstOrDefaultAsync(a => a.OrgserviceId == request.OrgserviceId &&
+                                               a.AppointmentDate == request.AppointmentDate &&
+                                               a.AppointmentTime == request.AppointmentTime &&
+                                               a.IsReserved);
+
+                if (existingAppointment != null)
+                    throw new InvalidOperationException("زمان انتخاب شده قبلاً رزرو شده است.");
+
+                // 4. بررسی محدوده کاری سازمان
+                if (request.AppointmentTime < org.StartWorkTime ||
+                    request.AppointmentTime.AddMinutes(service.TimeDuration) > org.EndWorkTime)
+                    throw new InvalidOperationException("زمان انتخاب شده خارج از محدوده کاری سازمان است.");
+
+                // 5. بررسی زمان استراحت
+                if (org.StartRestTime != TimeOnly.MinValue && org.EndRestTime != TimeOnly.MinValue)
+                {
+                    if (request.AppointmentTime >= org.StartRestTime &&
+                        request.AppointmentTime.AddMinutes(service.TimeDuration) <= org.EndRestTime)
+                        throw new InvalidOperationException("زمان انتخاب شده در محدوده استراحت سازمان است.");
+                }
+
+                // 6. ایجاد نوبت جدید
+                var appointment = new Appointment
+                {
+                    OrgId = orgId,
+                    AppointmentDate = request.AppointmentDate,
+                    AppointmentTime = request.AppointmentTime,
+                    Price = request.Price,
+                    OrgserviceId = request.OrgserviceId,
+                    BookingUserId = request.BookingUserId,
+                    BookingConfirmCode = GenerateTrackingCode(),
+                    IsReserved = true,
+                    AppointmentStatusId = 1 // فرض می‌کنیم 1 = Reserved
+                };
+
+                // 7. ذخیره در دیتابیس
+                var createdAppointment = await _appointmentRepository.AddAsync(appointment);
+
+                // 8. افزایش تعداد نوبت‌های موفق سازمان
+                org.SuccessAppointmentCount += 1;
+                await _orgRepository.UpdateAsync(org);
+
+                // 9. برگرداندن نتیجه
+                return MapToDto(createdAppointment);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating appointment for org {OrgId}", orgId);
+                throw;
+            }
+        }
+
+        // ============================================================
+        // ✅ متد کمکی برای تولید کد رهگیری
+        // ============================================================
+
+        private string GenerateTrackingCode()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var code = new string(Enumerable.Repeat(chars, 8)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+            return $"RZ-{code[..4]}-{code[4..]}";
+        }
+
 
         // ============================================================
         // متدهای کمکی

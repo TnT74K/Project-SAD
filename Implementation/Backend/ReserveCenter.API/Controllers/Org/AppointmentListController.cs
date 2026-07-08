@@ -38,7 +38,7 @@ namespace ReserveCenter.API.Controllers.Org
 
             var isOwner = await _orgService.IsOrgOwnerAsync(orgId, userId);
             var isAdmin = User.IsInRole("SuperAdmin") || User.IsInRole("OrgAdmin");
-            
+
             if (!isOwner && !isAdmin)
             {
                 return Forbid("شما دسترسی به مشاهده نوبت‌های این سازمان را ندارید");
@@ -50,7 +50,7 @@ namespace ReserveCenter.API.Controllers.Org
             }
 
             var result = await _appointmentListService.GetAppointmentsByDateAsync(orgId, appointmentDate);
-            
+
             return Ok(new { IsSuccess = true, Data = result });
         }
 
@@ -59,8 +59,8 @@ namespace ReserveCenter.API.Controllers.Org
         /// </summary>
         [HttpGet("org/{orgId}/range")]
         public async Task<IActionResult> GetAppointmentsByDateRange(
-            int orgId, 
-            [FromQuery] string startDate, 
+            int orgId,
+            [FromQuery] string startDate,
             [FromQuery] string endDate)
         {
             var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
@@ -71,7 +71,7 @@ namespace ReserveCenter.API.Controllers.Org
 
             var isOwner = await _orgService.IsOrgOwnerAsync(orgId, userId);
             var isAdmin = User.IsInRole("SuperAdmin") || User.IsInRole("OrgAdmin");
-            
+
             if (!isOwner && !isAdmin)
             {
                 return Forbid("شما دسترسی به مشاهده نوبت‌های این سازمان را ندارید");
@@ -88,7 +88,7 @@ namespace ReserveCenter.API.Controllers.Org
             }
 
             var result = await _appointmentListService.GetAppointmentsByDateRangeAsync(orgId, start, end);
-            
+
             return Ok(new { IsSuccess = true, Data = result });
         }
 
@@ -153,14 +153,14 @@ namespace ReserveCenter.API.Controllers.Org
 
             var isOwner = await _orgService.IsOrgOwnerAsync(appointment.OrgId, userId);
             var isStaff = User.IsInRole("Staff") || User.IsInRole("OrgAdmin");
-            
+
             if (!isOwner && !isStaff)
             {
                 return Forbid("شما دسترسی به تغییر وضعیت این نوبت را ندارید");
             }
 
             var result = await _appointmentListService.UpdateAppointmentStatusAsync(request, userId);
-            
+
             if (!result)
             {
                 return BadRequest(new { IsSuccess = false, Message = "خطا در تغییر وضعیت نوبت" });
@@ -190,14 +190,14 @@ namespace ReserveCenter.API.Controllers.Org
             var isOwner = await _orgService.IsOrgOwnerAsync(appointment.OrgId, userId);
             var isStaff = User.IsInRole("Staff") || User.IsInRole("OrgAdmin");
             var isBooker = appointment.BookingUserId == userId;
-            
+
             if (!isOwner && !isStaff && !isBooker)
             {
                 return Forbid("شما دسترسی به لغو این نوبت را ندارید");
             }
 
             var result = await _appointmentListService.CancelAppointmentAsync(appointmentId, userId);
-            
+
             if (!result)
             {
                 return BadRequest(new { IsSuccess = false, Message = "خطا در لغو نوبت" });
@@ -225,5 +225,62 @@ namespace ReserveCenter.API.Controllers.Org
             var tomorrow = DateOnly.FromDateTime(DateTime.Now.AddDays(1));
             return await GetAppointmentsByDate(orgId, tomorrow.ToString("yyyy-MM-dd"));
         }
+              // ============================================================
+        // ✅ متد جدید برای ایجاد نوبت
+        // ============================================================
+
+        /// <summary>
+        /// ایجاد نوبت جدید (توسط مدیر سازمان)
+        /// </summary>
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateAppointment([FromBody] AppointmentCreateRequest request)
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+            {
+                return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });
+            }
+
+            // بررسی دسترسی (فقط مدیر سازمان یا ادمین)
+            var isOwner = await _orgService.IsOrgOwnerAsync(request.OrgId, userId);
+            var isAdmin = User.IsInRole("SuperAdmin") || User.IsInRole("OrgAdmin");
+            
+            if (!isOwner && !isAdmin)
+            {
+                return Forbid("شما دسترسی به ایجاد نوبت برای این سازمان را ندارید");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage);
+                return BadRequest(new
+                {
+                    IsSuccess = false,
+                    Message = string.Join(" | ", errors)
+                });
+            }
+
+            try
+            {
+                var result = await _appointmentListService.CreateAppointmentAsync(request.OrgId, request);
+                return Ok(new { IsSuccess = true, Message = "نوبت با موفقیت ایجاد شد.", Data = result });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { IsSuccess = false, Message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating appointment");
+                return StatusCode(500, new { IsSuccess = false, Message = "خطای داخلی سرور" });
+            }
+        }
+        
     }
+    
 }

@@ -38,5 +38,14 @@ namespace ReserveCenter.API.Services.Interfaces
         /// بررسی تعلق نوبت به سازمان
         /// </summary>
         Task<bool> IsAppointmentBelongToOrgAsync(int appointmentId, int orgId);
+
+        // ============================================================
+        // ✅ متد جدید برای ایجاد نوبت
+        // ============================================================
+        
+        /// <summary>
+        /// ایجاد نوبت جدید (توسط مدیر سازمان)
+        /// </summary>
+        Task<AppointmentDto> CreateAppointmentAsync(int orgId, AppointmentCreateRequest request);
     }
 }
