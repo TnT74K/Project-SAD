@@ -43,6 +43,7 @@ public class OrgRepository : IOrgRepository
         org.IsPremier = false;
         org.SuccessAppointmentCount = 0;
         org.StarCount = 0;
+        org.VoterCount = 0;
         org.IsActive = true;
         org.IsBanned = false;
         org.IsDeleted = false;
@@ -143,6 +144,7 @@ public class OrgRepository : IOrgRepository
         existingOrg.IsPremier = org.IsPremier;
         existingOrg.SuccessAppointmentCount = org.SuccessAppointmentCount;
         existingOrg.StarCount = org.StarCount;
+        existingOrg.VoterCount = org.VoterCount;
         existingOrg.IsActive = org.IsActive;
         existingOrg.IsBanned = org.IsBanned;
         existingOrg.IsDeleted = org.IsDeleted;
