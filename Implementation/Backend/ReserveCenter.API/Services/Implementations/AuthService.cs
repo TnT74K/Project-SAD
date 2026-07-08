@@ -60,9 +60,25 @@ public class AuthService : IAuthService
 
     public Task<TokenResponse> RegisterAsync(SignUpRequest request)
     {
-        throw new NotImplementedException();
+        // check for pre-existing phone number
+        if (await _context.Users.AnyAsync(u => u.PhoneNumber == request.PhoneNumber))
+        {
+            throw new InvalidOperationException("این شماره‌تلفن قبلاً ثبت شده است.");
+        }
+
+        // create uer object
+        var user = new User
+        {
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            PhoneNumber = request.PhoneNumber,
+            Password = request.Password,
+            CityId = request.CityId,
+            IsBlocked = false,
+            IsDeleted = false
+        };
     }
-#region Login and Role Selection
+    #region Login and Role Selection
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
         var user = await _context.Users
@@ -88,18 +104,18 @@ public class AuthService : IAuthService
             OrganizationName = null
         });
 
-        var staffRoles = await _context.StaffLists
+        var staffAssignments = await _context.StaffLists
             .Include(s => s.Org)
             .Where(s => s.UserId == user.Id && s.IsActive)
             .ToListAsync();
 
-        foreach (var staffRole in staffRoles)
+        foreach (var staffAssignment in staffAssignments)
         {
             roles.Add(new RoleSelectionDto
             {
-                RoleName = Roles.RoleNames[staffRole.RoleId],
-                OrgId = staffRole.OrgId,
-                OrganizationName = staffRole.Org.Name
+                RoleName = Roles.RoleNames[staffAssignment.RoleId],
+                OrgId = staffAssignment.OrgId,
+                OrganizationName = staffAssignment.Org.Name
             });
         }
         return new LoginResponse
@@ -114,75 +130,45 @@ public class AuthService : IAuthService
             .FirstOrDefaultAsync(u => u.Id == userId);
 
         if (user is null)
-        {
-            throw new UnauthorizedAccessException("User not found.");
-        }
-
-        if (!Roles.IsValidRole(roleName))
-        {
-            return new TokenResponse { IsSuccess = false, Message = "Invalid role." };
-        }
+            throw new UnauthorizedAccessException("کاربر یافت نشد.");
 
         if (user.IsBlocked || user.IsDeleted)
+            throw new UnauthorizedAccessException("حساب کاربر مسدود یا حذف شده‌است");
+
+        if (!Roles.IsValidRole(roleName))
+            throw new UnauthorizedAccessException("نقش نامعتبر");
+
+        var roleEntry = Roles.RoleNames.FirstOrDefault(r => r.Value == roleName);
+        if (roleEntry.Equals(default(KeyValuePair<int, string>)))
+            throw new UnauthorizedAccessException("معادل نقش یافت نشد");
+
+        var roleId = roleEntry.Key;
+
+        if (roleName != Roles.Customer)
         {
-            return new TokenResponse { IsSuccess = false, Message = "User is blocked or deleted." };
+            if (!orgId.HasValue)
+                throw new UnauthorizedAccessException("شناسه(آی‌دی) کسب‌وکار برای این نقش لازم است.");
+
+            var staffAssignment = await _context.StaffLists
+                .FirstOrDefaultAsync(s =>
+                    s.UserId == userId &&
+                    s.OrgId == orgId &&
+                    s.RoleId == roleId &&
+                    s.IsActive);
+
+            if (staffAssignment is null)
+                throw new UnauthorizedAccessException(
+                    "کاربر، نقش انتخاب‌شده را در این کسب‌وکار ندارد.");
         }
 
-        // Customer role does not require org check
-        if (roleName == Roles.Customer)
-        {
-            var token = GenerateJwtToken(user, roleName, null);
-            var refreshToken = Guid.NewGuid().ToString();
-
-            return new TokenResponse
-            {
-                IsSuccess = true,
-                Token = token,
-                RefreshToken = refreshToken,
-                ExpiresAt = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
-                User = new UserInfoDto
-                {
-                    Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    PhoneNumber = user.PhoneNumber,
-                    Role = roleName,
-                    IsBlocked = user.IsBlocked,
-                    IsDeleted = user.IsDeleted
-                }
-            };
-        }
-
-        // For staff roles, require orgId and an active StaffList entry
-        if (!orgId.HasValue)
-        {
-            return new TokenResponse { IsSuccess = false, Message = "Organization id is required for this role." };
-        }
-
-        // Find role id from Roles.RoleNames
-        var roleEntry = Roles.RoleNames.FirstOrDefault(kv => kv.Value == roleName);
-        if (roleEntry.Equals(default(KeyValuePair<int, string>)) || roleEntry.Key == 0)
-        {
-            return new TokenResponse { IsSuccess = false, Message = "Role mapping not found." };
-        }
-
-        var staffRole = await _context.StaffLists
-            .Include(s => s.Org)
-            .FirstOrDefaultAsync(s => s.UserId == userId && s.OrgId == orgId && s.RoleId == roleEntry.Key && s.IsActive);
-
-        if (staffRole is null)
-        {
-            return new TokenResponse { IsSuccess = false, Message = "User does not have the specified role in this organization." };
-        }
-
-        var staffToken = GenerateJwtToken(user, roleName, orgId);
-        var staffRefresh = Guid.NewGuid().ToString();
+        var token = GenerateJwtToken(user, roleName, orgId);
+        var refreshToken = Guid.NewGuid().ToString();
 
         return new TokenResponse
         {
             IsSuccess = true,
-            Token = staffToken,
-            RefreshToken = staffRefresh,
+            Token = token,
+            RefreshToken = refreshToken,
             ExpiresAt = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
             User = new UserInfoDto
             {
@@ -197,7 +183,8 @@ public class AuthService : IAuthService
         };
     }
 
-#endregion
+
+    #endregion
     public Task<bool> ForgotPasswordAsync(string phoneNumber)
     {
         throw new NotImplementedException();
