@@ -60,24 +60,8 @@ public class AuthService : IAuthService
 
     public Task<TokenResponse> RegisterAsync(SignUpRequest request)
     {
-        // check for pre-existing phone number
-        if (await _context.Users.AnyAsync(u => u.PhoneNumber == request.PhoneNumber))
-        {
-            throw new InvalidOperationException("این شماره‌تلفن قبلاً ثبت شده است.");
-        }
-
-        // create uer object
-        var user = new User
-        {
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            PhoneNumber = request.PhoneNumber,
-            Password = request.Password,
-            CityId = request.CityId,
-            IsBlocked = false,
-            IsDeleted = false
-        };
-    }
+        throw new NotImplementedException();
+    } 
     #region Login and Role Selection
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
