@@ -52,6 +52,7 @@ builder.Services.AddScoped<IPublicOrgProfileService, PublicOrgProfileService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IOrgProfileService, OrgProfileService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<IAppointmentListService, AppointmentListService>();
 
 // ============================
 // ✅ Register JWT settings
