@@ -89,11 +89,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>(); // 1. اول خطاها
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication(); // must come before authorizatoin
-app.UseAuthorization(); // 2. بعد احراز هویت
+app.UseAuthorization();
 
-app.MapControllers(); // 3. آخر کنترلرها
+app.MapControllers();
 
 app.Run();

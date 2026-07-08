@@ -58,6 +58,7 @@ public class AuthService : IAuthService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
+    
     public async Task<TokenResponse> RegisterAsync(SignUpRequest request)
     {
         // Check phone number existance
@@ -88,7 +89,7 @@ public class AuthService : IAuthService
         };
     }
 
-    #region Login and Role Selection
+    #region Login
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
         var user = await _context.Users
@@ -133,7 +134,7 @@ public class AuthService : IAuthService
             Roles = roles
         };
     }
-
+    #endregion
     public async Task<TokenResponse> SelectRoleAsync(int userId, string roleName, int? orgId)
     {
         var user = await _context.Users
@@ -193,11 +194,9 @@ public class AuthService : IAuthService
         };
     }
 
-    #endregion
-    // flow is at: Implementation/Backend/ReserveCenter.API/Services/Implementations/ResetPasswordFlow.md
     public async Task<bool> ForgotPasswordAsync(string phoneNumber)
     {
-        // For the university project, OTP is fixed to 12345 and not generated or stored.
+        // For the university project, OTP is fixed to 54321 and not generated or stored.
         var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
@@ -211,9 +210,9 @@ public class AuthService : IAuthService
         var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
-            throw new UnauthorizedAccessException();
+            throw new UnauthorizedAccessException("کاربر یافت نشد یا حساب کاربری غیرفعال است.");
         }
-        if (otpCode != "12345")
+        if (otpCode != "54321")
         {
             throw new UnauthorizedAccessException("کد تایید نامعتبر است.");
         }
