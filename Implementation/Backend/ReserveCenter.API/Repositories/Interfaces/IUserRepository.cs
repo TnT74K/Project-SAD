@@ -19,4 +19,10 @@ public interface IUserRepository
 
     Task<bool> DeleteAsync(int UserId);
 
+    //گرفتن برای اطلاعات کاربر برای پروفایل 
+    Task<User?> GetWithDetailByIdAsync(int userId);
+
+    //برای گرفتن همه نویت هایی که تا الان ایشون گرفته است
+    Task<List<Appointment>?> GetAllUserAppointmentByUserIdAsync(int userId);
+
 }
