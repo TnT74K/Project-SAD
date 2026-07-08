@@ -100,6 +100,17 @@ public class OrgRepository : IOrgRepository
         return true;
     }
 
+    public async Task<List<Org>?> GetAllOrgWithDetailAsync()
+    {
+        return await _dbContext.Orgs
+                        .AsNoTracking()
+                        .Include(i => i.City)
+                        .Include(i => i.CreatedByNavigation)
+                        .Include(i => i.Orgtype)
+                        .OrderBy(org => org.Id)
+                        .ToListAsync();
+    }
+
     // برای برای گرفتن پروفایل کسب و کار مدنظر
     public async Task<Org?> GetByIdAsync(int orgId)
     {
@@ -118,6 +129,17 @@ public class OrgRepository : IOrgRepository
             .FirstOrDefaultAsync(org => org.Id == orgId && org.IsDeleted == false);
     }
 
+    public async Task<List<Org>?> SearchAsync(string searchPhrase)
+    {
+        return await _dbContext.Orgs
+                        .AsNoTracking()
+                        .Include(i => i.City)
+                        .Include(i => i.CreatedByNavigation)
+                        .Include(i => i.Orgtype)
+                        .Where(org => org.Name.Contains(searchPhrase) || org.Orgtype.Name.Contains(searchPhrase) || org.CreatedByNavigation.FirstName.Contains(searchPhrase) || org.CreatedByNavigation.LastName.Contains(searchPhrase))
+                        .OrderBy(org => org.Id)
+                        .ToListAsync();
+    }
 
     public async Task<bool> UpdateAsync(Org org)
     {

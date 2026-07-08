@@ -20,4 +20,10 @@ public interface IOrgRepository
     Task<bool> ChangeBannedStatusAsync(int orgId);
 
     Task<Org?> GetWithDetailsByIdAsync(int orgId);
+
+    //برای گرفتن همه کسب و کار ها
+    Task<List<Org>?> GetAllOrgWithDetailAsync();
+
+    //برای سرچ کردن
+    Task<List<Org>?> SearchAsync(string searchPhrase);
 }
