@@ -11,11 +11,11 @@ namespace ReserveCenter.API.Constants
         public const string Staff = "Staff";
         public static readonly Dictionary<int, string> RoleNames = new()
         {
-            { 1, Customer },
-            { 2, Staff },
+            { 5, Customer }, // It's null in database
+            { 4, Staff },
             { 3, Support },
-            { 4, OrgAdmin },
-            { 5, SuperAdmin }
+            { 2, OrgAdmin },
+            { 1, SuperAdmin }
         };
 
         public static bool IsValidRole(string role)

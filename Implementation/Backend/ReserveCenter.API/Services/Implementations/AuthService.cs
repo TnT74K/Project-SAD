@@ -186,7 +186,7 @@ public class AuthService : IAuthService
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
-                Role = roleName,
+                Role = roleId,
                 IsBlocked = user.IsBlocked,
                 IsDeleted = user.IsDeleted
             }
@@ -194,71 +194,118 @@ public class AuthService : IAuthService
     }
 
     #endregion
-    public Task<bool> ForgotPasswordAsync(string phoneNumber)
+    // flow is at: Implementation/Backend/ReserveCenter.API/Services/Implementations/ResetPasswordFlow.md
+    public async Task<bool> ForgotPasswordAsync(string phoneNumber)
     {
-        throw new NotImplementedException();
+        // For the university project, OTP is fixed to 12345 and not generated or stored.
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+        if (user == null || user.IsBlocked || user.IsDeleted)
+        {
+            return false;
+        }
+        return true;
     }
 
-    public Task<string> VerifyOtpAsync(string phoneNumber, string otpCode)
+    public async Task<string> VerifyOtpAsync(string phoneNumber, string otpCode)
     {
-        throw new NotImplementedException();
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+        if (user == null || user.IsBlocked || user.IsDeleted)
+        {
+            throw new UnauthorizedAccessException();
+        }
+        if (otpCode != "12345")
+        {
+            throw new UnauthorizedAccessException("کد تایید نامعتبر است.");
+        }
+        return "RESET_TOKEN";
     }
 
-    public Task<bool> ResetPasswordAsync(string phoneNumber, string token, string newPassword)
+    public async Task<bool> ResetPasswordAsync(string phoneNumber, string token, string newPassword)
     {
-        throw new NotImplementedException();
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+        if (user == null || user.IsBlocked || user.IsDeleted)
+        {
+            throw new UnauthorizedAccessException();
+        }
+        if (token != "RESET_TOKEN")
+        {
+            throw new UnauthorizedAccessException("توکن بازیابی نامعتبر است.");
+        }
+        user.LastPassword = user.Password;
+        user.Password = newPassword;
+        user.ChangePasswordDateTime = DateTime.UtcNow;
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    public Task<bool> LogoutAsync(int userId)
+    //Because our JWTs are stateless and we don’t store refresh tokens, logout is very simple:
+    public async Task<bool> LogoutAsync(int userId)
     {
-        throw new NotImplementedException();
+        return await ValidateUserAsync(userId);
     }
 
     public Task<TokenResponse> RefreshTokenAsync(string refreshToken)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException("Refresh tokens are not implemented in this university project.");
     }
 
-public async Task<bool> ValidateUserAsync(int userId, string? role = null)
-{
-    var user = await _context.Users
-        .FirstOrDefaultAsync(u => u.Id == userId);
-
-    if (user is null || user.IsBlocked || user.IsDeleted)
+    public async Task<bool> ValidateUserAsync(int userId, string? role = null)
     {
-        return false;
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user is null || user.IsBlocked || user.IsDeleted)
+        {
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(role))
+        {
+            return true;
+        }
+
+        if (role == Roles.Customer)
+        {
+            return true;
+        }
+
+        var roleEntry = Roles.RoleNames.FirstOrDefault(r => r.Value == role);
+
+        if (roleEntry.Equals(default(KeyValuePair<int, string>)))
+        {
+            return false;
+        }
+
+        return await _context.StaffLists.AnyAsync(s =>
+            s.UserId == userId &&
+            s.RoleId == roleEntry.Key &&
+            s.IsActive);
     }
-
-    if (string.IsNullOrWhiteSpace(role))
-    {
-        return true;
-    }
-
-    if (role == Roles.Customer)
-    {
-        return true;
-    }
-
-    var roleEntry = Roles.RoleNames.FirstOrDefault(r => r.Value == role);
-
-    if (roleEntry.Equals(default(KeyValuePair<int, string>)))
-    {
-        return false;
-    }
-
-    return await _context.StaffLists.AnyAsync(s =>
-        s.UserId == userId &&
-        s.RoleId == roleEntry.Key &&
-        s.IsActive);
-}
+    
     // Also validate the org with the role. (not yet to be implemented)
     public Task<bool> ValidateUserAsync(int userId, string role, int? orgId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<UserInfoDto> GetUserByIdAsync(int userId)
+    public async Task<UserInfoDto> GetUserByIdAsync(int userId)
     {
-        throw new NotImplementedException();
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user is null)
+        {
+            throw new KeyNotFoundException("کاربر یافت نشد.");
+        }
+
+        return new UserInfoDto
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            PhoneNumber = user.PhoneNumber,
+            IsBlocked = user.IsBlocked,
+            IsDeleted = user.IsDeleted
+        };
     }
 }
