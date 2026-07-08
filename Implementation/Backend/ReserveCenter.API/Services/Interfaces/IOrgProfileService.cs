@@ -11,11 +11,11 @@ namespace ReserveCenter.API.Services.Interfaces
         ///// <summary>
         ///// دریافت پروفایل سازمان بر اساس شناسه کاربر (مدیر سازمان)
         ///// </summary>
-        //Task<OrgProfileDto> GetProfileByUserIdAsync(int userId);
+        Task<OrgProfileDto> GetProfileByUserIdAsync(int userId);
 
         ///// <summary>
         ///// ویرایش کامل پروفایل سازمان
         ///// </summary>
-        //Task<bool> UpdateProfileAsync(int userId, OrgProfileEditRequest request);
+        Task<bool> UpdateProfileAsync(int userId, OrgProfileEditRequest request);
     }
 }
