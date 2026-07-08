@@ -141,5 +141,10 @@ namespace ReserveCenter.API.Services.Implementations
         {
             return await _orgRepository.GetByIdAsync(orgId);
         }
+             public async Task<List<Org>?> GetAllOrgWithDetailAsync()
+        {
+            return await _orgRepository.GetAllOrgWithDetailAsync();
+        }
+        
     }
 }

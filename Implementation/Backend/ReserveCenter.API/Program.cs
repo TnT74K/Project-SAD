@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Services.Interfaces;
-using ReserveCenter.API.Services.Implementations; // ✅ اضافه کن
+using ReserveCenter.API.Services.Implementations;
 using System.Text;
 using ReserveCenter.API.Middlewares;
 using ReserveCenter.API.Models.Settings;
@@ -36,7 +36,7 @@ builder.Services.AddScoped<ISuperAdminDashboardRepository, SuperAdminDashboardRe
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 // ============================
-// ✅ Register Services (تغییرات اینجاست!)
+// ✅ Register Services
 // ============================
 //builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrgService, OrgService>();
@@ -53,6 +53,7 @@ builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IOrgProfileService, OrgProfileService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IAppointmentListService, AppointmentListService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 // ============================
 // ✅ Register JWT settings
@@ -70,10 +71,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>(); // 1. اول خطاها
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-app.UseAuthorization(); // 2. بعد احراز هویت
+app.UseAuthorization();
 
-app.MapControllers(); // 3. آخر کنترلرها
+app.MapControllers();
 
 app.Run();
