@@ -9,8 +9,8 @@ namespace ReserveCenter.API.Models.DTOs.Auth
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "کد تأیید الزامی است")]
-        [StringLength(6, MinimumLength = 6, ErrorMessage = "کد تأیید باید 6 رقم باشد")]
-        [RegularExpression(@"^[0-9]{6}$", ErrorMessage = "کد تأیید باید عددی باشد")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "کد تأیید باید 5 رقم باشد")]
+        [RegularExpression(@"^[0-9]{5}$", ErrorMessage = "کد تأیید باید عددی باشد")]
         public string OtpCode { get; set; }
     }
 }
