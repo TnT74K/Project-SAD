@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Services.Interfaces;
-using ReserveCenter.API.Services.Implementations; // ✅ اضافه کن
+using ReserveCenter.API.Services.Implementations;
 using System.Text;
 using ReserveCenter.API.Middlewares; 
 // JWT configs
@@ -45,7 +45,7 @@ builder.Services.AddScoped<ISuperAdminDashboardRepository, SuperAdminDashboardRe
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 // ============================
-// ✅ Register Services (تغییرات اینجاست!)
+// ✅ Register Services
 // ============================
 //builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrgService, OrgService>();
@@ -62,6 +62,8 @@ builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IOrgProfileService, OrgProfileService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IAppointmentListService, AppointmentListService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 
 // ========= JWT section ===========
 // Register JWT settings

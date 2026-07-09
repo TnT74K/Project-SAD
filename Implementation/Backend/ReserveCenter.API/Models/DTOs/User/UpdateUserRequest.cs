@@ -16,6 +16,7 @@ namespace ReserveCenter.API.Models.DTOs.User
         public string NationalCode { get; set; }
 
         public int? CityId { get; set; }
+        public string PhoneNumber { get; set; }
 
         public string ProfileImage { get; set; }       // آدرس تصویر (اختیاری)
     }
