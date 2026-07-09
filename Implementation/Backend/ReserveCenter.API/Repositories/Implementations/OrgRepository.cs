@@ -221,9 +221,8 @@ public class OrgRepository : IOrgRepository
         existingOrg.IsActive = org.IsActive;
         existingOrg.IsBanned = org.IsBanned;
         existingOrg.IsDeleted = org.IsDeleted;
-        //TODO : باید آی دی کاربری که داره این رو تغییر می ده پیدا کینم
-        //existingOrg.ModifiedBy = ??
-        //existingOrg.ModifiedDate = ??
+        existingOrg.ModifiedBy = org.ModifiedBy;
+        existingOrg.ModifiedDate = DateTime.Now;
 
         await _dbContext.SaveChangesAsync();
         return true;

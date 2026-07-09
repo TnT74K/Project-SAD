@@ -114,7 +114,7 @@ public class AppointmentService : IAppointmentService
             BookingConfirmCode = trackingCode,
             AppointmentStatusId = 1,
             IsReserved = true,
-            Price = service.Price
+            Price = dto.Price
         };
 
         appointment =

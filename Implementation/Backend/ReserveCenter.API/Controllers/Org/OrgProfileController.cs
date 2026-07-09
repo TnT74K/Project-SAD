@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReserveCenter.API.Models.DTOs.Org.Profile;
 using ReserveCenter.API.Models.DTOs.Org.Service;
+using ReserveCenter.API.Models.DTOs.Org.Staff;
 using ReserveCenter.API.Services.Interfaces;
+using System.Security.Claims;
 
 namespace ReserveCenter.API.Controllers.Org
 {
@@ -28,18 +30,18 @@ namespace ReserveCenter.API.Controllers.Org
 
         private int GetCurrentUserId()
         {
-            var userIdClaim = User.FindFirst("UserId")?.Value ?? 
-                              User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userIdClaim))
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
                 throw new UnauthorizedAccessException("کاربر احراز هویت نشده است.");
-            return int.Parse(userIdClaim);
+            return int.Parse(userId);
         }
 
         // ✅✅✅ تغییرات اینجا اعمال شد (طبق خواسته‌ات)
         private async Task<int> GetCurrentOrgIdAsync()
         {
-            var userId = GetCurrentUserId();
-            var profile = await _profileService.GetProfileByUserIdAsync(userId);
+            var orgId = User.FindFirst("OrgId")?.Value;
+            var profile = await _profileService.GetProfileByOrgIdAsync(int.Parse(orgId));
             return profile.Id;
         }
 
@@ -50,8 +52,8 @@ namespace ReserveCenter.API.Controllers.Org
         [HttpGet]
         public async Task<IActionResult> GetProfile()
         {
-            var userId = GetCurrentUserId();
-            var profile = await _profileService.GetProfileByUserIdAsync(userId);
+            var orgId = User.FindFirst("OrgId")?.Value;
+            var profile = await _profileService.GetProfileByOrgIdAsync(int.Parse(orgId));
             return Ok(profile);
         }
 
@@ -59,7 +61,8 @@ namespace ReserveCenter.API.Controllers.Org
         public async Task<IActionResult> UpdateProfile([FromBody] OrgProfileEditRequest request)
         {
             var userId = GetCurrentUserId();
-            var result = await _profileService.UpdateProfileAsync(userId, request);
+            var orgId = User.FindFirst("OrgId")?.Value;
+            var result = await _profileService.UpdateProfileAsync(int.Parse(orgId), userId, request);
 
             if (result)
                 return Ok(new { success = true, message = "پروفایل با موفقیت بروزرسانی شد." });

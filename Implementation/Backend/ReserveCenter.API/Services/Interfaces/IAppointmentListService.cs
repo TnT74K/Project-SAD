@@ -46,6 +46,6 @@ namespace ReserveCenter.API.Services.Interfaces
         /// <summary>
         /// ایجاد نوبت جدید (توسط مدیر سازمان)
         /// </summary>
-        Task<AppointmentDto> CreateAppointmentAsync(int orgId, AppointmentCreateRequest request);
+        Task<AppointmentDto> CreateAppointmentAsync(int orgId, AppointmentCreateRequest request, int modifiedBy);
     }
 }

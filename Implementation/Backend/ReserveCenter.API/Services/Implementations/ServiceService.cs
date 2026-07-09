@@ -63,7 +63,7 @@ namespace ReserveCenter.API.Services.Implementations
             if (org == null)
                 throw new KeyNotFoundException("سازمان مورد نظر یافت نشد.");
 
-            var exists = await _serviceRepository.ExistsByOrgAndNameAsync(orgId, request.Name.Trim());
+            var exists = await _serviceRepository.CheckByOrgAndNameAsync(orgId, request.Name.Trim());
             if (exists)
                 throw new InvalidOperationException("خدمتی با این نام قبلاً ثبت شده است.");
 
@@ -75,7 +75,7 @@ namespace ReserveCenter.API.Services.Implementations
                 IsDeleted = false
             };
 
-            var createdService = await _serviceRepository.AddAsync(service);
+            var createdService = await _serviceRepository.CreateAsync(service);
 
             return new ServiceDto
             {
@@ -93,7 +93,7 @@ namespace ReserveCenter.API.Services.Implementations
             if (org == null)
                 throw new KeyNotFoundException("سازمان مورد نظر یافت نشد.");
 
-            var exists = await _serviceRepository.ExistsByIdAndOrgAsync(request.Id, orgId);
+            var exists = await _serviceRepository.ExistByOrgIdAndServiceIdAsync(request.Id, orgId);
             if (!exists)
                 throw new KeyNotFoundException("خدمت مورد نظر یافت نشد یا به این سازمان تعلق ندارد.");
 
@@ -115,7 +115,7 @@ namespace ReserveCenter.API.Services.Implementations
             if (org == null)
                 throw new KeyNotFoundException("سازمان مورد نظر یافت نشد.");
 
-            var exists = await _serviceRepository.ExistsByIdAndOrgAsync(serviceId, orgId);
+            var exists = await _serviceRepository.ExistByOrgIdAndServiceIdAsync(serviceId, orgId);
             if (!exists)
                 throw new KeyNotFoundException("خدمت مورد نظر یافت نشد یا به این سازمان تعلق ندارد.");
 
