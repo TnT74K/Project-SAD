@@ -155,7 +155,7 @@ namespace ReserveCenter.API.Controllers.Auth
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier); // This finds the user's Id from JWT
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
             {
                 return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });

@@ -31,6 +31,7 @@ public class AuthService : IAuthService
     {
         var claims = new List<Claim>
         {
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),         // used in Controllers to identify user
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new(JwtRegisteredClaimNames.UniqueName, user.PhoneNumber),
             new(ClaimTypes.Role, role)
@@ -58,7 +59,7 @@ public class AuthService : IAuthService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    
+
     public async Task<TokenResponse> RegisterAsync(SignUpRequest request)
     {
         // Check phone number existance
@@ -280,7 +281,7 @@ public class AuthService : IAuthService
             s.RoleId == roleEntry.Key &&
             s.IsActive);
     }
-    
+
     // Also validate the org with the role. (not yet to be implemented)
     public Task<bool> ValidateUserAsync(int userId, string role, int? orgId)
     {
