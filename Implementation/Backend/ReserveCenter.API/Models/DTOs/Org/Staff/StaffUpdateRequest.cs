@@ -4,12 +4,16 @@ namespace ReserveCenter.API.Models.DTOs.Org.Staff
 {
     public class StaffUpdateRequest
     {
-        [Required(ErrorMessage = "شناسه کارمند الزامی است")]
-        public int StaffId { get; set; }
+        public int Id { get; set; }
+        [Required(ErrorMessage = "شماره موبایل الزامی است")]
+        public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "شناسه نقش الزامی است")]
         public int RoleId { get; set; }
 
-        public bool IsActive { get; set; }
+        [Required(ErrorMessage = "شناسه کسب و کار الزامی است")]
+        public int OrgId { get; set; }
+
+        public int ModifiedBy { get; set; }
     }
 }

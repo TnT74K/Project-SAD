@@ -3,6 +3,6 @@
     public class StaffListResponse
     {
         public int TotalCount { get; set; }            // تعداد کل کارکنان
-        public List<StaffDto> StaffList { get; set; }  // لیست کارکنان
+        public List<StaffListDto> StaffList { get; set; }  // لیست کارکنان
     }
 }
