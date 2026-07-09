@@ -27,9 +27,10 @@ builder.Services.AddDbContext<ReserveCenterDBContext>(options =>
 // ============================
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrgRepository, OrgRepository>();
+builder.Services.AddScoped<IUnregisteredOrgRepository, UnregisteredOrgRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 //builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-//builder.Services.AddScoped<IStaffRepository, StaffRepository>();
+builder.Services.AddScoped<IStaffListRepository, StaffListRepository>();
 //builder.Services.AddScoped<IAdRepository, AdRepository>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.AddScoped<ISuperAdminDashboardRepository, SuperAdminDashboardRepository>();
