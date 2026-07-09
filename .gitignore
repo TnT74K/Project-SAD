@@ -1,23 +1,55 @@
-# macOS 
+# ------------------------------
+# Operating Systems
+# ------------------------------
 .DS_Store
-/Local
-/Documentation/نگارش\ فنی
-*.alias
-
-# Drawio app files
-*.dtmp
-*.bkp
-
-# Windows
+.AppleDouble
+.LSOverride
 Thumbs.db
 Desktop.ini
+*.alias
 
-# VS Code
-/.vscode
-.vscode
+# ------------------------------
+# Local-only project files(all with the name 'Local')
+# ------------------------------
+Local/
 
-# Draw.io bkp files
+# ------------------------------
+# Visual Studio Code / Visual Studio
+# ------------------------------
+.vscode/
+.vs/
+
+# ------------------------------
+# Draw.io
+# ------------------------------
 *.bkp
 *.dtmp
-.gitignore
-.gitignore
+
+# ------------------------------
+# Microsoft Office temporary files
+# ------------------------------
+~$*
+
+# ------------------------------
+# .NET build artifacts
+# ------------------------------
+**/bin/
+**/obj/
+
+# Rider / Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ------------------------------
+# Logs
+# ------------------------------
+*.log
+
+# ------------------------------
+# Environment files
+# ------------------------------
+.env
+.env.*
+!.env.example
