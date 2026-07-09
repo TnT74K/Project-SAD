@@ -132,6 +132,7 @@ public class AuthService : IAuthService
         }
         return new LoginResponse
         {
+            UserId = user.Id,
             Roles = roles
         };
     }
