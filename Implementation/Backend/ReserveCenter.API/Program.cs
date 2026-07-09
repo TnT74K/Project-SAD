@@ -56,7 +56,7 @@ builder.Services.AddScoped<IStaffListService, StaffListService>();
 //builder.Services.AddScoped<IAdminAdService, AdminAdService>();
 //builder.Services.AddScoped<IAdminOrgService, AdminOrgService>();
 //builder.Services.AddScoped<IAdminUserService, AdminUserService>();
-//builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IPublicOrgProfileService, PublicOrgProfileService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IOrgProfileService, OrgProfileService>();
