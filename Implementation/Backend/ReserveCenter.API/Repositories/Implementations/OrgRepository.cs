@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.DatabaseModels;
+using ReserveCenter.API.Models.Enums;
 using ReserveCenter.API.Repositories.Interfaces;
 using System.Security.Cryptography;
 
@@ -43,6 +44,7 @@ public class OrgRepository : IOrgRepository
         org.IsPremier = false;
         org.SuccessAppointmentCount = 0;
         org.StarCount = 0;
+        org.VoterCount = 0;
         org.IsActive = true;
         org.IsBanned = false;
         org.IsDeleted = false;
@@ -99,6 +101,17 @@ public class OrgRepository : IOrgRepository
         return true;
     }
 
+    public async Task<List<Org>?> GetAllOrgWithDetailAsync()
+    {
+        return await _dbContext.Orgs
+                        .AsNoTracking()
+                        .Include(i => i.City)
+                        .Include(i => i.CreatedByNavigation)
+                        .Include(i => i.Orgtype)
+                        .OrderBy(org => org.Id)
+                        .ToListAsync();
+    }
+
     // برای برای گرفتن پروفایل کسب و کار مدنظر
     public async Task<Org?> GetByIdAsync(int orgId)
     {
@@ -117,6 +130,67 @@ public class OrgRepository : IOrgRepository
             .FirstOrDefaultAsync(org => org.Id == orgId && org.IsDeleted == false);
     }
 
+    public async Task<List<Org>?> SearchAsync(string searchPhrase)
+    {
+        return await _dbContext.Orgs
+                        .AsNoTracking()
+                        .Include(i => i.City)
+                        .Include(i => i.CreatedByNavigation)
+                        .Include(i => i.Orgtype)
+                        .Where(org => org.Name.Contains(searchPhrase) || org.Orgtype.Name.Contains(searchPhrase) || org.CreatedByNavigation.FirstName.Contains(searchPhrase) || org.CreatedByNavigation.LastName.Contains(searchPhrase))
+                        .OrderBy(org => org.Id)
+                        .ToListAsync();
+    }
+
+    public async Task<List<Org>?> SearchWithDetailAsync(string searchPhrase, CityEnum city = CityEnum.All, OrgTypeEnum orgType = OrgTypeEnum.All, bool upFourStar = false, bool up500Appointment = false, bool hasAppointment = false)
+    {
+        var query = _dbContext.Orgs
+            .AsNoTracking()
+            .Include(org => org.City)
+            .Include(org => org.CreatedByNavigation)
+            .Include(org => org.Orgtype)
+            .AsQueryable();
+
+        query = query.Where(org => !org.IsDeleted && org.IsActive && !org.IsBanned);
+
+        if (!string.IsNullOrWhiteSpace(searchPhrase))
+        {
+            query = query.Where(org =>
+                org.Name.Contains(searchPhrase) ||
+                org.Orgtype.Name.Contains(searchPhrase));
+        }
+
+        if (city != CityEnum.All)
+        {
+            query = query.Where(org => org.CityId == (int)city);
+        }
+
+        if (orgType != OrgTypeEnum.All)
+        {
+            query = query.Where(org => org.OrgtypeId == (int)orgType);
+        }
+
+        if (upFourStar)
+        {
+            query = query.Where(org => org.StarCount >= 4);
+        }
+
+        if (up500Appointment)
+        {
+            query = query.Where(org => org.SuccessAppointmentCount >= 500);
+        }
+
+        if (hasAppointment)
+        {
+            var today = DateOnly.FromDateTime(DateTime.Today);
+
+            query = query.Where(org => org.Appointments.Any(app =>
+                app.AppointmentDate >= today &&
+                app.IsReserved == false));
+        }
+
+        return await query.ToListAsync();
+    }
 
     public async Task<bool> UpdateAsync(Org org)
     {
@@ -143,6 +217,7 @@ public class OrgRepository : IOrgRepository
         existingOrg.IsPremier = org.IsPremier;
         existingOrg.SuccessAppointmentCount = org.SuccessAppointmentCount;
         existingOrg.StarCount = org.StarCount;
+        existingOrg.VoterCount = org.VoterCount;
         existingOrg.IsActive = org.IsActive;
         existingOrg.IsBanned = org.IsBanned;
         existingOrg.IsDeleted = org.IsDeleted;

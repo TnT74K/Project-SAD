@@ -18,8 +18,6 @@ public class UserRepository : IUserRepository
     {
         return await _dbContext.Users
                                .AsNoTracking()
-                               .Include(user => user.City)
-                               .Include(user => user.ModifiedByNavigation)
                                .FirstOrDefaultAsync(user => user.Id == userId && user.IsDeleted == false);
     }
 
@@ -88,5 +86,26 @@ public class UserRepository : IUserRepository
                         .AsNoTracking()
                         .OrderBy(user => user.Id)
                         .ToListAsync();
+    }
+
+    public async Task<User?> GetWithDetailByIdAsync(int userId)
+    {
+        return await _dbContext.Users
+                               .AsNoTracking()
+                               .Include(user => user.City)
+                               .Include(user => user.ModifiedByNavigation)
+                               .FirstOrDefaultAsync(user => user.Id == userId && user.IsDeleted == false);
+    }
+
+    public async Task<List<Appointment>?> GetAllUserAppointmentByUserIdAsync(int userId)
+    {
+        return await _dbContext.Appointments
+                               .AsNoTracking()
+                               .Include(i => i.AppointmentStatus)
+                               .Include(i => i.BookingUser)
+                               .Include(i => i.Org)
+                               .Include(i => i.Orgservice)
+                               .Where(appo => appo.BookingUserId == userId)
+                               .ToListAsync();
     }
 }

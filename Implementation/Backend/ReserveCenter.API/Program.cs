@@ -1,3 +1,4 @@
+// These are the registeries
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -5,10 +6,17 @@ using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Services.Interfaces;
 using ReserveCenter.API.Services.Implementations; // ✅ اضافه کن
 using System.Text;
-using ReserveCenter.API.Middlewares;
+using ReserveCenter.API.Middlewares; 
+// JWT configs
 using ReserveCenter.API.Models.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+// Database Connection checker
+using ReserveCenter.API;
+// Repositories
 using ReserveCenter.API.Repositories.Interfaces;
 using ReserveCenter.API.Repositories.Implementations;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,10 +35,13 @@ builder.Services.AddDbContext<ReserveCenterDBContext>(options =>
 // ============================
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrgRepository, OrgRepository>();
+builder.Services.AddScoped<IUnregisteredOrgRepository, UnregisteredOrgRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 //builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-//builder.Services.AddScoped<IStaffRepository, StaffRepository>();
+builder.Services.AddScoped<IStaffListRepository, StaffListRepository>();
 //builder.Services.AddScoped<IAdRepository, AdRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<ISuperAdminDashboardRepository, SuperAdminDashboardRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 // ============================
@@ -50,14 +61,43 @@ builder.Services.AddScoped<IPublicOrgProfileService, PublicOrgProfileService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IOrgProfileService, OrgProfileService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<IAppointmentListService, AppointmentListService>();
 
-// ============================
-// ✅ Register JWT settings
-// ============================
+// ========= JWT section ===========
+// Register JWT settings
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));
 
+// To tell ASP.NET "Whenever someone sends a JWT token, validate it using JWT settings"
+var jwtSettings = builder.Configuration
+    .GetSection("JwtSettings")
+    .Get<JwtSettings>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = jwtSettings!.Issuer,
+            ValidAudience = jwtSettings.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
+        };
+    });
+// =================
+
+// setup [Authorize] and [Authorize(Roles = Roles.Admin)]
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+DatabaseConnectionChecker.PrintConnectionStatus(connectionString);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -67,10 +107,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>(); // 1. اول خطاها
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-app.UseAuthorization(); // 2. بعد احراز هویت
+app.UseAuthentication(); // must come before authorizatoin
+app.UseAuthorization();
 
-app.MapControllers(); // 3. آخر کنترلرها
+app.MapControllers();
 
 app.Run();
