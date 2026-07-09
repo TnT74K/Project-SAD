@@ -72,7 +72,7 @@ namespace ReserveCenter.API.Services.Implementations
                 EndWorkTime = org.EndWorkTime.ToString("HH:mm"),
                 IsActive = org.IsActive,
                 IsPremier = org.IsPremier,
-                MinPrice = null // ❌ حذف شد
+
             }).ToList();
 
             return new SearchResultDto
