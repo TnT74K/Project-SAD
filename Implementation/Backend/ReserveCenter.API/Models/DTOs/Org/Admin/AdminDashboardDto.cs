@@ -1,24 +1,32 @@
-﻿using ReserveCenter.API.Models.DTOs.Org.Admin;
-
-namespace ReserveCenter.API.Models.DTOs.Admin
+﻿namespace ReserveCenter.API.Models.DTOs.Admin
 {
     public class AdminDashboardDto
     {
-        // آمار کلی سیستم
+        // تاریخ‌ها
+        public DateOnly TodayDate { get; set; }
+        public DateOnly YesterdayDate { get; set; }
+
+        // آمار کاربران
         public int TotalUsers { get; set; }                 // کل کاربران
+        public int BlockedUsers { get; set; }               // کاربران مسدود شده
+
+        // آمار سازمان‌ها
         public int TotalOrgs { get; set; }                  // کل سازمان‌ها
         public int PendingOrgs { get; set; }                // سازمان‌های در انتظار تأیید
-        public int TotalAppointments { get; set; }          // کل نوبت‌ها
-        public int TodayAppointments { get; set; }          // نوبت‌های امروز
-        public int TotalStaff { get; set; }                 // کل کارکنان
-        public int BlockedUsers { get; set; }               // کاربران مسدود شده
         public int DeletedOrgs { get; set; }                // سازمان‌های حذف شده
 
-        // نمودارها (دیتا برای چارت)
-        public List<ChartDataDto> DailyAppointments { get; set; }    // نوبت‌های روزانه (۷ روز اخیر)
-        public List<ChartDataDto> MonthlyAppointments { get; set; }   // نوبت‌های ماهانه
-        public List<ChartDataDto> OrgTypesStats { get; set; }         // آمار نوع سازمان‌ها
-        public List<ChartDataDto> UsersStats { get; set; }            // آمار کاربران
-        public List<ChartDataDto> RevenueStats { get; set; }          // آمار درآمد (اختیاری)
+        // آمار نوبت‌ها (کل سیستم)
+        public int TotalAppointments { get; set; }          // کل نوبت‌ها
+        public int TodayReserved { get; set; }              // رزروهای امروز
+        public int TodayPresenced { get; set; }             // حضور یافته
+        public int TodayCanceled { get; set; }              // لغو شده
+        public int TodayAbsented { get; set; }              // عدم حضور
+        public int TodayTotal { get; set; }                 // جمع کل امروز
+
+        // درصدها (نسبت به دیروز)
+        public double TodayReservedPercent { get; set; }
+        public double TodayPresencedPercent { get; set; }
+        public double TodayCanceledPercent { get; set; }
+        public double TodayAbsentedPercent { get; set; }
     }
 }
