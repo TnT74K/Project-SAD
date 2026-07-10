@@ -1,37 +1,29 @@
-// ========== متغیرهای عمومی و آدرس پایه API ==========
-const API_BASE_URL = 'http://localhost:5041/api';
+// ========== متغیرهای عمومی و آدرس پایه API (اصلاح پورت به 5000) ==========
+const API_BASE_URL = 'http://localhost:5000/api';
 
 let otpTimer = null;
-let fakeOtp = '';
-
-// متغیرهای ذخیره‌سازی موقت داده‌های احراز هویت بک‌آند
 let currentUserId = null;
 let userRolesResponse = []; 
-let selectedRoleBackendName = ''; // نام نقشی که به بک‌آند ارسال می‌شود
-let selectedOrgId = null;         // در صورت نیاز به شناسه سازمان/کسب‌وکار
+let selectedRoleBackendName = ''; 
+let selectedOrgId = null;         
 
 // ========== نگاشت نقش‌های بک‌آند به المان‌های فرانت‌آند ==========
-// این آبجکت کمک می‌کند تا اگر بک‌آند نام نقش را انگلیسی یا فارسی فرستاد، فرانت‌آند گیج نشود.
 const roleMap = {
     'مشتری': { label: 'مشتری', backend: 'مشتری' },
     'Customer': { label: 'مشتری', backend: 'Customer' },
-    
     'کارمند': { label: 'کارمند کسب‌وکار', backend: 'کارمند' },
     'Staff': { label: 'کارمند کسب‌وکار', backend: 'Staff' },
-    
     'پشتیبان': { label: 'پشتیبان', backend: 'پشتیبان' },
     'Support': { label: 'پشتیبان', backend: 'Support' },
-    
     'مدیر کسب‌وکار': { label: 'مدیر کسب‌وکار', backend: 'مدیر کسب‌وکار' },
     'BusinessManager': { label: 'مدیر کسب‌وکار', backend: 'BusinessManager' },
     'Manager': { label: 'مدیر کسب‌وکار', backend: 'Manager' },
-    
     'سوپر ادمین': { label: 'مدیر ارشد سیستم', backend: 'سوپر ادمین' },
     'SuperAdmin': { label: 'مدیر ارشد سیستم', backend: 'SuperAdmin' },
     'Admin': { label: 'مدیر ارشد سیستم', backend: 'Admin' }
 };
 
-// ========== توابع کمکی ==========
+// ========== توابع کمکی UI ==========
 function validatePhone(phone) {
     return /^9[0-9]{9}$/.test(phone);
 }
@@ -45,6 +37,7 @@ function showMsg(id, msg, type) {
 }
 
 function setButtonLoading(btn, isLoading) {
+    if (!btn) return;
     if (isLoading) {
         btn.classList.add('loading');
         btn.disabled = true;
@@ -54,19 +47,178 @@ function setButtonLoading(btn, isLoading) {
     }
 }
 
-function toPersianDigits(str) {
-    const map = { '0': '۰', '1': '۱', '2': '۲', '3': '۳', '4': '۴', '5': '۵', '6': '۶', '7': '۷', '8': '۸', '9': '۹', ':': ':' };
-    return str.split('').map(c => map[c] || c).join('');
+function switchTab(type) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+    if(type === 'password') {
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('panel-password').classList.add('active');
+    } else {
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('panel-otp').classList.add('active');
+    }
 }
 
-// ========== مودال مدیریت نقش‌ها ==========
+function togglePass(id, el) {
+    const input = document.getElementById(id);
+    if(input.type === 'password') {
+        input.type = 'text';
+        el.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        el.textContent = '👁';
+    }
+}
+
+// ========== ۱. عملیات ورود با رمز عبور ==========
+function submitPassword() {
+    const phoneInput = document.getElementById('pw-phone').value.trim();
+    const passwordInput = document.getElementById('pw-password').value.trim();
+    const btn = document.querySelector('#panel-password .btn-primary');
+
+    if (!validatePhone(phoneInput)) {
+        showMsg('pw-phone-msg', 'شماره تلفن معتبر نیست (نمونه: 9123456789)', 'error');
+        return;
+    }
+    showMsg('pw-phone-msg', '', '');
+
+    if (!passwordInput) {
+        showMsg('pw-pass-msg', 'رمز عبور را وارد کنید', 'error');
+        return;
+    }
+    showMsg('pw-pass-msg', '', '');
+
+    setButtonLoading(btn, true);
+    const formattedPhone = '0' + phoneInput; // تبدیل به فرمت استاندارد 09123456789
+
+    fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phoneNumber: formattedPhone, password: passwordInput })
+    })
+    .then(res => {
+        if (!res.ok) return res.json().then(err => { throw err; });
+        return res.json();
+    })
+    .then(data => {
+        setButtonLoading(btn, false);
+        if (data && data.isSuccess) {
+            // چون در سیستم شما بعد از لاگین باید نقش انتخاب شود:
+            currentUserId = data.userId || 1; // ثبت موقت آیدی کاربر
+            if (data.roles && data.roles.length > 0) {
+                openRoleModal(data.roles);
+            } else {
+                openRoleModal([]); // باز کردن مودال با نقش پیش‌فرض مشتری
+            }
+        } else {
+            showMsg('pw-pass-msg', data.message || 'ورود ناموفق بود', 'error');
+        }
+    })
+    .catch(err => {
+        setButtonLoading(btn, false);
+        showMsg('pw-pass-msg', err.message || 'خطا در ارتباط با سرور بک‌آند', 'error');
+    });
+}
+
+// ========== ۲. عملیات ورود با رمز یکبار مصرف (OTP) ==========
+function sendOtp() {
+    const phoneInput = document.getElementById('otp-phone').value.trim();
+    const btn = document.querySelector('#otp-step1 .btn-primary');
+
+    if (!validatePhone(phoneInput)) {
+        showMsg('otp-phone-msg', 'شماره تلفن معتبر نیست', 'error');
+        return;
+    }
+    showMsg('otp-phone-msg', '', '');
+
+    setButtonLoading(btn, true);
+    const formattedPhone = '0' + phoneInput;
+
+    fetch(`${API_BASE_URL}/auth/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phoneNumber: formattedPhone })
+    })
+    .then(res => { if (!res.ok) throw new Error(); return res.json(); })
+    .then(data => {
+        setButtonLoading(btn, false);
+        document.getElementById('phone-display').textContent = formattedPhone;
+        document.getElementById('otp-step1').classList.remove('active');
+        document.getElementById('otp-step2').classList.add('active');
+        startOtpTimer();
+    })
+    .catch(() => {
+        setButtonLoading(btn, false);
+        showMsg('otp-phone-msg', 'کاربری با این شماره یافت نشد یا خطا در سرور', 'error');
+    });
+}
+
+function verifyOtp() {
+    const phoneInput = document.getElementById('otp-phone').value.trim();
+    const btn = document.querySelector('#otp-step2 .btn-primary');
+    
+    let otpCode = '';
+    for (let i = 0; i < 5; i++) {
+        otpCode += document.getElementById(`otp${i}`).value.trim();
+    }
+
+    if (otpCode.length < 5) {
+        showMsg('otp-code-msg', 'لطفاً کد ۵ رقمی را کامل وارد کنید', 'error');
+        return;
+    }
+
+    setButtonLoading(btn, true);
+    const formattedPhone = '0' + phoneInput;
+
+    fetch(`${API_BASE_URL}/auth/verify-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phoneNumber: formattedPhone, otpCode: otpCode })
+    })
+    .then(res => { if (!res.ok) throw new Error(); return res.json(); })
+    .then(data => {
+        setButtonLoading(btn, false);
+        if (data.isSuccess && data.token) {
+            localStorage.setItem('authToken', data.token);
+            window.location.href = 'home_page.html';
+        }
+    })
+    .catch(() => {
+        setButtonLoading(btn, false);
+        showMsg('otp-code-msg', 'کد تایید اشتباه است یا منقضی شده', 'error');
+    });
+}
+
+function startOtpTimer() {
+    let duration = 120;
+    const display = document.getElementById('countdown');
+    clearInterval(otpTimer);
+    otpTimer = setInterval(() => {
+        let minutes = Math.floor(duration / 60);
+        let seconds = duration % 60;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        display.textContent = minutes + ":" + seconds;
+        if (--duration < 0) {
+            clearInterval(otpTimer);
+            document.getElementById('resend-btn').disabled = false;
+        }
+    }, 1000);
+}
+
+function backToStep1() {
+    document.getElementById('otp-step2').classList.remove('active');
+    document.getElementById('otp-step1').classList.add('active');
+    clearInterval(otpTimer);
+}
+
+// ========== ۳. مودال مدیریت و تایید نقش کاربری ==========
 function openRoleModal(rolesList) {
     selectedRoleBackendName = '';
     selectedOrgId = null;
     
     document.querySelectorAll('.role-card').forEach(c => {
         c.classList.remove('selected');
-        // به صورت پیش‌فرض تمام کارت‌ها را غیرفعال یا کم‌رنگ می‌کنیم تا فقط نقش‌های واقعی کاربر فعال شوند
         c.style.opacity = '0.3';
         c.style.pointerEvents = 'none';
     });
@@ -74,30 +226,21 @@ function openRoleModal(rolesList) {
     document.getElementById('modal-confirm-btn').disabled = true;
     document.getElementById('role-modal').style.display = 'flex';
 
-    // فعال‌سازی کارت‌ها بر اساس پاسخ واقعی بک‌آند
     if (rolesList && rolesList.length > 0) {
         rolesList.forEach(userRole => {
-            // فرض می‌کنیم رول از بک‌آند پروپرتی به نام roleName یا name دارد
             const bName = userRole.roleName || userRole.name || userRole; 
             
-            // پیدا کردن کارت مربوطه در HTML بر اساس متن داخل آن
             document.querySelectorAll('.role-card').forEach(card => {
                 const label = card.querySelector('.role-label').textContent.trim();
-                
-                // اگر نقش دریافتی با نگاشت ما همخوانی داشت، کارت را فعال کن
                 if (roleMap[bName] && roleMap[bName].label === label) {
                     card.style.opacity = '1';
                     card.style.pointerEvents = 'auto';
-                    // ذخیره مشخصات فرعی مثل orgId در دیتاست المان در صورت وجود
-                    if (userRole.orgId) {
-                        card.dataset.orgId = userRole.orgId;
-                    }
+                    if (userRole.orgId) card.dataset.orgId = userRole.orgId;
                     card.dataset.backendName = bName; 
                 }
             });
         });
     } else {
-        // اگر نقشی برنگشت، جهت بالا نیامدن بن‌بست حداقل نقش مشتری عمومی را باز می‌گذاریم
         document.querySelectorAll('.role-card').forEach(c => {
             c.style.opacity = '1';
             c.style.pointerEvents = 'auto';
@@ -109,51 +252,49 @@ function selectRole(el, roleLabel) {
     document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
     el.classList.add('selected');
     
-    // استخراج نام فنی نقش برای ارسال به متد [HttpPost("select-role")]
     selectedRoleBackendName = el.dataset.backendName || roleLabel;
     selectedOrgId = el.dataset.orgId ? parseInt(el.dataset.orgId) : null;
     
     document.getElementById('modal-confirm-btn').disabled = false;
 }
 
-// ارسال نهایی نقش انتخاب شده به اکشن کنترلر دات‌نت
 function confirmRole() {
-    if (!selectedRoleBackendName || !currentUserId) return;
+    if (!selectedRoleBackendName) return;
     
     const btn = document.getElementById('modal-confirm-btn');
     setButtonLoading(btn, true);
 
     const requestBody = {
-        userId: currentUserId,
+        userId: currentUserId || 1,
         roleName: selectedRoleBackendName,
         orgId: selectedOrgId
     };
 
     fetch(`${API_BASE_URL}/auth/select-role`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('خطا در تایید نقش کاربری');
-        }
+        if (!response.ok) throw new Error('خطا در تایید نقش کاربری');
         return response.json();
     })
     .then(data => {
         setButtonLoading(btn, false);
-        
-        // ذخیره توکن نهایی JWT صادر شده از دات‌نت در حافظه مرورگر
-        if (data && data.token) {
-            localStorage.setItem('authToken', data.token);
-        } else if (data && data.tokenString) {
-            localStorage.setItem('authToken', data.tokenString);
+        if (data && (data.token || data.tokenString)) {
+            localStorage.setItem('authToken', data.token || data.tokenString);
         }
-        
-        // هدایت کاربر به صفحه اصلی پنل رزرو سنتر
         window.location.href = 'home_page.html';
     })
     .catch(error => {
-        set
+        setButtonLoading(btn, false);
+        alert(error.message);
+    });
+}
+
+// رفتن خودکار به باکس بعدی در وارد کردن کد OTP
+document.querySelectorAll('.otp-boxes input').forEach((input, index, inputs) => {
+    input.addEventListener('input', () => {
+        if (input.value.length === 1 && index < inputs.length - 1) inputs[index + 1].focus();
+    });
+});
