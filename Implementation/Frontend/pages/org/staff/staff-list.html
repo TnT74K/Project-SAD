@@ -1,141 +1,143 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
 
-<!-- تنظیم encoding و ریسپانسیو -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- تنظیم encoding و ریسپانسیو -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>مدیریت کارمندان</title>
+  <title>مدیریت کارمندان</title>
 
-<!-- اتصال فونت Vazirmatn -->
+  <!-- اتصال فونت Vazirmatn -->
 
 
-<!-- اتصال فایل CSS -->
- <link rel="stylesheet" href="/components/fonts.css">
-<link rel="stylesheet" href="staff-list.css">
+  <!-- اتصال فایل CSS -->
+  <link rel="stylesheet" href="/components/fonts.css">
+  <link rel="stylesheet" href="staff-list.css">
 
 </head>
 
 <body>
 
-<div id="header-placeholder"></div>
+  <div id="header-placeholder"></div>
 
-<main>
+  <main>
 
-<div class="container">
+    <div class="container">
 
-<div class="card">
+      <div class="card">
 
-<div class="page-title">مدیریت کارمندان</div>
+        <div class="page-title">مدیریت کارمندان</div>
 
-<!-- تولبار شامل جستجو و دکمه ثبت -->
-<div class="toolbar">
+        <!-- تولبار شامل جستجو و دکمه ثبت -->
+        <div class="toolbar">
 
-<!-- بخش جستجو -->
-<div class="search-box">
+          <!-- بخش جستجو -->
+          <div class="search-box">
 
-<!-- ورودی جستجو -->
-<input id="searchInput" placeholder="جستجو...">
+            <!-- ورودی جستجو -->
+            <input id="searchInput" placeholder="جستجو...">
 
-<!-- دکمه جستجو -->
-<button class="btn-primary-staff" onclick="searchUser()">جستجو</button>
+            <!-- دکمه جستجو -->
+            <button class="btn-primary-staff" onclick="searchUser()">جستجو</button>
 
-<!-- دکمه نمایش همه کاربران -->
-<button class="btn-warning-staff" onclick="showAllUsers()">نمایش همه</button>
+            <!-- دکمه نمایش همه کاربران -->
+            <button class="btn-warning-staff" onclick="showAllUsers()">نمایش همه</button>
 
-</div>
+          </div>
 
-<!-- دکمه ثبت کارمند -->
-<button class="btn-primary-staff" onclick="openModal()">ثبت کارمند</button>
+          <!-- دکمه ثبت کارمند -->
+          <button class="btn-primary-staff" onclick="openModal()">ثبت کارمند</button>
 
-</div>
+        </div>
 
-<!-- جدول نمایش کاربران -->
-<table>
+        <!-- جدول نمایش کاربران -->
+        <table>
 
-<thead>
-<tr>
-<th>نام</th>
-<th>نام خانوادگی</th>
-<th>شماره موبايل</th>
-<th>نقش</th>
-<th>وضعیت</th>
-<th>عملیات</th>
-</tr>
-</thead>
+          <thead>
+            <tr>
+              <th>نام</th>
+              <th>نام خانوادگی</th>
+              <th>شماره موبايل</th>
+              <th>نقش</th>
+              <th>وضعیت</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
 
-<!-- بدنه جدول که توسط JS پر می‌شود -->
-<tbody id="userTable"></tbody>
+          <!-- بدنه جدول که توسط JS پر می‌شود -->
+          <tbody id="userTable"></tbody>
 
-</table>
+        </table>
 
-</div>
+      </div>
 
-</div>
-
-
-<!-- مودال ثبت / ویرایش کارمند -->
-<div class="modal" id="userModal">
-
-<div class="modal-content">
-
-<!-- عنوان مودال -->
-<div class="modal-header">ثبت / ویرایش کارمند</div>
-
-<!-- فرم اطلاعات کارمند -->
-<div class="form-grid">
-
-<!-- فیلد رمز با دکمه نمایش -->
-<div class="phone-wrap">
-<input id="phoneNumber" placeholder="شماره موبايل">
-<button id="btnPhoneNumber" class="show-pass" onclick="ChangeColor()">📋</button>
-</div>
-
-<!-- انتخاب نقش -->
-<select id="role">
-<option>پشتيبان کسب و کار</option>
-<option>كارمند حضوری</option>
-</select>
-
-</div>
-
-<!-- دکمه‌های پایین مودال -->
-<div class="modal-actions">
-
-<button class="btn-primary-staff" onclick="saveUser()">ثبت</button>
-<button onclick="closeModal()">انصراف</button>
-
-</div>
-
-</div>
-</div>
-
-<div class="modal" id="confirmModal">
-  <div class="modal-content">
-    <h3 id="confirmTitle">تأیید عملیات</h3>
-    <p id="confirmText"></p>
-
-    <div class="modal-actions">
-      <button id="confirmBtn" onclick="confirmAction()">تأیید</button>
-      <button onclick="closeConfirmModal()">انصراف</button>
     </div>
-  </div>
-</div>
-
-</div>
-</div>
-
-</main>
-
-<div id="footer-placeholder"></div>
 
 
-<!-- اتصال فایل جاوااسکریپت -->
-<script src="staff-list.js"></script>
-<script src="/components/load-header.js"></script>
-<script src="/components/header.js"></script>
-<script src="/components/load-footer.js"></script>
+    <!-- مودال ثبت / ویرایش کارمند -->
+    <div class="modal" id="userModal">
+
+      <div class="modal-content">
+
+        <!-- عنوان مودال -->
+        <div class="modal-header">ثبت / ویرایش کارمند</div>
+
+        <!-- فرم اطلاعات کارمند -->
+        <div class="form-grid">
+
+          <!-- فیلد رمز با دکمه نمایش -->
+          <div class="phone-wrap">
+            <input id="phoneNumber" placeholder="شماره موبايل">
+            <button id="btnPhoneNumber" class="show-pass" onclick="ChangeColor()">📋</button>
+          </div>
+
+          <!-- انتخاب نقش -->
+          <select id="role">
+            <option>پشتيبان کسب و کار</option>
+            <option>كارمند حضوری</option>
+          </select>
+
+        </div>
+
+        <!-- دکمه‌های پایین مودال -->
+        <div class="modal-actions">
+
+          <button class="btn-primary-staff" onclick="saveUser()">ثبت</button>
+          <button onclick="closeModal()">انصراف</button>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal" id="confirmModal">
+      <div class="modal-content">
+        <h3 id="confirmTitle">تأیید عملیات</h3>
+        <p id="confirmText"></p>
+
+        <div class="modal-actions">
+          <button id="confirmBtn" onclick="confirmAction()">تأیید</button>
+          <button onclick="closeConfirmModal()">انصراف</button>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    </div>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+
+  <!-- اتصال فایل جاوااسکریپت -->
+  <script src="staff-list.js"></script>
+  <script src="/components/load-header.js"></script>
+  <script src="/components/header.js"></script>
+  <script src="/components/load-footer.js"></script>
 
 </body>
+
 </html>

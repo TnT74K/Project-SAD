@@ -98,9 +98,9 @@ const businesses = [
    false = خاموش، true = روشن (فعال)
    ============================================= */
 const activeChips = {
-  rating:  false,
+  rating: false,
   success: false,
-  open:    false
+  open: false
 };
 
 /*
@@ -121,26 +121,26 @@ function toggleChip(key) {
    ============================================= */
 function applyFilters() {
   const city = document.getElementById('filterCity').value;
-  const cat  = document.getElementById('filterCat').value;
+  const cat = document.getElementById('filterCat').value;
   const sort = document.getElementById('sortBy').value;
 
   /* اول فیلتر می‌کنیم */
   let list = businesses.filter(b => {
-    if (city && b.city   !== city) return false;
-    if (cat  && b.catKey !== cat)  return false;
+    if (city && b.city !== city) return false;
+    if (cat && b.catKey !== cat) return false;
 
     /* چیپ‌های سه‌گانه */
-    if (activeChips.rating  && b.rating  < 4)      return false;  /* زیر ۴ ستاره حذف */
-    if (activeChips.success && b.success < 500)    return false;  /* کمتر از ۵۰۰ نوبت حذف */
-    if (activeChips.open    && b.status !== 'open') return false;  /* فقط کسانی که نوبت دارن */
+    if (activeChips.rating && b.rating < 4) return false;  /* زیر ۴ ستاره حذف */
+    if (activeChips.success && b.success < 500) return false;  /* کمتر از ۵۰۰ نوبت حذف */
+    if (activeChips.open && b.status !== 'open') return false;  /* فقط کسانی که نوبت دارن */
 
     return true;
   });
 
   /* بعد مرتب می‌کنیم */
-  if (sort === 'rating')  list.sort((a, b) => b.rating  - a.rating);
+  if (sort === 'rating') list.sort((a, b) => b.rating - a.rating);
   if (sort === 'success') list.sort((a, b) => b.success - a.success);
-  if (sort === 'newest')  list.sort((a, b) => b.id      - a.id);
+  if (sort === 'newest') list.sort((a, b) => b.id - a.id);
 
   /*
     مهم: بعد از هر سورتی، کسب‌وکارهای برتر (premium)
@@ -153,8 +153,8 @@ function applyFilters() {
 
   /* آپدیت متن‌های بالای نتایج */
   const q = document.getElementById('searchInput').value;
-  document.getElementById('query-text').textContent    = q || 'همه';
-  document.getElementById('result-count').textContent  = toFa(list.length) + ' کسب‌وکار یافت شد';
+  document.getElementById('query-text').textContent = q || 'همه';
+  document.getElementById('result-count').textContent = toFa(list.length) + ' کسب‌وکار یافت شد';
 }
 
 
@@ -238,7 +238,7 @@ function renderCards(list) {
    وقتی کاربر × رو می‌زنه
    ============================================= */
 function clearSearch() {
-  document.getElementById('searchInput').value      = '';
+  document.getElementById('searchInput').value = '';
   document.getElementById('query-text').textContent = 'همه';
   applyFilters();
 }
