@@ -7,7 +7,7 @@
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsBlocked { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public bool IsDeleted { get; set; } // used for internal logic
+        public DateTime CreatedDate { get; set; } // to use for future frontend UI
     }
 }

@@ -6,7 +6,7 @@ using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Services.Interfaces;
 using ReserveCenter.API.Services.Implementations;
 using System.Text;
-using ReserveCenter.API.Middlewares; 
+using ReserveCenter.API.Middlewares;
 // JWT configs
 using ReserveCenter.API.Models.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -97,7 +97,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
-
+// ============================
+// Database connection checker
+// ============================
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 DatabaseConnectionChecker.PrintConnectionStatus(connectionString);
 
