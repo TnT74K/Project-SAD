@@ -53,3 +53,8 @@ Local/
 .env
 .env.*
 !.env.example
+
+# ------------------------------
+# Local backend configs
+# ------------------------------
+appsettings.Development.json
