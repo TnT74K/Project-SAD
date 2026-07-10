@@ -8,6 +8,8 @@ public class AppointmentRequestDto
 
     public int UserId { get; set; }
 
+    public int Price { get; set; }
+
     public DateOnly AppointmentDate { get; set; }
 
     public TimeOnly AppointmentTime { get; set; }

@@ -10,11 +10,9 @@ namespace ReserveCenter.API.Repositories.Implementations
     public class StaffListRepository : IStaffListRepository
     {
         private readonly ReserveCenterDBContext _dbContext;
-        private readonly IStaffListRepository _staffListRepository;
 
-        public StaffListRepository(IStaffListRepository staffListRepository, ReserveCenterDBContext dbContext)
+        public StaffListRepository(ReserveCenterDBContext dbContext)
         {
-            _staffListRepository = staffListRepository;
             _dbContext = dbContext;
         }
 

@@ -217,7 +217,7 @@ namespace ReserveCenter.API.Services.Implementations
 
             return appointment.OrgId == orgId;
         }
-            public async Task<AppointmentDto> CreateAppointmentAsync(int orgId, AppointmentCreateRequest request)
+            public async Task<AppointmentDto> CreateAppointmentAsync(int orgId, AppointmentCreateRequest request, int modifiedBy)
         {
             try
             {
@@ -274,6 +274,8 @@ namespace ReserveCenter.API.Services.Implementations
 
                 // 8. افزایش تعداد نوبت‌های موفق سازمان
                 org.SuccessAppointmentCount += 1;
+
+                org.ModifiedBy = modifiedBy;
                 await _orgRepository.UpdateAsync(org);
 
                 // 9. برگرداندن نتیجه

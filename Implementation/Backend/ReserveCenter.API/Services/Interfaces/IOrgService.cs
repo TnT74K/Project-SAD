@@ -16,5 +16,6 @@ namespace ReserveCenter.API.Services.Interfaces
         Task<bool> IsOrgOwnerAsync(int orgId, int userId);
         Task<bool> IsOrgExistAsync(int orgId);
         Task<Org?> GetOrgByIdAsync(int orgId); // برای استفاده سایر سرویس‌ها
+        Task<List<Org>?> GetAllOrgWithDetailAsync();
     }
 }

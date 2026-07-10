@@ -44,9 +44,9 @@ public class UserRepository : IUserRepository
         existingUser.PhoneNumber = user.PhoneNumber;
         existingUser.NationalCode = user.NationalCode;
         existingUser.CityId = user.CityId;
-        //TODO : باید آی دی کاربری که داره این رو تغییر می ده پیدا کینم
-        //org.ModifiedBy = ??
-        //org.ModifiedDate = ??
+        existingUser.ModifiedBy = user.ModifiedBy;
+        existingUser.ModifiedDate = DateTime.Now;
+
 
         await _dbContext.SaveChangesAsync();
         return true;
