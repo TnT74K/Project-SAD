@@ -1,16 +1,17 @@
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+// Database Connection checker
+using ReserveCenter.API;
 using ReserveCenter.API.DatabaseModels;
-using ReserveCenter.API.Services.Interfaces;
-using System.Text;
 using ReserveCenter.API.Middlewares; 
 // JWT configs
 using ReserveCenter.API.Models.Settings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
-// Database Connection checker
-using ReserveCenter.API;
+using ReserveCenter.API.Services.Interfaces;
+using System.Reflection;
+using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -93,7 +94,19 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication(); // must come before authorizatoin
 app.UseAuthorization();
+try
+{
+    app.MapControllers();
+}
+catch (ReflectionTypeLoadException ex)
+{
+    foreach (var loaderException in ex.LoaderExceptions)
+    {
+        Console.WriteLine("❌ ارور پکیج: " + loaderException?.Message);
+    }
+    throw;
+}
 
-app.MapControllers();
 
 app.Run();
+

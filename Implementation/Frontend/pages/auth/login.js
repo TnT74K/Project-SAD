@@ -1,248 +1,159 @@
-        // ========== متغیرهای عمومی ==========
-        let otpTimer = null;
-        let fakeOtp = '';
-        let selectedRole = '';
+// ========== متغیرهای عمومی و آدرس پایه API ==========
+const API_BASE_URL = 'http://localhost:5041/api';
 
-        // ========== توابع کمکی ==========
-        function validatePhone(phone) {
-            return /^9[0-9]{9}$/.test(phone);
-        }
+let otpTimer = null;
+let fakeOtp = '';
 
-        function showMsg(id, msg, type) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.textContent = msg;
-                el.className = 'status-msg ' + type;
-            }
-        }
+// متغیرهای ذخیره‌سازی موقت داده‌های احراز هویت بک‌آند
+let currentUserId = null;
+let userRolesResponse = []; 
+let selectedRoleBackendName = ''; // نام نقشی که به بک‌آند ارسال می‌شود
+let selectedOrgId = null;         // در صورت نیاز به شناسه سازمان/کسب‌وکار
 
-        function setButtonLoading(btn, isLoading) {
-            if (isLoading) {
-                btn.classList.add('loading');
-                btn.disabled = true;
-            } else {
-                btn.classList.remove('loading');
-                btn.disabled = false;
-            }
-        }
+// ========== نگاشت نقش‌های بک‌آند به المان‌های فرانت‌آند ==========
+// این آبجکت کمک می‌کند تا اگر بک‌آند نام نقش را انگلیسی یا فارسی فرستاد، فرانت‌آند گیج نشود.
+const roleMap = {
+    'مشتری': { label: 'مشتری', backend: 'مشتری' },
+    'Customer': { label: 'مشتری', backend: 'Customer' },
+    
+    'کارمند': { label: 'کارمند کسب‌وکار', backend: 'کارمند' },
+    'Staff': { label: 'کارمند کسب‌وکار', backend: 'Staff' },
+    
+    'پشتیبان': { label: 'پشتیبان', backend: 'پشتیبان' },
+    'Support': { label: 'پشتیبان', backend: 'Support' },
+    
+    'مدیر کسب‌وکار': { label: 'مدیر کسب‌وکار', backend: 'مدیر کسب‌وکار' },
+    'BusinessManager': { label: 'مدیر کسب‌وکار', backend: 'BusinessManager' },
+    'Manager': { label: 'مدیر کسب‌وکار', backend: 'Manager' },
+    
+    'سوپر ادمین': { label: 'مدیر ارشد سیستم', backend: 'سوپر ادمین' },
+    'SuperAdmin': { label: 'مدیر ارشد سیستم', backend: 'SuperAdmin' },
+    'Admin': { label: 'مدیر ارشد سیستم', backend: 'Admin' }
+};
 
-        function toPersianDigits(str) {
-            const map = { '0': '۰', '1': '۱', '2': '۲', '3': '۳', '4': '۴', '5': '۵', '6': '۶', '7': '۷', '8': '۸', '9': '۹', ':': ':' };
-            return str.split('').map(c => map[c] || c).join('');
-        }
+// ========== توابع کمکی ==========
+function validatePhone(phone) {
+    return /^9[0-9]{9}$/.test(phone);
+}
 
-        // ========== مودال نقش ==========
-        function openRoleModal() {
-            selectedRole = '';
-            document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
-            document.getElementById('modal-confirm-btn').disabled = true;
-            document.getElementById('role-modal').style.display = 'flex';
-        }
+function showMsg(id, msg, type) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.textContent = msg;
+        el.className = 'status-msg ' + type;
+    }
+}
 
-        function selectRole(el, role) {
-            document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedRole = role;
-            document.getElementById('modal-confirm-btn').disabled = false;
-        }
+function setButtonLoading(btn, isLoading) {
+    if (isLoading) {
+        btn.classList.add('loading');
+        btn.disabled = true;
+    } else {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+    }
+}
 
-        function confirmRole() {
-            if (!selectedRole) return;
-            const btn = document.getElementById('modal-confirm-btn');
-            setButtonLoading(btn, true);
-            setTimeout(() => {
-                window.location.href = 'home_page.html';
-            }, 800);
-        }
+function toPersianDigits(str) {
+    const map = { '0': '۰', '1': '۱', '2': '۲', '3': '۳', '4': '۴', '5': '۵', '6': '۶', '7': '۷', '8': '۸', '9': '۹', ':': ':' };
+    return str.split('').map(c => map[c] || c).join('');
+}
 
-        // ========== تب‌ها ==========
-        function switchTab(tab) {
-            const panels = ['panel-password', 'panel-otp'];
-            const btns = document.querySelectorAll('.tab-btn');
+// ========== مودال مدیریت نقش‌ها ==========
+function openRoleModal(rolesList) {
+    selectedRoleBackendName = '';
+    selectedOrgId = null;
+    
+    document.querySelectorAll('.role-card').forEach(c => {
+        c.classList.remove('selected');
+        // به صورت پیش‌فرض تمام کارت‌ها را غیرفعال یا کم‌رنگ می‌کنیم تا فقط نقش‌های واقعی کاربر فعال شوند
+        c.style.opacity = '0.3';
+        c.style.pointerEvents = 'none';
+    });
+    
+    document.getElementById('modal-confirm-btn').disabled = true;
+    document.getElementById('role-modal').style.display = 'flex';
+
+    // فعال‌سازی کارت‌ها بر اساس پاسخ واقعی بک‌آند
+    if (rolesList && rolesList.length > 0) {
+        rolesList.forEach(userRole => {
+            // فرض می‌کنیم رول از بک‌آند پروپرتی به نام roleName یا name دارد
+            const bName = userRole.roleName || userRole.name || userRole; 
             
-            btns.forEach((btn, i) => {
-                btn.classList.toggle('active', (i === 0 && tab === 'password') || (i === 1 && tab === 'otp'));
-            });
-            
-            document.getElementById('panel-password').classList.toggle('active', tab === 'password');
-            document.getElementById('panel-otp').classList.toggle('active', tab === 'otp');
-        }
-
-        // ========== نمایش/مخفی رمز ==========
-        function togglePass(id, icon) {
-            const el = document.getElementById(id);
-            el.type = el.type === 'password' ? 'text' : 'password';
-            icon.textContent = el.type === 'password' ? '👁' : '🙈';
-        }
-
-        // ========== ورود با رمز عبور ==========
-        function submitPassword() {
-            const phone = document.getElementById('pw-phone').value.trim();
-            const password = document.getElementById('pw-password').value.trim();
-            let valid = true;
-
-            if (!validatePhone(phone)) {
-                showMsg('pw-phone-msg', 'شماره موبایل معتبر نیست (مثلاً: 9123456789)', 'error');
-                document.getElementById('pw-phone').classList.add('error');
-                valid = false;
-            } else {
-                showMsg('pw-phone-msg', '', '');
-                document.getElementById('pw-phone').classList.remove('error');
-            }
-
-            if (password.length < 4) {
-                showMsg('pw-pass-msg', 'رمز عبور نمی‌تواند خالی باشد', 'error');
-                valid = false;
-            } else {
-                showMsg('pw-pass-msg', '', '');
-            }
-
-            if (!valid) return;
-
-            const btn = document.querySelector('#panel-password .btn-primary');
-            setButtonLoading(btn, true);
-
-            setTimeout(() => {
-                setButtonLoading(btn, false);
-                openRoleModal();
-            }, 1500);
-        }
-
-        // ========== OTP ==========
-        function sendOtp() {
-            const phone = document.getElementById('otp-phone').value.trim();
-
-            if (!validatePhone(phone)) {
-                showMsg('otp-phone-msg', 'شماره موبایل معتبر نیست (مثلاً: 9123456789)', 'error');
-                return;
-            }
-
-            showMsg('otp-phone-msg', '', '');
-
-            const btn = document.querySelector('#otp-step1 .btn-primary');
-            setButtonLoading(btn, true);
-
-            setTimeout(() => {
-                setButtonLoading(btn, false);
+            // پیدا کردن کارت مربوطه در HTML بر اساس متن داخل آن
+            document.querySelectorAll('.role-card').forEach(card => {
+                const label = card.querySelector('.role-label').textContent.trim();
                 
-                fakeOtp = Math.floor(10000 + Math.random() * 90000).toString();
-                console.log('کد OTP (فقط برای تست):', fakeOtp);
-
-                document.getElementById('phone-display').textContent = '+98' + phone;
-                document.getElementById('otp-step1').classList.remove('active');
-                document.getElementById('otp-step2').classList.add('active');
-                
-                startTimer(120);
-                document.getElementById('otp0').focus();
-            }, 1200);
-        }
-
-        function startTimer(seconds) {
-            clearInterval(otpTimer);
-            document.getElementById('resend-btn').disabled = true;
-            let remaining = seconds;
-
-            function update() {
-                const m = String(Math.floor(remaining / 60)).padStart(2, '0');
-                const s = String(remaining % 60).padStart(2, '0');
-                const timerEl = document.getElementById('countdown');
-                timerEl.textContent = toPersianDigits(m + ':' + s);
-                timerEl.classList.toggle('urgent', remaining <= 20);
-                
-                if (remaining <= 0) {
-                    clearInterval(otpTimer);
-                    document.getElementById('resend-btn').disabled = false;
-                    timerEl.textContent = '';
-                }
-                remaining--;
-            }
-            update();
-            otpTimer = setInterval(update, 1000);
-        }
-
-        function resendOtp() {
-            fakeOtp = Math.floor(10000 + Math.random() * 90000).toString();
-            console.log('کد OTP جدید (فقط برای تست):', fakeOtp);
-            showMsg('otp-code-msg', 'کد جدید ارسال شد', 'success');
-            clearOtpBoxes();
-            startTimer(120);
-            setTimeout(() => showMsg('otp-code-msg', '', ''), 3000);
-        }
-
-        function backToStep1() {
-            clearInterval(otpTimer);
-            clearOtpBoxes();
-            document.getElementById('otp-step2').classList.remove('active');
-            document.getElementById('otp-step1').classList.add('active');
-            showMsg('otp-code-msg', '', '');
-        }
-
-        function clearOtpBoxes() {
-            for (let i = 0; i < 5; i++) {
-                const el = document.getElementById('otp' + i);
-                el.value = '';
-                el.classList.remove('filled', 'error');
-            }
-        }
-
-        function verifyOtp() {
-            let code = '';
-            for (let i = 0; i < 5; i++) code += document.getElementById('otp' + i).value;
-
-            if (code.length < 5) {
-                showMsg('otp-code-msg', 'لطفاً کد ۵ رقمی را کامل وارد کنید', 'error');
-                return;
-            }
-
-            const btn = document.querySelector('#otp-step2 .btn-primary');
-            setButtonLoading(btn, true);
-
-            setTimeout(() => {
-                setButtonLoading(btn, false);
-
-                if (code === fakeOtp) {
-                    showMsg('otp-code-msg', '✓ تأیید شد، در حال ادامه...', 'success');
-                    setTimeout(() => openRoleModal(), 600);
-                } else {
-                    showMsg('otp-code-msg', 'کد وارد‌شده اشتباه است', 'error');
-                    for (let i = 0; i < 5; i++) document.getElementById('otp' + i).classList.add('error');
-                }
-            }, 1000);
-        }
-
-        // ========== Event Listeners ==========
-        document.addEventListener('DOMContentLoaded', () => {
-            const boxes = document.querySelectorAll('.otp-boxes input');
-            boxes.forEach((box, idx) => {
-                box.addEventListener('input', () => {
-                    box.value = box.value.replace(/[^0-9]/g, '');
-                    box.classList.toggle('filled', box.value !== '');
-                    box.classList.remove('error');
-                    if (box.value && idx < boxes.length - 1) boxes[idx + 1].focus();
-                    
-                    let code = '';
-                    boxes.forEach(b => code += b.value);
-                    if (code.length === 5) {
-                        document.getElementById('otp-code-msg').textContent = '';
+                // اگر نقش دریافتی با نگاشت ما همخوانی داشت، کارت را فعال کن
+                if (roleMap[bName] && roleMap[bName].label === label) {
+                    card.style.opacity = '1';
+                    card.style.pointerEvents = 'auto';
+                    // ذخیره مشخصات فرعی مثل orgId در دیتاست المان در صورت وجود
+                    if (userRole.orgId) {
+                        card.dataset.orgId = userRole.orgId;
                     }
-                });
-                
-                box.addEventListener('keydown', (e) => {
-                    if (e.key === 'Backspace' && !box.value && idx > 0) boxes[idx - 1].focus();
-                    if (e.key === 'ArrowLeft' && idx < boxes.length - 1) boxes[idx + 1].focus();
-                    if (e.key === 'ArrowRight' && idx > 0) boxes[idx - 1].focus();
-                });
-                
-                box.addEventListener('paste', (e) => {
-                    e.preventDefault();
-                    const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
-                    [...text].slice(0, 5).forEach((ch, i) => {
-                        if (boxes[i]) {
-                            boxes[i].value = ch;
-                            boxes[i].classList.add('filled');
-                        }
-                    });
-                    if (text.length > 0) boxes[Math.min(text.length, 4)].focus();
-                });
+                    card.dataset.backendName = bName; 
+                }
             });
         });
+    } else {
+        // اگر نقشی برنگشت، جهت بالا نیامدن بن‌بست حداقل نقش مشتری عمومی را باز می‌گذاریم
+        document.querySelectorAll('.role-card').forEach(c => {
+            c.style.opacity = '1';
+            c.style.pointerEvents = 'auto';
+        });
+    }
+}
+
+function selectRole(el, roleLabel) {
+    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    
+    // استخراج نام فنی نقش برای ارسال به متد [HttpPost("select-role")]
+    selectedRoleBackendName = el.dataset.backendName || roleLabel;
+    selectedOrgId = el.dataset.orgId ? parseInt(el.dataset.orgId) : null;
+    
+    document.getElementById('modal-confirm-btn').disabled = false;
+}
+
+// ارسال نهایی نقش انتخاب شده به اکشن کنترلر دات‌نت
+function confirmRole() {
+    if (!selectedRoleBackendName || !currentUserId) return;
+    
+    const btn = document.getElementById('modal-confirm-btn');
+    setButtonLoading(btn, true);
+
+    const requestBody = {
+        userId: currentUserId,
+        roleName: selectedRoleBackendName,
+        orgId: selectedOrgId
+    };
+
+    fetch(`${API_BASE_URL}/auth/select-role`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('خطا در تایید نقش کاربری');
+        }
+        return response.json();
+    })
+    .then(data => {
+        setButtonLoading(btn, false);
+        
+        // ذخیره توکن نهایی JWT صادر شده از دات‌نت در حافظه مرورگر
+        if (data && data.token) {
+            localStorage.setItem('authToken', data.token);
+        } else if (data && data.tokenString) {
+            localStorage.setItem('authToken', data.tokenString);
+        }
+        
+        // هدایت کاربر به صفحه اصلی پنل رزرو سنتر
+        window.location.href = 'home_page.html';
+    })
+    .catch(error => {
+        set
