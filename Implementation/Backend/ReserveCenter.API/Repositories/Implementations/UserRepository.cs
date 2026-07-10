@@ -41,7 +41,6 @@ public class UserRepository : IUserRepository
 
         existingUser.FirstName = user.FirstName;
         existingUser.LastName = user.LastName;
-        existingUser.PhoneNumber = user.PhoneNumber;
         existingUser.NationalCode = user.NationalCode;
         existingUser.CityId = user.CityId;
         existingUser.ModifiedBy = user.ModifiedBy;
