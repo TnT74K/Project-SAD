@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using ReserveCenter.API.Extensions;
 using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Services.Interfaces;
 using ReserveCenter.API.Services.Implementations;
