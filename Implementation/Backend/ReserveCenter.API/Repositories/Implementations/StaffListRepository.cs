@@ -81,7 +81,7 @@ namespace ReserveCenter.API.Repositories.Implementations
             return true;
         }
 
-        public async Task<StaffList> EditAsync(int lastStaffListId, string phoneNumber, RoleEnum role, int orgId, int modifiedBy)
+        public async Task<StaffList> EditAsync(int lastStaffListId, RoleEnum role, int modifiedBy)
         {
             var staffList = _dbContext.StaffLists.FirstOrDefault(x => x.Id == lastStaffListId);
 
@@ -90,17 +90,13 @@ namespace ReserveCenter.API.Repositories.Implementations
                 return new StaffList();
             }
 
-            if (staffList.User.PhoneNumber == phoneNumber)
-            {
-                staffList.RoleId = (int)role;
-                staffList.ModifiedBy = modifiedBy;
-                staffList.ModifiedDate = DateTime.Now;
-                await _dbContext.SaveChangesAsync();
+            staffList.RoleId = (int)role;
+            staffList.ModifiedBy = modifiedBy;
+            staffList.ModifiedDate = DateTime.Now;
+            await _dbContext.SaveChangesAsync();
 
-                return staffList;
-            }
+            return staffList;
 
-            return await AddAsync(phoneNumber, role, orgId, modifiedBy);
         }
 
         public async Task<List<StaffList>?> GetAllAsync(int orgId)

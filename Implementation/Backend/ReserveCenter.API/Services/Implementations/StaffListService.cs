@@ -59,9 +59,7 @@ namespace ReserveCenter.API.Services.Implementations
         {
             var result = await _staffListRepository.EditAsync(
                 staffUpdateRequest.Id,
-                staffUpdateRequest.PhoneNumber,
                 (RoleEnum)staffUpdateRequest.RoleId,
-                staffUpdateRequest.OrgId,
                 staffUpdateRequest.ModifiedBy);
 
             if (result == null || result.Id == 0)
