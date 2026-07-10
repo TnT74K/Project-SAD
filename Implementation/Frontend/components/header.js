@@ -1,36 +1,36 @@
-function initHeader(){
+function initHeader() {
 
-const header = document.getElementById("header");
-const hamburgerBtn = document.getElementById("hamburgerBtn");
-const mobileMenu = document.getElementById("mobileMenu");
+    const header = document.getElementById("header");
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
 
-window.addEventListener("scroll", () => {
+    window.addEventListener("scroll", () => {
 
-if(!header) return;
+        if (!header) return;
 
-if (window.scrollY > 30) {
-header.classList.add("scrolled");
-}else{
-header.classList.remove("scrolled");
-}
+        if (window.scrollY > 30) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
 
-});
+    });
 
-if(hamburgerBtn && mobileMenu){
+    if (hamburgerBtn && mobileMenu) {
 
-hamburgerBtn.addEventListener("click", () => {
-mobileMenu.classList.toggle("open");
-});
+        hamburgerBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("open");
+        });
 
-document.addEventListener("click", (e) => {
+        document.addEventListener("click", (e) => {
 
-if(!header.contains(e.target)){
-mobileMenu.classList.remove("open");
-}
+            if (!header.contains(e.target)) {
+                mobileMenu.classList.remove("open");
+            }
 
-});
+        });
 
-}
+    }
 
 }
 

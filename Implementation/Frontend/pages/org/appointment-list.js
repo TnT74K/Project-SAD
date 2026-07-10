@@ -12,22 +12,22 @@ const TODAY = '1405/03/13';
 // هر آیتم شامل: نام، تلفن، کد نوبت، سرویس، ساعت، وضعیت اولیه
 const DAYS_DATA = {
   '1405/03/11': [
-    { name: 'حسن موسوی',    phone: '09121112233', code: 'A-101', service: 'ماساژ',     time: '09:00', status: 'badge-green',  statusText: 'حضور یافت'  },
-    { name: 'زینب نوری',    phone: '09354445566', code: 'A-102', service: 'کوتاهی مو', time: '11:30', status: 'badge-red',    statusText: 'لغو شده'    },
+    { name: 'حسن موسوی', phone: '09121112233', code: 'A-101', service: 'ماساژ', time: '09:00', status: 'badge-green', statusText: 'حضور یافت' },
+    { name: 'زینب نوری', phone: '09354445566', code: 'A-102', service: 'کوتاهی مو', time: '11:30', status: 'badge-red', statusText: 'لغو شده' },
   ],
   '1405/03/12': [
-    { name: 'علی رضایی',    phone: '09102223344', code: 'A-103', service: 'کوتاهی مو', time: '10:30', status: 'badge-green',  statusText: 'حضور یافت'  },
-    { name: 'سارا محمدی',   phone: '09153334455', code: 'A-104', service: 'رنگ مو',    time: '11:00', status: 'badge-yellow', statusText: 'حضور نیافت' },
-    { name: 'مهدی کریمی',   phone: '09185556677', code: 'A-105', service: 'اصلاح ریش', time: '12:30', status: 'badge-green',  statusText: 'حضور یافت'  },
-    { name: 'نیلوفر احمدی', phone: '09306667788', code: 'A-106', service: 'مانیکور',   time: '14:00', status: 'badge-red',    statusText: 'لغو شده'    },
-    { name: 'رضا حسینی',    phone: '09377778899', code: 'A-107', service: 'ماساژ',     time: '15:30', status: 'badge-red',    statusText: 'لغو شده'    },
+    { name: 'علی رضایی', phone: '09102223344', code: 'A-103', service: 'کوتاهی مو', time: '10:30', status: 'badge-green', statusText: 'حضور یافت' },
+    { name: 'سارا محمدی', phone: '09153334455', code: 'A-104', service: 'رنگ مو', time: '11:00', status: 'badge-yellow', statusText: 'حضور نیافت' },
+    { name: 'مهدی کریمی', phone: '09185556677', code: 'A-105', service: 'اصلاح ریش', time: '12:30', status: 'badge-green', statusText: 'حضور یافت' },
+    { name: 'نیلوفر احمدی', phone: '09306667788', code: 'A-106', service: 'مانیکور', time: '14:00', status: 'badge-red', statusText: 'لغو شده' },
+    { name: 'رضا حسینی', phone: '09377778899', code: 'A-107', service: 'ماساژ', time: '15:30', status: 'badge-red', statusText: 'لغو شده' },
   ],
   '1405/03/13': [
-    { name: 'مریم صادقی',   phone: '09128889900', code: 'A-108', service: 'پاکسازی',   time: '09:30', status: 'badge-blue', statusText: 'جدید' },
-    { name: 'امیر تهرانی',  phone: '09199990011', code: 'A-109', service: 'کوتاهی مو', time: '12:00', status: 'badge-blue', statusText: 'جدید' },
+    { name: 'مریم صادقی', phone: '09128889900', code: 'A-108', service: 'پاکسازی', time: '09:30', status: 'badge-blue', statusText: 'جدید' },
+    { name: 'امیر تهرانی', phone: '09199990011', code: 'A-109', service: 'کوتاهی مو', time: '12:00', status: 'badge-blue', statusText: 'جدید' },
   ],
   '1405/03/14': [
-    { name: 'فاطمه کرمی',   phone: '09160001122', code: 'A-110', service: 'رنگ مو',    time: '10:00', status: 'badge-blue', statusText: 'جدید' },
+    { name: 'فاطمه کرمی', phone: '09160001122', code: 'A-110', service: 'رنگ مو', time: '10:00', status: 'badge-blue', statusText: 'جدید' },
   ],
 };
 
@@ -43,9 +43,9 @@ let currentIndex = DATES.indexOf(TODAY);
 
 // متن و کلاس badge و row برای هر نوع وضعیت
 const STATUS_MAP = {
-  present: { text: 'حضور یافت',  cls: 'badge-green',  row: 'row-green'  },
-  absent:  { text: 'حضور نیافت', cls: 'badge-yellow', row: 'row-yellow' },
-  cancel:  { text: 'لغو شده',    cls: 'badge-red',    row: 'row-red'    },
+  present: { text: 'حضور یافت', cls: 'badge-green', row: 'row-green' },
+  absent: { text: 'حضور نیافت', cls: 'badge-yellow', row: 'row-yellow' },
+  cancel: { text: 'لغو شده', cls: 'badge-red', row: 'row-red' },
 };
 
 /* ---------- توابع رندر ---------- */
@@ -163,9 +163,9 @@ function clearStatus(btn) {
  * از طریق کلیک روی نام مشتری در جدول فراخوانی می‌شود.
  */
 function openModal(name, phone, code) {
-  document.getElementById('modal-name').textContent  = name;
+  document.getElementById('modal-name').textContent = name;
   document.getElementById('modal-phone').textContent = phone;
-  document.getElementById('modal-code').textContent  = code;
+  document.getElementById('modal-code').textContent = code;
   document.getElementById('customerModal').classList.add('open');
 }
 

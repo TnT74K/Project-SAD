@@ -2,61 +2,61 @@
 // داده اولیه کاربران (Fake Data)
 // ==============================
 
-let users=[
-{
-first:"علی",
-last:"محمدی",
-phone:"09121235061",
-role:"پشتيبان کسب و کار",
-personstatus:"active",
-nationalcode:"0012345678",
-username:"ali.m",
-password:"123456"
-},
-{
-first:"زهرا",
-last:"کریمی",
-phone:"09121235060",
-role:"كارمند حضوری",
-personstatus:"active",
-nationalcode:"0023456789",
-username:"zahra.k",
-password:"123456"
-},
-{
-first:"مهدی",
-last:"رضایی",
-phone:"09121235590",
-role:"پشتيبان کسب و کار ",
-personstatus:"inactive",
-nationalcode:"0034567891",
-username:"mehdi.r",
-password:"123456"
-},
-{
-first:"سمیرا",
-last:"قاسمی",
-phone:"09121246060",
-role:"كارمند حضوری",
-personstatus:"active",
-nationalcode:"0045678912",
-username:"samira.q",
-password:"123456"
-},
-{
-first:"حسین",
-last:"نعمتی",
-phone:"09135635060",
-role:"كارمند حضوری",
-personstatus:"inactive",
-nationalcode:"0056789123",
-username:"hossein.n",
-password:"123456"
-}
+let users = [
+  {
+    first: "علی",
+    last: "محمدی",
+    phone: "09121235061",
+    role: "پشتيبان کسب و کار",
+    personstatus: "active",
+    nationalcode: "0012345678",
+    username: "ali.m",
+    password: "123456"
+  },
+  {
+    first: "زهرا",
+    last: "کریمی",
+    phone: "09121235060",
+    role: "كارمند حضوری",
+    personstatus: "active",
+    nationalcode: "0023456789",
+    username: "zahra.k",
+    password: "123456"
+  },
+  {
+    first: "مهدی",
+    last: "رضایی",
+    phone: "09121235590",
+    role: "پشتيبان کسب و کار ",
+    personstatus: "inactive",
+    nationalcode: "0034567891",
+    username: "mehdi.r",
+    password: "123456"
+  },
+  {
+    first: "سمیرا",
+    last: "قاسمی",
+    phone: "09121246060",
+    role: "كارمند حضوری",
+    personstatus: "active",
+    nationalcode: "0045678912",
+    username: "samira.q",
+    password: "123456"
+  },
+  {
+    first: "حسین",
+    last: "نعمتی",
+    phone: "09135635060",
+    role: "كارمند حضوری",
+    personstatus: "inactive",
+    nationalcode: "0056789123",
+    username: "hossein.n",
+    password: "123456"
+  }
 ]
 
 // ایندکس کاربر در حالت ویرایش
-let editIndex=null
+let editIndex = null
 
 //یک متغیر برای نگه داشتن ردیف انتخاب‌شده
 let pendingIndex = null;
@@ -64,14 +64,14 @@ let pendingIndex = null;
 // ======================================
 // رندر جدول کاربران
 // ======================================
-function render(){
+function render() {
 
-const table=document.getElementById("userTable")
-table.innerHTML=""
+  const table = document.getElementById("userTable")
+  table.innerHTML = ""
 
-users.forEach((u,i)=>{
+  users.forEach((u, i) => {
 
-table.innerHTML+=`
+    table.innerHTML += `
 <tr>
 
 <td data-label="نام">${u.first}</td>
@@ -83,9 +83,9 @@ table.innerHTML+=`
 <td data-label="نقش">${u.role}</td>
 
 <td data-label="وضعیت"
-class="${u.personstatus=='active'?'personstatus-active':'personstatus-inactive'}">
+class="${u.personstatus == 'active' ? 'personstatus-active' : 'personstatus-inactive'}">
 
-${u.personstatus=='active'?'فعال':'غیرفعال'}
+${u.personstatus == 'active' ? 'فعال' : 'غیرفعال'}
 
 </td>
 
@@ -108,46 +108,46 @@ ${u.personstatus=='active'?'فعال':'غیرفعال'}
 </tr>
 `
 
-})
+  })
 
 }
 // ======================================
 // پرسيدن براي حذف كاربر
 // ======================================
-function askDelete(i){
+function askDelete(i) {
 
-pendingIndex = i;
-actionType = "delete";
+  pendingIndex = i;
+  actionType = "delete";
 
-const item = users[i];
+  const item = users[i];
 
-document.getElementById('confirmTitle').innerText = 'حذف کاربر';
+  document.getElementById('confirmTitle').innerText = 'حذف کاربر';
 
-document.getElementById('confirmText').innerHTML =
-`آیا از حذف <span>${item.first} ${item.last}</span> مطمئن هستید؟`;
+  document.getElementById('confirmText').innerHTML =
+    `آیا از حذف <span>${item.first} ${item.last}</span> مطمئن هستید؟`;
 
-const btn = document.getElementById('confirmBtn');
-btn.innerText = 'حذف';
-btn.className = 'btn-danger';
+  const btn = document.getElementById('confirmBtn');
+  btn.innerText = 'حذف';
+  btn.className = 'btn-danger';
 
-document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModal').classList.add('open');
 
 }
 
 // ======================================
 // حذف کاربر
 // ======================================
-function deleteUser(i){
+function deleteUser(i) {
 
-const user = users[i]
+  const user = users[i]
 
-if(confirm(`آیا از حذف ${user.first} ${user.last} مطمئن هستید؟`)){
+  if (confirm(`آیا از حذف ${user.first} ${user.last} مطمئن هستید؟`)) {
 
-users.splice(i,1)
+    users.splice(i, 1)
 
-render()
+    render()
 
-}
+  }
 
 }
 
@@ -178,31 +178,31 @@ function askToggle(i) {
 // ======================================
 // تاييديه انجام كار
 // ======================================
-function confirmAction(){
+function confirmAction() {
 
-if (pendingIndex === null) return;
+  if (pendingIndex === null) return;
 
-if(actionType === "delete"){
+  if (actionType === "delete") {
 
-users.splice(pendingIndex,1);
+    users.splice(pendingIndex, 1);
 
-}
+  }
 
-else if(actionType === "toggle"){
+  else if (actionType === "toggle") {
 
-users[pendingIndex].personstatus =
-users[pendingIndex].personstatus === 'active'
-? 'inactive'
-: 'active';
+    users[pendingIndex].personstatus =
+      users[pendingIndex].personstatus === 'active'
+        ? 'inactive'
+        : 'active';
 
-}
+  }
 
-pendingIndex = null;
-actionType = null;
+  pendingIndex = null;
+  actionType = null;
 
-render();
+  render();
 
-closeConfirmModal();
+  closeConfirmModal();
 
 }
 
@@ -211,27 +211,27 @@ closeConfirmModal();
 // ======================================
 // باز کردن مودال
 // ======================================
-function openModal(){
-document.getElementById("userModal").style.display="flex"
+function openModal() {
+  document.getElementById("userModal").style.display = "flex"
 }
 
 
 // ======================================
 // بستن مودال
 // ======================================
-function closeModal(){
+function closeModal() {
 
-document.getElementById("userModal").style.display="none"
+  document.getElementById("userModal").style.display = "none"
 
-clearForm()
+  clearForm()
 
 }
 
-function closeConfirmModal(){
+function closeConfirmModal() {
 
-document.getElementById("confirmModal").classList.remove("open")
+  document.getElementById("confirmModal").classList.remove("open")
 
-pendingIndex=null
+  pendingIndex = null
 
 }
 
@@ -241,12 +241,12 @@ pendingIndex=null
 // ======================================
 // پاک کردن فرم
 // ======================================
-function clearForm(){
+function clearForm() {
 
-document.querySelectorAll("#userModal input")
-.forEach(i=>i.value="")
+  document.querySelectorAll("#userModal input")
+    .forEach(i => i.value = "")
 
-editIndex=null
+  editIndex = null
 
 }
 
@@ -265,14 +265,14 @@ function saveUser() {
   const r = document.getElementById("role")?.value || "پشتيبان کسب و کار";
 
   // جلوگیری از خالی بودن شماره موبایل (الزامی)
-  if(!phone){
+  if (!phone) {
     alert("شماره موبایل نمی‌تواند خالی باشد!");
     return;
   }
 
   let currentStatus = "active";
 
-  if(editIndex != null){
+  if (editIndex != null) {
     currentStatus = users[editIndex].personstatus;
   }
 
@@ -287,7 +287,7 @@ function saveUser() {
     personstatus: currentStatus
   };
 
-  if(editIndex != null){
+  if (editIndex != null) {
     users[editIndex] = user;
   } else {
     users.push(user);
@@ -302,18 +302,18 @@ function saveUser() {
 // ======================================
 // ویرایش کاربر
 // ======================================
-function editUser(i){
+function editUser(i) {
 
-editIndex=i
+  editIndex = i
 
-const u=users[i]
-
-
-phoneNumber.value=u.phone
-role.value=u.role
+  const u = users[i]
 
 
-openModal()
+  phoneNumber.value = u.phone
+  role.value = u.role
+
+
+  openModal()
 
 }
 
@@ -322,14 +322,14 @@ openModal()
 // ======================================
 // تغییر وضعیت فعال / غیرفعال
 // ======================================
-function togglepersonstatus(i){
+function togglepersonstatus(i) {
 
-users[i].personstatus =
-users[i].personstatus=='active'
-?'inactive'
-:'active'
+  users[i].personstatus =
+    users[i].personstatus == 'active'
+      ? 'inactive'
+      : 'active'
 
-render()
+  render()
 
 }
 
@@ -337,15 +337,15 @@ render()
 // ======================================
 // نمایش همه کاربران
 // ======================================
-function showAllUsers(){
+function showAllUsers() {
 
-document.getElementById("searchInput").value=""
+  document.getElementById("searchInput").value = ""
 
-const rows=document.querySelectorAll("#userTable tr")
+  const rows = document.querySelectorAll("#userTable tr")
 
-rows.forEach(r=>{
-r.style.display=''
-})
+  rows.forEach(r => {
+    r.style.display = ''
+  })
 
 }
 
@@ -353,17 +353,17 @@ r.style.display=''
 // ======================================
 // جستجو در جدول
 // ======================================
-function searchUser(){
+function searchUser() {
 
-const text=searchInput.value
+  const text = searchInput.value
 
-const rows=document.querySelectorAll("#userTable tr")
+  const rows = document.querySelectorAll("#userTable tr")
 
-rows.forEach(r=>{
-r.style.display=r.innerText.includes(text)
-?''
-:'none'
-})
+  rows.forEach(r => {
+    r.style.display = r.innerText.includes(text)
+      ? ''
+      : 'none'
+  })
 
 }
 

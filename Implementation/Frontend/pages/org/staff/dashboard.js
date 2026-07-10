@@ -9,13 +9,13 @@
 function gregorianToJalali(gy, gm, gd) {
   // تعداد روزهای هر ماه میلادی
   const g_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  
+
   // تعداد روزهای هر ماه شمسی
   const j_days_in_month = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
 
   // تعیین سال مبنا برای محاسبه کبیسه
   let gy2 = gm > 2 ? gy + 1 : gy;
-  
+
   // محاسبه تعداد روزهای گذشته از مبدأ (سال ۱۲۵۷ شمسی)
   let days =
     355666 +
@@ -60,7 +60,7 @@ function gregorianToJalali(gy, gm, gd) {
 // خروجی: شیء شامل سال، ماه و روز میلادی
 function jalaliToGregorian(jy, jm, jd) {
   jy += 1595; // تنظیم سال مبنا
-  
+
   // محاسبه تعداد روزهای گذشته از مبدأ
   let days =
     -355779 +
@@ -107,7 +107,7 @@ function jalaliToGregorian(jy, jm, jd) {
     }
     days -= gMonthDays[i];
   }
-  
+
   return { year: gy, month: gm, day: days };
 }
 
@@ -118,10 +118,10 @@ function jalaliToGregorian(jy, jm, jd) {
 function jalaliMonthDays(jy, jm) {
   // ماه‌های اول تا ششم (فروردین تا شهریور) ۳۱ روز دارند
   if (jm <= 6) return 31;
-  
+
   // ماه‌های هفتم تا یازدهم (مهر تا بهمن) ۳۰ روز دارند
   if (jm <= 11) return 30;
-  
+
   // ماه اسفند: بررسی کبیسه بودن سال شمسی
   // سال‌های کبیسه شمسی: ۱، ۵، ۹، ۱۳، ۱۷، ۲۲، ۲۶، ۳۰ (باقیمانده تقسیم بر ۳۳)
   return jy % 33 === 1 ||
@@ -143,7 +143,7 @@ function jalaliMonthDays(jy, jm) {
 function jalaliFirstWeekday(jy, jm) {
   // تبدیل اول ماه به تاریخ میلادی
   const g = jalaliToGregorian(jy, jm, 1);
-  
+
   // getDay(): 0=یکشنبه, 1=دوشنبه, ..., 6=شنبه (در جاوااسکریپت)
   // تبدیل به شنبه=0: (getDay() + 1) % 7
   return (new Date(g.year, g.month - 1, g.day).getDay() + 1) % 7;
@@ -173,8 +173,8 @@ let selectedDay = null; // { year, month, day }
 
 // ─── آرایه نام ماه‌های شمسی به فارسی ─────────────────────────────────────
 const MONTH_NAMES = [
-  "فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور",
-  "مهر","آبان","آذر","دی","بهمن","اسفند"
+  "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
+  "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
 ];
 
 // ─── آرایه نام روزهای هفته (از شنبه تا جمعه) ───────────────────────────────
@@ -302,7 +302,7 @@ function toPersianNum(n) {
 // تابع به‌روزرسانی ویجت ساعت و نمایش تاریخ‌ها
 function updateClock() {
   const now = new Date();  // دریافت زمان فعلی
-  
+
   // ─── ساعت دیجیتال ──────────────────────────────────────────────
   const hh = String(now.getHours()).padStart(2, "0");
   const mm = String(now.getMinutes()).padStart(2, "0");
@@ -322,8 +322,8 @@ function updateClock() {
 
   // ─── تاریخ میلادی ──────────────────────────────────────────────
   const months = [
-    "ژانویه","فوریه","مارس","آوریل","مه","ژوئن",
-    "ژوئیه","اوت","سپتامبر","اکتبر","نوامبر","دسامبر"
+    "ژانویه", "فوریه", "مارس", "آوریل", "مه", "ژوئن",
+    "ژوئیه", "اوت", "سپتامبر", "اکتبر", "نوامبر", "دسامبر"
   ];
 
   document.getElementById("gregorianDate").textContent =
