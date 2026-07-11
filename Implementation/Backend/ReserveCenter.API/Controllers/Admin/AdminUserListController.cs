@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ReserveCenter.API.Services.Interfaces;
+using ReserveCenter.API.Models.DTOs.Admin.UserManage;
 namespace ReserveCenter.API.Controllers.Admin
 {
     [ApiController] // We'll put this on almost every API controller.
@@ -54,6 +55,24 @@ namespace ReserveCenter.API.Controllers.Admin
         public async Task<IActionResult> UnblockUser(int id)
         {
             var success = await _adminUserListService.UnblockUserAsync(id);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDetailDto userDto)
+        {
+            if (id != userDto.Id)
+            {
+                return BadRequest("Route ID does not match request body ID.");
+            }
+
+            var success = await _adminUserListService.UpdateUserAsync(userDto);
 
             if (!success)
             {
