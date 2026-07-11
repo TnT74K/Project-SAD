@@ -1,4 +1,3 @@
-// These are the registeries
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,25 +6,33 @@ using ReserveCenter.API.Services.Interfaces;
 using ReserveCenter.API.Services.Implementations;
 using System.Text;
 using ReserveCenter.API.Middlewares; 
-// JWT configs
 using ReserveCenter.API.Models.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-// Database Connection checker
 using ReserveCenter.API;
-// Repositories
 using ReserveCenter.API.Repositories.Interfaces;
 using ReserveCenter.API.Repositories.Implementations;
-
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
-// OpenAPI / Swagger
 builder.Services.AddOpenApi();
 
-// Register DbContext
+// 🟢 تنظیمات CORS لایو سرور
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLiveServer",
+        policy =>
+        {
+            policy.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .AllowCredentials();
+        });
+});
+
+// ثبت DbContext
 builder.Services.AddDbContext<ReserveCenterDBContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -67,14 +74,8 @@ builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
 
 // ========= JWT section ===========
-// Register JWT settings
-builder.Services.Configure<JwtSettings>(
-    builder.Configuration.GetSection("JwtSettings"));
-
-// To tell ASP.NET "Whenever someone sends a JWT token, validate it using JWT settings"
-var jwtSettings = builder.Configuration
-    .GetSection("JwtSettings")
-    .Get<JwtSettings>();
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -85,36 +86,40 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-
             ValidIssuer = jwtSettings!.Issuer,
             ValidAudience = jwtSettings.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
         };
     });
-// =================
 
-// setup [Authorize] and [Authorize(Roles = Roles.Admin)]
 builder.Services.AddAuthorization();
-
 var app = builder.Build();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 DatabaseConnectionChecker.PrintConnectionStatus(connectionString);
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
+app.UseCors("AllowLiveServer");
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-app.UseAuthentication(); // must come before authorizatoin
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+try
+{
+    app.MapControllers();
+}
+catch (ReflectionTypeLoadException ex)
+{
+    foreach (var loaderException in ex.LoaderExceptions)
+    {
+        Console.WriteLine("❌ ارور پکیج: " + loaderException?.Message);
+    }
+    throw;
+}
 
 app.Run();
