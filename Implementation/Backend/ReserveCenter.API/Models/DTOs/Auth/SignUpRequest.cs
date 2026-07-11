@@ -15,7 +15,9 @@ namespace ReserveCenter.API.Models.DTOs.Auth
         [Required(ErrorMessage = "شماره تلفن الزامی است")]
         [RegularExpression(@"^09[0-9]{9}$", ErrorMessage = "شماره تلفن معتبر نیست (مثال: 09123456789)")]
         public string PhoneNumber { get; set; }
-
+        [Required(ErrorMessage = "تکرار شماره تلفن الزامی است")]
+        [Compare("PhoneNumber", ErrorMessage = "شماره تلفن و تکرار آن مطابقت ندارند")]
+        public string ConfirmPhoneNumber { get; set; }
         [Required(ErrorMessage = "رمز عبور الزامی است")]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "رمز عبور باید حداقل 6 کاراکتر باشد")]
         public string Password { get; set; }
