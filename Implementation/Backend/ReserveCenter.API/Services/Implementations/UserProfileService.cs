@@ -86,7 +86,6 @@ namespace ReserveCenter.API.Services.Implementations
                 // به‌روزرسانی
                 user.FirstName = request.FirstName;
                 user.LastName = request.LastName;
-                user.PhoneNumber = request.PhoneNumber;
                 user.NationalCode = request.NationalCode;
                 user.CityId = request.CityId;
                 user.ProfileImage = request.ProfileImage ?? user.ProfileImage;

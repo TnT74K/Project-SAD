@@ -68,11 +68,9 @@ namespace ReserveCenter.API.Controllers.Org
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var roleId = User.FindFirstValue(ClaimTypes.Role);
-            var orgId = User.FindFirst("OrgId")?.Value;
 
             staffUpdateRequest.ModifiedBy = int.Parse(userId);
             staffUpdateRequest.RoleId = int.Parse(roleId);
-            staffUpdateRequest.OrgId = int.Parse(orgId);
 
             var result = await _staffListService.EditAsync(staffUpdateRequest);
 

@@ -14,7 +14,6 @@ builder.Services.AddOpenApi();
 // All services, JWT, DbContext registrations
 builder.Services.AddApplicationServices(builder.Configuration);
 
-
 var app = builder.Build();
 // ============================
 // Database connection checker

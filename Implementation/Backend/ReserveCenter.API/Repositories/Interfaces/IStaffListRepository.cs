@@ -16,7 +16,7 @@ public interface IStaffListRepository
     Task<List<StaffList>?> GetAllAsync(int orgId);
 
     //ویرایش
-    Task<StaffList> EditAsync(int lastStaffListId , string phoneNumber , RoleEnum role , int orgId, int modifiedBy);
+    Task<StaffList> EditAsync(int lastStaffListId, RoleEnum role, int modifiedBy);
 
     Task<bool> DeleteAsync(int staffListId);
 
