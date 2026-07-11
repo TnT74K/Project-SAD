@@ -13,9 +13,9 @@ function openEdit() {
   document.body.style.overflow = 'hidden';
   // sync form values from current profile
   document.getElementById('editFirstName').value = document.getElementById('infoName').textContent.split(' ')[0];
-  document.getElementById('editLastName').value  = document.getElementById('infoName').textContent.split(' ')[1] || '';
-  document.getElementById('editMobile').value    = document.getElementById('infoMobile').textContent;
-  document.getElementById('editNid').value       = document.getElementById('infoNid').textContent;
+  document.getElementById('editLastName').value = document.getElementById('infoName').textContent.split(' ')[1] || '';
+  document.getElementById('editMobile').value = document.getElementById('infoMobile').textContent;
+  document.getElementById('editNid').value = document.getElementById('infoNid').textContent;
 }
 
 function closeEdit() {
@@ -25,10 +25,10 @@ function closeEdit() {
 
 /* ── SAVE PROFILE ── */
 function saveProfile() {
-  const fn   = document.getElementById('editFirstName').value.trim();
-  const ln   = document.getElementById('editLastName').value.trim();
-  const mob  = document.getElementById('editMobile').value.trim();
-  const nid  = document.getElementById('editNid').value.trim();
+  const fn = document.getElementById('editFirstName').value.trim();
+  const ln = document.getElementById('editLastName').value.trim();
+  const mob = document.getElementById('editMobile').value.trim();
+  const nid = document.getElementById('editNid').value.trim();
   const city = document.getElementById('editCity').value;
 
   if (!fn || !ln || !mob) {
@@ -39,10 +39,10 @@ function saveProfile() {
   const fullName = fn + ' ' + ln;
 
   // update profile card
-  document.getElementById('infoName').textContent    = fullName;
-  document.getElementById('infoMobile').textContent  = mob;
-  document.getElementById('infoNid').textContent     = nid;
-  document.getElementById('infoCity').textContent    = city;
+  document.getElementById('infoName').textContent = fullName;
+  document.getElementById('infoMobile').textContent = mob;
+  document.getElementById('infoNid').textContent = nid;
+  document.getElementById('infoCity').textContent = city;
   document.getElementById('profileName').textContent = fullName;
   document.getElementById('profileMobile').textContent = mob;
 

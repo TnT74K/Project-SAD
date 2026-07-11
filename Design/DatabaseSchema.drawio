@@ -40,10 +40,10 @@
           <mxGeometry height="150" width="200" y="30" as="geometry" />
         </mxCell>
         <mxCell id="hL3EeUpKe5668U5P-LeS-18" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="&lt;font color=&quot;#ffffff&quot;&gt;Service&lt;/font&gt;" vertex="1">
-          <mxGeometry height="100" width="170" x="230" y="270" as="geometry" />
+          <mxGeometry height="120" width="170" x="230" y="270" as="geometry" />
         </mxCell>
-        <mxCell id="hL3EeUpKe5668U5P-LeS-19" parent="hL3EeUpKe5668U5P-LeS-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="&lt;div&gt;- id:int&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(PK)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- name:string&lt;/div&gt;&lt;div&gt;- duration:int&lt;/div&gt;&lt;div&gt;- ORGId:int&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(FK)&lt;/span&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="70" width="170" y="30" as="geometry" />
+        <mxCell id="hL3EeUpKe5668U5P-LeS-19" parent="hL3EeUpKe5668U5P-LeS-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;" value="&lt;div&gt;- id:int&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(PK)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- name:string&lt;/div&gt;&lt;div&gt;- duration:int&lt;/div&gt;&lt;div&gt;- ORGId:int&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(FK)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;- isDeleted:boolean&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="170" y="30" as="geometry" />
         </mxCell>
         <mxCell id="hL3EeUpKe5668U5P-LeS-22" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);labelBackgroundColor=none;fillColor=light-dark(#0B2545,#0B2545);" value="&lt;font color=&quot;#ffffff&quot;&gt;StaffList&lt;/font&gt;" vertex="1">
           <mxGeometry height="170" width="200" x="-480" y="360" as="geometry" />
@@ -169,7 +169,7 @@
             <mxPoint x="760" y="270" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="B-zei__ZKEaII6CAh_98-52" edge="1" parent="1" source="hL3EeUpKe5668U5P-LeS-19" style="endArrow=none;html=1;rounded=0;exitX=1.004;exitY=0.284;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
+        <mxCell id="B-zei__ZKEaII6CAh_98-52" edge="1" parent="1" source="B-zei__ZKEaII6CAh_98-80" style="endArrow=none;html=1;rounded=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
             <mxPoint x="490" y="319.73" as="sourcePoint" />
             <mxPoint x="550" y="320" as="targetPoint" />
@@ -299,6 +299,22 @@
         </mxCell>
         <mxCell id="wFi9EAnLPY_okgwt8WwJ-8" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;fontFamily=zain;strokeColor=default;fontSize=12;fontColor=default;textDirection=rtl;fillColor=default;" value="یعنی دقیقاً یک یوزر به ازای هر چند تا نقشی که به آن اختصاص داده میشود، در جدول StaffLists میتواند برای خود، ردیف داشته باشد.&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;یا هیچ نقش ثانویه‌ای نداشته باشد -&amp;gt; هیچ ردیفی به او اختصاص داده نمیشود&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;نکته: یک یوزر میتواند کارمند بیش‌از یک کسب و کار باشد.&lt;/div&gt;&lt;div&gt;پس از لاگین، لیست نقش‌های او در کسب‌وکارها نمایش داده میشود.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;مثال: محمد کارمند ۵ کسب وکار هست. او پس از لاگین میتواند یکی از ۶ نقش موجود، (۵ نقش کارمند ساده + ۱ نقش مشتری) را انتخاب کند و صفحه مربوطه شود.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;نکته : همه مواردی که در جدول یوزر اضافه می شوند یا به عبارتی در سایت ثبت نام می کنن ؛ دارای نقش مشتری هستن&amp;nbsp;&lt;br&gt;به همین دلیل است که ما ان ها را در این لیست به صورت جداگانه به نقش مشتری منتسب نمی کنیم ( چون هر کسی که ثبت نام کنه این نقش رو داره پس چیزی که برای همه یکسانه دیگه نیاز به ثبت نداره )&lt;/div&gt;" vertex="1">
           <mxGeometry height="295" width="450" x="-420" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="3EsyQB5bUFrqIVnJsSv3-1" edge="1" parent="1" source="hL3EeUpKe5668U5P-LeS-2" style="endArrow=none;html=1;rounded=0;entryX=-0.003;entryY=0.565;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.001;exitY=0.876;exitDx=0;exitDy=0;exitPerimeter=0;" target="hL3EeUpKe5668U5P-LeS-7" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="530" />
+              <mxPoint x="400" y="810" />
+            </Array>
+            <mxPoint x="290" y="520" as="sourcePoint" />
+            <mxPoint x="860" y="810" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3EsyQB5bUFrqIVnJsSv3-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=25;" value="&lt;font&gt;0..*&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="815" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="3EsyQB5bUFrqIVnJsSv3-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=25;" value="&lt;font&gt;1..1&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="120" y="530" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

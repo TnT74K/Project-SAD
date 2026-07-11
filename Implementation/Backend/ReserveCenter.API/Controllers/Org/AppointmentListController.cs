@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReserveCenter.API.Models.DTOs.Org.Appointment;
+using ReserveCenter.API.Models.DTOs.Org.Staff;
 using ReserveCenter.API.Services.Interfaces;
+using System.Security.Claims;
 
 namespace ReserveCenter.API.Controllers.Org
 {
@@ -263,7 +265,9 @@ namespace ReserveCenter.API.Controllers.Org
 
             try
             {
-                var result = await _appointmentListService.CreateAppointmentAsync(request.OrgId, request);
+                string _userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var result = await _appointmentListService.CreateAppointmentAsync(request.OrgId, request, int.Parse(_userId));
                 return Ok(new { IsSuccess = true, Message = "نوبت با موفقیت ایجاد شد.", Data = result });
             }
             catch (KeyNotFoundException ex)

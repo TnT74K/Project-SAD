@@ -1,6 +1,6 @@
 ﻿namespace ReserveCenter.API.Models.DTOs.Org.Staff
 {
-    public class StaffDto
+    public class StaffListDto
     {
         public int Id { get; set; }                     // شناسه کارمند (StaffList.Id)
         public int UserId { get; set; }                 // شناسه کاربر

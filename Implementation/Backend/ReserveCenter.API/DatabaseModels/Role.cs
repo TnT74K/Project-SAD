@@ -13,3 +13,11 @@ public partial class Role
 
     public virtual ICollection<StaffList> StaffLists { get; set; } = new List<StaffList>();
 }
+/*
+Roles:
+1. Customer
+2. Staff
+3. Support
+4. OrgAdmin
+5. SuperAdmin
+*/

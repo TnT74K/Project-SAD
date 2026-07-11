@@ -16,7 +16,7 @@
         public string FirstName { get; set; }      // نام کاربر
         public string LastName { get; set; }       // نام خانوادگی کاربر
         public string PhoneNumber { get; set; }    // شماره تلفن
-        public string Role { get; set; }           // نقش کاربر
+        public int? Role { get; set; }           // نقش کاربر
         public bool IsBlocked { get; set; }        // آیا مسدود است؟
         public bool IsDeleted { get; set; }        // آیا حذف شده است؟
     }

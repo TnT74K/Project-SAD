@@ -37,7 +37,7 @@ namespace ReserveCenter.API.Controllers.Auth
             }
 
             var result = await _authService.RegisterAsync(request);
-            
+
             if (!result.IsSuccess)
             {
                 return BadRequest(result);
@@ -64,10 +64,10 @@ namespace ReserveCenter.API.Controllers.Auth
             }
 
             var result = await _authService.LoginAsync(request);
-            
-            if (!result.IsSuccess)
+
+            if (result == null)
             {
-                return BadRequest(result);
+                return BadRequest(new { IsSuccess = false, Message = "ورود ناموفق" });
             }
 
             return Ok(result);
@@ -85,7 +85,7 @@ namespace ReserveCenter.API.Controllers.Auth
             }
 
             var result = await _authService.ForgotPasswordAsync(request.PhoneNumber);
-            
+
             if (!result)
             {
                 return BadRequest(new { IsSuccess = false, Message = "کاربر با این شماره تلفن یافت نشد" });
@@ -106,14 +106,15 @@ namespace ReserveCenter.API.Controllers.Auth
             }
 
             var token = await _authService.VerifyOtpAsync(request.PhoneNumber, request.OtpCode);
-            
+
             if (string.IsNullOrEmpty(token))
             {
                 return BadRequest(new { IsSuccess = false, Message = "کد تأیید اشتباه است یا منقضی شده است" });
             }
 
-            return Ok(new { 
-                IsSuccess = true, 
+            return Ok(new
+            {
+                IsSuccess = true,
                 Message = "کد تأیید صحیح است",
                 Token = token
             });
@@ -129,17 +130,18 @@ namespace ReserveCenter.API.Controllers.Auth
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage);
-                return BadRequest(new { 
-                    IsSuccess = false, 
-                    Message = string.Join(" | ", errors) 
+                return BadRequest(new
+                {
+                    IsSuccess = false,
+                    Message = string.Join(" | ", errors)
                 });
             }
 
             var result = await _authService.ResetPasswordAsync(
-                request.PhoneNumber, 
-                request.OtpToken, 
+                request.PhoneNumber,
+                request.OtpToken,
                 request.NewPassword);
-            
+
             if (!result)
             {
                 return BadRequest(new { IsSuccess = false, Message = "خطا در تغییر رمز عبور. لطفاً مجدداً تلاش کنید." });
@@ -155,7 +157,7 @@ namespace ReserveCenter.API.Controllers.Auth
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier); // This finds the user's Id from JWT
             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
             {
                 return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });
@@ -190,11 +192,23 @@ namespace ReserveCenter.API.Controllers.Auth
 
             // دریافت اطلاعات کامل کاربر از سرویس
             var user = await _authService.GetUserByIdAsync(userId);
-            
-            return Ok(new { 
+
+            return Ok(new
+            {
                 IsSuccess = true,
                 User = user
             });
+        }
+        // After login, the user chooses their role, and send this request to backend.
+        [HttpPost("select-role")] // Call it "Controller action"
+        public async Task<IActionResult> SelectRole([FromBody] RoleSelectionRequest request)
+        {
+            var result = await _authService.SelectRoleAsync(
+                request.UserId,
+                request.RoleName,
+                request.OrgId);
+
+            return Ok(result);
         }
     }
 }

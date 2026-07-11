@@ -24,5 +24,11 @@ public interface IUserRepository
 
     //برای گرفتن همه نویت هایی که تا الان ایشون گرفته است
     Task<List<Appointment>?> GetAllUserAppointmentByUserIdAsync(int userId);
+    // new methods for UserList service
+    Task<bool> BlockUserAsync(int userId);
+
+    Task<bool> UnblockUserAsync(int userId);
+
+    Task<bool> UpdateUserByAdminAsync(User user);
 
 }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.DatabaseModels;
+using ReserveCenter.API.Models.Enums;
 using ReserveCenter.API.Repositories.Interfaces;
 using System.Security.Cryptography;
 
@@ -141,6 +142,56 @@ public class OrgRepository : IOrgRepository
                         .ToListAsync();
     }
 
+    public async Task<List<Org>?> SearchWithDetailAsync(string searchPhrase, CityEnum city = CityEnum.All, OrgTypeEnum orgType = OrgTypeEnum.All, bool upFourStar = false, bool up500Appointment = false, bool hasAppointment = false)
+    {
+        var query = _dbContext.Orgs
+            .AsNoTracking()
+            .Include(org => org.City)
+            .Include(org => org.CreatedByNavigation)
+            .Include(org => org.Orgtype)
+            .AsQueryable();
+
+        query = query.Where(org => !org.IsDeleted && org.IsActive && !org.IsBanned);
+
+        if (!string.IsNullOrWhiteSpace(searchPhrase))
+        {
+            query = query.Where(org =>
+                org.Name.Contains(searchPhrase) ||
+                org.Orgtype.Name.Contains(searchPhrase));
+        }
+
+        if (city != CityEnum.All)
+        {
+            query = query.Where(org => org.CityId == (int)city);
+        }
+
+        if (orgType != OrgTypeEnum.All)
+        {
+            query = query.Where(org => org.OrgtypeId == (int)orgType);
+        }
+
+        if (upFourStar)
+        {
+            query = query.Where(org => org.StarCount >= 4);
+        }
+
+        if (up500Appointment)
+        {
+            query = query.Where(org => org.SuccessAppointmentCount >= 500);
+        }
+
+        if (hasAppointment)
+        {
+            var today = DateOnly.FromDateTime(DateTime.Today);
+
+            query = query.Where(org => org.Appointments.Any(app =>
+                app.AppointmentDate >= today &&
+                app.IsReserved == false));
+        }
+
+        return await query.ToListAsync();
+    }
+
     public async Task<bool> UpdateAsync(Org org)
     {
         var existingOrg = await _dbContext.Orgs.FirstOrDefaultAsync(existing => existing.Id == org.Id);
@@ -170,9 +221,8 @@ public class OrgRepository : IOrgRepository
         existingOrg.IsActive = org.IsActive;
         existingOrg.IsBanned = org.IsBanned;
         existingOrg.IsDeleted = org.IsDeleted;
-        //TODO : باید آی دی کاربری که داره این رو تغییر می ده پیدا کینم
-        //existingOrg.ModifiedBy = ??
-        //existingOrg.ModifiedDate = ??
+        existingOrg.ModifiedBy = org.ModifiedBy;
+        existingOrg.ModifiedDate = DateTime.Now;
 
         await _dbContext.SaveChangesAsync();
         return true;

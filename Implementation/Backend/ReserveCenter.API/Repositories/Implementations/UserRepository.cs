@@ -41,12 +41,11 @@ public class UserRepository : IUserRepository
 
         existingUser.FirstName = user.FirstName;
         existingUser.LastName = user.LastName;
-        existingUser.PhoneNumber = user.PhoneNumber;
         existingUser.NationalCode = user.NationalCode;
         existingUser.CityId = user.CityId;
-        //TODO : باید آی دی کاربری که داره این رو تغییر می ده پیدا کینم
-        //org.ModifiedBy = ??
-        //org.ModifiedDate = ??
+        existingUser.ModifiedBy = user.ModifiedBy;
+        existingUser.ModifiedDate = DateTime.Now;
+
 
         await _dbContext.SaveChangesAsync();
         return true;
@@ -107,5 +106,65 @@ public class UserRepository : IUserRepository
                                .Include(i => i.Orgservice)
                                .Where(appo => appo.BookingUserId == userId)
                                .ToListAsync();
+    }
+
+    // ===================
+    // new methods for UserList
+    // ===================
+    public async Task<bool> BlockUserAsync(int userId)
+    {
+        var user = await _dbContext.Users
+            .FirstOrDefaultAsync(existing => existing.Id == userId && !existing.IsDeleted);
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        user.IsBlocked = true;
+
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+    public async Task<bool> UnblockUserAsync(int userId)
+    {
+        var user = await _dbContext.Users
+            .FirstOrDefaultAsync(existing => existing.Id == userId && !existing.IsDeleted);
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        user.IsBlocked = false;
+
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+    public async Task<bool> UpdateUserByAdminAsync(User user)
+    {
+        // we exclude soft-deleted users because we don't need them
+        // find the user in database. EF Core tracks existingUser
+        var existingUser = await _dbContext.Users
+            .FirstOrDefaultAsync(existing => existing.Id == user.Id && !existing.IsDeleted);
+
+        if (existingUser is null)
+        {
+            return false;
+        }
+
+        existingUser.FirstName = user.FirstName;
+        existingUser.LastName = user.LastName;
+        existingUser.NationalCode = user.NationalCode;
+        existingUser.Password = user.Password;
+
+        existingUser.ModifiedBy = user.ModifiedBy;
+        existingUser.ModifiedDate = DateTime.Now;
+
+        await _dbContext.SaveChangesAsync();
+
+        return true;
     }
 }
