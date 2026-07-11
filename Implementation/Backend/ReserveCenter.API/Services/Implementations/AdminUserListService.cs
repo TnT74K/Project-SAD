@@ -13,7 +13,6 @@ namespace ReserveCenter.API.Services.Implementations
             _userRepository = userRepository;
         }
 
-        // Methods go here...
         public async Task<List<UserListDto>> GetAllUsersAsync()
         {
             var users = await _userRepository.AllUserAsync();
@@ -29,24 +28,50 @@ namespace ReserveCenter.API.Services.Implementations
                 // Ignore CreatedDate for now
             }).ToList();
         }
-        public Task<UserDetailDto?> GetUserDetailAsync(int userId)
+        public async Task<UserDetailDto?> GetUserDetailAsync(int userId)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetWithDetailByIdAsync(userId);
+
+            if (user is null)
+            {
+                return null;
+            }
+
+            return new UserDetailDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                NationalCode = user.NationalCode,
+                Password = user.Password,
+                IsBlocked = user.IsBlocked,
+                IsDeleted = user.IsDeleted
+            };
+        }
+        
+        public async Task<bool> BlockUserAsync(int userId)
+        {
+            return await _userRepository.BlockUserAsync(userId);
         }
 
-        public Task<bool> BlockUserAsync(int userId)
+        public async Task<bool> UnblockUserAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await _userRepository.UnblockUserAsync(userId);
         }
 
-        public Task<bool> UnblockUserAsync(int userId)
+        public async Task<bool> UpdateUserAsync(UserDetailDto userDto)
         {
-            throw new NotImplementedException();
-        }
+            var user = new DatabaseModels.User
+            {
+                Id = userDto.Id,
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                NationalCode = userDto.NationalCode,
+                Password = userDto.Password
+            };
 
-        public Task<bool> UpdateUserAsync(UserDetailDto userDto)
-        {
-            throw new NotImplementedException();
+            return await _userRepository.UpdateUserByAdminAsync(user);
         }
     }
 }
