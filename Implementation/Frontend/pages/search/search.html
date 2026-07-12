@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,143 +12,139 @@
   <link rel="stylesheet" href="/components/fonts.css">
   <link rel="stylesheet" href="search.css">
 </head>
+
 <body>
 
-<!-- =============================================
+  <!-- =============================================
      هدر - ناوبری اصلی سایت
      sticky هست و موقع اسکرول بالا می‌مونه
      ============================================= -->
-<header id="header">
-  <div class="container">
-    <div class="header-inner">
+  <header id="header">
+    <div class="container">
+      <div class="header-inner">
 
-      <!-- لوگو -->
-      <a href="../../index.html" class="logo">
-        <div class="logo-icon">📅</div>
-       <em>رزروسنتر</em>
-      </a>
+        <!-- لوگو -->
+        <a href="../../index.html" class="logo">
+          <div class="logo-icon">📅</div>
+          <em>رزروسنتر</em>
+        </a>
 
-      <!-- باکس جستجو - value پیش‌فرض رو JS می‌خونه -->
-      <div class="header-search">
-        <!-- آیکون ذره‌بین -->
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2.5"
-             stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <path d="M21 21l-4.35-4.35"/>
-        </svg>
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="جستجوی خدمت یا کسب‌وکار..."
-          value="آرایشگاه"
-        >
-        
+        <!-- باکس جستجو - value پیش‌فرض رو JS می‌خونه -->
+        <div class="header-search">
+          <!-- آیکون ذره‌بین -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+          <input type="text" id="searchInput" placeholder="جستجوی خدمت یا کسب‌وکار..." value="آرایشگاه">
+
+        </div>
+
+        <!-- دکمه‌های ورود/ثبت‌نام - توی موبایل مخفی میشن -->
+        <div class="header-actions">
+          <button class="btn-login" onclick="window.location.href = '../auth/login.html'">ورود</button>
+          <button class="btn-signup" onclick="window.location.href = '../auth/sign-up.html'">ثبت‌نام رایگان</button>
+        </div>
+
       </div>
-
-      <!-- دکمه‌های ورود/ثبت‌نام - توی موبایل مخفی میشن -->
-      <div class="header-actions">
-        <button class="btn-login" onclick="window.location.href = '../auth/login.html'">ورود</button>
-        <button class="btn-signup" onclick="window.location.href = '../auth/sign-up.html'">ثبت‌نام رایگان</button>
-      </div>
-
     </div>
-  </div>
-</header>
+  </header>
 
 
-<!-- =============================================
+  <!-- =============================================
      نوار فیلتر
      این هم sticky هست و زیر هدر می‌مونه
      تمام تغییرات فیلتر مستقیم applyFilters رو صدا می‌زنن
      ============================================= -->
-<div id="filter-bar">
-  <div class="container">
-    <div class="filter-inner">
-      <span class="filter-label">فیلتر:</span>
+  <div id="filter-bar">
+    <div class="container">
+      <div class="filter-inner">
+        <span class="filter-label">فیلتر:</span>
 
-      <!-- فیلتر شهر -->
-      <select class="filter-select" id="filterCity" onchange="applyFilters()">
-        <option value="">📍 همه شهرها</option>
-        <option value="tehran">تهران</option>
-        <option value="mashhad">مشهد</option>
-        <option value="isfahan">اصفهان</option>
-        <option value="shiraz">شیراز</option>
-        <option value="tabriz">تبریز</option>
-        <option value="karaj">کرج</option>
-        <option value="ahvaz">اهواز</option>
-      </select>
+        <!-- فیلتر شهر -->
+        <select class="filter-select" id="filterCity" onchange="applyFilters()">
+          <option value="">📍 همه شهرها</option>
+          <option value="tehran">تهران</option>
+          <option value="mashhad">مشهد</option>
+          <option value="isfahan">اصفهان</option>
+          <option value="shiraz">شیراز</option>
+          <option value="tabriz">تبریز</option>
+          <option value="karaj">کرج</option>
+          <option value="ahvaz">اهواز</option>
+        </select>
 
-      <!-- فیلتر دسته‌بندی -->
-      <select class="filter-select" id="filterCat" onchange="applyFilters()">
-        <option value="">📂 همه دسته‌ها</option>
-        <option value="barbershop">آرایشگاه مردانه</option>
-        <option value="beauty">سالن زیبایی</option>
-        <option value="dental">دندانپزشکی</option>
-        <option value="clinic">کلینیک</option>
-        <option value="gym">باشگاه ورزشی</option>
-        <option value="trad">طب سنتی</option>
-      </select>
+        <!-- فیلتر دسته‌بندی -->
+        <select class="filter-select" id="filterCat" onchange="applyFilters()">
+          <option value="">📂 همه دسته‌ها</option>
+          <option value="barbershop">آرایشگاه مردانه</option>
+          <option value="beauty">سالن زیبایی</option>
+          <option value="dental">دندانپزشکی</option>
+          <option value="clinic">کلینیک</option>
+          <option value="gym">باشگاه ورزشی</option>
+          <option value="trad">طب سنتی</option>
+        </select>
 
-      <!-- خط جدا کننده -->
-      <div class="filter-divider"></div>
+        <!-- خط جدا کننده -->
+        <div class="filter-divider"></div>
 
-      <!-- چیپ‌های سریع - toggle هستن، کلیک دوباره خاموششون می‌کنه -->
-      <button class="filter-chip" id="chip-rating"  onclick="toggleChip('rating')">⭐ بالای ۴ ستاره</button>
-      <button class="filter-chip" id="chip-success" onclick="toggleChip('success')">✅ +۵۰۰ نوبت موفق</button>
-      <button class="filter-chip" id="chip-open"    onclick="toggleChip('open')">🟢 نوبت دارد</button>
+        <!-- چیپ‌های سریع - toggle هستن، کلیک دوباره خاموششون می‌کنه -->
+        <button class="filter-chip" id="chip-rating" onclick="toggleChip('rating')">⭐ بالای ۴ ستاره</button>
+        <button class="filter-chip" id="chip-success" onclick="toggleChip('success')">✅ +۵۰۰ نوبت موفق</button>
+        <button class="filter-chip" id="chip-open" onclick="toggleChip('open')">🟢 نوبت دارد</button>
 
-      <div class="filter-divider"></div>
+        <div class="filter-divider"></div>
 
-      <!-- مرتب‌سازی - سمت چپ قرار می‌گیره با margin-right: auto در CSS -->
-      <select class="sort-select" id="sortBy" onchange="applyFilters()">
-        <option value="default">مرتب‌سازی: پیشنهادی</option>
-        <option value="rating">بیشترین امتیاز</option>
-        <option value="success">بیشترین نوبت موفق</option>
-        <option value="newest">جدیدترین</option>
-      </select>
+        <!-- مرتب‌سازی - سمت چپ قرار می‌گیره با margin-right: auto در CSS -->
+        <select class="sort-select" id="sortBy" onchange="applyFilters()">
+          <option value="default">مرتب‌سازی: پیشنهادی</option>
+          <option value="rating">بیشترین امتیاز</option>
+          <option value="success">بیشترین نوبت موفق</option>
+          <option value="newest">جدیدترین</option>
+        </select>
 
+      </div>
     </div>
   </div>
-</div>
 
 
-<!-- =============================================
+  <!-- =============================================
      محتوای اصلی صفحه
      ============================================= -->
-<main id="main">
-  <div class="container">
+  <main id="main">
+    <div class="container">
 
-    <!-- هدر نتایج: تعداد + متن جستجو -->
-    <div class="results-header">
-      <div class="results-title">
-        نتایج جستجو
-        <!-- این span توسط JS آپدیت میشه -->
-        <span id="result-count">۹ کسب‌وکار یافت شد</span>
+      <!-- هدر نتایج: تعداد + متن جستجو -->
+      <div class="results-header">
+        <div class="results-title">
+          نتایج جستجو
+          <!-- این span توسط JS آپدیت میشه -->
+          <span id="result-count">۹ کسب‌وکار یافت شد</span>
+        </div>
+        <div class="results-query">
+          🔍
+          <!-- متن جستجوی فعلی -->
+          <span id="query-text">آرایشگاه</span>
+          <button onclick="clearSearch()">× پاک کردن</button>
+        </div>
       </div>
-      <div class="results-query">
-        🔍
-        <!-- متن جستجوی فعلی -->
-        <span id="query-text">آرایشگاه</span>
-        <button onclick="clearSearch()">× پاک کردن</button>
+
+      <!-- گرید کارت‌ها - محتوا کاملاً توسط JS ساخته میشه -->
+      <div class="cards-grid" id="cards-grid">
+        <!-- JS اینجا کارت‌ها رو رندر می‌کنه -->
       </div>
-    </div>
 
-    <!-- گرید کارت‌ها - محتوا کاملاً توسط JS ساخته میشه -->
-    <div class="cards-grid" id="cards-grid">
-      <!-- JS اینجا کارت‌ها رو رندر می‌کنه -->
     </div>
-
-  </div>
-</main>
+  </main>
   <div id="footer-placeholder"></div>
 
 
-<!-- JS در آخر لود میشه تا DOM آماده باشه -->
-<script src="search.js"></script>
-<script src="/components/load-header.js"></script>
-<script src="/components/header.js"></script>
-<script src="/components/load-footer.js"></script>
+  <!-- JS در آخر لود میشه تا DOM آماده باشه -->
+  <script src="search.js"></script>
+  <script src="/components/load-header.js"></script>
+  <script src="/components/header.js"></script>
+  <script src="/components/load-footer.js"></script>
 
 </body>
+
 </html>

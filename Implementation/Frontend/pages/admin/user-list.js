@@ -2,67 +2,67 @@
 // داده اولیه کاربران
 // ============================
 
-let users=[
+let users = [
 
-{
-first:"علی",
-last:"محمدی",
-phone:"09121235061",
-role:"پشتيبان سازمان",
-personstatus:"active",
-nationalcode:"0012345678",
-username:"ali.m",
-password:"123456"
-},
+  {
+    first: "علی",
+    last: "محمدی",
+    phone: "09121235061",
+    role: "پشتيبان سازمان",
+    personstatus: "active",
+    nationalcode: "0012345678",
+    username: "ali.m",
+    password: "123456"
+  },
 
-{
-first:"زهرا",
-last:"کریمی",
-phone:"09121235062",
-role:"كاربر عادی",
-personstatus:"active",
-nationalcode:"0023456789",
-username:"zahra.k",
-password:"123456"
-},
+  {
+    first: "زهرا",
+    last: "کریمی",
+    phone: "09121235062",
+    role: "كاربر عادی",
+    personstatus: "active",
+    nationalcode: "0023456789",
+    username: "zahra.k",
+    password: "123456"
+  },
 
-{
-first:"مهدی",
-last:"رضایی",
-phone:"09121235461",
-role:"كاربر عادی",
-personstatus:"inactive",
-nationalcode:"0034567891",
-username:"mehdi.r",
-password:"123456"
-},
+  {
+    first: "مهدی",
+    last: "رضایی",
+    phone: "09121235461",
+    role: "كاربر عادی",
+    personstatus: "inactive",
+    nationalcode: "0034567891",
+    username: "mehdi.r",
+    password: "123456"
+  },
 
-{
-first:"سمیرا",
-last:"قاسمی",
-phone:"09121287061",
-role:"كارمند حضوری",
-personstatus:"active",
-nationalcode:"0045678912",
-username:"samira.q",
-password:"123456"
-},
+  {
+    first: "سمیرا",
+    last: "قاسمی",
+    phone: "09121287061",
+    role: "كارمند حضوری",
+    personstatus: "active",
+    nationalcode: "0045678912",
+    username: "samira.q",
+    password: "123456"
+  },
 
-{
-first:"حسین",
-last:"نعمتی",
-phone:"09121231481",
-role:"مدير",
-personstatus:"inactive",
-nationalcode:"0056789123",
-username:"hossein.n",
-password:"123456"
-}
+  {
+    first: "حسین",
+    last: "نعمتی",
+    phone: "09121231481",
+    role: "مدير",
+    personstatus: "inactive",
+    nationalcode: "0056789123",
+    username: "hossein.n",
+    password: "123456"
+  }
 
 ]
 
 // ایندکس کاربر در حالت ویرایش
-let editIndex=null
+let editIndex = null
 
 //یک متغیر برای نگه داشتن ردیف انتخاب‌شده
 let pendingIndex = null;
@@ -70,15 +70,15 @@ let pendingIndex = null;
 // ============================
 // رندر جدول کاربران
 // ============================
-function render(){
+function render() {
 
-const table=document.getElementById("userTable")
+  const table = document.getElementById("userTable")
 
-table.innerHTML=""
+  table.innerHTML = ""
 
-users.forEach((u,i)=>{
+  users.forEach((u, i) => {
 
-table.innerHTML+=`
+    table.innerHTML += `
 
 <tr>
 
@@ -91,13 +91,13 @@ table.innerHTML+=`
 <td data-label="نقش">${u.role}</td>
 
 <td data-label="وضعیت"
-class="${u.personstatus=='active'
-?'personstatus-active'
-:'personstatus-inactive'}">
+class="${u.personstatus == 'active'
+        ? 'personstatus-active'
+        : 'personstatus-inactive'}">
 
-${u.personstatus=='active'
-?'فعال'
-:'غیرفعال'}
+${u.personstatus == 'active'
+        ? 'فعال'
+        : 'غیرفعال'}
 
 </td>
 
@@ -123,7 +123,7 @@ onclick="editUser(${i})">
 
 `
 
-})
+  })
 
 }
 
@@ -156,20 +156,20 @@ function askToggle(i) {
 // ======================================
 // تاييديه انجام كار
 // ======================================
-function confirmAction(){
+function confirmAction() {
 
-if (pendingIndex === null) return;
+  if (pendingIndex === null) return;
 
-users[pendingIndex].personstatus =
-users[pendingIndex].personstatus === 'active'
-? 'inactive'
-: 'active';
+  users[pendingIndex].personstatus =
+    users[pendingIndex].personstatus === 'active'
+      ? 'inactive'
+      : 'active';
 
-pendingIndex = null;
+  pendingIndex = null;
 
-render();
+  render();
 
-closeConfirmModal();
+  closeConfirmModal();
 
 }
 
@@ -177,9 +177,9 @@ closeConfirmModal();
 // ============================
 // باز کردن مودال
 // ============================
-function openModal(){
+function openModal() {
 
-document.getElementById("userModal").style.display="flex"
+  document.getElementById("userModal").style.display = "flex"
 
 }
 
@@ -187,19 +187,19 @@ document.getElementById("userModal").style.display="flex"
 // ======================================
 // بستن مودال
 // ======================================
-function closeModal(){
+function closeModal() {
 
-document.getElementById("userModal").style.display="none"
+  document.getElementById("userModal").style.display = "none"
 
-clearForm()
+  clearForm()
 
 }
 
-function closeConfirmModal(){
+function closeConfirmModal() {
 
-document.getElementById("confirmModal").classList.remove("open")
+  document.getElementById("confirmModal").classList.remove("open")
 
-pendingIndex=null
+  pendingIndex = null
 
 }
 
@@ -207,13 +207,13 @@ pendingIndex=null
 // ============================
 // پاک کردن فرم
 // ============================
-function clearForm(){
+function clearForm() {
 
-document
-.querySelectorAll("#userModal input")
-.forEach(i=>i.value="")
+  document
+    .querySelectorAll("#userModal input")
+    .forEach(i => i.value = "")
 
-editIndex=null
+  editIndex = null
 
 }
 
@@ -221,61 +221,61 @@ editIndex=null
 // ============================
 // ثبت یا ویرایش کاربر
 // ============================
-function saveUser(){
+function saveUser() {
 
-const first = firstName.value.trim()
-const last = lastName.value.trim()
-const phone = phoneNumber.value.trim()
-const national = nationalCode.value.trim()
-const usern = username.value.trim()
-const pass = password.value.trim()
-const r = role.value
+  const first = firstName.value.trim()
+  const last = lastName.value.trim()
+  const phone = phoneNumber.value.trim()
+  const national = nationalCode.value.trim()
+  const usern = username.value.trim()
+  const pass = password.value.trim()
+  const r = role.value
 
-// جلوگیری از ثبت فیلد خالی
-if(!first || !phone || !last || !national || !usern || !pass){
+  // جلوگیری از ثبت فیلد خالی
+  if (!first || !phone || !last || !national || !usern || !pass) {
 
-alert("لطفاً تمام فیلدها را تکمیل کنید")
+    alert("لطفاً تمام فیلدها را تکمیل کنید")
 
-return
+    return
 
-}
+  }
 
-let currentStatus="active"
+  let currentStatus = "active"
 
-// در حالت ویرایش وضعیت قبلی حفظ می‌شود
-if(editIndex!=null){
+  // در حالت ویرایش وضعیت قبلی حفظ می‌شود
+  if (editIndex != null) {
 
-currentStatus=users[editIndex].personstatus
+    currentStatus = users[editIndex].personstatus
 
-}
+  }
 
-const user={
+  const user = {
 
-first:first,
-last:last,
-phone:phone,
-role:r,
-nationalcode:national,
-username:usern,
-password:pass,
-personstatus:currentStatus
+    first: first,
+    last: last,
+    phone: phone,
+    role: r,
+    nationalcode: national,
+    username: usern,
+    password: pass,
+    personstatus: currentStatus
 
-}
+  }
 
-// اگر در حالت ویرایش باشیم
-if(editIndex!=null){
+  // اگر در حالت ویرایش باشیم
+  if (editIndex != null) {
 
-users[editIndex]=user
+    users[editIndex] = user
 
-}else{
+  } else {
 
-users.push(user)
+    users.push(user)
 
-}
+  }
 
-render()
+  render()
 
-closeModal()
+  closeModal()
 
 }
 
@@ -283,21 +283,21 @@ closeModal()
 // ============================
 // ویرایش کاربر
 // ============================
-function editUser(i){
+function editUser(i) {
 
-editIndex=i
+  editIndex = i
 
-const u=users[i]
+  const u = users[i]
 
-firstName.value=u.first
-lastName.value=u.last
-phoneNumber.value=u.phone
-role.value=u.role
-nationalCode.value=u.nationalcode
-username.value=u.username
-password.value=u.password
+  firstName.value = u.first
+  lastName.value = u.last
+  phoneNumber.value = u.phone
+  role.value = u.role
+  nationalCode.value = u.nationalcode
+  username.value = u.username
+  password.value = u.password
 
-openModal()
+  openModal()
 
 }
 
@@ -305,15 +305,15 @@ openModal()
 // ============================
 // تغییر وضعیت کاربر
 // ============================
-function togglepersonstatus(i){
+function togglepersonstatus(i) {
 
-users[i].personstatus=
+  users[i].personstatus =
 
-users[i].personstatus=='active'
-?'inactive'
-:'active'
+    users[i].personstatus == 'active'
+      ? 'inactive'
+      : 'active'
 
-render()
+  render()
 
 }
 
@@ -321,15 +321,15 @@ render()
 // ============================
 // نمایش همه کاربران
 // ============================
-function showAllUsers(){
+function showAllUsers() {
 
-document.getElementById("searchInput").value=""
+  document.getElementById("searchInput").value = ""
 
-const rows=document.querySelectorAll("#userTable tr")
+  const rows = document.querySelectorAll("#userTable tr")
 
-rows.forEach(r=>{
-r.style.display=''
-})
+  rows.forEach(r => {
+    r.style.display = ''
+  })
 
 }
 
@@ -337,21 +337,21 @@ r.style.display=''
 // ============================
 // جستجو در جدول
 // ============================
-function searchUser(){
+function searchUser() {
 
-const text=searchInput.value
+  const text = searchInput.value
 
-const rows=document.querySelectorAll("#userTable tr")
+  const rows = document.querySelectorAll("#userTable tr")
 
-rows.forEach(r=>{
+  rows.forEach(r => {
 
-r.style.display=
+    r.style.display =
 
-r.innerText.includes(text)
-?''
-:'none'
+      r.innerText.includes(text)
+        ? ''
+        : 'none'
 
-})
+  })
 
 }
 
@@ -359,15 +359,15 @@ r.innerText.includes(text)
 // ============================
 // نمایش یا مخفی کردن رمز
 // ============================
-function togglePass(){
+function togglePass() {
 
-const p=document.getElementById("password")
+  const p = document.getElementById("password")
 
-p.type=
+  p.type =
 
-p.type==="password"
-?"text"
-:"password"
+    p.type === "password"
+      ? "text"
+      : "password"
 
 }
 

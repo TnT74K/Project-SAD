@@ -5,6 +5,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Vazirmatn';
   src: url('../assets/fonts/vazirmatn/vazirmatn-bold.ttf') format('truetype');
@@ -12,6 +13,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Orbitron';
   src: url('../assets/fonts/orbitron/orbitron-regular.ttf') format('truetype');
