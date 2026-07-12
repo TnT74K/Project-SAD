@@ -40,6 +40,11 @@ namespace ReserveCenter.API.Models.DTOs.Admin.OrgManage
         public string Description { get; set; }
         public DateOnly EstablishmentDate { get; set; }
         public string OrgTypeName { get; set; }
+        public string ActiveDaysPerWeek { get; set; }
+        public TimeOnly StartWorkTime { get; set; }
+        public TimeOnly EndWorkTime { get; set; }
+        public TimeOnly? StartRestTime { get; set; }
+        public TimeOnly? EndRestTime { get; set; }
         public string CityName { get; set; }
         public string Address { get; set; }
         public string OwnerName { get; set; }      // نام و نام خانوادگی کاربر ثبت‌کننده

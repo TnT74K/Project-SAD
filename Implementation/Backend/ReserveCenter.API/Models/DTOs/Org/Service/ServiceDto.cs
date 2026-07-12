@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public int TimeDuration { get; set; }  // مدت زمان به دقیقه
-        public int OrgId { get; set; }
+        public int Orgid { get; set; }
         public string OrgName { get; set; }    // برای نمایش
     }
 }

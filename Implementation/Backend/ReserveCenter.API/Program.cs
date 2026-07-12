@@ -1,10 +1,8 @@
-// These are the registeries
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Services.Interfaces;
-using ReserveCenter.API.Services.Implementations;
 using System.Text;
 using ReserveCenter.API.Middlewares; 
 // JWT configs
@@ -13,9 +11,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 // Database Connection checker
 using ReserveCenter.API;
-// Repositories
-using ReserveCenter.API.Repositories.Interfaces;
-using ReserveCenter.API.Repositories.Implementations;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,41 +25,25 @@ builder.Services.AddDbContext<ReserveCenterDBContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ============================
-// ✅ Register Repositories
-// ============================
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IOrgRepository, OrgRepository>();
-builder.Services.AddScoped<IUnregisteredOrgRepository, UnregisteredOrgRepository>();
-builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+// Register repositories
+//builder.Services.AddScoped<IUserRepository, UserRepository>();
+//builder.Services.AddScoped<IOrgRepository, OrgRepository>();
+//builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 //builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-builder.Services.AddScoped<IStaffListRepository, StaffListRepository>();
+//builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 //builder.Services.AddScoped<IAdRepository, AdRepository>();
-builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
-builder.Services.AddScoped<ISuperAdminDashboardRepository, SuperAdminDashboardRepository>();
-builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
-// ============================
-// ✅ Register Services
-// ============================
+// Register services
 //builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IOrgService, OrgService>();
+//builder.Services.AddScoped<IOrgService, OrgService>();
 //builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 //builder.Services.AddScoped<IReviewService, ReviewService>();
-builder.Services.AddScoped<IStaffListService, StaffListService>();
-//builder.Services.AddScoped<IAuthService, AuthService>();
+//builder.Services.AddScoped<IStaffService, StaffService>();
+// builder.Services.AddScoped<IAuthService, AuthService>();
 //builder.Services.AddScoped<IAdminAdService, AdminAdService>();
 //builder.Services.AddScoped<IAdminOrgService, AdminOrgService>();
 //builder.Services.AddScoped<IAdminUserService, AdminUserService>();
-builder.Services.AddScoped<ISearchService, SearchService>();
-builder.Services.AddScoped<IPublicOrgProfileService, PublicOrgProfileService>();
-builder.Services.AddScoped<IAppointmentService, AppointmentService>();
-builder.Services.AddScoped<IOrgProfileService, OrgProfileService>();
-builder.Services.AddScoped<IServiceService, ServiceService>();
-builder.Services.AddScoped<IAppointmentListService, AppointmentListService>();
-builder.Services.AddScoped<IDashboardService, DashboardService>();
-builder.Services.AddScoped<IUserProfileService, UserProfileService>();
-builder.Services.AddScoped<IAdminDashboardService, AdminDashboardService>();
+//builder.Services.AddScoped<ISearchService, SearchService>();
 
 // ========= JWT section ===========
 // Register JWT settings

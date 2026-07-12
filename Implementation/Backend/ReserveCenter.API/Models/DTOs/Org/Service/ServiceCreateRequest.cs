@@ -13,6 +13,6 @@ namespace ReserveCenter.API.Models.DTOs.Org.Service
         public int TimeDuration { get; set; }  // به دقیقه
 
         [Required(ErrorMessage = "شناسه سازمان الزامی است")]
-        public int OrgId { get; set; }
+        public int Orgid { get; set; }
     }
 }

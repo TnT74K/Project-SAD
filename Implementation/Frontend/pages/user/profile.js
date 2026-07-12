@@ -16,6 +16,7 @@ function openEdit() {
   document.getElementById('editLastName').value  = document.getElementById('infoName').textContent.split(' ')[1] || '';
   document.getElementById('editMobile').value    = document.getElementById('infoMobile').textContent;
   document.getElementById('editNid').value       = document.getElementById('infoNid').textContent;
+  document.getElementById('editEmail').value     = document.getElementById('infoEmail').textContent;
 }
 
 function closeEdit() {
@@ -30,6 +31,7 @@ function saveProfile() {
   const mob  = document.getElementById('editMobile').value.trim();
   const nid  = document.getElementById('editNid').value.trim();
   const city = document.getElementById('editCity').value;
+  const email= document.getElementById('editEmail').value.trim();
 
   if (!fn || !ln || !mob) {
     showToast('لطفاً فیلدهای اجباری را تکمیل کنید', false);
@@ -43,6 +45,7 @@ function saveProfile() {
   document.getElementById('infoMobile').textContent  = mob;
   document.getElementById('infoNid').textContent     = nid;
   document.getElementById('infoCity').textContent    = city;
+  document.getElementById('infoEmail').textContent   = email;
   document.getElementById('profileName').textContent = fullName;
   document.getElementById('profileMobile').textContent = mob;
 
