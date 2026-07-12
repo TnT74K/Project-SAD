@@ -26,7 +26,7 @@ namespace ReserveCenter.API.Extensions
                     configuration.GetConnectionString("DefaultConnection")));
 
             // ============================
-            // Register Repositories
+            // Register Repositories (dependency injection)
             // ============================
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrgRepository, OrgRepository>();
@@ -41,7 +41,7 @@ namespace ReserveCenter.API.Extensions
 
 
             // ============================
-            // Register Services
+            // Register Services (dependency injection)
             // ============================
             //services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrgService, OrgService>();
