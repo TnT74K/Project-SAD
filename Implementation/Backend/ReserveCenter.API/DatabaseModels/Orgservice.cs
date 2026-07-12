@@ -13,7 +13,9 @@ public partial class Orgservice
 
     public int TimeDuration { get; set; }
 
-    public int Orgid { get; set; }
+    public int OrgId { get; set; }
+
+    public bool IsDeleted { get; set; }
 
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 }

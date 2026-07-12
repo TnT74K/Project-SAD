@@ -43,6 +43,8 @@ public partial class Org
 
     public decimal StarCount { get; set; }
 
+    public int VoterCount { get; set; }
+
     public bool IsActive { get; set; }
 
     public bool IsBanned { get; set; }

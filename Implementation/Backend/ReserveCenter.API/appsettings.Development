@@ -1,0 +1,7 @@
+{
+  // Abolfazl's string
+   "AllowedHosts": "*",
+   "ConnectionStrings": {
+     "DefaultConnection": "Data Source=DESKTOP-GUGI795; Initial Catalog=ReserveCenterDB;Integrated Security=true;MultipleActiveResultSets=true;TrustServerCertificate=True;"
+   }
+}
