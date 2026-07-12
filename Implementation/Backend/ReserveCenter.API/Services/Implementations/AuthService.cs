@@ -100,7 +100,8 @@ public class AuthService : IAuthService
         {
             throw new UnauthorizedAccessException("شماره موبایل یا رمز عبور معتبر نیست.");
         }
-
+        Console.WriteLine($"PASSWORD FROM DATABASE: {user.Password}");
+        Console.WriteLine($"PASSWORD FROM REQUEST: {request.Password}");
         if (user.Password != request.Password)
         {
             throw new UnauthorizedAccessException("شماره موبایل یا رمز عبور معتبر نیست.");
