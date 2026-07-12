@@ -20,8 +20,6 @@ namespace ReserveCenter.API.Models.DTOs.Auth
         [StringLength(100, MinimumLength = 6, ErrorMessage = "رمز عبور باید حداقل 6 کاراکتر باشد")]
         public string Password { get; set; }
 
-        public int? CityId { get; set; }
-
         public string Role { get; set; } = "Customer"; // قرار شد اولین نقش همه «مشتری» باشه
     }
 }
