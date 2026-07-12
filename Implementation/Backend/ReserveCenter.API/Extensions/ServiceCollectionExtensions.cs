@@ -60,6 +60,7 @@ namespace ReserveCenter.API.Extensions
             services.AddScoped<IAppointmentListService, AppointmentListService>();
             services.AddScoped<IDashboardService, DashboardService>();
             services.AddScoped<IUserProfileService, UserProfileService>();
+            services.AddScoped<IOrgSuspendListService, OrgSuspendListService>();
 
             // ========= JWT section ===========
             services.Configure<JwtSettings>(
