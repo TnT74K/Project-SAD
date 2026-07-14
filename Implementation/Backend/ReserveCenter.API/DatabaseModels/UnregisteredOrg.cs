@@ -39,5 +39,7 @@ public partial class UnregisteredOrg
 
     public virtual City City { get; set; }
 
+    public virtual User CreatedByNavigation { get; set; }
+
     public virtual Orgtype Orgtype { get; set; }
 }

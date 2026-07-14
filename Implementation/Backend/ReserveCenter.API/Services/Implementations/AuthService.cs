@@ -190,7 +190,6 @@ public class AuthService : IAuthService
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
                 Role = roleId,
-                OrgId = orgId,
                 IsBlocked = user.IsBlocked,
                 IsDeleted = user.IsDeleted
             }

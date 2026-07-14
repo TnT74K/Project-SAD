@@ -9,7 +9,7 @@ public partial class Appointment
 {
     public int Id { get; set; }
 
-    public int Orgid { get; set; }
+    public int OrgId { get; set; }
 
     public DateOnly AppointmentDate { get; set; }
 
