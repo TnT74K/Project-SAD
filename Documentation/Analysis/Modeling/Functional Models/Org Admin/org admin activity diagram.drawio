@@ -1,4 +1,4 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.1" pages="2">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" pages="2">
   <diagram name="Page-1" id="Skc_rSWPS0m_5fg3R2lS">
     <mxGraphModel dx="3516" dy="2080" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -562,7 +562,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="CbTEnznXVDK5boZOv8vl" name="Register Worker">
-    <mxGraphModel dx="4250" dy="4605" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2500" pageHeight="2000" math="0" shadow="0">
+    <mxGraphModel dx="789" dy="2717" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2500" pageHeight="2000" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -637,11 +637,11 @@
         <mxCell id="_zMJyShaHJGlx1FluySh-15" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;strokeWidth=1;" value="&lt;font color=&quot;#000000&quot;&gt;خیر&lt;/font&gt;" vertex="1">
           <mxGeometry height="40" width="70" x="1130" y="430" as="geometry" />
         </mxCell>
-        <mxCell id="_zMJyShaHJGlx1FluySh-16" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="_zMJyShaHJGlx1FluySh-4" value="">
+        <mxCell id="_zMJyShaHJGlx1FluySh-16" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=1;labelBackgroundColor=none;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="_zMJyShaHJGlx1FluySh-4" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
             <Array as="points">
-              <mxPoint x="1280" y="530" />
-              <mxPoint x="1250" y="310" />
+              <mxPoint x="1260" y="550" />
+              <mxPoint x="1260" y="55" />
             </Array>
             <mxPoint x="1240" y="550" as="sourcePoint" />
             <mxPoint x="1170" y="120" as="targetPoint" />
