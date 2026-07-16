@@ -16,12 +16,17 @@ namespace ReserveCenter.API.Services.Implementations;
 
 public class AuthService : IAuthService
 {
+    private const int MaxWrongPasswordAttempts = 5;
+    private static readonly TimeSpan LoginLockoutDuration = TimeSpan.FromMinutes(15);
+    private static readonly TimeSpan PreviousPasswordGracePeriod = TimeSpan.FromHours(24);
+
     private readonly ReserveCenterDBContext _context;
     private readonly JwtSettings _jwtSettings;
 
     public AuthService(
         ReserveCenterDBContext context,
         IOptions<JwtSettings> jwtOptions)
+
     {
         _context = context;
         _jwtSettings = jwtOptions.Value;
@@ -101,10 +106,63 @@ public class AuthService : IAuthService
             throw new UnauthorizedAccessException("شماره موبایل یا رمز عبور معتبر نیست.");
         }
 
-        if (user.Password != request.Password)
+        if (user.IsBlocked || user.IsDeleted)
         {
-            throw new UnauthorizedAccessException("شماره موبایل یا رمز عبور معتبر نیست.");
+            throw new UnauthorizedAccessException("حساب کاربر مسدود یا حذف شده‌است.");
         }
+
+        var now = DateTime.UtcNow;
+
+        // Clear an expired cooldown so the user receives a new set of attempts.
+        if (user.NextTimeToLogin.HasValue && user.NextTimeToLogin <= now)
+        {
+            user.NextTimeToLogin = null;
+            user.WrongPasswordCount = 0;
+            await _context.SaveChangesAsync();
+        }
+
+        if (user.NextTimeToLogin.HasValue)
+        {
+            throw new UnauthorizedAccessException(
+                $"به دلیل ورودهای ناموفق متعدد، تا {user.NextTimeToLogin.Value.ToLocalTime():HH:mm} نمی‌توانید وارد شوید.");
+        }
+
+        var usedCurrentPassword = user.Password == request.Password;
+        var usedPreviousPassword =
+            !usedCurrentPassword &&
+            !string.IsNullOrEmpty(user.LastPassword) &&
+            user.ChangePasswordDateTime.HasValue &&
+            now - user.ChangePasswordDateTime.Value <= PreviousPasswordGracePeriod &&
+            user.LastPassword == request.Password;
+
+        // User entered wrong password
+        if (!usedCurrentPassword && !usedPreviousPassword)
+        {
+            user.WrongPasswordCount++;
+
+            if (user.WrongPasswordCount >= MaxWrongPasswordAttempts)
+            {
+                user.NextTimeToLogin = now.Add(LoginLockoutDuration);
+            }
+
+            // This must be saved before throwing; otherwise EF never persists the failed attempt.
+            await _context.SaveChangesAsync();
+
+            if (user.NextTimeToLogin.HasValue)
+            {
+                throw new UnauthorizedAccessException(
+                    $"تعداد تلاش‌های ناموفق بیش از حد مجاز است. لطفاً {LoginLockoutDuration.TotalMinutes:0} دقیقه دیگر تلاش کنید.");
+            }
+
+            var remainingAttempts = MaxWrongPasswordAttempts - user.WrongPasswordCount;
+            throw new UnauthorizedAccessException(
+                $"شماره موبایل یا رمز عبور معتبر نیست. {remainingAttempts} تلاش دیگر باقی مانده است.");
+        }
+
+        // Both the current password and a valid previous-password grace login are successful.
+        user.WrongPasswordCount = 0;
+        user.NextTimeToLogin = null;
+        await _context.SaveChangesAsync();
 
         //find all roles for this user.
         var roles = new List<RoleSelectionDto>();
@@ -133,7 +191,11 @@ public class AuthService : IAuthService
         return new LoginResponse
         {
             UserId = user.Id,
-            Roles = roles
+            Roles = roles,
+            RequiresPasswordChange = usedPreviousPassword,
+            Message = usedPreviousPassword
+                ? "با رمز عبور قبلی وارد شدید. لطفاً رمز عبور خود را تغییر دهید."
+                : null
         };
     }
     #endregion
@@ -235,6 +297,8 @@ public class AuthService : IAuthService
         user.LastPassword = user.Password;
         user.Password = newPassword;
         user.ChangePasswordDateTime = DateTime.UtcNow;
+        user.WrongPasswordCount = 0;
+        user.NextTimeToLogin = null;
         await _context.SaveChangesAsync();
         return true;
     }
