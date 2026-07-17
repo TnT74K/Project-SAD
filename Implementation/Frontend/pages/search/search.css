@@ -1,34 +1,30 @@
-
 :root {
-  --navy:      #0B2545;   /* رنگ اصلی تیره برای هدر و دکمه‌ها */
-  --navy-mid:  #1B4F72;   /* نسخه کمی روشن‌تر برای hover */
-  --blue:      #2E86C1;   /* آبی برای لینک‌ها و المان‌های ثانویه */
-  --gold:      #D4AC0D;   /* طلایی - برای کسب‌وکارهای برتر */
-  --gold-lt:   #f0c930;   /* طلایی روشن‌تر برای گرادیان */
-  --gold-bg:   #fdf8e1;   /* پس‌زمینه خیلی کم‌رنگ طلایی */
-  --gold-bdr:  #e8c84a;   /* بردر کارت‌های طلایی */
-  --bg:        #eef2f7;   /* پس‌زمینه کل صفحه */
+  --navy:      #0B2545;
+  --navy-mid:  #1B4F72;
+  --blue:      #2E86C1;
+  --gold:      #D4AC0D;
+  --gold-lt:   #f0c930;
+  --gold-bg:   #fdf8e1;
+  --gold-bdr:  #e8c84a;
+  --bg:        #eef2f7;
   --card:      #ffffff;
   --text:      #1a2a3a;
-  --text-sec:  #4a6080;   /* متن‌های کم‌اهمیت‌تر */
-  --muted:     #8aa0b8;   /* چیزهایی مثل تعداد نظر، لیبل تبلیغ و ... */
+  --text-sec:  #4a6080;
+  --muted:     #8aa0b8;
   --border:    #d0dae8;
   --red:       #e05555;
   --green:     #22c55e;
   --orange:    #fb923c;
   --shadow:    0 2px 10px rgba(11,37,69,0.09);
-  --shadow-md: 0 6px 22px rgba(11,37,69,0.13);  /* سایه برای حالت hover */
-  --r:         10px;      /* border-radius استاندارد */
-  --r-lg:      16px;      /* border-radius بزرگ‌تر برای کارت‌ها */
+  --shadow-md: 0 6px 22px rgba(11,37,69,0.13);
+  --r:         10px;
+  --r-lg:      16px;
   --font:      'Vazirmatn', sans-serif;
+
+  --header-height: 62px;
+  --searchbar-height: 76px;
 }
 
-
-/* =============================================
-   ریست پایه
-   چند تا چیز که مرورگرها به‌طور پیش‌فرض
-   اعمال می‌کنن و ما نمی‌خوایم
-   ============================================= */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -41,26 +37,19 @@ body {
   color: var(--text);
   direction: rtl;
   min-height: 100vh;
+  margin: 0;
 }
 
-a    { text-decoration: none; color: inherit; }
+a { text-decoration: none; color: inherit; }
 button { cursor: pointer; font-family: var(--font); border: none; background: none; }
 select { font-family: var(--font); }
 
-
-/* wrapper اصلی که همه چیز داخلشه */
 .container {
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-
-/* =============================================
-   هدر
-   sticky هست تا موقع اسکرول بالا بمونه
-   z-index: 100 چون باید روی همه چیز باشه
-   ============================================= */
 #header {
   background: var(--navy);
   border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -73,10 +62,9 @@ select { font-family: var(--font); }
   display: flex;
   align-items: center;
   gap: 20px;
-  height: 62px;
+  height: var(--header-height);
 }
 
-/* لوگو */
 .logo {
   display: flex;
   align-items: center;
@@ -85,79 +73,108 @@ select { font-family: var(--font); }
   font-weight: 800;
   color: #fff;
   white-space: nowrap;
-  flex-shrink: 0;  /* نمی‌خوایم لوگو له بشه */
+  flex-shrink: 0;
 }
 
 .logo-icon {
-  width: 32px; height: 32px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
   background: linear-gradient(135deg, var(--gold), var(--gold-lt));
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.9rem;
 }
 
-/* "سنتر" رو طلایی نشون میده */
-.logo em { color: var(--gold); font-style: normal; }
+.logo em {
+  color: var(--gold);
+  font-style: normal;
+}
 
-/* باکس جستجو توی هدر */
+/* نوار جستجوی جدا زیر هدر */
+.search-topbar {
+  background: var(--navy);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 95;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
 .header-search {
-  flex: 1;
-  display: flex; align-items: center;
+  display: flex;
+  align-items: center;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: var(--r);
   padding: 0 14px;
   gap: 8px;
   max-width: 520px;
+  width: 100%;
 }
 
 .header-search input {
   flex: 1;
-  background: none; border: none; outline: none;
+  background: none;
+  border: none;
+  outline: none;
   color: #fff;
   font-family: var(--font);
   font-size: 0.88rem;
   padding: 10px 0;
 }
 
-.header-search input::placeholder { color: rgba(255,255,255,0.35); }
-.header-search svg { color: rgba(255,255,255,0.4); flex-shrink: 0; }
+.header-search input::placeholder {
+  color: rgba(255,255,255,0.35);
+}
 
-/* دکمه‌های ورود و ثبت‌نام گوشه راست */
-.header-actions { display: flex; gap: 8px; margin-right: auto; }
+.header-search svg {
+  color: rgba(255,255,255,0.4);
+  flex-shrink: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  margin-right: auto;
+}
 
 .btn-login {
   padding: 7px 18px;
   border-radius: var(--r);
   border: 1.5px solid rgba(255,255,255,0.2);
   color: rgba(255,255,255,0.8);
-  font-size: 0.84rem; font-weight: 600;
+  font-size: 0.84rem;
+  font-weight: 600;
   transition: border-color 0.15s, color 0.15s;
 }
-.btn-login:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+.btn-login:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: #fff;
+}
 
 .btn-signup {
   padding: 7px 18px;
   border-radius: var(--r);
   background: var(--gold);
   color: var(--navy);
-  font-size: 0.84rem; font-weight: 700;
+  font-size: 0.84rem;
+  font-weight: 700;
   transition: opacity 0.15s;
 }
-.btn-signup:hover { opacity: 0.88; }
 
+.btn-signup:hover {
+  opacity: 0.88;
+}
 
-/* =============================================
-   نوار فیلتر
-   این هم sticky هست ولی top: 62px داره چون
-   باید زیر هدر بیاد نه روی اون
-   ============================================= */
 #filter-bar {
   background: var(--card);
   border-bottom: 1px solid var(--border);
   padding: 14px 0;
   position: sticky;
-  top: 62px;  /* دقیقاً ارتفاع هدر */
+  top: calc(var(--header-height) + var(--searchbar-height));
   z-index: 90;
   box-shadow: 0 2px 8px rgba(11,37,69,0.06);
 }
@@ -170,61 +187,85 @@ select { font-family: var(--font); }
 }
 
 .filter-label {
-  font-size: 0.78rem; font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--muted);
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-/* دراپ‌داون‌های شهر و دسته‌بندی */
 .filter-select {
   padding: 8px 14px;
   border: 1.5px solid var(--border);
   border-radius: var(--r);
-  font-size: 0.82rem; color: var(--text);
+  font-size: 0.82rem;
+  color: var(--text);
   background: var(--bg);
-  cursor: pointer; outline: none; direction: rtl;
+  cursor: pointer;
+  outline: none;
+  direction: rtl;
   transition: border-color 0.15s;
 }
-.filter-select:focus,
-.filter-select.active { border-color: var(--blue); }
 
-/* چیپ‌های فیلتر (امتیاز، نوبت موفق، نوبت دارد) */
+.filter-select:focus,
+.filter-select.active {
+  border-color: var(--blue);
+}
+
 .filter-chip {
   padding: 7px 15px;
   border-radius: 99px;
   border: 1.5px solid var(--border);
-  background: var(--bg); color: var(--text-sec);
-  font-size: 0.8rem; font-weight: 600;
+  background: var(--bg);
+  color: var(--text-sec);
+  font-size: 0.8rem;
+  font-weight: 600;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
   white-space: nowrap;
 }
-.filter-chip:hover { border-color: var(--blue); color: var(--blue); }
 
-/* وقتی چیپ فعاله، پر میشه */
-.filter-chip.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.filter-chip:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
 
-/* خط جداکننده عمودی بین فیلترها و مرتب‌سازی */
-.filter-divider { width: 1px; height: 26px; background: var(--border); flex-shrink: 0; }
+.filter-chip.on {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
 
-/* دراپ‌داون مرتب‌سازی - سمت چپ قرار میگیره */
+.filter-divider {
+  width: 1px;
+  height: 26px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
 .sort-select {
   padding: 8px 14px;
   border: 1.5px solid var(--border);
   border-radius: var(--r);
-  font-size: 0.82rem; color: var(--text);
+  font-size: 0.82rem;
+  color: var(--text);
   background: var(--bg);
-  cursor: pointer; outline: none; direction: rtl;
-  margin-right: auto;  /* این باعث میشه بره گوشه چپ */
+  cursor: pointer;
+  outline: none;
+  direction: rtl;
+  margin-right: auto;
   transition: border-color 0.15s;
 }
-.sort-select:focus { border-color: var(--blue); }
 
+.sort-select:focus {
+  border-color: var(--blue);
+}
 
-/* =============================================
-   بخش اصلی - هدر نتایج
-   ============================================= */
-#main { padding: 28px 0 60px; }
+#main {
+  padding: 28px 0 60px;
+}
+
+/* ادامه بقیه استایل‌های کارت‌ها و نتایج بدون تغییر */
+
 
 .results-header {
   display: flex; align-items: center; justify-content: space-between;
