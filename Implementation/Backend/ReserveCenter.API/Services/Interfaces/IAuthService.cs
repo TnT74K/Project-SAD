@@ -13,7 +13,7 @@ namespace ReserveCenter.API.Services.Interfaces
         Task<LoginResponse> LoginAsync(LoginRequest request);
 
         // انتخاب نقش بعد ورود
-        Task<TokenResponse> SelectRoleAsync(int userId, string roleName, int? orgId);
+        Task<TokenResponse> SelectRoleAsync(int userId, string? roleName, int? orgId);
         // بازیابی رمز عبور
         Task<bool> ForgotPasswordAsync(string phoneNumber);
         Task<string> VerifyOtpAsync(string phoneNumber, string otpCode);
@@ -26,7 +26,7 @@ namespace ReserveCenter.API.Services.Interfaces
         Task<TokenResponse> RefreshTokenAsync(string refreshToken);
 
         // JWT Token
-        string GenerateJwtToken(User user, string role, int? orgId = null);
+        string GenerateJwtToken(User user, string? role, int? orgId = null);
         
         // کاربر
         Task<bool> ValidateUserAsync(int userId, string? role = null);

@@ -87,7 +87,7 @@ namespace ReserveCenter.API.Extensions
                     };
                 });
 
-            // setup [Authorize] and [Authorize(Roles = Roles.Admin)]
+            // Setup [Authorize] and role-based authorization.
             services.AddAuthorization();
 
             return services;

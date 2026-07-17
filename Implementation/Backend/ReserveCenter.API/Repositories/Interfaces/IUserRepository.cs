@@ -6,6 +6,12 @@ public interface IUserRepository
 {
     Task<User?> GetByIdAsync(int userId);
 
+    Task<User?> GetByIdForAuthenticationAsync(int userId);
+
+    Task<User?> GetByPhoneNumberAsync(string phoneNumber);
+
+    Task<bool> PhoneNumberExistsAsync(string phoneNumber);
+
     //برای زمانی که ما در صفحه لیست کاربران سرچ می کنیم
     Task<List<User>> SearchUserAsync(string searchPhrase);
 
@@ -13,6 +19,8 @@ public interface IUserRepository
     Task<List<User>> AllUserAsync();
 
     Task<User> CreateAsync(User user);
+
+    Task UpdateAsync(User user);
 
     //برای اپدیت از طریق صفحه پروفایل من
     Task<bool> UpdateUserProfileAsync(User user);

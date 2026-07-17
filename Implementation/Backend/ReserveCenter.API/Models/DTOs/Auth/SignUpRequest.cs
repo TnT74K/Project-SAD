@@ -22,6 +22,5 @@ namespace ReserveCenter.API.Models.DTOs.Auth
 
         public int? CityId { get; set; }
 
-        public string Role { get; set; } = "Customer"; // قرار شد اولین نقش همه «مشتری» باشه
     }
 }
