@@ -123,18 +123,18 @@ namespace ReserveCenter.API.Repositories.Implementations
                                    .ToListAsync();
         }
 
-        public Task<List<StaffList>> GetActiveAssignmentsByUserIdAsync(int userId)
+        public async Task<List<StaffList>> GetActiveAssignmentsByUserIdAsync(int userId)
         {
-            return _dbContext.StaffLists
+            return await _dbContext.StaffLists
                 .AsNoTracking()
                 .Include(staffList => staffList.Org)
                 .Where(staffList => staffList.UserId == userId && staffList.IsActive)
                 .ToListAsync();
         }
 
-        public Task<bool> HasActiveAssignmentAsync(int userId, int roleId, int? orgId = null)
+        public async Task<bool> HasActiveAssignmentAsync(int userId, int roleId, int? orgId = null)
         {
-            return _dbContext.StaffLists.AnyAsync(staffList =>
+            return await _dbContext.StaffLists.AnyAsync(staffList =>
                 staffList.UserId == userId &&
                 staffList.RoleId == roleId &&
                 staffList.IsActive &&

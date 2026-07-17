@@ -21,20 +21,20 @@ public class UserRepository : IUserRepository
                                .FirstOrDefaultAsync(user => user.Id == userId && user.IsDeleted == false);
     }
 
-    public Task<User?> GetByIdForAuthenticationAsync(int userId)
+    public async Task<User?> GetByIdForAuthenticationAsync(int userId)
     {
-        return _dbContext.Users.FirstOrDefaultAsync(user => user.Id == userId);
+        return await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == userId);
     }
 
-    public Task<User?> GetByPhoneNumberAsync(string phoneNumber)
+    public async Task<User?> GetByPhoneNumberAsync(string phoneNumber)
     {
-        return _dbContext.Users
+        return await _dbContext.Users
             .FirstOrDefaultAsync(user => user.PhoneNumber == phoneNumber);
     }
 
-    public Task<bool> PhoneNumberExistsAsync(string phoneNumber)
+    public async Task<bool> PhoneNumberExistsAsync(string phoneNumber)
     {
-        return _dbContext.Users.AnyAsync(user => user.PhoneNumber == phoneNumber);
+        return await _dbContext.Users.AnyAsync(user => user.PhoneNumber == phoneNumber);
     }
 
     public async Task<User> CreateAsync(User user)
