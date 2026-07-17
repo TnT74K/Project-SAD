@@ -21,4 +21,8 @@ public interface IStaffListRepository
     Task<bool> DeleteAsync(int staffListId);
 
     Task<bool> ChangeStatusAsync(int staffListId);
+
+    Task<List<StaffList>> GetActiveAssignmentsByUserIdAsync(int userId);
+
+    Task<bool> HasActiveAssignmentAsync(int userId, int roleId, int? orgId = null);
 }

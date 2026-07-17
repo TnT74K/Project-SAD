@@ -4,13 +4,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using ReserveCenter.API.DatabaseModels;
 using Microsoft.Extensions.Options;
 using ReserveCenter.API.Models.Settings;
 using ReserveCenter.API.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.Models.DTOs.Auth;
 using ReserveCenter.API.Constants;
+using ReserveCenter.API.DatabaseModels;
+using ReserveCenter.API.Repositories.Interfaces;
 
 namespace ReserveCenter.API.Services.Implementations;
 
@@ -20,15 +20,18 @@ public class AuthService : IAuthService
     private static readonly TimeSpan LoginLockoutDuration = TimeSpan.FromMinutes(15);
     private static readonly TimeSpan PreviousPasswordGracePeriod = TimeSpan.FromHours(24);
 
-    private readonly ReserveCenterDBContext _context;
+    private readonly IUserRepository _userRepository;
+    private readonly IStaffListRepository _staffListRepository;
     private readonly JwtSettings _jwtSettings;
 
     public AuthService(
-        ReserveCenterDBContext context,
+        IUserRepository userRepository,
+        IStaffListRepository staffListRepository,
         IOptions<JwtSettings> jwtOptions)
 
     {
-        _context = context;
+        _userRepository = userRepository;
+        _staffListRepository = staffListRepository;
         _jwtSettings = jwtOptions.Value;
     }
 
@@ -68,7 +71,7 @@ public class AuthService : IAuthService
     public async Task<TokenResponse> RegisterAsync(SignUpRequest request)
     {
         // Check phone number existance
-        if (await _context.Users.AnyAsync(u => u.PhoneNumber == request.PhoneNumber))
+        if (await _userRepository.PhoneNumberExistsAsync(request.PhoneNumber))
         {
             throw new InvalidOperationException("شماره تلفن قبلاً ثبت شده است.");
         }
@@ -85,8 +88,7 @@ public class AuthService : IAuthService
         };
 
         // Save the object to database
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+        await _userRepository.CreateAsync(user);
 
         return new TokenResponse
         {
@@ -98,8 +100,7 @@ public class AuthService : IAuthService
     #region Login
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber);
+        var user = await _userRepository.GetByPhoneNumberAsync(request.PhoneNumber);
 
         if (user is null)
         {
@@ -118,7 +119,7 @@ public class AuthService : IAuthService
         {
             user.NextTimeToLogin = null;
             user.WrongPasswordCount = 0;
-            await _context.SaveChangesAsync();
+            await _userRepository.UpdateAsync(user);
         }
 
         if (user.NextTimeToLogin.HasValue)
@@ -146,7 +147,7 @@ public class AuthService : IAuthService
             }
 
             // This must be saved before throwing; otherwise EF never persists the failed attempt.
-            await _context.SaveChangesAsync();
+            await _userRepository.UpdateAsync(user);
 
             if (user.NextTimeToLogin.HasValue)
             {
@@ -162,7 +163,7 @@ public class AuthService : IAuthService
         // Both the current password and a valid previous-password grace login are successful.
         user.WrongPasswordCount = 0;
         user.NextTimeToLogin = null;
-        await _context.SaveChangesAsync();
+        await _userRepository.UpdateAsync(user);
 
         //find all roles for this user.
         var roles = new List<RoleSelectionDto>();
@@ -174,10 +175,8 @@ public class AuthService : IAuthService
             OrganizationName = null
         });
 
-        var staffAssignments = await _context.StaffLists
-            .Include(s => s.Org)
-            .Where(s => s.UserId == user.Id && s.IsActive)
-            .ToListAsync();
+        // Assignment = Role
+        var staffAssignments = await _staffListRepository.GetActiveAssignmentsByUserIdAsync(user.Id);
 
         foreach (var staffAssignment in staffAssignments)
         {
@@ -201,8 +200,7 @@ public class AuthService : IAuthService
     #endregion
     public async Task<TokenResponse> SelectRoleAsync(int userId, string roleName, int? orgId)
     {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _userRepository.GetByIdForAuthenticationAsync(userId);
 
         if (user is null)
             throw new UnauthorizedAccessException("کاربر یافت نشد.");
@@ -224,14 +222,10 @@ public class AuthService : IAuthService
             if (!orgId.HasValue)
                 throw new UnauthorizedAccessException("شناسه(آی‌دی) کسب‌وکار برای این نقش لازم است.");
 
-            var staffAssignment = await _context.StaffLists
-                .FirstOrDefaultAsync(s =>
-                    s.UserId == userId &&
-                    s.OrgId == orgId &&
-                    s.RoleId == roleId &&
-                    s.IsActive);
+            var hasStaffAssignment = await _staffListRepository.HasActiveAssignmentAsync(
+                userId, roleId, orgId);
 
-            if (staffAssignment is null)
+            if (!hasStaffAssignment)
                 throw new UnauthorizedAccessException(
                     "کاربر، نقش انتخاب‌شده را در این کسب‌وکار ندارد.");
         }
@@ -261,7 +255,7 @@ public class AuthService : IAuthService
     public async Task<bool> ForgotPasswordAsync(string phoneNumber)
     {
         // For the university project, OTP is fixed to 54321 and not generated or stored.
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+        var user = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
             return false;
@@ -271,7 +265,7 @@ public class AuthService : IAuthService
 
     public async Task<string> VerifyOtpAsync(string phoneNumber, string otpCode)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+        var user = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
             throw new UnauthorizedAccessException("کاربر یافت نشد یا حساب کاربری غیرفعال است.");
@@ -285,7 +279,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> ResetPasswordAsync(string phoneNumber, string token, string newPassword)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+        var user = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
             throw new UnauthorizedAccessException();
@@ -299,7 +293,7 @@ public class AuthService : IAuthService
         user.ChangePasswordDateTime = DateTime.UtcNow;
         user.WrongPasswordCount = 0;
         user.NextTimeToLogin = null;
-        await _context.SaveChangesAsync();
+        await _userRepository.UpdateAsync(user);
         return true;
     }
 
@@ -316,8 +310,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> ValidateUserAsync(int userId, string? role = null)
     {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _userRepository.GetByIdForAuthenticationAsync(userId);
 
         if (user is null || user.IsBlocked || user.IsDeleted)
         {
@@ -341,10 +334,7 @@ public class AuthService : IAuthService
             return false;
         }
 
-        return await _context.StaffLists.AnyAsync(s =>
-            s.UserId == userId &&
-            s.RoleId == roleEntry.Key &&
-            s.IsActive);
+        return await _staffListRepository.HasActiveAssignmentAsync(userId, roleEntry.Key);
     }
 
     // Also validate the org with the role. (not yet to be implemented)
@@ -355,8 +345,7 @@ public class AuthService : IAuthService
 
     public async Task<UserInfoDto> GetUserByIdAsync(int userId)
     {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _userRepository.GetByIdForAuthenticationAsync(userId);
 
         if (user is null)
         {

@@ -122,5 +122,23 @@ namespace ReserveCenter.API.Repositories.Implementations
                                    .OrderBy(o => o.Id)
                                    .ToListAsync();
         }
+
+        public Task<List<StaffList>> GetActiveAssignmentsByUserIdAsync(int userId)
+        {
+            return _dbContext.StaffLists
+                .AsNoTracking()
+                .Include(staffList => staffList.Org)
+                .Where(staffList => staffList.UserId == userId && staffList.IsActive)
+                .ToListAsync();
+        }
+
+        public Task<bool> HasActiveAssignmentAsync(int userId, int roleId, int? orgId = null)
+        {
+            return _dbContext.StaffLists.AnyAsync(staffList =>
+                staffList.UserId == userId &&
+                staffList.RoleId == roleId &&
+                staffList.IsActive &&
+                (!orgId.HasValue || staffList.OrgId == orgId.Value));
+        }
     }
 }

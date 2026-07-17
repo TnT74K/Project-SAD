@@ -21,12 +21,34 @@ public class UserRepository : IUserRepository
                                .FirstOrDefaultAsync(user => user.Id == userId && user.IsDeleted == false);
     }
 
+    public Task<User?> GetByIdForAuthenticationAsync(int userId)
+    {
+        return _dbContext.Users.FirstOrDefaultAsync(user => user.Id == userId);
+    }
+
+    public Task<User?> GetByPhoneNumberAsync(string phoneNumber)
+    {
+        return _dbContext.Users
+            .FirstOrDefaultAsync(user => user.PhoneNumber == phoneNumber);
+    }
+
+    public Task<bool> PhoneNumberExistsAsync(string phoneNumber)
+    {
+        return _dbContext.Users.AnyAsync(user => user.PhoneNumber == phoneNumber);
+    }
+
     public async Task<User> CreateAsync(User user)
     {
         await _dbContext.Users.AddAsync(user);
         await _dbContext.SaveChangesAsync();
 
         return user;
+    }
+
+    public async Task UpdateAsync(User user)
+    {
+        _dbContext.Users.Update(user);
+        await _dbContext.SaveChangesAsync();
     }
 
     //برای اپدیت از طریق صفحه پروفایل من
