@@ -1,4 +1,4 @@
-﻿namespace ReserveCenter.API.Models.DTOs.Admin
+﻿namespace ReserveCenter.API.Models.DTOs.AdminDashboard
 {
     public class AdminDashboardDto
     {

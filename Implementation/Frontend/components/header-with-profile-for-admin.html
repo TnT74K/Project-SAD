@@ -3,8 +3,8 @@
     <nav class="nav-inner">
       
       <link rel="stylesheet" href="/components/fonts.css">
-<link href="/components/temp/header-with-profile-for-admin.css" rel="stylesheet">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="/components/header.css" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
       <a href="/index.html" class="logo">
         <div class="logo-icon">📅</div>
@@ -18,13 +18,14 @@
         <li><a href="/pages/admin/user-list.html">لیست کاربران</a></li>
         <li><a href="/pages/admin/org manage/suspend-list.html">لیست كسب و كار هاي تاييد شده</a></li>
         <li><a href="/pages/admin/org manage/approval-list.html">لیست كسب و كار هاي در انتظار تاييد</a></li>
+        <li><a onclick="localStorage.removeItem('token'); window.location.href='/pages/auth/login.html'; return false;">خروج</a></li>
       </ul>
 
       <div class="nav-actions">
-  <div class="topbar-user">
-    <div class="topbar-greeting">خوش آمدید، <strong>علی رضایی</strong></div>
-    <div class="topbar-avatar">ع</div>
-  </div>
+        <div class="topbar-user">
+          <div class="topbar-greeting"><strong id="header-user-fullname">...</strong> خوش آمدید</div>
+          <div class="topbar-avatar" id="header-user-avatar">-</div>
+        </div>
       </div>
 
       <button class="hamburger" id="hamburgerBtn" type="button">
@@ -38,10 +39,10 @@
 
     <div class="mobile-menu" id="mobileMenu">
       <div class="mobile-user-box">
-        <div class="topbar-avatar">ع</div>
+        <div class="topbar-avatar" id="mobile-user-avatar">-</div>
         <div class="mobile-user-text">
           <div class="mobile-user-label">خوش آمدید</div>
-          <div class="mobile-user-name">علی رضایی</div>
+          <div class="mobile-user-name" id="mobile-user-fullname">...</div>
         </div>
       </div>
 
@@ -51,6 +52,7 @@
         <a href="/pages/admin/user-list.html">لیست کاربران</a>
         <a href="/pages/admin/org manage/suspend-list.html">لیست كسب و كار هاي تاييد شده</a>
         <a href="/pages/admin/org manage/approval-list.html">لیست كسب و كار هاي در انتظار تاييد</a>
+        <a onclick="localStorage.removeItem('token'); window.location.href='/pages/auth/login.html'; return false;">خروج</a>
     </div>
 
 

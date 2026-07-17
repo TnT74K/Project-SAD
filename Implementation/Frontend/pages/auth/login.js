@@ -3,7 +3,7 @@
 // Login + Role Selection + JWT
 // ===============================
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 
 let currentUserId = null;
 let selectedRoleBackendName = "";
@@ -484,15 +484,18 @@ async function confirmRole() {
             );
 
 
-            localStorage.setItem(
-                "user",
-                JSON.stringify(data.user)
-            );
+            // localStorage.setItem(
+            //     "user",
+            //     JSON.stringify(data.user)
+            // );
 
 
             alert(
                 "ورود موفق بود. JWT دریافت شد."
             );
+
+            window.location.href =
+            "/index.html";
 
         }
 

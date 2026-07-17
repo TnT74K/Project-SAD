@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Models.DTOs.Auth;
 using ReserveCenter.API.Services.Interfaces;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ReserveCenter.API.Controllers.Auth
 {
@@ -209,6 +211,77 @@ namespace ReserveCenter.API.Controllers.Auth
                 request.OrgId);
 
             return Ok(result);
+        }
+
+        [HttpPost("send-role-id")] 
+        public async Task<IActionResult> SendRoleId()
+        {
+            try
+            {
+                var role = User.FindFirstValue(ClaimTypes.Role);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+                // دریافت اطلاعات کامل کاربر از سرویس
+                var user = await _authService.GetUserByIdAsync(int.Parse(userId));
+
+
+                if (role == Constants.Roles.Staff)
+                {
+                    return Ok(new
+                    {
+                        IsSuccess = true,
+                        RoleId = 4,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                    });
+                }
+                else if (role == Constants.Roles.Support)
+                {
+                    return Ok(new
+                    {
+                        IsSuccess = true,
+                        RoleId = 3,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                    });
+                }
+                else if (role == Constants.Roles.OrgAdmin)
+                {
+                    return Ok(new
+                    {
+                        IsSuccess = true,
+                        RoleId = 2,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                    });
+                }
+                else if (role == Constants.Roles.SuperAdmin)
+                {
+                    return Ok(new
+                    {
+                        IsSuccess = true,
+                        RoleId = 1,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                    });
+                }
+
+                //customer
+                return Ok(new
+                {
+                    IsSuccess = true,
+                    RoleId = 5,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                });
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
         }
     }
 }
