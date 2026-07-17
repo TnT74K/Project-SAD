@@ -8,9 +8,9 @@ using Microsoft.Extensions.Options;
 using ReserveCenter.API.Models.Settings;
 using ReserveCenter.API.Services.Interfaces;
 using ReserveCenter.API.Models.DTOs.Auth;
-using ReserveCenter.API.Constants;
 using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Repositories.Interfaces;
+using ReserveCenter.API.Models.Enums;
 
 namespace ReserveCenter.API.Services.Implementations;
 
@@ -35,15 +35,20 @@ public class AuthService : IAuthService
         _jwtSettings = jwtOptions.Value;
     }
 
-    public string GenerateJwtToken(User user, string role, int? orgId = null) // if the user has a role other than customer, we'll include it too
+    public string GenerateJwtToken(User user, string? role, int? orgId = null)
     {
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),         // used in Controllers to identify user
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new(JwtRegisteredClaimNames.UniqueName, user.PhoneNumber),
-            new(ClaimTypes.Role, role)
+            new(JwtRegisteredClaimNames.UniqueName, user.PhoneNumber)
         };
+
+        // A customer has no role; do not add a role claim for that selection.
+        if (role is not null)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         if (orgId.HasValue)
         {
@@ -170,7 +175,7 @@ public class AuthService : IAuthService
 
         roles.Add(new RoleSelectionDto
         {
-            RoleName = Roles.Customer,
+            RoleName = null,
             OrgId = null,
             OrganizationName = null
         });
@@ -182,7 +187,7 @@ public class AuthService : IAuthService
         {
             roles.Add(new RoleSelectionDto
             {
-                RoleName = Roles.RoleNames[staffAssignment.RoleId],
+                RoleName = ((RoleEnum)staffAssignment.RoleId).ToString(), // Implicit convertion
                 OrgId = staffAssignment.OrgId,
                 OrganizationName = staffAssignment.Org.Name
             });
@@ -198,7 +203,7 @@ public class AuthService : IAuthService
         };
     }
     #endregion
-    public async Task<TokenResponse> SelectRoleAsync(int userId, string roleName, int? orgId)
+    public async Task<TokenResponse> SelectRoleAsync(int userId, string? roleName, int? orgId)
     {
         var user = await _userRepository.GetByIdForAuthenticationAsync(userId);
 
@@ -208,29 +213,31 @@ public class AuthService : IAuthService
         if (user.IsBlocked || user.IsDeleted)
             throw new UnauthorizedAccessException("حساب کاربر مسدود یا حذف شده‌است");
 
-        if (!Roles.IsValidRole(roleName))
-            throw new UnauthorizedAccessException("نقش نامعتبر");
+        RoleEnum? selectedRole = null;
 
-        var roleEntry = Roles.RoleNames.FirstOrDefault(r => r.Value == roleName);
-        if (roleEntry.Equals(default(KeyValuePair<int, string>)))
-            throw new UnauthorizedAccessException("معادل نقش یافت نشد");
-
-        var roleId = roleEntry.Key;
-
-        if (roleName != Roles.Customer)
+        if (roleName is not null)
         {
+            if (!TryParseStaffRole(roleName, out var staffRole))
+                throw new UnauthorizedAccessException("نقش نامعتبر");
+
             if (!orgId.HasValue)
                 throw new UnauthorizedAccessException("شناسه(آی‌دی) کسب‌وکار برای این نقش لازم است.");
 
             var hasStaffAssignment = await _staffListRepository.HasActiveAssignmentAsync(
-                userId, roleId, orgId);
+                userId, (int)staffRole, orgId);
 
             if (!hasStaffAssignment)
                 throw new UnauthorizedAccessException(
                     "کاربر، نقش انتخاب‌شده را در این کسب‌وکار ندارد.");
+
+            selectedRole = staffRole;
+        }
+        else if (orgId.HasValue)
+        {
+            throw new UnauthorizedAccessException("نقش مشتری نباید شناسه کسب‌وکار داشته باشد.");
         }
 
-        var token = GenerateJwtToken(user, roleName, orgId);
+        var token = GenerateJwtToken(user, selectedRole?.ToString(), orgId);
         var refreshToken = Guid.NewGuid().ToString();
 
         return new TokenResponse
@@ -245,7 +252,7 @@ public class AuthService : IAuthService
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
-                Role = roleId,
+                Role = (int?)selectedRole, // Implicit enum conversion
                 IsBlocked = user.IsBlocked,
                 IsDeleted = user.IsDeleted
             }
@@ -322,19 +329,12 @@ public class AuthService : IAuthService
             return true;
         }
 
-        if (role == Roles.Customer)
-        {
-            return true;
-        }
-
-        var roleEntry = Roles.RoleNames.FirstOrDefault(r => r.Value == role);
-
-        if (roleEntry.Equals(default(KeyValuePair<int, string>)))
+        if (!TryParseStaffRole(role, out var staffRole))
         {
             return false;
         }
 
-        return await _staffListRepository.HasActiveAssignmentAsync(userId, roleEntry.Key);
+        return await _staffListRepository.HasActiveAssignmentAsync(userId, (int)staffRole);
     }
 
     // Also validate the org with the role. (not yet to be implemented)
@@ -361,5 +361,12 @@ public class AuthService : IAuthService
             IsBlocked = user.IsBlocked,
             IsDeleted = user.IsDeleted
         };
+    }
+
+    private static bool TryParseStaffRole(string? roleName, out RoleEnum role)
+    {
+        return Enum.TryParse(roleName, ignoreCase: true, out role) &&
+               role != RoleEnum.All &&
+               Enum.IsDefined(role);
     }
 }

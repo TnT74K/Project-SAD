@@ -15,9 +15,5 @@ public partial class Role
 }
 /*
 Roles:
-1. Customer
-2. Staff
-3. Support
-4. OrgAdmin
-5. SuperAdmin
+Customer is represented by null and does not have a role record.
 */
