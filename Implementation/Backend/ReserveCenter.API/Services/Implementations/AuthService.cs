@@ -4,13 +4,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using ReserveCenter.API.DatabaseModels;
 using Microsoft.Extensions.Options;
 using ReserveCenter.API.Models.Settings;
 using ReserveCenter.API.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.Models.DTOs.Auth;
-using ReserveCenter.API.Constants;
+using ReserveCenter.API.DatabaseModels;
+using ReserveCenter.API.Repositories.Interfaces;
+using ReserveCenter.API.Models.Enums;
 
 namespace ReserveCenter.API.Services.Implementations;
 
@@ -20,27 +20,35 @@ public class AuthService : IAuthService
     private static readonly TimeSpan LoginLockoutDuration = TimeSpan.FromMinutes(15);
     private static readonly TimeSpan PreviousPasswordGracePeriod = TimeSpan.FromHours(24);
 
-    private readonly ReserveCenterDBContext _context;
+    private readonly IUserRepository _userRepository;
+    private readonly IStaffListRepository _staffListRepository;
     private readonly JwtSettings _jwtSettings;
 
     public AuthService(
-        ReserveCenterDBContext context,
+        IUserRepository userRepository,
+        IStaffListRepository staffListRepository,
         IOptions<JwtSettings> jwtOptions)
 
     {
-        _context = context;
+        _userRepository = userRepository;
+        _staffListRepository = staffListRepository;
         _jwtSettings = jwtOptions.Value;
     }
 
-    public string GenerateJwtToken(User user, string role, int? orgId = null) // if the user has a role other than customer, we'll include it too
+    public string GenerateJwtToken(User user, string? role, int? orgId = null)
     {
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),         // used in Controllers to identify user
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new(JwtRegisteredClaimNames.UniqueName, user.PhoneNumber),
-            new(ClaimTypes.Role, role)
+            new(JwtRegisteredClaimNames.UniqueName, user.PhoneNumber)
         };
+
+        // A customer has no role; do not add a role claim for that selection.
+        if (role is not null)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         if (orgId.HasValue)
         {
@@ -68,7 +76,7 @@ public class AuthService : IAuthService
     public async Task<TokenResponse> RegisterAsync(SignUpRequest request)
     {
         // Check phone number existance
-        if (await _context.Users.AnyAsync(u => u.PhoneNumber == request.PhoneNumber))
+        if (await _userRepository.PhoneNumberExistsAsync(request.PhoneNumber))
         {
             throw new InvalidOperationException("شماره تلفن قبلاً ثبت شده است.");
         }
@@ -85,8 +93,7 @@ public class AuthService : IAuthService
         };
 
         // Save the object to database
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+        await _userRepository.CreateAsync(user);
 
         return new TokenResponse
         {
@@ -98,8 +105,7 @@ public class AuthService : IAuthService
     #region Login
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.PhoneNumber == request.PhoneNumber);
+        var user = await _userRepository.GetByPhoneNumberAsync(request.PhoneNumber);
 
         if (user is null)
         {
@@ -118,7 +124,7 @@ public class AuthService : IAuthService
         {
             user.NextTimeToLogin = null;
             user.WrongPasswordCount = 0;
-            await _context.SaveChangesAsync();
+            await _userRepository.UpdateAsync(user);
         }
 
         if (user.NextTimeToLogin.HasValue)
@@ -146,7 +152,7 @@ public class AuthService : IAuthService
             }
 
             // This must be saved before throwing; otherwise EF never persists the failed attempt.
-            await _context.SaveChangesAsync();
+            await _userRepository.UpdateAsync(user);
 
             if (user.NextTimeToLogin.HasValue)
             {
@@ -162,28 +168,26 @@ public class AuthService : IAuthService
         // Both the current password and a valid previous-password grace login are successful.
         user.WrongPasswordCount = 0;
         user.NextTimeToLogin = null;
-        await _context.SaveChangesAsync();
+        await _userRepository.UpdateAsync(user);
 
         //find all roles for this user.
         var roles = new List<RoleSelectionDto>();
 
         roles.Add(new RoleSelectionDto
         {
-            RoleName = Roles.Customer,
+            RoleName = null,
             OrgId = null,
             OrganizationName = null
         });
 
-        var staffAssignments = await _context.StaffLists
-            .Include(s => s.Org)
-            .Where(s => s.UserId == user.Id && s.IsActive)
-            .ToListAsync();
+        // Assignment = Role
+        var staffAssignments = await _staffListRepository.GetActiveAssignmentsByUserIdAsync(user.Id);
 
         foreach (var staffAssignment in staffAssignments)
         {
             roles.Add(new RoleSelectionDto
             {
-                RoleName = Roles.RoleNames[staffAssignment.RoleId],
+                RoleName = ((RoleEnum)staffAssignment.RoleId).ToString(), // Implicit convertion
                 OrgId = staffAssignment.OrgId,
                 OrganizationName = staffAssignment.Org.Name
             });
@@ -199,10 +203,9 @@ public class AuthService : IAuthService
         };
     }
     #endregion
-    public async Task<TokenResponse> SelectRoleAsync(int userId, string roleName, int? orgId)
+    public async Task<TokenResponse> SelectRoleAsync(int userId, string? roleName, int? orgId)
     {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _userRepository.GetByIdForAuthenticationAsync(userId);
 
         if (user is null)
             throw new UnauthorizedAccessException("کاربر یافت نشد.");
@@ -210,33 +213,31 @@ public class AuthService : IAuthService
         if (user.IsBlocked || user.IsDeleted)
             throw new UnauthorizedAccessException("حساب کاربر مسدود یا حذف شده‌است");
 
-        if (!Roles.IsValidRole(roleName))
-            throw new UnauthorizedAccessException("نقش نامعتبر");
+        RoleEnum? selectedRole = null;
 
-        var roleEntry = Roles.RoleNames.FirstOrDefault(r => r.Value == roleName);
-        if (roleEntry.Equals(default(KeyValuePair<int, string>)))
-            throw new UnauthorizedAccessException("معادل نقش یافت نشد");
-
-        var roleId = roleEntry.Key;
-
-        if (roleName != Roles.Customer)
+        if (roleName is not null)
         {
+            if (!TryParseStaffRole(roleName, out var staffRole))
+                throw new UnauthorizedAccessException("نقش نامعتبر");
+
             if (!orgId.HasValue)
                 throw new UnauthorizedAccessException("شناسه(آی‌دی) کسب‌وکار برای این نقش لازم است.");
 
-            var staffAssignment = await _context.StaffLists
-                .FirstOrDefaultAsync(s =>
-                    s.UserId == userId &&
-                    s.OrgId == orgId &&
-                    s.RoleId == roleId &&
-                    s.IsActive);
+            var hasStaffAssignment = await _staffListRepository.HasActiveAssignmentAsync(
+                userId, (int)staffRole, orgId);
 
-            if (staffAssignment is null)
+            if (!hasStaffAssignment)
                 throw new UnauthorizedAccessException(
                     "کاربر، نقش انتخاب‌شده را در این کسب‌وکار ندارد.");
+
+            selectedRole = staffRole;
+        }
+        else if (orgId.HasValue)
+        {
+            throw new UnauthorizedAccessException("نقش مشتری نباید شناسه کسب‌وکار داشته باشد.");
         }
 
-        var token = GenerateJwtToken(user, roleName, orgId);
+        var token = GenerateJwtToken(user, selectedRole?.ToString(), orgId);
         var refreshToken = Guid.NewGuid().ToString();
 
         return new TokenResponse
@@ -251,7 +252,7 @@ public class AuthService : IAuthService
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
-                Role = roleId,
+                Role = (int?)selectedRole, // Implicit enum conversion
                 IsBlocked = user.IsBlocked,
                 IsDeleted = user.IsDeleted
             }
@@ -261,7 +262,7 @@ public class AuthService : IAuthService
     public async Task<bool> ForgotPasswordAsync(string phoneNumber)
     {
         // For the university project, OTP is fixed to 54321 and not generated or stored.
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+        var user = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
             return false;
@@ -271,7 +272,7 @@ public class AuthService : IAuthService
 
     public async Task<string> VerifyOtpAsync(string phoneNumber, string otpCode)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+        var user = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
             throw new UnauthorizedAccessException("کاربر یافت نشد یا حساب کاربری غیرفعال است.");
@@ -285,7 +286,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> ResetPasswordAsync(string phoneNumber, string token, string newPassword)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+        var user = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
             throw new UnauthorizedAccessException();
@@ -299,7 +300,7 @@ public class AuthService : IAuthService
         user.ChangePasswordDateTime = DateTime.UtcNow;
         user.WrongPasswordCount = 0;
         user.NextTimeToLogin = null;
-        await _context.SaveChangesAsync();
+        await _userRepository.UpdateAsync(user);
         return true;
     }
 
@@ -316,8 +317,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> ValidateUserAsync(int userId, string? role = null)
     {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _userRepository.GetByIdForAuthenticationAsync(userId);
 
         if (user is null || user.IsBlocked || user.IsDeleted)
         {
@@ -329,22 +329,12 @@ public class AuthService : IAuthService
             return true;
         }
 
-        if (role == Roles.Customer)
-        {
-            return true;
-        }
-
-        var roleEntry = Roles.RoleNames.FirstOrDefault(r => r.Value == role);
-
-        if (roleEntry.Equals(default(KeyValuePair<int, string>)))
+        if (!TryParseStaffRole(role, out var staffRole))
         {
             return false;
         }
 
-        return await _context.StaffLists.AnyAsync(s =>
-            s.UserId == userId &&
-            s.RoleId == roleEntry.Key &&
-            s.IsActive);
+        return await _staffListRepository.HasActiveAssignmentAsync(userId, (int)staffRole);
     }
 
     // Also validate the org with the role. (not yet to be implemented)
@@ -355,8 +345,7 @@ public class AuthService : IAuthService
 
     public async Task<UserInfoDto> GetUserByIdAsync(int userId)
     {
-        var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _userRepository.GetByIdForAuthenticationAsync(userId);
 
         if (user is null)
         {
@@ -372,5 +361,12 @@ public class AuthService : IAuthService
             IsBlocked = user.IsBlocked,
             IsDeleted = user.IsDeleted
         };
+    }
+
+    private static bool TryParseStaffRole(string? roleName, out RoleEnum role)
+    {
+        return Enum.TryParse(roleName, ignoreCase: true, out role) &&
+               role != RoleEnum.All &&
+               Enum.IsDefined(role);
     }
 }
