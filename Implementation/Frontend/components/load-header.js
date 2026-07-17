@@ -15,9 +15,13 @@ async function registerUserForHeader() {
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(result.message || "خطا در گرفتن نقش");
       localStorage.removeItem("token");
-    window.location.href ="/pages/auth/login.html";
+      const headerResponse = await fetch("/components/header.html");
+      const headerHtml = await headerResponse.text();
+
+      document.getElementById("header-placeholder").innerHTML = headerHtml;
+
+      initHeader();
     }
 
     if (result.roleId === 5) {
