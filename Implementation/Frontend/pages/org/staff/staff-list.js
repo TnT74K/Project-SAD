@@ -302,23 +302,41 @@ function saveUser() {
 // ======================================
 // ویرایش کاربر
 // ======================================
+// ======================================
+// ویرایش کاربر (باز کردن مودال ویرایش)
+// ======================================
 function editUser(i) {
+    editIndex = i;
+    const u = users[i];
 
-  editIndex = i
+    // پر کردن فیلدهای مودال ویرایش
+    document.getElementById('editRole').value = u.role;
 
-  const u = users[i]
-
-
-  phoneNumber.value = u.phone
-  role.value = u.role
-
-
-  openModal()
-
+    // باز کردن مودال ویرایش
+    document.getElementById('editModal').style.display = "flex";
 }
 
+// ======================================
+// ذخیره ویرایش کاربر (بدون تغییر شماره)
+// ======================================
+function saveEditUser() {
+    if (editIndex === null) return;
 
+    const role = document.getElementById('editRole').value;
 
+    // فقط نقش رو به‌روزرسانی کن (شماره تغییر نمی‌کنه)
+    users[editIndex].role = role;
+
+    render();
+    closeEditModal();
+}
+// ======================================
+// بستن مودال ویرایش
+// ======================================
+function closeEditModal() {
+    document.getElementById('editModal').style.display = "none";
+    editIndex = null;
+}
 // ======================================
 // تغییر وضعیت فعال / غیرفعال
 // ======================================
