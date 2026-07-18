@@ -20,8 +20,7 @@ namespace ReserveCenter.API.Services.Interfaces
         Task<bool> ResetPasswordAsync(string phoneNumber, string token, string newPassword);
         
         // خروج
-        Task<bool> LogoutAsync(int userId);
-        
+        // منطق خروج از حساب کاربری تماماً در فرانت‌اند انجام می‌شود
         // توکن
         Task<TokenResponse> RefreshTokenAsync(string refreshToken);
 

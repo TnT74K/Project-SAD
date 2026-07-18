@@ -304,12 +304,6 @@ public class AuthService : IAuthService
         return true;
     }
 
-    //Because our JWTs are stateless and we don’t store refresh tokens, logout is very simple:
-    public async Task<bool> LogoutAsync(int userId)
-    {
-        return await ValidateUserAsync(userId);
-    }
-
     public Task<TokenResponse> RefreshTokenAsync(string refreshToken)
     {
         throw new NotSupportedException("Refresh tokens are not implemented in this university project.");

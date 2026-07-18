@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Team Responsibility Division</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6fb;
+    color: #1e2a3a;
+    padding: 28px 20px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1a2540;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #6b7a99;
+    font-size: 0.82rem;
+    margin-bottom: 28px;
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 22px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 0.8rem; }
+  .dot { width: 13px; height: 13px; border-radius: 50%; display: inline-block; }
+  .dot-owner { background: #3b6ef8; }
+  .dot-support { background: #a8bfff; }
+  .dot-review { background: #f0c040; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 6px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
+  .tab {
+    padding: 8px 20px; border-radius: 20px; border: 2px solid #d0d8f0;
+    background: #fff; cursor: pointer; font-size: 0.83rem; font-weight: 600;
+    color: #4a5a80; transition: all 0.2s;
+  }
+  .tab:hover { border-color: #3b6ef8; color: #3b6ef8; }
+  .tab.active { background: #3b6ef8; border-color: #3b6ef8; color: #fff; }
+
+  /* PANEL */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* TEAM CARDS */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px; margin-bottom: 20px;
+  }
+  .card {
+    background: #fff; border-radius: 14px;
+    border: 2px solid #e4eaf8;
+    padding: 18px 16px;
+    box-shadow: 0 2px 8px rgba(59,110,248,0.06);
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 6px 18px rgba(59,110,248,0.12); }
+  .card-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .card-title { font-size: 0.95rem; font-weight: 700; color: #1a2540; line-height: 1.2; }
+  .card-sub { font-size: 0.74rem; color: #8898b8; margin-top: 2px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 0.74rem; padding: 3px 10px; border-radius: 12px;
+    font-weight: 600;
+  }
+  .tag-primary { background: #e8eeff; color: #2d52cc; }
+  .tag-secondary { background: #f0f4ff; color: #5a72b0; }
+  .tag-lead { background: #e8f5e9; color: #2e7d32; }
+  .section-label {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #a0b0cc; margin: 10px 0 5px;
+  }
+
+  /* MATRIX TABLE */
+  .matrix-wrap { overflow-x: auto; border-radius: 14px; box-shadow: 0 2px 8px rgba(59,110,248,0.07); }
+  table {
+    width: 100%; border-collapse: collapse;
+    background: #fff; font-size: 0.78rem;
+  }
+  thead { background: #1a2540; color: #fff; }
+  thead th { padding: 10px 12px; text-align: center; font-size: 0.75rem; font-weight: 600; }
+  thead th:first-child { text-align: left; min-width: 180px; }
+  tbody tr:nth-child(even) { background: #f7f9fe; }
+  tbody tr:hover { background: #eef2fc; }
+  td { padding: 9px 12px; text-align: center; vertical-align: middle; border-bottom: 1px solid #e8edf8; }
+  td:first-child { text-align: left; font-weight: 500; color: #2d3a5a; }
+  .group-header td {
+    background: #e8eeff; color: #2d52cc; font-weight: 700;
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 7px 12px;
+  }
+  .badge {
+    display: inline-block; width: 22px; height: 22px; border-radius: 50%;
+    font-size: 0.65rem; font-weight: 700; line-height: 22px; text-align: center; color: #fff;
+  }
+  .badge-O { background: #3b6ef8; }
+  .badge-S { background: #a8bfff; color: #2d52cc; }
+  .badge-R { background: #f0c040; color: #7a5c00; }
+  .badge-empty { background: transparent; }
+
+  /* PRINCIPLE CARDS */
+  .principle-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px;
+  }
+  .principle-card {
+    background: #fff; border-radius: 12px; border: 2px solid #e4eaf8;
+    padding: 16px 14px;
+  }
+  .principle-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .principle-title { font-size: 0.88rem; font-weight: 700; color: #1a2540; margin-bottom: 6px; }
+  .principle-text { font-size: 0.78rem; color: #5a6a88; line-height: 1.5; }
+
+  /* COLORS per role */
+  .c1 { background: #3b6ef8; }
+  .c2 { background: #e05c7a; }
+  .c3 { background: #20a090; }
+  .c4 { background: #e07a20; }
+  .c5 { background: #7c4dcc; }
+
+  .callout {
+    background: #fffbe8; border-left: 4px solid #f0c040;
+    border-radius: 8px; padding: 12px 16px; font-size: 0.8rem;
+    color: #5a4a10; margin-top: 16px; line-height: 1.55;
+  }
+  .callout strong { color: #3a3000; }
+</style>
+</head>
+<body>
+
+<h1>🎓 IS Project — Team Responsibility Division</h1>
+<p class="subtitle">5-Person Team &nbsp;|&nbsp; SDLC + OOSAD &nbsp;|&nbsp; Web-Based System</p>
+
+<div class="tabs">
+  <div class="tab active" onclick="showPanel('roles')">👥 Roles</div>
+  <div class="tab" onclick="showPanel('matrix')">📊 Responsibility Matrix</div>
+  <div class="tab" onclick="showPanel('principles')">💡 Key Principles</div>
+</div>
+
+<!-- PANEL: ROLES -->
+<div id="panel-roles" class="panel active">
+  <div class="team-grid">
+
+    <!-- PM -->
+    <div class="card">
+      <div class="card-header">
+        <div class="avatar c1">PM</div>
+        <div>
+          <div class="card-title">Sajad — Project Manager</div>
+          <div class="card-sub">+ Systems Analyst</div>
+        </div>
+      </div>
+      <div class="section-label">Implementation</div>
+      <div class="tag-list">
+        <span class="tag tag-primary">Coordination</span>
+        <span class="tag tag-primary">Integration Testing</span>
+        <span class="tag tag-primary">Code Review</span>
+      </div>
+      <div class="section-label">Documentation</div>
+      <div class="tag-list">
+        <span class="tag tag-lead">Use Case Descriptions</span>
+        <span class="tag tag-lead">Review All Diagrams</span>
+        <span class="tag tag-lead">Overall Docs Structure</span>
+      </div>
+    </div>
+
+    <!-- FE -->
+    <div class="card">
+      <div class="card-header">
+        <div class="avatar c2">FE</div>
+        <div>
+          <div class="card-title">Ali — Frontend Lead</div>
+          <div class="card-sub">UI/UX + Functional Models</div>
+        </div>
+      </div>
+      <div class="section-label">Implementation</div>
+      <div class="tag-list">
+        <span class="tag tag-primary">Frontend Refinement</span>
+        <span class="tag tag-primary">UI Components</span>
+        <span class="tag tag-primary">User Flows</span>
+      </div>
+      <div class="section-label">Documentation</div>
+      <div class="tag-list">
+        <span class="tag tag-lead">Use Case Diagrams</span>
+        <span class="tag tag-lead">Activity Diagrams</span>
+      </div>
+    </div>
+
+    <!-- Be -->
+    <div class="card">
+      <div class="card-header">
+        <div class="avatar c3">BE</div>
+        <div>
+          <div class="card-title">Hamed — Backend Lead</div>
+          <div class="card-sub">API + Structural/Behavioral</div>
+        </div>
+      </div>
+      <div class="section-label">Implementation</div>
+      <div class="tag-list">
+        <span class="tag tag-primary">REST API</span>
+        <span class="tag tag-primary">Business Logic</span>
+        <span class="tag tag-primary">Server Architecture</span>
+      </div>
+      <div class="section-label">Documentation</div>
+      <div class="tag-list">
+        <span class="tag tag-lead">Class Diagrams</span>
+        <span class="tag tag-lead">Sequence Diagrams</span>
+      </div>
+    </div>
+
+    <!-- DB -->
+    <div class="card">
+      <div class="card-header">
+        <div class="avatar c4">DB</div>
+        <div>
+          <div class="card-title">Abolfazl — Database Lead</div>
+          <div class="card-sub">Data Layer + Structural</div>
+        </div>
+      </div>
+      <div class="section-label">Implementation</div>
+      <div class="tag-list">
+        <span class="tag tag-primary">DB Schema</span>
+        <span class="tag tag-primary">Queries & Relations</span>
+        <span class="tag tag-primary">Data Validation</span>
+      </div>
+      <div class="section-label">Documentation</div>
+      <div class="tag-list">
+        <span class="tag tag-lead">Object Diagrams</span>
+        <span class="tag tag-lead">CRC Cards</span>
+      </div>
+    </div>
+
+    <!-- FS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="avatar c5">FS</div>
+        <div>
+          <div class="card-title">Mohammad Hossein — Integrator</div>
+          <div class="card-sub">Full-Stack + Behavioral</div>
+        </div>
+      </div>
+      <div class="section-label">Implementation</div>
+      <div class="tag-list">
+        <span class="tag tag-primary">FE-BE Integration</span>
+        <span class="tag tag-primary">System Testing</span>
+        <span class="tag tag-primary">Bug Fixing</span>
+      </div>
+      <div class="section-label">Documentation</div>
+      <div class="tag-list">
+        <span class="tag tag-lead">State Diagrams</span>
+        <span class="tag tag-lead">Communication Diagrams</span>
+        <span class="tag tag-lead">Test Documentation</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout">
+    <strong>⚠️ Key Rule:</strong> Every deliverable must have exactly <strong>one Owner</strong> — the person responsible for producing it. Others can support or review, but if two people "share" ownership with no clear lead, it will fall through the cracks.
+  </div>
+</div>
+
+<!-- PANEL: MATRIX -->
+<div id="panel-matrix" class="panel">
+  <div class="legend">
+    <div class="legend-item"><span class="dot dot-owner"></span><strong>O</strong> — Owner (produces it)</div>
+    <div class="legend-item"><span class="dot dot-support"></span><strong>S</strong> — Supports (contributes)</div>
+    <div class="legend-item"><span class="dot dot-review"></span><strong>R</strong> — Reviewer (quality check)</div>
+  </div>
+  <div class="matrix-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Deliverable</th>
+          <th><span class="c1" style="display:inline-block;padding:3px 8px;border-radius:8px;font-size:0.7rem">You (PM)</span></th>
+          <th><span class="c2" style="display:inline-block;padding:3px 8px;border-radius:8px;font-size:0.7rem">FE Lead</span></th>
+          <th><span class="c3" style="display:inline-block;padding:3px 8px;border-radius:8px;font-size:0.7rem">BE Lead</span></th>
+          <th><span class="c4" style="display:inline-block;padding:3px 8px;border-radius:8px;font-size:0.7rem">DB Lead</span></th>
+          <th><span class="c5" style="display:inline-block;padding:3px 8px;border-radius:8px;font-size:0.7rem">Integrator</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="group-header"><td colspan="6">📋 Project & Documentation</td></tr>
+        <tr><td>Project Plan / Timeline</td><td><span class="badge badge-O">O</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>System Documentation</td><td><span class="badge badge-O">O</span></td><td><span class="badge badge-S">S</span></td><td><span class="badge badge-S">S</span></td><td><span class="badge badge-S">S</span></td><td><span class="badge badge-S">S</span></td></tr>
+
+        <tr class="group-header"><td colspan="6">🔵 Functional Models</td></tr>
+        <tr><td>Use Case Diagrams</td><td><span class="badge badge-R">R</span></td><td><span class="badge badge-O">O</span></td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Use Case Descriptions</td><td><span class="badge badge-O">O</span></td><td><span class="badge badge-S">S</span></td><td>—</td><td>—</td><td>—</td></tr>
+
+        <tr class="group-header"><td colspan="6">🟢 Structural Models</td></tr>
+        <tr><td>Class Diagrams</td><td><span class="badge badge-R">R</span></td><td>—</td><td><span class="badge badge-O">O</span></td><td><span class="badge badge-S">S</span></td><td>—</td></tr>
+        <tr><td>Object Diagrams</td><td>—</td><td>—</td><td><span class="badge badge-S">S</span></td><td><span class="badge badge-O">O</span></td><td>—</td></tr>
+        <tr><td>CRC Cards</td><td><span class="badge badge-R">R</span></td><td>—</td><td>—</td><td><span class="badge badge-O">O</span></td><td>—</td></tr>
+
+        <tr class="group-header"><td colspan="6">🟣 Behavioral Models</td></tr>
+        <tr><td>Activity Diagrams</td><td>—</td><td><span class="badge badge-O">O</span></td><td>—</td><td>—</td><td><span class="badge badge-S">S</span></td></tr>
+        <tr><td>Sequence Diagrams</td><td><span class="badge badge-R">R</span></td><td>—</td><td><span class="badge badge-O">O</span></td><td>—</td><td><span class="badge badge-S">S</span></td></tr>
+        <tr><td>State Diagrams</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="badge badge-O">O</span></td></tr>
+        <tr><td>Communication Diagrams</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="badge badge-O">O</span></td></tr>
+
+        <tr class="group-header"><td colspan="6">💻 Implementation</td></tr>
+        <tr><td>Frontend (UI Refinement)</td><td>—</td><td><span class="badge badge-O">O</span></td><td>—</td><td>—</td><td><span class="badge badge-S">S</span></td></tr>
+        <tr><td>Backend / API</td><td>—</td><td>—</td><td><span class="badge badge-O">O</span></td><td><span class="badge badge-S">S</span></td><td>—</td></tr>
+        <tr><td>Database Schema</td><td>—</td><td>—</td><td><span class="badge badge-S">S</span></td><td><span class="badge badge-O">O</span></td><td>—</td></tr>
+        <tr><td>FE–BE Integration</td><td>—</td><td><span class="badge badge-S">S</span></td><td><span class="badge badge-S">S</span></td><td>—</td><td><span class="badge badge-O">O</span></td></tr>
+        <tr><td>Testing & QA</td><td><span class="badge badge-R">R</span></td><td>—</td><td>—</td><td>—</td><td><span class="badge badge-O">O</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>💡 Tip for you as PM:</strong> You should own fewer deliverables than the others — your job is to unblock the team, review outputs, and make sure everything connects. Your main deliverables are Use Case Descriptions and overall documentation structure.
+  </div>
+</div>
+
+<!-- PANEL: PRINCIPLES -->
+<div id="panel-principles" class="panel">
+  <div class="principle-grid">
+
+    <div class="principle-card">
+      <div class="principle-icon">🎯</div>
+      <div class="principle-title">One Owner Per Deliverable</div>
+      <div class="principle-text">Every diagram, document, and feature must have exactly one person who is responsible for it. "Shared" ownership with no clear lead guarantees it won't get done.</div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">✂️</div>
+      <div class="principle-title">Split Docs vs. Implementation</div>
+      <div class="principle-text">Yes — divide them differently. Documentation follows <em>knowledge</em> (who understands that part of the system). Implementation follows <em>technical layer</em> (frontend / backend / database).</div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">🔗</div>
+      <div class="principle-title">Align Diagrams to Code</div>
+      <div class="principle-text">The person who writes the backend should own the Class Diagram — they know the objects. The frontend person should own the Activity Diagram — they know the user flows.</div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">⚖️</div>
+      <div class="principle-title">Balance Workload</div>
+      <div class="principle-text">Each person should have 1–2 documentation deliverables AND 1 implementation area. Overloading one person creates a single point of failure for the whole project.</div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">👁️</div>
+      <div class="principle-title">PM Reviews, Doesn't Produce</div>
+      <div class="principle-text">As manager, your job is coordination and quality checking — not being the bottleneck who produces everything. Own only what requires your holistic view of the system.</div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">🔄</div>
+      <div class="principle-title">Use Sync Points</div>
+      <div class="principle-text">Hold a short weekly sync where each person reports status on their deliverable. This prevents surprises and lets you reallocate if someone is stuck or ahead of schedule.</div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">📦</div>
+      <div class="principle-title">Deliverable-Based, Not Task-Based</div>
+      <div class="principle-text">Assign whole deliverables (e.g. "Class Diagram"), not vague tasks (e.g. "help with modeling"). A deliverable has a clear done-state; a task doesn't.</div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-icon">🚧</div>
+      <div class="principle-title">Map Your Dependencies</div>
+      <div class="principle-text">Class Diagrams depend on Use Cases. Sequence Diagrams depend on Class Diagrams. Know what blocks what so you can sequence the work and avoid bottlenecks.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
