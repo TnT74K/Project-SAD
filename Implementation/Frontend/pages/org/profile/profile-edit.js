@@ -7,11 +7,7 @@
 // داده‌های اصلی برنامه - Services
 // -----------------------------------------------
 
-let services = [
-    { id: 1, name: "مشاوره", duration: 60 },
-    { id: 2, name: "پشتیبانی", duration: 30 },
-    { id: 3, name: "ثبت نام", duration: 45 }
-];
+let services = [];
 
 let editingServiceId = null;
 
@@ -50,6 +46,20 @@ function formatPrice(price) {
 function getServiceById(id) {
     return services.find(service => Number(service.id) === Number(id));
 }
+
+// -----------------------------------------------
+// API Configuration
+// -----------------------------------------------
+
+const API_BASE_URL = "http://localhost:5000/api";
+function getToken() { return localStorage.getItem("token"); }
+function getOrgId() {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    return user.orgId || null;
+}
+
+/** ذخیره داده‌های کامل پروفایل (برای فیلدهایی که فرم ندارد) */
+let profileData = null;
 
 // -----------------------------------------------
 // توابع تبدیل تاریخ شمسی <-> میلادی
@@ -192,12 +202,12 @@ let viewMonth;
 let editingSlot = null;
 
 let organization = {
-    name: "مرکز تخصصی رزروسنتر",
-    fullName: "سازمان خدمات نمونه کشوری",
+    name: "",
+    fullName: "",
     start: "08:00",
     end: "18:00",
-    desc: "ارائه خدمات تخصصی در حوزه رزرواسیون آنلاین با بالاترین کیفیت",
-    image: "https://formafzar.com/attachment/images/%D8%B1%D8%B2%D8%B1%D9%88-%D8%A2%D9%86%D9%84%D8%A7%DB%8C%D9%86.jpg",
+    desc: "",
+    image: "default-org.png",
     active: true
 };
 
@@ -293,7 +303,7 @@ function openOrgModal() {
     openModal("orgModal");
 }
 
-function saveOrg() {
+async function saveOrg() {
     const name = document.getElementById("inputName").value.trim();
     const fullName = document.getElementById("inputFullName").value.trim();
     const start = document.getElementById("startHour").value;
@@ -306,29 +316,68 @@ function saveOrg() {
         return;
     }
 
-    organization.name = name;
-    organization.fullName = fullName;
-    organization.start = start;
-    organization.end = end;
-    organization.desc = desc;
-    organization.active = active;
-
     const file = document.getElementById("imageUpload").files[0];
 
+    /** خواندن فایل تصویر به صورت base64 */
+    const readImageAsBase64 = (file) => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = e => resolve(e.target.result);
+            reader.readAsDataURL(file);
+        });
+    };
+
+    let imageBase64 = organization.image;
     if (file) {
-        const reader = new FileReader();
-
-        reader.onload = e => {
-            organization.image = e.target.result;
-            renderOrg();
-        };
-
-        reader.readAsDataURL(file);
-    } else {
-        renderOrg();
+        imageBase64 = await readImageAsBase64(file);
     }
 
-    closeModal("orgModal");
+    const body = {
+        name,
+        image: imageBase64,
+        description: desc,
+        address: fullName,
+        startWorkTime: start,
+        endWorkTime: end,
+        /* فیلدهایی که در فرم نیستند — از آخرین پاسخ API می‌آیند */
+        establishmentDate: profileData ? profileData.establishmentDate : null,
+        orgtypeId: profileData ? profileData.orgtypeId : null,
+        activeDaysPerWeek: profileData ? profileData.activeDaysPerWeek : null,
+        startRestTime: profileData ? profileData.startRestTime : null,
+        endRestTime: profileData ? profileData.endRestTime : null,
+        cityId: profileData ? profileData.cityId : null
+    };
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/org/profile`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${getToken()}`
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.message || "خطا در ذخیره پروفایل");
+        }
+
+        const result = await res.json();
+
+        organization.name = name;
+        organization.fullName = fullName;
+        organization.start = start;
+        organization.end = end;
+        organization.desc = desc;
+        organization.active = active;
+        organization.image = imageBase64;
+
+        renderOrg();
+        closeModal("orgModal");
+    } catch (err) {
+        alert(err.message);
+    }
 }
 
 // -----------------------------------------------
@@ -378,7 +427,7 @@ function renderServices() {
     });
 }
 
-function saveService() {
+async function saveService() {
     const name = document.getElementById("serviceName").value.trim();
     const durationValue = document.getElementById("serviceDuration").value.trim();
     const duration = Number(durationValue);
@@ -393,30 +442,52 @@ function saveService() {
         return;
     }
 
-    if (editingServiceId) {
-        const service = services.find(s => Number(s.id) === Number(editingServiceId));
+    try {
+        if (editingServiceId) {
+            /* --- ویرایش خدمت --- */
+            const res = await fetch(`${API_BASE_URL}/org/profile/services`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${getToken()}`
+                },
+                body: JSON.stringify({ id: Number(editingServiceId), name, timeDuration: duration })
+            });
 
-        if (service) {
-            service.name = name;
-            service.duration = duration;
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.message || "خطا در ویرایش خدمت");
+            }
+
+            editingServiceId = null;
+        } else {
+            /* --- افزودن خدمت جدید --- */
+            const res = await fetch(`${API_BASE_URL}/org/profile/services`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${getToken()}`
+                },
+                body: JSON.stringify({ name, timeDuration: duration })
+            });
+
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.message || "خطا در ثبت خدمت");
+            }
         }
 
-        editingServiceId = null;
-    } else {
-        services.push({
-            id: Date.now(),
-            name,
-            duration
-        });
+        document.getElementById("serviceName").value = "";
+        document.getElementById("serviceDuration").value = "";
+
+        await loadServices();
+        renderServices();
+        populateServiceFilter();
+        populateServiceSelect();
+        renderSlots();
+    } catch (err) {
+        alert(err.message);
     }
-
-    document.getElementById("serviceName").value = "";
-    document.getElementById("serviceDuration").value = "";
-
-    renderServices();
-    populateServiceFilter();
-    populateServiceSelect();
-    renderSlots();
 }
 
 function editService(id) {
@@ -433,7 +504,7 @@ function editService(id) {
     editingServiceId = id;
 }
 
-function deleteService(id) {
+async function deleteService(id) {
     const service = getServiceById(id);
 
     if (!service) {
@@ -452,18 +523,31 @@ function deleteService(id) {
 
     if (!confirmDelete) return;
 
-    services = services.filter(s => Number(s.id) !== Number(id));
+    try {
+        const res = await fetch(`${API_BASE_URL}/org/profile/services/${id}`, {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${getToken()}` }
+        });
 
-    if (Number(editingServiceId) === Number(id)) {
-        editingServiceId = null;
-        document.getElementById("serviceName").value = "";
-        document.getElementById("serviceDuration").value = "";
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.message || "خطا در حذف خدمت");
+        }
+
+        if (Number(editingServiceId) === Number(id)) {
+            editingServiceId = null;
+            document.getElementById("serviceName").value = "";
+            document.getElementById("serviceDuration").value = "";
+        }
+
+        await loadServices();
+        renderServices();
+        populateServiceFilter();
+        populateServiceSelect();
+        renderSlots();
+    } catch (err) {
+        alert(err.message);
     }
-
-    renderServices();
-    populateServiceFilter();
-    populateServiceSelect();
-    renderSlots();
 }
 
 function populateServiceSelect(selectedServiceId = null) {
@@ -912,11 +996,73 @@ function nextMonth() {
 }
 
 // -----------------------------------------------
+// بارگذاری داده‌ها از API
+// -----------------------------------------------
+
+async function loadProfile() {
+    const token = getToken();
+    if (!token) {
+        alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/org/profile`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!res.ok) {
+            throw new Error("خطا در دریافت پروفایل");
+        }
+
+        profileData = await res.json();
+
+        /* به‌روزرسانی شیء محلی organization */
+        organization.name = profileData.name || "";
+        organization.fullName = profileData.address || "";
+        organization.start = profileData.startWorkTime || "08:00";
+        organization.end = profileData.endWorkTime || "18:00";
+        organization.desc = profileData.description || "";
+        organization.image = profileData.image || "default-org.png";
+        organization.active = profileData.isActive !== false;
+
+        renderOrg();
+    } catch (err) {
+        console.error("loadProfile error:", err);
+    }
+}
+
+async function loadServices() {
+    const token = getToken();
+    if (!token) return;
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/org/profile/services`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!res.ok) throw new Error("خطا در دریافت خدمات");
+
+        const data = await res.json();
+
+        /* نگاشت timeDuration → duration */
+        services = (Array.isArray(data) ? data : []).map(s => ({
+            id: s.id,
+            name: s.name,
+            duration: s.timeDuration || s.duration || 0
+        }));
+    } catch (err) {
+        console.error("loadServices error:", err);
+    }
+}
+
+// -----------------------------------------------
 // اجرای اولیه صفحه
 // -----------------------------------------------
 
-document.addEventListener("DOMContentLoaded", () => {
-    renderOrg();
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadProfile();
+    await loadServices();
 
     populateServiceFilter();
     populateServiceSelect();

@@ -15,14 +15,9 @@ function gregorianToJalali(gy, gm, gd) {
     days %= 12053;
     jy += 4 * Math.floor(days / 1461);
     days %= 1461;
-    if (days > 365) { jy += Math.floor((days - 1) / 365);
-        days = (days - 1) % 365; }
-    let jm = 0,
-        jd = days;
-    for (let i = 0; i < 11; i++) {
-        if (jd > j_days[i]) { jd -= j_days[i];
-            jm++; } else break;
-    }
+    if (days > 365) { jy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
+    let jm = 0, jd = days;
+    for (let i = 0; i < 11; i++) { if (jd > j_days[i]) { jd -= j_days[i]; jm++; } else break; }
     return { year: jy, month: jm + 1, day: jd + 1 };
 }
 
@@ -33,26 +28,20 @@ function jalaliToGregorian(jy, jm, jd) {
     days += jMonthDays[jm - 1];
     let gy = 400 * Math.floor(days / 146097);
     days %= 146097;
-    if (days > 36524) { gy += 100 * Math.floor(--days / 36524);
-        days %= 36524; if (days >= 365) days++; }
+    if (days > 36524) { gy += 100 * Math.floor(--days / 36524); days %= 36524; if (days >= 365) days++; }
     gy += 4 * Math.floor(days / 1461);
     days %= 1461;
-    if (days > 365) { gy += Math.floor((days - 1) / 365);
-        days = (days - 1) % 365; }
+    if (days > 365) { gy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
     const gMonthDays = [31, gy % 4 == 0 && (gy % 100 != 0 || gy % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     let gm = 1;
-    for (let i = 0; i < 12; i++) {
-        if (days < gMonthDays[i]) { gm = i + 1; break; }
-        days -= gMonthDays[i];
-    }
+    for (let i = 0; i < 12; i++) { if (days < gMonthDays[i]) { gm = i + 1; break; } days -= gMonthDays[i]; }
     return { year: gy, month: gm, day: days };
 }
 
 function jalaliMonthDays(jy, jm) {
     if (jm <= 6) return 31;
     if (jm <= 11) return 30;
-    return jy % 33 === 1 || jy % 33 === 5 || jy % 33 === 9 || jy % 33 === 13 ||
-        jy % 33 === 17 || jy % 33 === 22 || jy % 33 === 26 || jy % 33 === 30 ? 30 : 29;
+    return jy % 33 === 1 || jy % 33 === 5 || jy % 33 === 9 || jy % 33 === 13 || jy % 33 === 17 || jy % 33 === 22 || jy % 33 === 26 || jy % 33 === 30 ? 30 : 29;
 }
 
 function jalaliFirstWeekday(jy, jm) {
@@ -69,7 +58,7 @@ function toPersianNum(n) {
 // ============================================================
 
 const ROLE_CONFIG = {
-    manager: {
+    OrgAdmin: { // ⚠️ تغییر از 'manager' به نام دقیق بک‌اند
         title: 'داشبورد مدیریتی',
         profileName: 'مدیر کسب‌وکار',
         profileRole: 'مدیریت کسب‌وکار',
@@ -80,7 +69,7 @@ const ROLE_CONFIG = {
             { label: 'تعداد امتیازدهندگان', key: 'raters' }
         ]
     },
-    supporter: {
+    Support: { // ⚠️ تغییر از 'supporter'
         title: 'داشبورد پشتیبان',
         profileName: 'پشتیبان سازمان',
         profileRole: 'پشتیبانی سازمان',
@@ -91,7 +80,7 @@ const ROLE_CONFIG = {
             { label: 'تعداد امتیازدهندگان', key: 'raters' }
         ]
     },
-    employee: {
+    Staff: { // ⚠️ تغییر از 'employee'
         title: 'داشبورد کارمند حضور',
         profileName: 'کارمند حضور',
         profileRole: 'کارمند حضور کسب‌وکار',
@@ -102,7 +91,7 @@ const ROLE_CONFIG = {
             { label: 'تعداد امتیازدهندگان', key: 'raters' }
         ]
     },
-    admin: {
+    SuperAdmin: { // ⚠️ تغییر از 'admin'
         title: 'داشبورد مدیریت سیستم',
         profileName: 'مدیر سیستم',
         profileRole: 'مدیر ارشد رزروسنتر',
@@ -116,28 +105,7 @@ const ROLE_CONFIG = {
 };
 
 // ============================================================
-// بخش ۳: داده‌های نمونه (Mock Data) – برای تست
-// ============================================================
-
-const MOCK_USER = {
-    role: 'admin', // این را به 'manager' یا 'supporter' یا 'employee' تغییر بده
-    name: 'علی رضوی',
-    stats: {
-        todayReservations: 124,
-        confirmed: 98,
-        pending: 18,
-        cancelled: 8,
-        totalReservations: 1240,
-        rating: '4.8',
-        raters: 342,
-        totalAppointments: 5840,
-        totalUsers: 1240,
-        totalBusinesses: 156
-    }
-};
-
-// ============================================================
-// بخش ۴: توابع رندر کردن داشبورد
+// بخش ۳: توابع رندر کردن داشبورد (دقیقاً دست نخورده)
 // ============================================================
 
 function renderDashboard(userData) {
@@ -150,29 +118,21 @@ function renderDashboard(userData) {
 
     const stats = userData.stats;
 
-    // ---- ۱. هدر اصلی ----
     document.getElementById('dashboardTitle').textContent = config.title;
-
-    // ---- ۲. پروفایل (سمت راست) ----
     document.getElementById('profileName').textContent = config.profileName;
     document.getElementById('profileRole').textContent = config.profileRole;
     document.getElementById('profileAvatar').textContent = config.avatar;
 
-    // ---- ۳. سه فیلد سمت راست ----
     const profileStatsContainer = document.getElementById('profileStats');
     profileStatsContainer.innerHTML = '';
     config.rightStats.forEach(stat => {
         const val = stats[stat.key] !== undefined ? stats[stat.key] : 0;
         const div = document.createElement('div');
         div.className = 'profile-stat';
-        div.innerHTML = `
-            <div class="val">${toPersianNum(val)}</div>
-            <div class="lbl">${stat.label}</div>
-        `;
+        div.innerHTML = `<div class="val">${toPersianNum(val)}</div><div class="lbl">${stat.label}</div>`;
         profileStatsContainer.appendChild(div);
     });
 
-    // ---- ۴. چهار فیلد سمت چپ (ثابت برای همه) ----
     const statsGrid = document.getElementById('statsGrid');
     const leftStats = [
         { icon: '📅', label: 'رزرو امروز', key: 'todayReservations', change: '↑ 8% نسبت به دیروز', changeClass: 'up' },
@@ -193,14 +153,13 @@ function renderDashboard(userData) {
                 <div class="value">${toPersianNum(val)}</div>
                 <div class="label">${item.label}</div>
                 <div class="change ${item.changeClass}">${item.change}</div>
-            </div>
-        `;
+            </div>`;
         statsGrid.appendChild(card);
     });
 }
 
 // ============================================================
-// بخش ۵: تقویم و ساعت
+// بخش ۴: تقویم و ساعت (دقیقاً دست نخورده)
 // ============================================================
 
 const todayG = new Date();
@@ -214,9 +173,7 @@ const MONTH_NAMES = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر
 const WEEK_HEADERS = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
 const EVENTS = [];
 
-function hasEvent(jy, jm, jd) {
-    return EVENTS.some(e => e.year === jy && e.month === jm && e.day === jd);
-}
+function hasEvent(jy, jm, jd) { return EVENTS.some(e => e.year === jy && e.month === jm && e.day === jd); }
 
 function renderCalendar() {
     const grid = document.getElementById('calGrid');
@@ -224,99 +181,149 @@ function renderCalendar() {
     grid.innerHTML = '';
     label.textContent = `${MONTH_NAMES[viewMonth - 1]} ${viewYear}`;
 
-    WEEK_HEADERS.forEach((h, i) => {
-        const el = document.createElement('div');
-        el.className = 'cal-header' + (i === 6 ? ' holiday-header' : '');
-        el.textContent = h;
-        grid.appendChild(el);
-    });
+    WEEK_HEADERS.forEach((h, i) => { const el = document.createElement('div'); el.className = 'cal-header' + (i === 6 ? ' holiday-header' : ''); el.textContent = h; grid.appendChild(el); });
 
     const totalDays = jalaliMonthDays(viewYear, viewMonth);
     const firstWday = jalaliFirstWeekday(viewYear, viewMonth);
 
-    for (let i = 0; i < firstWday; i++) {
-        const el = document.createElement('div');
-        el.className = 'cal-day empty';
-        grid.appendChild(el);
-    }
+    for (let i = 0; i < firstWday; i++) { const el = document.createElement('div'); el.className = 'cal-day empty'; grid.appendChild(el); }
 
     for (let d = 1; d <= totalDays; d++) {
-        const el = document.createElement('div');
-        el.className = 'cal-day';
-        el.textContent = toPersianNum(d);
-
-        const weekday = (firstWday + d - 1) % 7;
-        const isFriday = weekday === 6;
+        const el = document.createElement('div'); el.className = 'cal-day'; el.textContent = toPersianNum(d);
+        const weekday = (firstWday + d - 1) % 7; const isFriday = weekday === 6;
         const isToday = viewYear === todayJ.year && viewMonth === todayJ.month && d === todayJ.day;
-        const isSelected = selectedDay && selectedDay.year === viewYear &&
-            selectedDay.month === viewMonth && selectedDay.day === d;
-
-        if (isFriday) el.classList.add('holiday');
-        if (isToday) el.classList.add('today');
-        if (isSelected) el.classList.add('selected');
-        if (hasEvent(viewYear, viewMonth, d)) el.classList.add('has-event');
-
-        el.addEventListener('click', () => {
-            selectedDay = { year: viewYear, month: viewMonth, day: d };
-            renderCalendar();
-        });
-
+        const isSelected = selectedDay && selectedDay.year === viewYear && selectedDay.month === viewMonth && selectedDay.day === d;
+        if (isFriday) el.classList.add('holiday'); if (isToday) el.classList.add('today'); if (isSelected) el.classList.add('selected'); if (hasEvent(viewYear, viewMonth, d)) el.classList.add('has-event');
+        el.addEventListener('click', () => { selectedDay = { year: viewYear, month: viewMonth, day: d }; renderCalendar(); });
         grid.appendChild(el);
     }
 }
 
-document.getElementById('calPrev').addEventListener('click', () => {
-    viewMonth--;
-    if (viewMonth < 1) { viewMonth = 12;
-        viewYear--; }
-    renderCalendar();
-});
-
-document.getElementById('calNext').addEventListener('click', () => {
-    viewMonth++;
-    if (viewMonth > 12) { viewMonth = 1;
-        viewYear++; }
-    renderCalendar();
-});
+document.getElementById('calPrev').addEventListener('click', () => { viewMonth--; if (viewMonth < 1) { viewMonth = 12; viewYear--; } renderCalendar(); });
+document.getElementById('calNext').addEventListener('click', () => { viewMonth++; if (viewMonth > 12) { viewMonth = 1; viewYear++; } renderCalendar(); });
 
 function updateClock() {
     const now = new Date();
-    const hh = String(now.getHours()).padStart(2, '0');
-    const mm = String(now.getMinutes()).padStart(2, '0');
-    const ss = String(now.getSeconds()).padStart(2, '0');
+    const hh = String(now.getHours()).padStart(2, '0'); const mm = String(now.getMinutes()).padStart(2, '0'); const ss = String(now.getSeconds()).padStart(2, '0');
     document.getElementById('clockTime').textContent = `${hh}:${mm}:${ss}`;
-
     const j = gregorianToJalali(now.getFullYear(), now.getMonth() + 1, now.getDate());
-    document.getElementById('jalaliDate').textContent =
-        `${toPersianNum(j.year)}/${toPersianNum(String(j.month).padStart(2, '0'))}/${toPersianNum(String(j.day).padStart(2, '0'))}`;
-
+    document.getElementById('jalaliDate').textContent = `${toPersianNum(j.year)}/${toPersianNum(String(j.month).padStart(2, '0'))}/${toPersianNum(String(j.day).padStart(2, '0'))}`;
     const months = ['ژانویه', 'فوریه', 'مارس', 'آوریل', 'مه', 'ژوئن', 'ژوئیه', 'اوت', 'سپتامبر', 'اکتبر', 'نوامبر', 'دسامبر'];
-    document.getElementById('gregorianDate').textContent =
-        `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-
-    document.getElementById('topbarDate').textContent =
-        `${MONTH_NAMES[j.month - 1]} ${toPersianNum(j.day)}، ${toPersianNum(j.year)}`;
+    document.getElementById('gregorianDate').textContent = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+    document.getElementById('topbarDate').textContent = `${MONTH_NAMES[j.month - 1]} ${toPersianNum(j.day)}، ${toPersianNum(j.year)}`;
 }
 
 // ============================================================
-// بخش ۶: مقداردهی اولیه (بارگذاری)
+// بخش ۵: مقداردهی اولیه (🔥 اتصال به بک‌اند 🔥)
 // ============================================================
 
-document.addEventListener('DOMContentLoaded', function() {
-
-    // ========================================================
-    // 🔥 اینجا جایی است که به بک‌اند وصل می‌شود 🔥
-    // ========================================================
-    // برای اتصال به بک‌اند، این بخش را جایگزین کنید:
-    //
-    // fetch('/api/user/dashboard')
-    //   .then(res => res.json())
-    //   .then(data => renderDashboard(data))
-    //   .catch(err => console.error('خطا در دریافت داده:', err));
-    // ========================================================
-
-    renderDashboard(MOCK_USER);
+document.addEventListener('DOMContentLoaded', async function() {
+    
+    // ۱. ریندر کردن قسمت‌هایی که به بک‌اند نیاز ندارن (تقویم و ساعت)
     renderCalendar();
     updateClock();
     setInterval(updateClock, 1000);
+
+    // ۲. گرفتن اطلاعات کاربر از LocalStorage (همونی که تو صفحه لاگین ذخیره کردیم)
+    const userStr = localStorage.getItem("user");
+    if (!userStr) {
+        alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
+        window.location.href = "/pages/auth/login.html";
+        return;
+    }
+    
+    const user = JSON.parse(userStr);
+    const currentRole = user.role; // مثلاً: "OrgAdmin" یا "SuperAdmin"
+
+    // ۳. تعیین آدرس API بک‌اند بر اساس نقش کاربر
+    let apiEndpoint = '';
+    if (currentRole === 'SuperAdmin') {
+        apiEndpoint = '/admin/dashboard'; // آدرس کنترلر ادمین
+    } else if (currentRole === 'OrgAdmin' || currentRole === 'Staff' || currentRole === 'Support') {
+        apiEndpoint = '/org/dashboard';  // آدرس کنترلر سازمان
+    } else {
+        console.error("نقش نامعتبر!");
+        return;
+    }
+
+    // ۴. فراخوانی بک‌اند با توکن
+    try {
+        // تابع apiGet رو از فایل api.js می‌گیره (توکن رو خودش می‌فرسته)
+        const response = await apiGet(apiEndpoint);
+        
+        // بک‌اند دیتا رو داخل پراپرتی "Data" می‌فرسته (طبق کد سی‌شارپت: new { IsSuccess = true, Data = dashboard })
+        const backendData = response.Data;
+
+        // ۵. ساختن آبجکتی که تابع renderDashboard ازت انتظار داره
+        const finalDataForRender = {
+            role: currentRole,
+            stats: backendData // دیتای واقعی از دیتابیس جایگزین فیک می‌شه
+        };
+
+        // ۶. ریندر نهایی داشبورد با دیتای واقعی
+        renderDashboard(finalDataForRender);
+
+    } catch (error) {
+        console.error("خطا در دریافت اطلاعات داشبورد از بک‌اند:", error);
+        // اگر ارور داد، می‌تونی اینجا یک پیام خطا تو خود صفحه نشون بدی
+    }
+});
+// ============================================================
+// بخش ۵: اتصال به بک‌اند (دقیقاً روش لاگین و ساین‌آپ)
+// ============================================================
+
+const API_BASE_URL = "http://localhost:5000/api";
+
+document.addEventListener('DOMContentLoaded', async function() {
+    
+    // 1. لود کردن ساعت و تقویم
+    renderCalendar();
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // 2. چک کردن لاگین بودن کاربر
+    const userStr = localStorage.getItem("user");
+    if (!userStr) {
+        alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
+        window.location.href = "/pages/auth/login.html";
+        return;
+    }
+    
+    const user = JSON.parse(userStr);
+
+    // 3. آدرس بک‌اند (طبق Route تو کنترلر)
+    const apiUrl = `${API_BASE_URL}/org/dashboard`;
+
+    // 4. گرفتن توکن از localStorage
+    const token = localStorage.getItem("token");
+
+    // 5. فرستادن درخواست (دقیقاً مثل تابع submitPassword تو لاگین)
+    try {
+        const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` // توکن میفرستیم چون صفحه نیاز به لاگین داره
+            }
+        });
+
+        const data = await response.json();
+
+        // اگر ارور بود (مثلاً 401 یا 403)
+        if (!response.ok) {
+            throw new Error(data.message || "خطا در دریافت اطلاعات");
+        }
+
+        console.log("اتصال موفق بود! دیتای بک‌اند:", data.Data);
+
+        // 6. نشون دادن دیتا (فعلاً برای تست)
+        if (data.Data) {
+            document.getElementById('profileName').textContent = data.Data.orgName || "مدیر سازمان";
+            // بقیه دیتاها تو مراحل بعد می ریزیم تو کارت ها
+        }
+
+    } catch (error) {
+        console.error("خطا در اتصال به بک‌اند:", error);
+        alert("خطا در دریافت اطلاعات داشبورد");
+    }
 });

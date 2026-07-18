@@ -299,24 +299,52 @@ function updateClock() {
 }
 
 // ============================================================
-// بخش ۶: مقداردهی اولیه (بارگذاری)
+
+// بخش ۶: تنظیمات اتصال به API
+
+const API_BASE_URL = "http://localhost:5000/api";
+function getToken() { return localStorage.getItem("token"); }
+
+// ============================================================
+// بخش ۷: مقداردهی اولیه (بارگذاری)
 // ============================================================
 
-document.addEventListener('DOMContentLoaded', function() {
-
-    // ========================================================
-    // 🔥 اینجا جایی است که به بک‌اند وصل می‌شود 🔥
-    // ========================================================
-    // برای اتصال به بک‌اند، این بخش را جایگزین کنید:
-    //
-    // fetch('/api/user/dashboard')
-    //   .then(res => res.json())
-    //   .then(data => renderDashboard(data))
-    //   .catch(err => console.error('خطا در دریافت داده:', err));
-    // ========================================================
-
-    renderDashboard(MOCK_USER);
+document.addEventListener('DOMContentLoaded', async function() {
     renderCalendar();
     updateClock();
     setInterval(updateClock, 1000);
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/admin/dashboard`, {
+            headers: { "Authorization": `Bearer ${getToken()}` }
+        });
+        const result = await response.json();
+
+        if (response.ok && result.IsSuccess) {
+            const d = result.Data;
+            // Map AdminDashboardDto to the existing MOCK_USER format
+            const userData = {
+                role: 'admin',
+                stats: {
+                    todayReservations: d.todayReserved,
+                    confirmed: d.todayPresenced,
+                    pending: d.todayTotal - d.todayPresenced - d.todayCanceled - d.todayAbsented,
+                    cancelled: d.todayCanceled,
+                    totalReservations: d.totalAppointments,
+                    rating: '—',
+                    raters: '—',
+                    totalAppointments: d.totalAppointments,
+                    totalUsers: d.totalUsers,
+                    totalBusinesses: d.totalOrgs
+                }
+            };
+            renderDashboard(userData);
+        } else {
+            // Fallback to mock on error
+            renderDashboard(MOCK_USER);
+        }
+    } catch (err) {
+        console.error('خطا در دریافت داده:', err);
+        renderDashboard(MOCK_USER);
+    }
 });

@@ -1,4 +1,26 @@
 // ========================================
+// API Configuration
+// ========================================
+const API_BASE_URL = "http://localhost:5000/api";
+function getToken() { return localStorage.getItem("token"); }
+
+// ─── Shamsi to Gregorian converter ─────────────────────────────
+function shamsiToGregorian(jy, jm, jd) {
+  jy += 1595;
+  let days = -355779 + 365*jy + Math.floor(jy/33)*8 + Math.floor(((jy%33)+3)/4) + jd;
+  const jmDays = [0,31,62,93,125,155,186,216,247,277,304,334];
+  days += jmDays[jm-1];
+  let gy = 400*Math.floor(days/146097); days %= 146097;
+  if(days > 36524){gy += 100*Math.floor(--days/36524); days %= 36524; if(days >= 365) days++;}
+  gy += 4*Math.floor(days/1461); days %= 1461;
+  if(days > 365){gy += Math.floor((days-1)/365); days = (days-1)%365;}
+  const gmDays = [31,(gy%4==0&&(gy%100!=0||gy%400==0))?29:28,31,30,31,30,31,31,30,31,30,31];
+  let gm = 1;
+  for(let i=0;i<12;i++){if(days<gmDays[i]){gm=i+1;break;}days-=gmDays[i];}
+  return `${gy}-${String(gm).padStart(2,'0')}-${String(days).padStart(2,'0')}`;
+}
+
+// ========================================
 // بخش ۱: پر کردن سلکت‌های ساعت
 // ========================================
 
@@ -288,29 +310,69 @@ function submitForm() {
   // اگر اعتبارسنجی ناموفق بود، خارج شو
   if (!validate()) return;
   
-  // شبیه‌سازی ارسال به سرور
   const btn = document.querySelector('.btn-primary');  // دریافت دکمه ثبت
   btn.disabled = true;                                 // غیرفعال کردن دکمه
   btn.textContent = '⏳ در حال ثبت...';                // تغییر متن دکمه
-  
-  // شبیه‌سازی تأخیر شبکه (۱.۵ ثانیه)
-  setTimeout(() => {
-    btn.disabled = false;                              // فعال کردن دکمه
-    btn.textContent = '✅ ثبت کسب‌وکار';               // برگرداندن متن اصلی
-    showToast('✅ کسب‌وکار با موفقیت ثبت شد!');        // نمایش پیام موفقیت
-    
 
-    document.getElementById('step2').classList.remove('active');
-    document.getElementById('step2').classList.add('done');
-    document.getElementById('step2').querySelector('.step-circle').textContent = '✓';
-    document.getElementById('step3').classList.remove('active');
-    document.getElementById('step3').classList.add('done');
-    document.getElementById('step3').querySelector('.step-circle').textContent = '✓';
-    document.getElementById('step4').classList.add('active');
-    document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
-  }, 1500);
-  
-   ; window.location.href = '../../index.html';
+  // Build request body from form fields
+  const checkedDays = document.querySelectorAll('.day-check:checked');
+  const activeDaysPerWeek = Array.from(checkedDays).map(c => dayNames[c.value]).join(',');
+
+  // Convert Shamsi date (e.g. "۱۳۹۵/۰۴/۱۵") to Gregorian "YYYY-MM-DD"
+  let shamsiRaw = document.getElementById('bizDate').value.trim();
+  shamsiRaw = shamsiRaw.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+  const [jy, jm, jd] = shamsiRaw.split('/').map(Number);
+  const establishmentDate = shamsiToGregorian(jy, jm, jd);
+
+  // Get uploaded image (base64 data URL) or empty string
+  const image = (previewImg.src && previewImg.src.startsWith('data:')) ? previewImg.src : '';
+
+  const body = {
+    name: document.getElementById('bizName').value.trim(),
+    image: image,
+    description: document.getElementById('bizDesc').value.trim(),
+    establishmentDate: establishmentDate,
+    orgtypeId: parseInt(document.getElementById('bizType').value),
+    activeDaysPerWeek: activeDaysPerWeek,
+    startWorkTime: document.getElementById('openTime').value,
+    endWorkTime: document.getElementById('closeTime').value,
+    startRestTime: document.getElementById('breakStart').value || null,
+    endRestTime: document.getElementById('breakEnd').value || null,
+    cityId: 1,
+    address: ''
+  };
+
+  fetch(`${API_BASE_URL}/Org/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getToken()}`
+    },
+    body: JSON.stringify(body)
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.IsSuccess) {
+      showToast('✅ ' + data.Message);
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('step2').classList.add('done');
+      document.getElementById('step2').querySelector('.step-circle').textContent = '✓';
+      document.getElementById('step3').classList.remove('active');
+      document.getElementById('step3').classList.add('done');
+      document.getElementById('step3').querySelector('.step-circle').textContent = '✓';
+      document.getElementById('step4').classList.add('active');
+      document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
+    } else {
+      showToast('⚠️ ' + data.Message, true);
+      btn.disabled = false;
+      btn.textContent = '✅ ثبت کسب‌وکار';
+    }
+  })
+  .catch(err => {
+    showToast('⚠️ خطا در ارتباط با سرور', true);
+    btn.disabled = false;
+    btn.textContent = '✅ ثبت کسب‌وکار';
+  });
 }
 
 // ========================================
