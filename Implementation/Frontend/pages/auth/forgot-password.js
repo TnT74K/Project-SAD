@@ -172,8 +172,8 @@ async function resendOtp() {
 // ---- Step 2: Verify OTP ----
 async function verifyOtp() {
     const otp = getOtpValue();
-    if (otp.length < 6) {
-        alert('لطفاً کد ۶ رقمی را کامل وارد کنید.');
+    if (otp.length < 5) {
+        alert('لطفاً کد ۵ رقمی را کامل وارد کنید.');
         return;
     }
 
