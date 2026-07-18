@@ -1,65 +1,62 @@
 // ==============================
-// داده اولیه کاربران (Fake Data)
+// API Configuration
 // ==============================
+const API_BASE_URL = "http://localhost:5000/api";
+function getToken() { return localStorage.getItem("token"); }
 
-let users = [
-  {
-    first: "علی",
-    last: "محمدی",
-    phone: "09121235061",
-    role: "پشتيبان کسب و کار",
-    personstatus: "active",
-    nationalcode: "0012345678",
-    username: "ali.m",
-    password: "123456"
-  },
-  {
-    first: "زهرا",
-    last: "کریمی",
-    phone: "09121235060",
-    role: "كارمند حضوری",
-    personstatus: "active",
-    nationalcode: "0023456789",
-    username: "zahra.k",
-    password: "123456"
-  },
-  {
-    first: "مهدی",
-    last: "رضایی",
-    phone: "09121235590",
-    role: "پشتيبان کسب و کار ",
-    personstatus: "inactive",
-    nationalcode: "0034567891",
-    username: "mehdi.r",
-    password: "123456"
-  },
-  {
-    first: "سمیرا",
-    last: "قاسمی",
-    phone: "09121246060",
-    role: "كارمند حضوری",
-    personstatus: "active",
-    nationalcode: "0045678912",
-    username: "samira.q",
-    password: "123456"
-  },
-  {
-    first: "حسین",
-    last: "نعمتی",
-    phone: "09135635060",
-    role: "كارمند حضوری",
-    personstatus: "inactive",
-    nationalcode: "0056789123",
-    username: "hossein.n",
-    password: "123456"
-  }
-]
+// ==============================
+// داده کاربران (بارگذاری از API)
+// ==============================
+let users = [];
 
 // ایندکس کاربر در حالت ویرایش
-let editIndex = null
+let editIndex = null;
+
+// شناسه کاربر در حالت ویرایش (برای PUT)
+let editId = null;
 
 //یک متغیر برای نگه داشتن ردیف انتخاب‌شده
 let pendingIndex = null;
+
+// ==============================
+// بارگذاری لیست کارکنان از API
+// ==============================
+async function loadStaff() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/org/staff-list`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${getToken()}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `خطای سرور (${res.status})`);
+    }
+
+    const data = await res.json();
+    const list = Array.isArray(data) ? data : (data.StaffList || data.data || []);
+
+    users = list.map(item => ({
+      id: item.id,
+      first: item.firstName,
+      last: item.lastName,
+      phone: item.phoneNumber,
+      role: item.roleName,
+      personstatus: item.isActive ? 'active' : 'inactive',
+      nationalcode: '',
+      username: '',
+      password: ''
+    }));
+
+    render();
+  } catch (err) {
+    console.error("خطا در بارگذاری کارکنان:", err);
+    alert("خطا در بارگذاری لیست کارکنان: " + err.message);
+  }
+}
 
 // ======================================
 // رندر جدول کاربران
@@ -178,31 +175,59 @@ function askToggle(i) {
 // ======================================
 // تاييديه انجام كار
 // ======================================
-function confirmAction() {
+async function confirmAction() {
 
   if (pendingIndex === null) return;
 
-  if (actionType === "delete") {
+  try {
+    if (actionType === "delete") {
 
-    users.splice(pendingIndex, 1);
+      const res = await fetch(`${API_BASE_URL}/org/staff-list/${users[pendingIndex].id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${getToken()}`,
+          "Content-Type": "application/json"
+        }
+      });
 
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `خطای سرور (${res.status})`);
+      }
+
+    }
+
+    else if (actionType === "toggle") {
+
+      const res = await fetch(`${API_BASE_URL}/org/staff-list/${users[pendingIndex].id}/change-status`, {
+        method: "PATCH",
+        headers: {
+          "Authorization": `Bearer ${getToken()}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `خطای سرور (${res.status})`);
+      }
+
+    }
+
+    pendingIndex = null;
+    actionType = null;
+
+    closeConfirmModal();
+
+    await loadStaff();
+
+  } catch (err) {
+    console.error("خطا در عملیات:", err);
+    alert("خطا: " + err.message);
+    pendingIndex = null;
+    actionType = null;
+    closeConfirmModal();
   }
-
-  else if (actionType === "toggle") {
-
-    users[pendingIndex].personstatus =
-      users[pendingIndex].personstatus === 'active'
-        ? 'inactive'
-        : 'active';
-
-  }
-
-  pendingIndex = null;
-  actionType = null;
-
-  render();
-
-  closeConfirmModal();
 
 }
 
@@ -247,6 +272,7 @@ function clearForm() {
     .forEach(i => i.value = "")
 
   editIndex = null
+  editId = null
 
 }
 
@@ -254,15 +280,10 @@ function clearForm() {
 // ======================================
 // ثبت یا ویرایش کاربر
 // ======================================
-function saveUser() {
+async function saveUser() {
 
-  const first = document.getElementById("firstName")?.value.trim() || "ابوالفضل";
-  const last = document.getElementById("lastName")?.value.trim() || "وزیری";
   const phone = document.getElementById("phoneNumber")?.value.trim() || "";
-  const national = document.getElementById("nationalCode")?.value.trim() || "2981542898";
-  const usern = document.getElementById("username")?.value.trim() || "Username";
-  const pass = document.getElementById("password")?.value.trim() || "1234";
-  const r = document.getElementById("role")?.value || "پشتيبان کسب و کار";
+  const roleId = document.getElementById("role")?.value || 1;
 
   // جلوگیری از خالی بودن شماره موبایل (الزامی)
   if (!phone) {
@@ -270,31 +291,46 @@ function saveUser() {
     return;
   }
 
-  let currentStatus = "active";
+  try {
+    if (editIndex != null) {
+      // ویرایش — PUT
+      const res = await fetch(`${API_BASE_URL}/org/staff-list`, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${getToken()}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ id: editId, roleId: Number(roleId) })
+      });
 
-  if (editIndex != null) {
-    currentStatus = users[editIndex].personstatus;
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `خطای سرور (${res.status})`);
+      }
+    } else {
+      // افزودن — POST
+      const res = await fetch(`${API_BASE_URL}/org/staff-list`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${getToken()}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ phoneNumber: phone, roleId: Number(roleId) })
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `خطای سرور (${res.status})`);
+      }
+    }
+
+    closeModal();
+    await loadStaff();
+
+  } catch (err) {
+    console.error("خطا در ذخیره کاربر:", err);
+    alert("خطا در ذخیره کاربر: " + err.message);
   }
-
-  const user = {
-    first: first,
-    last: last,
-    phone: phone,
-    nationalcode: national,
-    username: usern,
-    password: pass,
-    role: r,
-    personstatus: currentStatus
-  };
-
-  if (editIndex != null) {
-    users[editIndex] = user;
-  } else {
-    users.push(user);
-  }
-
-  render();
-  closeModal();
 }
 
 
@@ -305,6 +341,7 @@ function saveUser() {
 function editUser(i) {
 
   editIndex = i
+  editId = users[i].id
 
   const u = users[i]
 
@@ -415,5 +452,9 @@ function ChangeColor() {
 
 
 
-// اجرای اولیه رندر
-render()
+// ======================================
+// بارگذاری اولیه
+// ======================================
+document.addEventListener("DOMContentLoaded", () => {
+  loadStaff();
+});
