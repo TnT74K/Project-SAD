@@ -228,7 +228,16 @@ async function submitPassword() {
 
         const data = await response.json();
 
+        // مدیریت خطا - طبق استاندارد پروژه
+        if (response.status === 400) {
+            showMsg("pw-pass-msg", data.message || "درخواست نامعتبر است", "error");
+            return;
+        }
 
+        if (response.status === 403) {
+            window.location.href = "/pages/errors/error-403.html";
+            return;
+        }
 
         if (!response.ok) {
 
@@ -475,7 +484,16 @@ async function confirmRole() {
         const data =
             await response.json();
 
+        // مدیریت خطا - طبق استاندارد پروژه
+        if (response.status === 400) {
+            alert(data.message || "درخواست نامعتبر است");
+            return;
+        }
 
+        if (response.status === 403) {
+            window.location.href = "/pages/errors/error-403.html";
+            return;
+        }
 
         if (!response.ok) {
             throw new Error(

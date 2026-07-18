@@ -320,8 +320,25 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
         const result = await response.json();
 
+
         if (response.ok && result.isSuccess) {
             const d = result.data;
+
+        // مدیریت خطا - طبق استاندارد پروژه
+        if (response.status === 400) {
+            alert(result.message || "درخواست نامعتبر است");
+            renderDashboard(MOCK_USER);
+            return;
+        }
+
+        if (response.status === 403) {
+            window.location.href = "/pages/errors/error-403.html";
+            return;
+        }
+
+        if (response.ok && result.IsSuccess) {
+            const d = result.Data;
+
             // Map AdminDashboardDto to the existing MOCK_USER format
             const userData = {
                 role: 'admin',
