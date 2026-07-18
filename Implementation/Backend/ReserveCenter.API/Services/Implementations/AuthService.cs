@@ -215,7 +215,7 @@ public class AuthService : IAuthService
 
         RoleEnum? selectedRole = null;
 
-        if (roleName is not null)
+        if (roleName is not null && roleName != "Customer")
         {
             if (!TryParseStaffRole(roleName, out var staffRole))
                 throw new UnauthorizedAccessException("نقش نامعتبر");
