@@ -5,7 +5,7 @@ const API_BASE_URL = "http://localhost:5000/api";
    false = خاموش، true = روشن (فعال)
    ============================================= */
 const activeChips = {
-  rating:  false,
+  rating: false,
   success: false,
   open:    false
 };
@@ -219,7 +219,7 @@ function renderCards(items) {
    وقتی کاربر × رو می‌زنه
    ============================================= */
 function clearSearch() {
-  document.getElementById('searchInput').value      = '';
+  document.getElementById('searchInput').value = '';
   document.getElementById('query-text').textContent = 'همه';
   currentPage = 1;
   applyFilters();

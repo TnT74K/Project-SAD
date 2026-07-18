@@ -61,14 +61,14 @@ async function loadStaff() {
 // ======================================
 // رندر جدول کاربران
 // ======================================
-function render(){
+function render() {
 
-const table=document.getElementById("userTable")
-table.innerHTML=""
+  const table = document.getElementById("userTable")
+  table.innerHTML = ""
 
-users.forEach((u,i)=>{
+  users.forEach((u, i) => {
 
-table.innerHTML+=`
+    table.innerHTML += `
 <tr>
 
 <td data-label="نام">${u.first}</td>
@@ -80,9 +80,9 @@ table.innerHTML+=`
 <td data-label="نقش">${u.role}</td>
 
 <td data-label="وضعیت"
-class="${u.personstatus=='active'?'personstatus-active':'personstatus-inactive'}">
+class="${u.personstatus == 'active' ? 'personstatus-active' : 'personstatus-inactive'}">
 
-${u.personstatus=='active'?'فعال':'غیرفعال'}
+${u.personstatus == 'active' ? 'فعال' : 'غیرفعال'}
 
 </td>
 
@@ -105,46 +105,46 @@ ${u.personstatus=='active'?'فعال':'غیرفعال'}
 </tr>
 `
 
-})
+  })
 
 }
 // ======================================
 // پرسيدن براي حذف كاربر
 // ======================================
-function askDelete(i){
+function askDelete(i) {
 
-pendingIndex = i;
-actionType = "delete";
+  pendingIndex = i;
+  actionType = "delete";
 
-const item = users[i];
+  const item = users[i];
 
-document.getElementById('confirmTitle').innerText = 'حذف کاربر';
+  document.getElementById('confirmTitle').innerText = 'حذف کاربر';
 
-document.getElementById('confirmText').innerHTML =
-`آیا از حذف <span>${item.first} ${item.last}</span> مطمئن هستید؟`;
+  document.getElementById('confirmText').innerHTML =
+    `آیا از حذف <span>${item.first} ${item.last}</span> مطمئن هستید؟`;
 
-const btn = document.getElementById('confirmBtn');
-btn.innerText = 'حذف';
-btn.className = 'btn-danger';
+  const btn = document.getElementById('confirmBtn');
+  btn.innerText = 'حذف';
+  btn.className = 'btn-danger';
 
-document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmModal').classList.add('open');
 
 }
 
 // ======================================
 // حذف کاربر
 // ======================================
-function deleteUser(i){
+function deleteUser(i) {
 
-const user = users[i]
+  const user = users[i]
 
-if(confirm(`آیا از حذف ${user.first} ${user.last} مطمئن هستید؟`)){
+  if (confirm(`آیا از حذف ${user.first} ${user.last} مطمئن هستید؟`)) {
 
-users.splice(i,1)
+    users.splice(i, 1)
 
-render()
+    render()
 
-}
+  }
 
 }
 
@@ -175,59 +175,59 @@ function askToggle(i) {
 // ======================================
 // تاييديه انجام كار
 // ======================================
-async function confirmAction(){
+async function confirmAction() {
 
-if (pendingIndex === null) return;
+  if (pendingIndex === null) return;
 
-try {
-  if(actionType === "delete"){
+  try {
+    if (actionType === "delete") {
 
-    const res = await fetch(`${API_BASE_URL}/org/staff-list/${users[pendingIndex].id}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${getToken()}`,
-        "Content-Type": "application/json"
+      const res = await fetch(`${API_BASE_URL}/org/staff-list/${users[pendingIndex].id}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${getToken()}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `خطای سرور (${res.status})`);
       }
-    });
 
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || `خطای سرور (${res.status})`);
     }
 
-  }
+    else if (actionType === "toggle") {
 
-  else if(actionType === "toggle"){
+      const res = await fetch(`${API_BASE_URL}/org/staff-list/${users[pendingIndex].id}/change-status`, {
+        method: "PATCH",
+        headers: {
+          "Authorization": `Bearer ${getToken()}`,
+          "Content-Type": "application/json"
+        }
+      });
 
-    const res = await fetch(`${API_BASE_URL}/org/staff-list/${users[pendingIndex].id}/change-status`, {
-      method: "PATCH",
-      headers: {
-        "Authorization": `Bearer ${getToken()}`,
-        "Content-Type": "application/json"
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `خطای سرور (${res.status})`);
       }
-    });
 
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || `خطای سرور (${res.status})`);
     }
 
+    pendingIndex = null;
+    actionType = null;
+
+    closeConfirmModal();
+
+    await loadStaff();
+
+  } catch (err) {
+    console.error("خطا در عملیات:", err);
+    alert("خطا: " + err.message);
+    pendingIndex = null;
+    actionType = null;
+    closeConfirmModal();
   }
-
-  pendingIndex = null;
-  actionType = null;
-
-  closeConfirmModal();
-
-  await loadStaff();
-
-} catch (err) {
-  console.error("خطا در عملیات:", err);
-  alert("خطا: " + err.message);
-  pendingIndex = null;
-  actionType = null;
-  closeConfirmModal();
-}
 
 }
 
@@ -236,27 +236,27 @@ try {
 // ======================================
 // باز کردن مودال
 // ======================================
-function openModal(){
-document.getElementById("userModal").style.display="flex"
+function openModal() {
+  document.getElementById("userModal").style.display = "flex"
 }
 
 
 // ======================================
 // بستن مودال
 // ======================================
-function closeModal(){
+function closeModal() {
 
-document.getElementById("userModal").style.display="none"
+  document.getElementById("userModal").style.display = "none"
 
-clearForm()
+  clearForm()
 
 }
 
-function closeConfirmModal(){
+function closeConfirmModal() {
 
-document.getElementById("confirmModal").classList.remove("open")
+  document.getElementById("confirmModal").classList.remove("open")
 
-pendingIndex=null
+  pendingIndex = null
 
 }
 
@@ -266,13 +266,13 @@ pendingIndex=null
 // ======================================
 // پاک کردن فرم
 // ======================================
-function clearForm(){
+function clearForm() {
 
-document.querySelectorAll("#userModal input")
-.forEach(i=>i.value="")
+  document.querySelectorAll("#userModal input")
+    .forEach(i => i.value = "")
 
-editIndex=null
-editId=null
+  editIndex = null
+  editId = null
 
 }
 
@@ -286,13 +286,13 @@ async function saveUser() {
   const roleId = document.getElementById("role")?.value || 1;
 
   // جلوگیری از خالی بودن شماره موبایل (الزامی)
-  if(!phone){
+  if (!phone) {
     alert("شماره موبایل نمی‌تواند خالی باشد!");
     return;
   }
 
   try {
-    if(editIndex != null){
+    if (editIndex != null) {
       // ویرایش — PUT
       const res = await fetch(`${API_BASE_URL}/org/staff-list`, {
         method: "PUT",
@@ -338,19 +338,19 @@ async function saveUser() {
 // ======================================
 // ویرایش کاربر
 // ======================================
-function editUser(i){
+function editUser(i) {
 
-editIndex=i
-editId=users[i].id
+  editIndex = i
+  editId = users[i].id
 
-const u=users[i]
-
-
-phoneNumber.value=u.phone
-role.value=u.role
+  const u = users[i]
 
 
-openModal()
+  phoneNumber.value = u.phone
+  role.value = u.role
+
+
+  openModal()
 
 }
 
@@ -359,14 +359,14 @@ openModal()
 // ======================================
 // تغییر وضعیت فعال / غیرفعال
 // ======================================
-function togglepersonstatus(i){
+function togglepersonstatus(i) {
 
-users[i].personstatus =
-users[i].personstatus=='active'
-?'inactive'
-:'active'
+  users[i].personstatus =
+    users[i].personstatus == 'active'
+      ? 'inactive'
+      : 'active'
 
-render()
+  render()
 
 }
 
@@ -374,15 +374,15 @@ render()
 // ======================================
 // نمایش همه کاربران
 // ======================================
-function showAllUsers(){
+function showAllUsers() {
 
-document.getElementById("searchInput").value=""
+  document.getElementById("searchInput").value = ""
 
-const rows=document.querySelectorAll("#userTable tr")
+  const rows = document.querySelectorAll("#userTable tr")
 
-rows.forEach(r=>{
-r.style.display=''
-})
+  rows.forEach(r => {
+    r.style.display = ''
+  })
 
 }
 
@@ -390,17 +390,17 @@ r.style.display=''
 // ======================================
 // جستجو در جدول
 // ======================================
-function searchUser(){
+function searchUser() {
 
-const text=searchInput.value
+  const text = searchInput.value
 
-const rows=document.querySelectorAll("#userTable tr")
+  const rows = document.querySelectorAll("#userTable tr")
 
-rows.forEach(r=>{
-r.style.display=r.innerText.includes(text)
-?''
-:'none'
-})
+  rows.forEach(r => {
+    r.style.display = r.innerText.includes(text)
+      ? ''
+      : 'none'
+  })
 
 }
 

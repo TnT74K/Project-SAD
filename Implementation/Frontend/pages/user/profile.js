@@ -17,9 +17,9 @@ function openEdit() {
   document.body.style.overflow = 'hidden';
   // sync form values from current profile
   document.getElementById('editFirstName').value = document.getElementById('infoName').textContent.split(' ')[0];
-  document.getElementById('editLastName').value  = document.getElementById('infoName').textContent.split(' ')[1] || '';
-  document.getElementById('editMobile').value    = document.getElementById('infoMobile').textContent;
-  document.getElementById('editNid').value       = document.getElementById('infoNid').textContent;
+  document.getElementById('editLastName').value = document.getElementById('infoName').textContent.split(' ')[1] || '';
+  document.getElementById('editMobile').value = document.getElementById('infoMobile').textContent;
+  document.getElementById('editNid').value = document.getElementById('infoNid').textContent;
 }
 
 function closeEdit() {
@@ -124,14 +124,14 @@ function renderAppointments(container, list, showCancel) {
     card.className = "appt-card";
     card.innerHTML =
       '<div class="appt-header">' +
-        '<span class="appt-biz">' + (appt.orgName || "") + '</span>' +
-        '<span class="appt-status ' + statusClass + '">' + statusText + '</span>' +
+      '<span class="appt-biz">' + (appt.orgName || "") + '</span>' +
+      '<span class="appt-status ' + statusClass + '">' + statusText + '</span>' +
       '</div>' +
       '<div class="appt-service">' + (appt.serviceName || "") + '</div>' +
       '<div class="appt-details">' +
-        '<span>📅 ' + dateStr + '</span>' +
-        '<span>🕐 ' + timeStr + '</span>' +
-        '<span>💰 ' + priceStr + '</span>' +
+      '<span>📅 ' + dateStr + '</span>' +
+      '<span>🕐 ' + timeStr + '</span>' +
+      '<span>💰 ' + priceStr + '</span>' +
       '</div>' +
       (appt.bookingConfirmCode ? '<div class="appt-code">کد رهگیری: ' + appt.bookingConfirmCode + '</div>' : '') +
       cancelBtnHtml;
@@ -194,10 +194,10 @@ async function loadStats() {
 
 /* ── SAVE PROFILE ── */
 async function saveProfile() {
-  const fn   = document.getElementById('editFirstName').value.trim();
-  const ln   = document.getElementById('editLastName').value.trim();
-  const mob  = document.getElementById('editMobile').value.trim();
-  const nid  = document.getElementById('editNid').value.trim();
+  const fn = document.getElementById('editFirstName').value.trim();
+  const ln = document.getElementById('editLastName').value.trim();
+  const mob = document.getElementById('editMobile').value.trim();
+  const nid = document.getElementById('editNid').value.trim();
   const city = document.getElementById('editCity').value;
 
   if (!fn || !ln || !mob) {
@@ -231,10 +231,10 @@ async function saveProfile() {
     const fullName = fn + ' ' + ln;
 
     // update profile card
-    document.getElementById('infoName').textContent    = fullName;
-    document.getElementById('infoMobile').textContent  = mob;
-    document.getElementById('infoNid').textContent     = nid;
-    document.getElementById('infoCity').textContent    = document.getElementById('editCity').selectedOptions[0]?.textContent || city;
+    document.getElementById('infoName').textContent = fullName;
+    document.getElementById('infoMobile').textContent = mob;
+    document.getElementById('infoNid').textContent = nid;
+    document.getElementById('infoCity').textContent = document.getElementById('editCity').selectedOptions[0]?.textContent || city;
     document.getElementById('profileName').textContent = fullName;
     document.getElementById('profileMobile').textContent = mob;
 

@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Models.DTOs.Auth;
 using ReserveCenter.API.Services.Interfaces;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ReserveCenter.API.Controllers.Auth
 {
@@ -153,19 +155,7 @@ namespace ReserveCenter.API.Controllers.Auth
         /// <summary>
         /// خروج از حساب کاربری
         /// </summary>
-        [Authorize]
-        [HttpPost("logout")]
-        public async Task<IActionResult> Logout()
-        {
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier); // This finds the user's Id from JWT
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-            {
-                return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-            }
-
-            await _authService.LogoutAsync(userId);
-            return Ok(new { IsSuccess = true, Message = "خروج با موفقیت انجام شد" });
-        }
+        /// منطق خروج از حساب کاربری تماماً در فرانت انجام می‌شود
 
         /// <summary>
         /// اعتبارسنجی توکن فعلی
@@ -209,6 +199,45 @@ namespace ReserveCenter.API.Controllers.Auth
                 request.OrgId);
 
             return Ok(result);
+        }
+
+        [HttpPost("send-role-id")] 
+        public async Task<IActionResult> SendRoleId()
+        {
+            try
+            {
+                var roleClaim = User.FindFirstValue(ClaimTypes.Role);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out var parsedUserId))
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "کاربر معتبر نیست" });
+                }
+
+                // دریافت اطلاعات کامل کاربر از سرویس
+                var user = await _authService.GetUserByIdAsync(parsedUserId);
+
+                var roleId = 5;
+                if (!string.IsNullOrEmpty(roleClaim) &&
+                    Enum.TryParse<ReserveCenter.API.Models.Enums.RoleEnum>(roleClaim, ignoreCase: true, out var role) &&
+                    role != ReserveCenter.API.Models.Enums.RoleEnum.All)
+                {
+                    roleId = (int)role;
+                }
+
+                return Ok(new
+                {
+                    IsSuccess = true,
+                    RoleId = roleId,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                });
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
         }
     }
 }

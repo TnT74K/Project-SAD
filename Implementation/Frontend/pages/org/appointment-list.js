@@ -33,9 +33,9 @@ const STATUS_TYPE_TO_ID = {
 };
 
 const STATUS_MAP = {
-  present: { text: 'حضور یافت',  cls: 'badge-green',  row: 'row-green'  },
-  absent:  { text: 'حضور نیافت', cls: 'badge-yellow', row: 'row-yellow' },
-  cancel:  { text: 'لغو شده',    cls: 'badge-red',    row: 'row-red'    },
+  present: { text: 'حضور یافت', cls: 'badge-green', row: 'row-green' },
+  absent: { text: 'حضور نیافت', cls: 'badge-yellow', row: 'row-yellow' },
+  cancel: { text: 'لغو شده', cls: 'badge-red', row: 'row-red' },
 };
 
 /* ---------- Gregorian to Shamsi converter ---------- */

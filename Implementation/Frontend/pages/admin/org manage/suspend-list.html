@@ -1,85 +1,87 @@
 <!DOCTYPE html>
 <!-- صفحه مدیریت کسب‌وکارها - SuperAdmin Panel -->
 <html lang="fa" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مدیریت کسب‌وکارها</title>
 
-<!-- بارگذاری فونت وزیرمتن از Google Fonts -->
-<link rel="stylesheet" href="/components/fonts.css">
-<link rel="stylesheet" href="suspend-list.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مدیریت کسب‌وکارها</title>
+
+  <!-- بارگذاری فونت وزیرمتن از Google Fonts -->
+  <link rel="stylesheet" href="/components/fonts.css">
+  <link rel="stylesheet" href="suspend-list.css">
 </head>
 
 <body>
-    <div id="header-placeholder"></div>
-<main>
-<!-- =============================================
+  <div id="header-placeholder"></div>
+  <main>
+    <!-- =============================================
      ساختار اصلی صفحه
      ============================================= -->
-<div class="container">
-  <div class="card">
+    <div class="container">
+      <div class="card">
 
-    <!-- عنوان صفحه -->
-    <div class="page-title">مدیریت کسب‌وکارها</div>
+        <!-- عنوان صفحه -->
+        <div class="page-title">مدیریت کسب‌وکارها</div>
 
-    <!-- نوار ابزار: جستجو و دکمه‌های عملیاتی -->
-    <div class="toolbar">
-      <div class="search-box">
-        <!-- ورودی جستجو - جستجو بر اساس نام، مالک یا دسته‌بندی -->
-        <input id="searchInput" placeholder="جستجو بر اساس نام سازمان..." style="min-width:240px;">
-        <!-- دکمه اجرای جستجو -->
-        <button class="btn-primary" onclick="searchBusiness()">جستجو</button>
-        <!-- دکمه ریست و نمایش همه -->
-        <button class="btn-warning" onclick="showAll()">نمایش همه</button>
+        <!-- نوار ابزار: جستجو و دکمه‌های عملیاتی -->
+        <div class="toolbar">
+          <div class="search-box">
+            <!-- ورودی جستجو - جستجو بر اساس نام، مالک یا دسته‌بندی -->
+            <input id="searchInput" placeholder="جستجو بر اساس نام سازمان..." style="min-width:240px;">
+            <!-- دکمه اجرای جستجو -->
+            <button class="btn-primary" onclick="searchBusiness()">جستجو</button>
+            <!-- دکمه ریست و نمایش همه -->
+            <button class="btn-warning" onclick="showAll()">نمایش همه</button>
+          </div>
+        </div>
+
+        <!-- نوار آمار - به صورت داینامیک از JS پر می‌شود -->
+        <div class="stats-bar" id="statsBar"></div>
+
+        <!-- جدول لیست کسب‌وکارها -->
+        <table>
+          <thead>
+            <tr>
+              <th>نام سازمان</th>
+              <th>دسته‌بندی</th>
+              <th>مالک</th>
+              <th>وضعیت</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <!-- tbody به صورت داینامیک از تابع render() پر می‌شود -->
+          <tbody id="businessTable"></tbody>
+        </table>
+
       </div>
     </div>
 
-    <!-- نوار آمار - به صورت داینامیک از JS پر می‌شود -->
-    <div class="stats-bar" id="statsBar"></div>
-
-    <!-- جدول لیست کسب‌وکارها -->
-    <table>
-      <thead>
-        <tr>
-          <th>نام سازمان</th>
-          <th>دسته‌بندی</th>
-          <th>مالک</th>
-          <th>وضعیت</th>
-          <th>عملیات</th>
-        </tr>
-      </thead>
-      <!-- tbody به صورت داینامیک از تابع render() پر می‌شود -->
-      <tbody id="businessTable"></tbody>
-    </table>
-
-  </div>
-</div>
-
-<!-- =============================================
+    <!-- =============================================
      مودال تأیید مسدودسازی / رفع مسدودیت
      با کلاس open نمایش داده می‌شود
      ============================================= -->
-<div class="modal" id="confirmModal">
-  <div class="modal-content">
-    <!-- عنوان مودال - داینامیک -->
-    <div class="modal-header" id="modalTitle">تأیید عملیات</div>
-    <!-- متن پیام مودال - داینامیک -->
-    <div class="modal-body" id="modalBody"></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal()">انصراف</button>
-      <!-- دکمه تأیید - رنگ و متن آن داینامیک تغییر می‌کند -->
-      <button id="modalConfirmBtn" onclick="confirmAction()">تأیید</button>
+    <div class="modal" id="confirmModal">
+      <div class="modal-content">
+        <!-- عنوان مودال - داینامیک -->
+        <div class="modal-header" id="modalTitle">تأیید عملیات</div>
+        <!-- متن پیام مودال - داینامیک -->
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal()">انصراف</button>
+          <!-- دکمه تأیید - رنگ و متن آن داینامیک تغییر می‌کند -->
+          <button id="modalConfirmBtn" onclick="confirmAction()">تأیید</button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-</main>
+  </main>
   <div id="footer-placeholder"></div>
 
-<script src="suspend-list.js" defer></script>
-<script src="/components/load-header.js"></script>
-<script src="/components/header.js"></script>
-<script src="/components/load-footer.js"></script>
+  <script src="suspend-list.js" defer></script>
+  <script src="/components/load-header.js"></script>
+  <script src="/components/header.js"></script>
+  <script src="/components/load-footer.js"></script>
 
 </body>
+
 </html>

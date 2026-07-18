@@ -21,13 +21,13 @@ let businesses = [
     owner: "امیرحسین کاظمی",
     blocked: false
   },
-   {
+  {
     name: "سالن زیبایی رز سفید",
     category: "سالن زیبایی",
     owner: "مهسا رضایی",
     blocked: true
   },
-   {
+  {
     name: "مطب پزشک عمومی سلامت",
     category: "پزشک عمومی",
     owner: "دکتر نازنین احمدی",
@@ -45,7 +45,7 @@ let businesses = [
     owner: "علیرضا محمدی",
     blocked: false
   },
- {
+  {
     name: "تعمیرگاه خودرو اعتماد",
     category: "مکانیکی و تعمیر خودرو",
     owner: "حمید اکبری",

@@ -21,12 +21,34 @@ public class UserRepository : IUserRepository
                                .FirstOrDefaultAsync(user => user.Id == userId && user.IsDeleted == false);
     }
 
+    public async Task<User?> GetByIdForAuthenticationAsync(int userId)
+    {
+        return await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == userId);
+    }
+
+    public async Task<User?> GetByPhoneNumberAsync(string phoneNumber)
+    {
+        return await _dbContext.Users
+            .FirstOrDefaultAsync(user => user.PhoneNumber == phoneNumber);
+    }
+
+    public async Task<bool> PhoneNumberExistsAsync(string phoneNumber)
+    {
+        return await _dbContext.Users.AnyAsync(user => user.PhoneNumber == phoneNumber);
+    }
+
     public async Task<User> CreateAsync(User user)
     {
         await _dbContext.Users.AddAsync(user);
         await _dbContext.SaveChangesAsync();
 
         return user;
+    }
+
+    public async Task UpdateAsync(User user)
+    {
+        _dbContext.Users.Update(user);
+        await _dbContext.SaveChangesAsync();
     }
 
     //برای اپدیت از طریق صفحه پروفایل من
@@ -106,5 +128,65 @@ public class UserRepository : IUserRepository
                                .Include(i => i.Orgservice)
                                .Where(appo => appo.BookingUserId == userId)
                                .ToListAsync();
+    }
+
+    // ===================
+    // new methods for UserList
+    // ===================
+    public async Task<bool> BlockUserAsync(int userId)
+    {
+        var user = await _dbContext.Users
+            .FirstOrDefaultAsync(existing => existing.Id == userId && !existing.IsDeleted);
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        user.IsBlocked = true;
+
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+    public async Task<bool> UnblockUserAsync(int userId)
+    {
+        var user = await _dbContext.Users
+            .FirstOrDefaultAsync(existing => existing.Id == userId && !existing.IsDeleted);
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        user.IsBlocked = false;
+
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+    public async Task<bool> UpdateUserByAdminAsync(User user)
+    {
+        // we exclude soft-deleted users because we don't need them
+        // find the user in database. EF Core tracks existingUser
+        var existingUser = await _dbContext.Users
+            .FirstOrDefaultAsync(existing => existing.Id == user.Id && !existing.IsDeleted);
+
+        if (existingUser is null)
+        {
+            return false;
+        }
+
+        existingUser.FirstName = user.FirstName;
+        existingUser.LastName = user.LastName;
+        existingUser.NationalCode = user.NationalCode;
+        existingUser.Password = user.Password;
+
+        existingUser.ModifiedBy = user.ModifiedBy;
+        existingUser.ModifiedDate = DateTime.Now;
+
+        await _dbContext.SaveChangesAsync();
+
+        return true;
     }
 }

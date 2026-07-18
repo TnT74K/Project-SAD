@@ -44,7 +44,7 @@ function showForm(id) {
 
   /* پاک کردن فیلدهای فرم قبل از نمایش */
   document.getElementById('f-title').value = '';
-  document.getElementById('f-desc').value  = '';
+  document.getElementById('f-desc').value = '';
 }
 
 
@@ -72,7 +72,7 @@ function showList() {
  */
 function submitForm() {
   var title = document.getElementById('f-title').value.trim();
-  var desc  = document.getElementById('f-desc').value.trim();
+  var desc = document.getElementById('f-desc').value.trim();
 
   /* اعتبارسنجی: عنوان اجباری است */
   if (!title) {
@@ -102,18 +102,18 @@ function submitForm() {
 
   card.innerHTML =
     '<div class="ad-image-placeholder" style="background:' + colors[rand] + '">'
-      + icons[rand]
+    + icons[rand]
     + '</div>'
     + '<div class="ad-body">'
-      + '<div class="ad-meta">'
-        + '<div class="ad-title">' + title + '</div>'
-        + '<div class="ad-desc">'  + (desc || '—') + '</div>'
-      + '</div>'
-      + '<div class="ad-actions">'
-        /* آیدی برای دکمه ویرایش: adCounter-1 چون قبلاً increment شده */
-        + '<button class="btn-edit"   onclick="showForm(' + (adCounter - 1) + ')">✏️ ویرایش</button>'
-        + '<button class="btn-delete" onclick="deleteCard(this)">🗑 حذف</button>'
-      + '</div>'
+    + '<div class="ad-meta">'
+    + '<div class="ad-title">' + title + '</div>'
+    + '<div class="ad-desc">' + (desc || '—') + '</div>'
+    + '</div>'
+    + '<div class="ad-actions">'
+    /* آیدی برای دکمه ویرایش: adCounter-1 چون قبلاً increment شده */
+    + '<button class="btn-edit"   onclick="showForm(' + (adCounter - 1) + ')">✏️ ویرایش</button>'
+    + '<button class="btn-delete" onclick="deleteCard(this)">🗑 حذف</button>'
+    + '</div>'
     + '</div>';
 
   /* اگه empty-state نمایش داده بود آن را حذف کن */
@@ -150,7 +150,7 @@ function openModal(id) {
 
   /* پر کردن فیلدهای مودال با مقادیر کارت */
   document.getElementById('edit-title').value = editingCard.querySelector('.ad-title').textContent;
-  document.getElementById('edit-desc').value  = editingCard.querySelector('.ad-desc').textContent.replace('—', '');
+  document.getElementById('edit-desc').value = editingCard.querySelector('.ad-desc').textContent.replace('—', '');
 
   /* نمایش مودال */
   document.getElementById('edit-modal').classList.add('open');
@@ -184,7 +184,7 @@ function saveEdit() {
   if (!editingCard) return;
 
   var title = document.getElementById('edit-title').value.trim();
-  var desc  = document.getElementById('edit-desc').value.trim();
+  var desc = document.getElementById('edit-desc').value.trim();
 
   /* اعتبارسنجی: عنوان اجباری است */
   if (!title) {
@@ -194,7 +194,7 @@ function saveEdit() {
 
   /* به‌روزرسانی مستقیم DOM کارت */
   editingCard.querySelector('.ad-title').textContent = title;
-  editingCard.querySelector('.ad-desc').textContent  = desc || '—';
+  editingCard.querySelector('.ad-desc').textContent = desc || '—';
 
   /* بستن مودال */
   document.getElementById('edit-modal').classList.remove('open');
@@ -229,8 +229,8 @@ function deleteCard(btn) {
   if (document.querySelectorAll('.ad-card').length === 0) {
     document.getElementById('ads-grid').innerHTML =
       '<div class="empty-state">'
-        + '<div class="empty-icon">📭</div>'
-        + '<p>هیچ تبلیغی ثبت نشده است.</p>'
+      + '<div class="empty-icon">📭</div>'
+      + '<p>هیچ تبلیغی ثبت نشده است.</p>'
       + '</div>';
   }
 }

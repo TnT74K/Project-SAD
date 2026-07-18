@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.1">
   <diagram name="Page-1" id="RSgaipoYHYRRNNQOnnog">
-    <mxGraphModel dx="2130" dy="2970" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3455" dy="2990" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -389,9 +389,6 @@
         <mxCell id="_UBz86DVQzl3pKbE1I0e-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontFamily=Helvetica;fontSize=20;fontColor=default;labelBackgroundColor=none;" value="1..1" vertex="1">
           <mxGeometry height="30" width="60" y="660" as="geometry" />
         </mxCell>
-        <mxCell id="TlQ7TH_D6BBii14pRfBj-2" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;fontFamily=zain;comic=0;strokeColor=#0e8088;strokeWidth=3;fontSize=12;fontColor=default;fontStyle=1;labelBackgroundColor=none;textDirection=rtl;fillColor=#b0e3e6;" value="اگر یه نفر جدید ثبتنام کنه آیا تو بک برایش شئ ساخته میشه یا نه؟ مستقیم میره تو دیتابیس ذخیره بشه" vertex="1">
-          <mxGeometry height="110" width="120" x="-40" y="-200" as="geometry" />
-        </mxCell>
         <mxCell id="ZELS6n94hJiyqH0eoMT9-1" edge="1" parent="1" source="hL3EeUpKe5668U5P-LeS-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=3;align=center;verticalAlign=bottom;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=none;jumpStyle=arc;jumpSize=15;startSize=10;endArrow=block;endFill=0;endSize=20;" target="hL3EeUpKe5668U5P-LeS-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
@@ -452,9 +449,6 @@
         </mxCell>
         <mxCell id="gnX5EOPK8szsHahXpgiu-1" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;fontFamily=zain;" value="&lt;div&gt;manageORGAccess(ORG,bool)&lt;/div&gt;If the boolean is true, it bans the ORG,&lt;div&gt;manageUserAccess is the same for users&lt;/div&gt;" vertex="1">
           <mxGeometry height="90" width="200" x="1075" y="350" as="geometry" />
-        </mxCell>
-        <mxCell id="9neI3TNXBZIeAPD1AZK0-1" parent="1" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;textDirection=rtl;fontFamily=zain;" value="کلاس های واسط و DTO ها اینجا نمایش داده نشدند" vertex="1">
-          <mxGeometry height="80" width="120" x="-180" y="-170" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

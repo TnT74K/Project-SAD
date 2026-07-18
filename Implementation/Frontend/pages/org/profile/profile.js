@@ -51,14 +51,14 @@ let orgId = null;
 let orgData = null;
 
 /* ---- المان‌های مودال ---- */
-const confirmModal   = document.getElementById('confirmModal');
-const successModal   = document.getElementById('successModal');
-const modalUsername  = document.getElementById('modal-username');
-const modalOrgname   = document.getElementById('modal-orgname');
-const modalDate      = document.getElementById('modal-date');
-const modalTime      = document.getElementById('modal-time');
-const modalPrice      = document.getElementById('modal-price');
-const trackingCode   = document.getElementById('trackingCode');
+const confirmModal = document.getElementById('confirmModal');
+const successModal = document.getElementById('successModal');
+const modalUsername = document.getElementById('modal-username');
+const modalOrgname = document.getElementById('modal-orgname');
+const modalDate = document.getElementById('modal-date');
+const modalTime = document.getElementById('modal-time');
+const modalPrice = document.getElementById('modal-price');
+const trackingCode = document.getElementById('trackingCode');
 /* ---- انتخاب خدمت ---- */
 const serviceSelect = document.getElementById('serviceSelect');
 const appointmentGroups = document.querySelectorAll('.appointment-group');
@@ -66,17 +66,17 @@ const modalService = document.getElementById('modal-service');
 
 let selectedService = '';
 /* در ابتدا هیچ خدمتی انتخاب نشده → نوبت‌ها مخفی */
-appointmentGroups.forEach(group=>{
+appointmentGroups.forEach(group => {
   group.style.display = 'none';
 });
-serviceSelect.addEventListener('change', function(){
+serviceSelect.addEventListener('change', function () {
 
   selectedService = this.value;
 
-  appointmentGroups.forEach(group=>{
-    if(selectedService){
+  appointmentGroups.forEach(group => {
+    if (selectedService) {
       group.style.display = 'block';
-    }else{
+    } else {
       group.style.display = 'none';
     }
   });
@@ -141,12 +141,26 @@ async function loadOrgProfile(id) {
 /* ---- کلیک روی دکمه‌های ساعت ---- */
 const timeButtons = document.querySelectorAll('.time-btn');
 
-document.addEventListener('click', function(e){
+/* ---- باز/بستن مودال ---- */
+function openModal(overlay) {
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(overlay) {
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/* ---- کلیک روی دکمه‌های ساعت ---- */
+const timeButtons = document.querySelectorAll('.time-btn');
+
+document.addEventListener('click', function (e) {
 
   const btn = e.target.closest('.time-btn');
-  if(!btn) return;
+  if (!btn) return;
 
-  if(!selectedService){
+  if (!selectedService) {
     alert('ابتدا نوع خدمت را انتخاب کنید');
     return;
   }
@@ -169,11 +183,11 @@ document.addEventListener('click', function(e){
 
   /* پر کردن مودال */
   modalUsername.textContent = userName;
-  modalOrgname.textContent  = orgData ? orgData.name : '—';
-  modalDate.textContent     = selectedDate;
-  modalTime.textContent     = selectedTime;
-  modalPrice.textContent    = "—";
-  modalService.textContent  = serviceSelect.options[serviceSelect.selectedIndex].text;
+  modalOrgname.textContent = orgData ? orgData.name : '—';
+  modalDate.textContent = selectedDate;
+  modalTime.textContent = selectedTime;
+  modalPrice.textContent = "—";
+  modalService.textContent = serviceSelect.options[serviceSelect.selectedIndex].text;
 
   openModal(confirmModal);
 
@@ -181,78 +195,78 @@ document.addEventListener('click', function(e){
 
 
 
-    /* ---- دکمه انصراف ---- */
-    document.getElementById('btnCancel').addEventListener('click', () => {
-      closeModal(confirmModal);
+/* ---- دکمه انصراف ---- */
+document.getElementById('btnCancel').addEventListener('click', () => {
+  closeModal(confirmModal);
+});
+
+/* ---- بستن مودال با کلیک روی پس‌زمینه ---- */
+confirmModal.addEventListener('click', (e) => {
+  if (e.target === confirmModal) closeModal(confirmModal);
+});
+
+successModal.addEventListener('click', (e) => {
+  if (e.target === successModal) closeModal(successModal);
+});
+
+/* ---- دکمه تایید و پرداخت (API) ---- */
+document.getElementById('btnConfirmPay').addEventListener('click', async () => {
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+  const appointmentDate = shamsiToGregorianString(selectedDate);
+  if (!appointmentDate) {
+    alert('خطا در تبدیل تاریخ');
+    return;
+  }
+
+  const body = {
+    orgId: orgId,
+    serviceId: Number(selectedService),
+    userId: user.id || user.userId,
+    price: 0,
+    appointmentDate: appointmentDate,
+    appointmentTime: selectedTime
+  };
+
+  closeModal(confirmModal);
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/public-org-profile/appointments`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
     });
 
-    /* ---- بستن مودال با کلیک روی پس‌زمینه ---- */
-    confirmModal.addEventListener('click', (e) => {
-      if (e.target === confirmModal) closeModal(confirmModal);
-    });
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.message || 'خطا در ثبت نوبت');
+    }
 
-    successModal.addEventListener('click', (e) => {
-      if (e.target === successModal) closeModal(successModal);
-    });
+    const data = await res.json();
 
-    /* ---- دکمه تایید و پرداخت (API) ---- */
-    document.getElementById('btnConfirmPay').addEventListener('click', async () => {
-      const user = JSON.parse(localStorage.getItem("user") || "{}");
+    setTimeout(() => {
+      trackingCode.textContent = data.trackingCode || '—';
+      openModal(successModal);
+    }, 200);
+  } catch (err) {
+    alert(err.message);
+  }
+});
 
-      const appointmentDate = shamsiToGregorianString(selectedDate);
-      if (!appointmentDate) {
-        alert('خطا در تبدیل تاریخ');
-        return;
-      }
+/* ---- دکمه بستن مودال موفقیت ---- */
+document.getElementById('btnCloseSuccess').addEventListener('click', () => {
+  closeModal(successModal);
+  /* حذف انتخاب دکمه‌های ساعت */
+  document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+});
 
-      const body = {
-        orgId: orgId,
-        serviceId: Number(selectedService),
-        userId: user.id || user.userId,
-        price: 0,
-        appointmentDate: appointmentDate,
-        appointmentTime: selectedTime
-      };
-
-      closeModal(confirmModal);
-
-      try {
-        const res = await fetch(`${API_BASE_URL}/public-org-profile/appointments`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        });
-
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.message || 'خطا در ثبت نوبت');
-        }
-
-        const data = await res.json();
-
-        setTimeout(() => {
-          trackingCode.textContent = data.trackingCode || '—';
-          openModal(successModal);
-        }, 200);
-      } catch (err) {
-        alert(err.message);
-      }
-    });
-
-    /* ---- دکمه بستن مودال موفقیت ---- */
-    document.getElementById('btnCloseSuccess').addEventListener('click', () => {
-      closeModal(successModal);
-      /* حذف انتخاب دکمه‌های ساعت */
-document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
-    });
-
-    /* ---- بستن با کلید Escape ---- */
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        if (confirmModal.classList.contains('active')) closeModal(confirmModal);
-        if (successModal.classList.contains('active')) closeModal(successModal);
-      }
-    });
+/* ---- بستن با کلید Escape ---- */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (confirmModal.classList.contains('active')) closeModal(confirmModal);
+    if (successModal.classList.contains('active')) closeModal(successModal);
+  }
+});
 
 /* ---- بارگذاری اولیه ---- */
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,13 +1,19 @@
 :root {
-  --primary:       #0B2545;
+  --primary: #0B2545;
   --primary-light: #2E86C1;
-  --bg:            #eef2f7;
-  --text:          #1a2a3a;
-  --text-2:        #4a6080;
-  --radius:        14px;
+  --bg: #eef2f7;
+  --text: #1a2a3a;
+  --text-2: #4a6080;
+  --radius: 14px;
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Vazirmatn', sans-serif;
@@ -55,7 +61,10 @@ body {
   background: rgba(255, 255, 255, 0.55);
   flex-shrink: 0;
 }
-.dot:first-child { background: rgba(255, 255, 255, 0.9); }
+
+.dot:first-child {
+  background: rgba(255, 255, 255, 0.9);
+}
 
 .cal-body {
   padding: 52px 36px 48px;
@@ -76,12 +85,13 @@ body {
 .triangle {
   width: 0;
   height: 0;
-  border-left:   42px solid transparent;
-  border-right:  42px solid transparent;
+  border-left: 42px solid transparent;
+  border-right: 42px solid transparent;
   border-bottom: 75px solid #c0392b;
   position: relative;
   flex-shrink: 0;
 }
+
 .triangle::after {
   content: '!';
   position: absolute;
@@ -112,24 +122,47 @@ body {
   box-shadow: 0 4px 16px rgba(46, 134, 193, .3);
   transition: box-shadow .2s, transform .2s;
 }
+
 .back-link:hover {
   box-shadow: 0 8px 28px rgba(11, 37, 69, 0.25);
   transform: translateY(-2px);
 }
 
 @media (max-width: 480px) {
-  .cal-body { padding: 36px 24px 32px; gap: 16px; }
-  .error-num { font-size: 6rem; }
+  .cal-body {
+    padding: 36px 24px 32px;
+    gap: 16px;
+  }
+
+  .error-num {
+    font-size: 6rem;
+  }
+
   .triangle {
-    border-left:   30px solid transparent;
-    border-right:  30px solid transparent;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
     border-bottom: 54px solid #c0392b;
   }
-  .triangle::after { bottom: -48px; font-size: 1.4rem; }
-  .back-link { padding: .75rem 2rem; font-size: .95rem; }
+
+  .triangle::after {
+    bottom: -48px;
+    font-size: 1.4rem;
+  }
+
+  .back-link {
+    padding: .75rem 2rem;
+    font-size: .95rem;
+  }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
