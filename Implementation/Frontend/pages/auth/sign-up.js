@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 
 
 // نمایش خطا
@@ -287,6 +287,16 @@ async function registerUser() {
         const result =
             await response.json();
 
+        // مدیریت خطا - طبق استاندارد پروژه
+        if (response.status === 400) {
+            alert(result.message || "درخواست نامعتبر است");
+            return;
+        }
+
+        if (response.status === 403) {
+            window.location.href = "/pages/errors/error-403.html";
+            return;
+        }
 
         if (!response.ok) {
 

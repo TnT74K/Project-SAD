@@ -3,7 +3,7 @@ let currentPhone = '';
 let otpToken = '';        // store token returned by server after OTP send
 let countdownInterval = null;
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 
 // ---- Step navigation ----
 const stepIds = ['phone', 'otp', 'password', 'success'];
@@ -51,6 +51,17 @@ async function sendOtp() {
             body: JSON.stringify({ phoneNumber: currentPhone })
         });
         const data = await response.json();
+
+        // مدیریت خطا - طبق استاندارد پروژه
+        if (response.status === 400) {
+            showInputError(phoneInput, data.Message || data.message || "درخواست نامعتبر است");
+            return;
+        }
+
+        if (response.status === 403) {
+            window.location.href = "/pages/errors/error-403.html";
+            return;
+        }
 
         if (response.ok && data.IsSuccess) {
             document.getElementById('phone-display').textContent = formatPhone(phone);

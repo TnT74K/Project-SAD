@@ -2,7 +2,7 @@
    app.js — منطق اصلی صفحه تأیید کسب‌وکارها
    ═══════════════════════════════════════════════════════ */
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 function getToken() { return localStorage.getItem("token"); }
 
 
@@ -115,6 +115,18 @@ async function loadBusinesses() {
     const res = await fetch(`${API_BASE_URL}/org/admin/approval-list`, {
       headers: { "Authorization": `Bearer ${token}` }
     });
+
+    // مدیریت خطا - طبق استاندارد پروژه
+    if (res.status === 400) {
+      const errData = await res.json().catch(() => ({}));
+      alert(errData.message || "درخواست نامعتبر است");
+      return;
+    }
+
+    if (res.status === 403) {
+      window.location.href = "/pages/errors/error-403.html";
+      return;
+    }
 
     if (!res.ok) throw new Error(`خطا در دریافت اطلاعات (${res.status})`);
 
