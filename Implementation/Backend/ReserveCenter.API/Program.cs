@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using ReserveCenter.API.Models.Settings;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.Extensions;
 using ReserveCenter.API.Middlewares;
@@ -7,8 +11,6 @@ using ReserveCenter.API; // Database Connection checker
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
-// OpenAPI / Swagger
 builder.Services.AddOpenApi();
 
 // All services, JWT, DbContext registrations
@@ -21,19 +23,28 @@ var app = builder.Build();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 DatabaseConnectionChecker.PrintConnectionStatus(connectionString);
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
+app.UseCors("AllowLiveServer");
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-app.UseAuthentication(); // must come before authorizatoin
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+try
+{
+    app.MapControllers();
+}
+catch (ReflectionTypeLoadException ex)
+{
+    foreach (var loaderException in ex.LoaderExceptions)
+    {
+        Console.WriteLine("❌ ارور پکیج: " + loaderException?.Message);
+    }
+    throw;
+}
 
 app.Run();

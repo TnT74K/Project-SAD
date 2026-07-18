@@ -51,7 +51,7 @@ namespace ReserveCenter.API.Extensions
             services.AddScoped<IAuthService, AuthService>();
             //services.AddScoped<IAdminAdService, AdminAdService>();
             //services.AddScoped<IAdminOrgService, AdminOrgService>();
-            services.AddScoped<IAdminUserListService, AdminUserListService>();
+            // services.AddScoped<IAdminUserListService, AdminUserListService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IPublicOrgProfileService, PublicOrgProfileService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
@@ -60,8 +60,24 @@ namespace ReserveCenter.API.Extensions
             services.AddScoped<IAppointmentListService, AppointmentListService>();
             services.AddScoped<IDashboardService, DashboardService>();
             services.AddScoped<IUserProfileService, UserProfileService>();
-            services.AddScoped<IOrgSuspendListService, OrgSuspendListService>();
+            // services.AddScoped<IOrgSuspendListService, OrgSuspendListService>();
+            services.AddScoped<IAdminDashboardService, AdminDashboardService>();
 
+
+            // ========= LiveServer section =========
+
+            // 🟢 تنظیمات CORS لایو سرور
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowLiveServer",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader()
+                              .AllowCredentials();
+                    });
+            });
             // ========= JWT section ===========
             services.Configure<JwtSettings>(
                 configuration.GetSection("JwtSettings"));
