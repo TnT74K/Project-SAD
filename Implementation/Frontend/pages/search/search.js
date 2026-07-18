@@ -7,47 +7,47 @@ const API_BASE_URL = "http://localhost:5000/api";
 const activeChips = {
   rating: false,
   success: false,
-  open:    false
+  open: false
 };
 
 /* ---- مپینگ شهر (HTML value → CityEnum int) ---- */
 const CITY_MAP = {
-  tehran:      1,   // تهران
-  isfahan:     2,   // اصفهان
-  mashhad:     3,   // مشهد
-  shiraz:      4,   // شیراز
-  tabriz:      5,   // تبریز
-  ahvaz:       6,   // اهواز
-  kermanshah:  7,   // کرمانشاه
-  karaj:       8    // کرج
+  tehran: 1,        // تهران
+  isfahan: 2,       // اصفهان
+mashhad: 3,         // مشهد
+  shiraz: 4,        // شیراز
+  tabriz: 5,        // تبریز
+  ahvaz: 6,         // اهواز
+  kermanshah: 7,    // کرمانشاه
+  karaj: 8          // کرج
 };
 
 /* ---- مپینگ دسته‌بندی (HTML value → OrgTypeEnum int) ---- */
 const CAT_MAP = {
-  barbershop:  1,
-  beauty:      2,
-  dental:      3,
-  clinic:      4,
-  gym:         5,
-  trad:        6
+  barbershop: 1,
+  beauty: 2,
+  dental: 3,
+  clinic: 4,
+  gym: 5,
+  trad: 6
 };
 
 /* ---- مپینگ مرتب‌سازی (HTML value → sortBy int) ---- */
 const SORT_MAP = {
   default: 0,   // Recommended
-  rating:  1,   // MostSuccessful
+  rating: 1,   // MostSuccessful
   success: 1,   // MostSuccessful
-  newest:  2    // Newest
+  newest: 2    // Newest
 };
 
 /* ---- پیش‌فرض ایموجی و گرادینت بر اساس orgTypeName ---- */
 const ORG_STYLE = {
-  'آرایشگاه مردانه':  { emoji: '✂️', bg: 'linear-gradient(135deg,#1a2d45,#2e5f8a)' },
-  'سالن زیبایی':       { emoji: '💅', bg: 'linear-gradient(135deg,#2d1a4a,#6b21a8)' },
-  'دندانپزشکی':       { emoji: '🦷', bg: 'linear-gradient(135deg,#1a0e2e,#4c1d95)' },
-  'کلینیک':           { emoji: '🏥', bg: 'linear-gradient(135deg,#0a1e3a,#1b4f72)' },
-  'باشگاه ورزشی':     { emoji: '💪', bg: 'linear-gradient(135deg,#1a0d0d,#a83232)' },
-  'طب سنتی':         { emoji: '🌿', bg: 'linear-gradient(135deg,#0d3d2a,#1a7a55)' }
+  'آرایشگاه مردانه':    { emoji: '✂️', bg: 'linear-gradient(135deg,#1a2d45,#2e5f8a)' },
+  'سالن زیبایی':        { emoji: '💅', bg: 'linear-gradient(135deg,#2d1a4a,#6b21a8)' },
+  'دندانپزشکی':         { emoji: '🦷', bg: 'linear-gradient(135deg,#1a0e2e,#4c1d95)' },
+  'کلینیک':             { emoji: '🏥', bg: 'linear-gradient(135deg,#0a1e3a,#1b4f72)' },
+'باشگاه ورزشی':         { emoji: '💪', bg: 'linear-gradient(135deg,#1a0d0d,#a83232)' },
+  'طب سنتی':            { emoji: '🌿', bg: 'linear-gradient(135deg,#0d3d2a,#1a7a55)' }
 };
 
 const DEFAULT_STYLE = { emoji: '🏢', bg: 'linear-gradient(135deg,#1a1a2e,#16213e)' };
@@ -79,23 +79,23 @@ function toggleChip(key) {
    این تابع صدا زده میشه — حالا async و سمت سرور
    ============================================= */
 async function applyFilters() {
-  const cityVal  = document.getElementById('filterCity').value;
-  const catVal   = document.getElementById('filterCat').value;
-  const sortVal  = document.getElementById('sortBy').value;
-  const query    = document.getElementById('searchInput').value.trim();
+  const cityVal = document.getElementById('filterCity').value;
+  const catVal = document.getElementById('filterCat').value;
+  const sortVal = document.getElementById('sortBy').value;
+  const query = document.getElementById('searchInput').value.trim();
 
   /* ساخت پارامترهای کوئری */
   const params = new URLSearchParams();
 
-  if (query)                          params.set('query', query);
-  if (cityVal && CITY_MAP[cityVal])   params.set('city', CITY_MAP[cityVal]);
-  if (catVal && CAT_MAP[catVal])      params.set('orgType', CAT_MAP[catVal]);
-  if (activeChips.rating)             params.set('upFourStar', 'true');
-  if (activeChips.success)            params.set('up500Appointment', 'true');
-  if (activeChips.open)               params.set('hasAppointment', 'true');
+  if (query) params.set('query', query);
+  if (cityVal && CITY_MAP[cityVal]) params.set('city', CITY_MAP[cityVal]);
+  if (catVal && CAT_MAP[catVal]) params.set('orgType', CAT_MAP[catVal]);
+  if (activeChips.rating) params.set('upFourStar', 'true');
+  if (activeChips.success) params.set('up500Appointment', 'true');
+  if (activeChips.open) params.set('hasAppointment', 'true');
 
-  params.set('sortBy',  SORT_MAP[sortVal] ?? 0);
-  params.set('page',    currentPage);
+  params.set('sortBy', SORT_MAP[sortVal] ?? 0);
+  params.set('page', currentPage);
   params.set('pageSize', PAGE_SIZE);
 
   /* نمایش لودینگ */
@@ -107,7 +107,7 @@ async function applyFilters() {
     </div>`;
 
   try {
-    const res  = await fetch(`${API_BASE_URL}/Search?${params.toString()}`);
+    const res = await fetch(`${API_BASE_URL}/Search?${params.toString()}`);
     const json = await res.json();
 
     if (!json.isSuccess || !json.data) {
@@ -124,7 +124,7 @@ async function applyFilters() {
     const { items, totalCount } = json.data;
 
     /* آپدیت متن‌های بالای نتایج */
-    document.getElementById('query-text').textContent   = query || 'همه';
+    document.getElementById('query-text').textContent = query || 'همه';
     document.getElementById('result-count').textContent = toFa(totalCount) + ' کسب‌وکار یافت شد';
 
     /* رندر کارت‌ها */
