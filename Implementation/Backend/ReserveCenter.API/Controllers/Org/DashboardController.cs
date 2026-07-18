@@ -49,9 +49,16 @@ namespace ReserveCenter.API.Controllers.Org
         [HttpGet]
         public async Task<IActionResult> GetDashboard()
         {
-            var orgId = await GetCurrentOrgIdAsync();
-            var dashboard = await _dashboardService.GetOrgDashboardAsync(orgId);
-            return Ok(new { IsSuccess = true, Data = dashboard });
+            try
+            {
+                var orgId = await GetCurrentOrgIdAsync();
+                var dashboard = await _dashboardService.GetOrgDashboardAsync(orgId);
+                return Ok(new { IsSuccess = true, Data = dashboard });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
         }
     }
 }

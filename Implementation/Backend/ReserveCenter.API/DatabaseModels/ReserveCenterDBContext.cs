@@ -126,9 +126,7 @@ public partial class ReserveCenterDBContext : DbContext
             entity.Property(e => e.Description)
                 .IsRequired()
                 .HasMaxLength(500);
-            entity.Property(e => e.Image)
-                .IsRequired()
-                .HasMaxLength(256);
+            entity.Property(e => e.Image).HasMaxLength(256);
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
             entity.Property(e => e.Name)
                 .IsRequired()
@@ -226,9 +224,7 @@ public partial class ReserveCenterDBContext : DbContext
             entity.Property(e => e.Description)
                 .IsRequired()
                 .HasMaxLength(256);
-            entity.Property(e => e.Image)
-                .IsRequired()
-                .HasMaxLength(256);
+            entity.Property(e => e.Image).HasMaxLength(256);
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(256);

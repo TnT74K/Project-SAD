@@ -20,7 +20,7 @@ namespace ReserveCenter.API.Controllers.Org
         }
 
         // ============================================================
-        // ✅ ثبت سازمان 
+        //  ثبت سازمان 
         // ============================================================
         [HttpPost("register")]
         public async Task<IActionResult> RegisterOrg([FromBody] OrgRegisterRequest request)

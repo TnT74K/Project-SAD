@@ -1,5 +1,5 @@
 /* ---- API Configuration ---- */
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 function getToken() { return localStorage.getItem("token"); }
 function getOrgId() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -100,7 +100,14 @@ async function loadOrgProfile(id) {
     const res = await fetch(`${API_BASE_URL}/public-org-profile/${id}`);
     if (!res.ok) throw new Error('خطا در دریافت اطلاعات سازمان');
     orgData = await res.json();
-
+            if(res.status === 400)
+            {
+                alert(orgData.message);
+            }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
     /* --- به‌روزرسانی اطلاعات سازمان در DOM --- */
     const orgNameEl = document.querySelector('.org-name');
     if (orgNameEl) orgNameEl.textContent = orgData.name;
@@ -243,7 +250,14 @@ document.getElementById('btnConfirmPay').addEventListener('click', async () => {
     }
 
     const data = await res.json();
-
+            if(res.status === 400)
+            {
+                alert(data.message);
+            }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
     setTimeout(() => {
       trackingCode.textContent = data.trackingCode || '—';
       openModal(successModal);

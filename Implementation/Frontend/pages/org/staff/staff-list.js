@@ -1,7 +1,7 @@
 // ==============================
 // API Configuration
 // ==============================
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 function getToken() { return localStorage.getItem("token"); }
 
 // ==============================
@@ -37,6 +37,14 @@ async function loadStaff() {
     }
 
     const data = await res.json();
+                if(res.status === 400)
+            {
+                alert(data.message);
+            }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
     const list = Array.isArray(data) ? data : (data.StaffList || data.data || []);
 
     users = list.map(item => ({
@@ -194,7 +202,14 @@ async function confirmAction() {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.message || `خطای سرور (${res.status})`);
       }
-
+            // if(res.status === 400)
+            // {
+            //     alert(profileData.message);
+            // }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
     }
 
     else if (actionType === "toggle") {

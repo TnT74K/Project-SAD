@@ -6,12 +6,12 @@ namespace ReserveCenter.API.Services.Interfaces
     public interface IOrgService
     {
         // ==============================
-        // ✅ ثبت سازمان (وظیفه شما)
+        //  ثبت سازمان (وظیفه شما)
         // ==============================
         Task<OrgRegisterResponseDto> RegisterOrgAsync(OrgRegisterRequest request, int userId);
 
         // ==============================
-        // ✅ متدهای کمکی (برای استفاده دیگران)
+        //  متدهای کمکی (برای استفاده دیگران)
         // ==============================
         Task<bool> IsOrgOwnerAsync(int orgId, int userId);
         Task<bool> IsOrgExistAsync(int orgId);

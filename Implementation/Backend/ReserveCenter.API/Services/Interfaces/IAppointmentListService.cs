@@ -40,7 +40,7 @@ namespace ReserveCenter.API.Services.Interfaces
         Task<bool> IsAppointmentBelongToOrgAsync(int appointmentId, int orgId);
 
         // ============================================================
-        // ✅ متد جدید برای ایجاد نوبت
+        //  متد جدید برای ایجاد نوبت
         // ============================================================
         
         /// <summary>

@@ -1,10 +1,10 @@
-const API_BASE_URL = "http://localhost:5041/api";
+const API_BASE_URL_HEADER = "http://localhost:5041/api";
 const token = localStorage.getItem("token");
 
 async function registerUserForHeader() {
   try {
 
-    const response = await fetch(`${API_BASE_URL}/Auth/send-role-id`, {
+    const response = await fetch(`${API_BASE_URL_HEADER}/Auth/send-role-id`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
