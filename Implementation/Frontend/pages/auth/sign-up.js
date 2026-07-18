@@ -140,36 +140,7 @@ function validatePhone() {
 }
 
 
-// تطبیق شماره تلفن
-function validateConfirmPhone() {
 
-    const phone =
-        document.getElementById("phone-number").value.trim();
-
-
-    const confirm =
-        document.getElementById("confirm-phone-number").value.trim();
-
-
-    if (phone !== confirm) {
-
-        showError(
-            "confirm-phone-number",
-            "confirm-phone-error",
-            "شماره تلفن‌ها یکسان نیستند"
-        );
-
-        return false;
-    }
-
-
-    showSuccess(
-        "confirm-phone-number",
-        "confirm-phone-error"
-    );
-
-    return true;
-}
 
 
 // اعتبارسنجی رمز
@@ -255,8 +226,7 @@ async function registerUser() {
         phoneNumber:
             document.getElementById("phone-number").value.trim(),
 
-        confirmPhoneNumber:
-            document.getElementById("confirm-phone-number").value.trim(),
+      
 
         password:
             document.getElementById("password").value,
@@ -357,7 +327,7 @@ document.addEventListener(
                     validateFirstName() &&
                     validateLastName() &&
                     validatePhone() &&
-                    validateConfirmPhone() &&
+                    
                     validatePassword() &&
                     validateConfirmPassword();
 
