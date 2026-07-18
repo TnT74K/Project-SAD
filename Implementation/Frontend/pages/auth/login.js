@@ -17,25 +17,31 @@ let selectedOrgId = null;
 
 const roleMapping = {
     Customer: {
-        label: "مشتری"
+        label: "مشتری",
+        icon: "🧑"
     },
 
     Staff: {
-        label: "کارمند کسب‌وکار"
+        label: "کارمند کسب‌وکار",
+        icon: "💼"
     },
 
     Support: {
-        label: "پشتیبان"
+        label: "پشتیبان",
+        icon: "🎧"
     },
 
     OrgAdmin: {
-        label: "مدیر کسب‌وکار"
+        label: "مدیر کسب‌وکار",
+        icon: "🏪"
     },
 
     SuperAdmin: {
-        label: "مدیر ارشد سیستم"
+        label: "مدیر ارشد سیستم",
+        icon: "🛡️"
     }
 };
+
 
 
 // ===============================
@@ -279,126 +285,132 @@ async function submitPassword() {
 // Role Modal
 // ===============================
 
-
 function openRoleModal(roles) {
-
-
     selectedRoleBackendName = "";
     selectedOrgId = null;
 
+    const modal = document.getElementById("role-modal");
+    const roleGrid = document.getElementById("role-grid");
+    const confirmButton = document.getElementById("modal-confirm-btn");
+    const messageElement = document.getElementById("role-modal-msg");
 
-    const modal =
-        document.getElementById("role-modal");
+    // پاک‌کردن کارت‌های ساخته‌شده در ورود قبلی
+    roleGrid.replaceChildren();
 
+    confirmButton.disabled = true;
+    messageElement.textContent = "";
+    messageElement.className = "status-msg";
+
+    if (!Array.isArray(roles) || roles.length === 0) {
+        showMessage("هیچ نقشی برای این کاربر یافت نشد.", "error");
+        return;
+    }
+
+    // اگر فقط یک نقش Customer داشت، مستقیم انتخاب شود
+    if (roles.length === 1 && String(roles[0].RoleName || roles[0].roleName).toLowerCase() === "customer") {
+        const role = roles[0];
+
+        selectedRoleBackendName = role.RoleName || role.roleName;
+        selectedOrgId = role.OrgId ?? role.orgId ?? null;
+
+        // اگر لازم داری نام نمایشی هم ست شود
+        selectedRoleLabel = role.roleLabel || role.displayName || "مشتری";
+
+        confirmRole();
+        return;
+    }
+
+    // ادامه رفتار فعلی: ساخت کارت‌ها و نمایش مودال
+    roleGrid.innerHTML = "";
+
+    roles.forEach((role, index) => {
+        const card = createRoleCard(role, index);
+        roleGrid.appendChild(card);
+    });
 
     modal.style.display = "flex";
-
-
-
-    const cards =
-        document.querySelectorAll(".role-card");
-
-
-
-    cards.forEach(card => {
-
-
-        card.classList.remove("selected");
-
-        card.style.opacity = "0.3";
-
-        card.style.pointerEvents = "none";
-
-    });
-
-
-
-    roles.forEach(role => {
-
-
-        const backendName =
-            role.roleName;
-
-
-
-        cards.forEach(card => {
-
-
-            const label =
-                card.querySelector(".role-label")
-                    .textContent
-                    .trim();
-
-
-
-            if (
-                roleMapping[backendName] &&
-                roleMapping[backendName].label === label
-            ) {
-
-
-                card.style.opacity = "1";
-
-                card.style.pointerEvents = "auto";
-
-
-                card.dataset.backendName =
-                    backendName;
-
-
-
-                if (role.orgId) {
-                    card.dataset.orgId =
-                        role.orgId;
-                }
-            }
-        });
-
-
-
-
-    });
-
-
 }
 
 
+function createRoleCard(role, index) {
+    const backendRoleName = role.roleName;
+    const roleInfo = roleMapping[backendRoleName];
+
+    const roleLabel = roleInfo?.label ?? backendRoleName;
+    const roleIcon = roleInfo?.icon ?? "👤";
+
+    const organizationName =
+        role.organizationName?.trim() ||
+        getDefaultOrganizationLabel(role.orgId);
+
+    const card = document.createElement("button");
+
+    card.type = "button";
+    card.className = "role-card";
+    card.dataset.backendName = backendRoleName;
+    card.dataset.index = String(index);
+
+    // orgId ممکن است null باشد؛ مقدار null را داخل dataset نریز
+    if (role.orgId !== null && role.orgId !== undefined) {
+        card.dataset.orgId = String(role.orgId);
+    }
+
+    const check = document.createElement("div");
+    check.className = "role-check";
+    check.textContent = "✓";
+
+    const icon = document.createElement("span");
+    icon.className = "role-icon";
+    icon.textContent = roleIcon;
+
+    const content = document.createElement("div");
+    content.className = "role-content";
+
+    const label = document.createElement("span");
+    label.className = "role-label";
+    label.textContent = roleLabel;
+
+    const organization = document.createElement("span");
+    organization.className = "role-organization";
+    organization.textContent = organizationName;
+
+    content.append(label, organization);
+    card.append(check, icon, content);
+
+    card.addEventListener("click", function () {
+        selectRole(this);
+    });
+
+    return card;
+}
+
+
+function getDefaultOrganizationLabel(orgId) {
+    if (orgId === null || orgId === undefined) {
+        return "بدون سازمان";
+    }
+
+    return `سازمان شماره ${orgId}`;
+}
 
 
 function selectRole(element) {
-
-
     document
-        .querySelectorAll(".role-card")
-        .forEach(card =>
-            card.classList.remove("selected")
-        );
-
-
+        .querySelectorAll("#role-grid .role-card")
+        .forEach(card => card.classList.remove("selected"));
 
     element.classList.add("selected");
 
-
-
-    selectedRoleBackendName =
-        element.dataset.backendName;
-
-
+    selectedRoleBackendName = element.dataset.backendName;
 
     selectedOrgId =
-        element.dataset.orgId
-            ?
-            Number(element.dataset.orgId)
-            :
-            null;
+        element.dataset.orgId !== undefined
+            ? Number(element.dataset.orgId)
+            : null;
 
-
-
-    document
-        .getElementById("modal-confirm-btn")
-        .disabled = false;
-
+    document.getElementById("modal-confirm-btn").disabled = false;
 }
+
 
 
 
