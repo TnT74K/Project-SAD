@@ -31,7 +31,7 @@ namespace ReserveCenter.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "خطا در جستجو");
-                return StatusCode(500, new { IsSuccess = false, Message = "خطای داخلی سرور" });
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
             }
         }
     }
