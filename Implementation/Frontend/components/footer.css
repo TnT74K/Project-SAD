@@ -16,128 +16,137 @@ main {
 #footer {
     background: #071b33;
     color: #ddd;
-    margin-top: 20px;     /* کمتر شد */
-    padding: 20px 0;      /* قبلاً بزرگ‌تر بود */
+    margin-top: 20px;
+    /* کمتر شد */
+    padding: 20px 0;
+    /* قبلاً بزرگ‌تر بود */
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 16px;            /* کمتر شد */
+    gap: 16px;
+    /* کمتر شد */
 }
 
-.footer-logo{
-display:flex;
-align-items:center;
-gap:8px;
-font-weight:800;
-font-size:1.1rem;
-color:white;
-margin-bottom:8px;       /* کمتر شد */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 8px;
+    /* کمتر شد */
 }
 
-.footer-logo span{
-color:#D4AC0D;
+.footer-logo span {
+    color: #D4AC0D;
 }
 
-.footer-desc{
-font-size:.85rem;
-line-height:1.6;
-color:#aaa;
-max-width:320px;
+.footer-desc {
+    font-size: .85rem;
+    line-height: 1.6;
+    color: #aaa;
+    max-width: 320px;
 }
 
-.footer-col h4{
-color:white;
-font-size:.9rem;
-margin-bottom:8px;       /* کمتر شد */
+.footer-col h4 {
+    color: white;
+    font-size: .9rem;
+    margin-bottom: 8px;
+    /* کمتر شد */
 }
 
-.footer-col a{
-display:block;
-color:#aaa;
-font-size:.85rem;
-margin-bottom:6px;       /* کمتر شد */
-transition:.2s;
+.footer-col a {
+    display: block;
+    color: #aaa;
+    font-size: .85rem;
+    margin-bottom: 6px;
+    /* کمتر شد */
+    transition: .2s;
 }
 
-.footer-col a:hover{
-color:#D4AC0D;
+.footer-col a:hover {
+    color: #D4AC0D;
 }
 
 .footer-bottom {
-    margin-top: 12px;     /* کمتر شد */
+    margin-top: 12px;
+    /* کمتر شد */
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 8px 0;       /* کمتر شد */
+    padding: 8px 0;
+    /* کمتر شد */
     text-align: center;
     font-size: .8rem;
     color: #888;
 }
 
-@media(max-width:900px){
+@media(max-width:900px) {
 
-.footer-grid{
-grid-template-columns:1fr 1fr;
-gap:20px;
-text-align:center;
-}
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        text-align: center;
+    }
 
-.footer-logo{
-justify-content:center;
-}
+    .footer-logo {
+        justify-content: center;
+    }
 
-.footer-desc{
-margin:auto;
-}
-
-}
-
-@media(max-width:500px){
-
-.footer-grid{
-grid-template-columns:1fr;
-text-align:center;
-}
-
-.footer-logo{
-justify-content:center;
-}
-
-.footer-desc{
-max-width:100%;
-margin:auto;
-}
-
-.footer-col{
-text-align:center;
-}
+    .footer-desc {
+        margin: auto;
+    }
 
 }
 
-.footer-help{
-display:block;
-font-size:.8rem;
-color:#888;
-margin-top:6px;
-line-height:1.6;
+@media(max-width:500px) {
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-logo {
+        justify-content: center;
+    }
+
+    .footer-desc {
+        max-width: 100%;
+        margin: auto;
+    }
+
+    .footer-col {
+        text-align: center;
+    }
+
 }
 
-#footer a{
-text-decoration:none;
+.footer-help {
+    display: block;
+    font-size: .8rem;
+    color: #888;
+    margin-top: 6px;
+    line-height: 1.6;
 }
 
-#footer a:hover{
-text-decoration:none;
-color:#D4AC0D;
-}
-#footer{
-font-family:'Vazirmatn', sans-serif;
-font-size:14px;
+#footer a {
+    text-decoration: none;
 }
 
-#footer .container{
-max-width:960px;
-margin:0 auto;
-padding:0 20px;
+#footer a:hover {
+    text-decoration: none;
+    color: #D4AC0D;
+}
+
+#footer {
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 14px;
+}
+
+#footer .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
 }

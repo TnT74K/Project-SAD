@@ -155,19 +155,7 @@ namespace ReserveCenter.API.Controllers.Auth
         /// <summary>
         /// خروج از حساب کاربری
         /// </summary>
-        [Authorize]
-        [HttpPost("logout")]
-        public async Task<IActionResult> Logout()
-        {
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier); // This finds the user's Id from JWT
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-            {
-                return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-            }
-
-            await _authService.LogoutAsync(userId);
-            return Ok(new { IsSuccess = true, Message = "خروج با موفقیت انجام شد" });
-        }
+        /// منطق خروج از حساب کاربری تماماً در فرانت انجام می‌شود
 
         /// <summary>
         /// اعتبارسنجی توکن فعلی
@@ -218,67 +206,35 @@ namespace ReserveCenter.API.Controllers.Auth
         {
             try
             {
-                var role = User.FindFirstValue(ClaimTypes.Role);
+                var roleClaim = User.FindFirstValue(ClaimTypes.Role);
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+                if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out var parsedUserId))
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "کاربر معتبر نیست" });
+                }
 
                 // دریافت اطلاعات کامل کاربر از سرویس
-                var user = await _authService.GetUserByIdAsync(int.Parse(userId));
+                var user = await _authService.GetUserByIdAsync(parsedUserId);
 
-
-                if (role == Constants.Roles.Staff)
+                var roleId = 5;
+                if (!string.IsNullOrEmpty(roleClaim) &&
+                    Enum.TryParse<ReserveCenter.API.Models.Enums.RoleEnum>(roleClaim, ignoreCase: true, out var role) &&
+                    role != ReserveCenter.API.Models.Enums.RoleEnum.All)
                 {
-                    return Ok(new
-                    {
-                        IsSuccess = true,
-                        RoleId = 4,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                    });
-                }
-                else if (role == Constants.Roles.Support)
-                {
-                    return Ok(new
-                    {
-                        IsSuccess = true,
-                        RoleId = 3,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                    });
-                }
-                else if (role == Constants.Roles.OrgAdmin)
-                {
-                    return Ok(new
-                    {
-                        IsSuccess = true,
-                        RoleId = 2,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                    });
-                }
-                else if (role == Constants.Roles.SuperAdmin)
-                {
-                    return Ok(new
-                    {
-                        IsSuccess = true,
-                        RoleId = 1,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                    });
+                    roleId = (int)role;
                 }
 
-                //customer
                 return Ok(new
                 {
                     IsSuccess = true,
-                    RoleId = 5,
+                    RoleId = roleId,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                 });
             }
             catch (Exception)
             {
-
                 return BadRequest();
             }
 

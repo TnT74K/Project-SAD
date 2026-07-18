@@ -2,19 +2,32 @@
 /* روت (متغیرهای سراسری) - مدیریت رنگ‌ها و اندازه‌ها */
 /* ----------------------------------------------- */
 :root {
-    --primary: #0B2545;        /* رنگ اصلی تیره */
-    --primary-mid: #1B4F72;    /* رنگ اصلی متوسط */
-    --primary-light: #2E86C1;   /* رنگ اصلی روشن (آبی) */
-    --accent: #D4AC0D;          /* رنگ تاکید (طلایی) */
-    --bg: #eef2f7;              /* رنگ پس‌زمینه کلی */
-    --bg-card: #ffffff;         /* رنگ پس‌زمینه کارت‌ها */
-    --text: #1a2a3a;            /* رنگ متن اصلی */
-    --text-2: #4a6080;          /* رنگ متن ثانویه */
-    --text-3: #8aa0b8;          /* رنگ متن کم رنگ */
-    --border: rgba(11,37,69,.1); /* رنگ حاشیه‌ها با شفافیت */
-    --radius: 14px;              /* شعاع گوشه استاندارد */
-    --radius-sm: 8px;            /* شعاع گوشه کوچک */
-    --shadow: 0 2px 16px rgba(11,37,69,.08); /* سایه ملایم */
+    --primary: #0B2545;
+    /* رنگ اصلی تیره */
+    --primary-mid: #1B4F72;
+    /* رنگ اصلی متوسط */
+    --primary-light: #2E86C1;
+    /* رنگ اصلی روشن (آبی) */
+    --accent: #D4AC0D;
+    /* رنگ تاکید (طلایی) */
+    --bg: #eef2f7;
+    /* رنگ پس‌زمینه کلی */
+    --bg-card: #ffffff;
+    /* رنگ پس‌زمینه کارت‌ها */
+    --text: #1a2a3a;
+    /* رنگ متن اصلی */
+    --text-2: #4a6080;
+    /* رنگ متن ثانویه */
+    --text-3: #8aa0b8;
+    /* رنگ متن کم رنگ */
+    --border: rgba(11, 37, 69, .1);
+    /* رنگ حاشیه‌ها با شفافیت */
+    --radius: 14px;
+    /* شعاع گوشه استاندارد */
+    --radius-sm: 8px;
+    /* شعاع گوشه کوچک */
+    --shadow: 0 2px 16px rgba(11, 37, 69, .08);
+    /* سایه ملایم */
     --space-xs: 8px;
     --space-sm: 16px;
     --space-md: 24px;
@@ -24,34 +37,40 @@
 /* ----------------------------------------------- */
 /* تنظیمات پایه */
 /* ----------------------------------------------- */
-* { 
-    box-sizing: border-box; /* باعث می‌شود padding و border به عرض المنت اضافه نشود */
+* {
+    box-sizing: border-box;
+    /* باعث می‌شود padding و border به عرض المنت اضافه نشود */
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Vazirmatn', sans-serif; /* فونت پیش‌فرض فارسی */
+    font-family: 'Vazirmatn', sans-serif;
+    /* فونت پیش‌فرض فارسی */
     color: var(--text);
     /* ترکیبی از چند گرادیان و رادیال گرادیان برای پس‌زمینه زیبا */
     background:
-        radial-gradient(ellipse at 20% 0%, rgba(46,134,193,0.12) 0%, transparent 55%),
-        radial-gradient(ellipse at 80% 100%, rgba(11,37,69,0.10) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 0%, rgba(46, 134, 193, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 100%, rgba(11, 37, 69, 0.10) 0%, transparent 50%),
         linear-gradient(160deg, #dde8f4 0%, #eef2f7 40%, #e8f0f8 100%);
-    background-attachment: fixed; /* پس‌زمینه ثابت می‌ماند */
+    background-attachment: fixed;
+    /* پس‌زمینه ثابت می‌ماند */
     min-height: 100vh;
 }
 
-a { 
-    text-decoration: none; /* حذف خط زیر لینک‌ها */
+a {
+    text-decoration: none;
+    /* حذف خط زیر لینک‌ها */
 }
 
 /* ----------------------------------------------- */
 /*--------------- کانتینر اصلی (ریسپانسیو) --------- */
 /* ----------------------------------------------- */
 .container {
-    width: min(1200px, calc(100% - 24px)); /* حداکثر 1200px، در غیر این صورت 100% منهای حاشیه */
-    margin: 0 auto; /* وسط چین */
+    width: min(1200px, calc(100% - 24px));
+    /* حداکثر 1200px، در غیر این صورت 100% منهای حاشیه */
+    margin: 0 auto;
+    /* وسط چین */
     padding: 0 8px;
 }
 
@@ -71,7 +90,8 @@ a {
 /* ----------------------------------------------- */
 .profile-header {
     display: grid;
-    grid-template-columns: 120px 1fr; /* دو ستون: 120 پیکسل عکس، بقیه فضا متن */
+    grid-template-columns: 120px 1fr;
+    /* دو ستون: 120 پیکسل عکس، بقیه فضا متن */
     gap: 20px;
     align-items: start;
 }
@@ -81,7 +101,8 @@ a {
     width: 120px;
     height: 120px;
     border-radius: 20px;
-    overflow: hidden; /* اگر عکس بزرگتر بود، بریده شود */
+    overflow: hidden;
+    /* اگر عکس بزرگتر بود، بریده شود */
     background: #f0f4f9;
     margin: 0 auto;
 }
@@ -89,7 +110,8 @@ a {
 .org-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* عکس کل فضا را بپوشاند بدون تغییر نسبت */
+    object-fit: cover;
+    /* عکس کل فضا را بپوشاند بدون تغییر نسبت */
 }
 
 /* نام سازمان با سایز ریسپانسیو (clamp) */
@@ -99,7 +121,8 @@ a {
     font-size: clamp(1.3rem, 5vw, 1.7rem);
     font-weight: 800;
     line-height: 1.3;
-    word-break: break-word; /* کلمات بلند را بشکند */
+    word-break: break-word;
+    /* کلمات بلند را بشکند */
 }
 
 /* توضیحات سازمان */
@@ -117,7 +140,7 @@ a {
     flex-direction: column;
     gap: 12px;
     padding: 16px;
-    background: rgba(11,37,69,0.03);
+    background: rgba(11, 37, 69, 0.03);
     border: 1px solid var(--border);
     border-radius: 12px;
 }
@@ -162,25 +185,28 @@ a {
     color: #fff;
     border: none;
     padding: 10px 18px;
-    border-radius: 40px; /* دکمه گرد */
+    border-radius: 40px;
+    /* دکمه گرد */
     cursor: pointer;
     margin-bottom: 20px;
     font-size: 0.9rem;
     font-weight: 600;
     transition: 0.2s;
-    width: fit-content; /* عرض بر اساس محتوا */
+    width: fit-content;
+    /* عرض بر اساس محتوا */
 }
 
 /* افکت هنگام لمس/کلیک */
-.edit-btn:active { 
-    transform: scale(0.97); /* کمی کوچک می‌شود برای حس لمس بهتر */
+.edit-btn:active {
+    transform: scale(0.97);
+    /* کمی کوچک می‌شود برای حس لمس بهتر */
 }
 
 /* ----------------------------------------------- */
 /* بخش نوبت‌ها */
 /* ----------------------------------------------- */
-.appointments-section { 
-    margin-top: 20px; 
+.appointments-section {
+    margin-top: 20px;
 }
 
 .section-title {
@@ -252,7 +278,8 @@ a {
 
 /* دکمه ساعت رزرو شده */
 .time-btn.booked {
-    background: #e74c3c; /* قرمز */
+    background: #e74c3c;
+    /* قرمز */
     color: #fff;
 }
 
@@ -271,13 +298,17 @@ a {
 /* ----------------------------------------------- */
 .modal {
     position: fixed;
-    inset: 0; /* معادل top:0; right:0; bottom:0; left:0 */
-    background: rgba(11,37,69,0.7);
-    backdrop-filter: blur(5px); /* محو کردن پس‌زمینه */
-    display: none; /* مخفی در ابتدا */
+    inset: 0;
+    /* معادل top:0; right:0; bottom:0; left:0 */
+    background: rgba(11, 37, 69, 0.7);
+    backdrop-filter: blur(5px);
+    /* محو کردن پس‌زمینه */
+    display: none;
+    /* مخفی در ابتدا */
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* بالاتر از همه المنت‌ها */
+    z-index: 1000;
+    /* بالاتر از همه المنت‌ها */
     padding: 16px;
 }
 
@@ -291,7 +322,8 @@ a {
     width: 100%;
     max-width: 500px;
     max-height: 90vh;
-    overflow-y: auto; /* اگر محتوا زیاد بود، اسکرول شود */
+    overflow-y: auto;
+    /* اگر محتوا زیاد بود، اسکرول شود */
     position: relative;
 }
 
@@ -343,7 +375,8 @@ a {
 .close-btn {
     position: absolute;
     top: 12px;
-    left: 16px; /* در چپ به دلیل راست‌چین بودن */
+    left: 16px;
+    /* در چپ به دلیل راست‌چین بودن */
     font-size: 22px;
     cursor: pointer;
     color: var(--text-3);
@@ -420,80 +453,82 @@ a {
         width: calc(100% - 16px);
         padding: 0 4px;
     }
-    
+
     .card {
         padding: 16px;
         border-radius: 20px;
     }
-    
+
     /* تغییر گرید پروفایل به یک ستون (عکس بالا، متن پایین) */
     .profile-header {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 12px;
     }
-    
+
     /* کوچک‌تر شدن عکس در موبایل */
     .org-image-wrap {
         width: 100px;
         height: 100px;
         margin: 0 auto;
     }
-    
+
     /* وسط‌چین کردن متن‌ها */
-    .org-name, .org-description {
+    .org-name,
+    .org-description {
         text-align: center;
     }
-    
+
     /* دکمه ویرایش تمام عرض در موبایل */
     .edit-btn {
         width: 100%;
         text-align: center;
         margin-bottom: 16px;
     }
-    
+
     /* دکمه افزودن نوبت در موبایل به صورت ستونی */
-    .appointments-section > div:first-child {
+    .appointments-section>div:first-child {
         flex-direction: column;
         gap: 12px;
         align-items: stretch;
     }
-    
+
     .appointments-section .edit-btn {
         width: 100%;
         margin-bottom: 0;
     }
-    
+
     /* هر آیتم ساعت در موبایل به صورت تمام عرض */
     .time-slot {
         width: 100%;
         justify-content: space-between;
     }
-    
+
     .time-btn {
         flex: 1;
         text-align: center;
     }
-    
+
     /* مودال در موبایل از پایین صفحه باز می‌شود */
     .modal {
         padding: 8px;
-        align-items: flex-end; /* چسبیدن به پایین */
+        align-items: flex-end;
+        /* چسبیدن به پایین */
     }
-    
+
     .modal-box {
         max-width: 100%;
         border-radius: 24px 24px 20px 20px;
         padding: 20px 16px;
         max-height: 85vh;
     }
-    
+
     /* کوچک‌تر شدن خانه‌های تقویم */
     .calendar-day {
         padding: 8px 2px;
         font-size: 0.75rem;
     }
-    
+
     .calendar-header button {
         width: 36px;
         height: 36px;
@@ -505,17 +540,18 @@ a {
     .calendar-grid {
         gap: 4px;
     }
-    
+
     .calendar-day {
         padding: 6px 0;
         font-size: 0.7rem;
     }
-    
+
     .modal-box h3 {
         font-size: 1.2rem;
     }
-    
-    .meta-label, .meta-value {
+
+    .meta-label,
+    .meta-value {
         font-size: 0.75rem;
     }
 }
@@ -523,8 +559,13 @@ a {
 /* ----------------------------------------------- */
 /* بهبود تجربه لمسی برای موبایل */
 /* ----------------------------------------------- */
-button, .time-btn, .calendar-day, .close-btn, .edit-btn {
-    touch-action: manipulation; /* به مرورگر می‌گوید برای بهینه‌سازی لمس اقدام کند */
+button,
+.time-btn,
+.calendar-day,
+.close-btn,
+.edit-btn {
+    touch-action: manipulation;
+    /* به مرورگر می‌گوید برای بهینه‌سازی لمس اقدام کند */
 }
 
 /* برای نمایشگرهای خیلی بزرگ (دسکتاپ عریض) */
@@ -535,7 +576,10 @@ button, .time-btn, .calendar-day, .close-btn, .edit-btn {
 }
 
 /* اطمینان از یکسان بودن فونت در همه عناصر فرم */
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
     font-family: 'Vazirmatn', sans-serif;
 }
 
@@ -555,7 +599,7 @@ input, button, textarea, select {
 
 /* دکمه اصلی (آبی) */
 .btn-primary-profile {
-    background: var(--primary-light) ;
+    background: var(--primary-light);
     color: #fff;
 }
 
@@ -667,8 +711,8 @@ input, button, textarea, select {
     box-shadow: var(--shadow);
 }
 
-.calendar-day.disabled{
-opacity:0.35;
-cursor:not-allowed;
-pointer-events:none;
+.calendar-day.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
 }

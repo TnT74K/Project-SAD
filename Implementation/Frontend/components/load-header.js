@@ -77,8 +77,8 @@ async function registerUserForHeader() {
       error.message ||
       "ارتباط با سرور برقرار نشد"
     );
-          localStorage.removeItem("token");
-    window.location.href ="/pages/auth/login.html";
+    localStorage.removeItem("token");
+    window.location.href = "/pages/auth/login.html";
   }
 }
 
