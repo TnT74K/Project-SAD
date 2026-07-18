@@ -4,7 +4,8 @@ namespace ReserveCenter.API.Models.DTOs.Auth
     public class RoleSelectionRequest
     {
         public int UserId { get; set; }
-        public string RoleName { get; set; } = string.Empty;
+        // Null represents the customer selection.
+        public string? RoleName { get; set; }
         public int? OrgId { get; set; }
     }
 }

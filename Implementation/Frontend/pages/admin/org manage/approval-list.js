@@ -72,7 +72,7 @@ let businesses = [
    وقتی کاربر روی تأیید یا رد کلیک می‌کنه،
    قبل از انجام نهایی اینجا نگه می‌داریم
 ───────────────────────────────────────── */
-let pendingId   = null;  // شناسه کسب‌وکاری که داره پردازش میشه
+let pendingId = null;  // شناسه کسب‌وکاری که داره پردازش میشه
 let pendingType = null;  // نوع عملیات: 'approve' یا 'reject'
 
 /* لیست آیدی‌هایی که الان توی جدول نمایش دارن */
@@ -165,13 +165,13 @@ function render(ids) {
  * هم جستجوی آزاد (متن) هم فیلتر دسته‌بندی رو پشتیبانی می‌کنه
  */
 function applyFilters() {
-  const q   = document.getElementById("searchInput").value.trim();
+  const q = document.getElementById("searchInput").value.trim();
   const cat = document.getElementById("catFilter").value;
 
   visibleIds = businesses
     .filter(b => {
       // اگه جستجویی وارد شده، باید توی نام، مالک یا شهر باشه
-      const matchQ   = !q   || b.name.includes(q) || b.owner.includes(q) || b.city.includes(q);
+      const matchQ = !q || b.name.includes(q) || b.owner.includes(q) || b.city.includes(q);
 
       // اگه دسته‌بندی انتخاب شده، باید مطابقت داشته باشه
       const matchCat = !cat || b.category === cat;
@@ -189,7 +189,7 @@ function applyFilters() {
  */
 function showAll() {
   document.getElementById("searchInput").value = "";
-  document.getElementById("catFilter").value   = "";
+  document.getElementById("catFilter").value = "";
   visibleIds = businesses.map(b => b.id);
   render(visibleIds);
 }
@@ -214,7 +214,7 @@ function openDetail(id) {
 
   // پر کردن هدر مدال
   document.getElementById("detailName").textContent = b.name;
-  document.getElementById("detailCat").textContent  = b.category + " · " + b.city;
+  document.getElementById("detailCat").textContent = b.category + " · " + b.city;
 
   // پر کردن گرید اطلاعات
   document.getElementById("detailGrid").innerHTML = `
@@ -249,7 +249,7 @@ function openDetail(id) {
   // دکمه‌های فوتر مدال رو به این کسب‌وکار وصل می‌کنیم
   // اول مدال جزئیات رو می‌بندیم، بعد مدال تأیید باز میشه
   document.getElementById("dfApprove").onclick = () => { closeDetail(); askAction(id, 'approve'); };
-  document.getElementById("dfReject").onclick  = () => { closeDetail(); askAction(id, 'reject');  };
+  document.getElementById("dfReject").onclick = () => { closeDetail(); askAction(id, 'reject'); };
 
   document.getElementById("detailModal").classList.add("open");
 }
@@ -279,7 +279,7 @@ function askAction(id, type) {
   if (!b) return;
 
   // وضعیت pending رو ذخیره می‌کنیم تا وقتی کاربر تأیید کرد، بدونیم چیکار کنیم
-  pendingId   = id;
+  pendingId = id;
   pendingType = type;
 
   const okBtn = document.getElementById("confirmOkBtn");
@@ -287,15 +287,15 @@ function askAction(id, type) {
   if (type === 'approve') {
     // حالت تأیید — متن و رنگ سبز
     document.getElementById("confirmTitle").textContent = "تأیید کسب‌وکار";
-    document.getElementById("confirmText").innerHTML    = `آیا از تأیید کسب‌وکار <span>${b.name}</span> اطمینان دارید؟`;
+    document.getElementById("confirmText").innerHTML = `آیا از تأیید کسب‌وکار <span>${b.name}</span> اطمینان دارید؟`;
     okBtn.textContent = "تأیید";
-    okBtn.className   = "ca-approve";
+    okBtn.className = "ca-approve";
   } else {
     // حالت رد — متن و رنگ قرمز
     document.getElementById("confirmTitle").textContent = "رد کردن کسب‌وکار";
-    document.getElementById("confirmText").innerHTML    = `آیا از رد کردن کسب‌وکار <span>${b.name}</span> اطمینان دارید؟`;
+    document.getElementById("confirmText").innerHTML = `آیا از رد کردن کسب‌وکار <span>${b.name}</span> اطمینان دارید؟`;
     okBtn.textContent = "رد کردن";
-    okBtn.className   = "ca-reject";
+    okBtn.className = "ca-reject";
   }
 
   document.getElementById("confirmModal").classList.add("open");
@@ -322,7 +322,7 @@ function doAction() {
  */
 function closeConfirm() {
   document.getElementById("confirmModal").classList.remove("open");
-  pendingId   = null;
+  pendingId = null;
   pendingType = null;
 }
 
@@ -340,11 +340,11 @@ document.addEventListener("keydown", e => {
 });
 
 /* کلیک روی overlay (خارج از مدال) هم می‌بنده */
-document.getElementById("detailModal").addEventListener("click",  function(e) {
+document.getElementById("detailModal").addEventListener("click", function (e) {
   if (e.target === this) closeDetail();
 });
 
-document.getElementById("confirmModal").addEventListener("click", function(e) {
+document.getElementById("confirmModal").addEventListener("click", function (e) {
   if (e.target === this) closeConfirm();
 });
 

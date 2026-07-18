@@ -155,19 +155,7 @@ namespace ReserveCenter.API.Controllers.Auth
         /// <summary>
         /// خروج از حساب کاربری
         /// </summary>
-        [Authorize]
-        [HttpPost("logout")]
-        public async Task<IActionResult> Logout()
-        {
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier); // This finds the user's Id from JWT
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-            {
-                return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-            }
-
-            await _authService.LogoutAsync(userId);
-            return Ok(new { IsSuccess = true, Message = "خروج با موفقیت انجام شد" });
-        }
+        /// منطق خروج از حساب کاربری تماماً در فرانت انجام می‌شود
 
         /// <summary>
         /// اعتبارسنجی توکن فعلی

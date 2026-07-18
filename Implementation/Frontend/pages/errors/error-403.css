@@ -1,13 +1,19 @@
 :root {
-  --primary:       #0B2545;
+  --primary: #0B2545;
   --primary-light: #2E86C1;
-  --bg:            #eef2f7;
-  --text:          #1a2a3a;
-  --text-2:        #4a6080;
-  --radius:        14px;
+  --bg: #eef2f7;
+  --text: #1a2a3a;
+  --text-2: #4a6080;
+  --radius: 14px;
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Vazirmatn', sans-serif;
@@ -55,7 +61,10 @@ body {
   background: rgba(255, 255, 255, 0.35);
   flex-shrink: 0;
 }
-.dot:first-child { background: rgba(255, 255, 255, 0.85); }
+
+.dot:first-child {
+  background: rgba(255, 255, 255, 0.85);
+}
 
 .cal-body-top {
   padding: 40px 36px 28px;
@@ -109,17 +118,33 @@ body {
   transition: box-shadow .2s, transform .2s;
   align-self: flex-start;
 }
+
 .back-link:hover {
   box-shadow: 0 8px 28px rgba(11, 37, 69, 0.35);
   transform: translateY(-2px);
 }
 
 @media (max-width: 480px) {
-  .cal-body-top    { padding: 28px 24px 20px; }
-  .cal-body-bottom { padding: 20px 24px 28px; }
-  .error-num       { font-size: 6rem; }
-  .label-forbidden { font-size: 1rem; }
-  .label-desc      { font-size: .88rem; }
+  .cal-body-top {
+    padding: 28px 24px 20px;
+  }
+
+  .cal-body-bottom {
+    padding: 20px 24px 28px;
+  }
+
+  .error-num {
+    font-size: 6rem;
+  }
+
+  .label-forbidden {
+    font-size: 1rem;
+  }
+
+  .label-desc {
+    font-size: .88rem;
+  }
+
   .back-link {
     padding: .75rem 2rem;
     font-size: .92rem;
@@ -129,6 +154,13 @@ body {
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

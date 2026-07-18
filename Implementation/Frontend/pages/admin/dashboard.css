@@ -97,6 +97,7 @@ body {
     animation: fadeInUp 0.4s ease;
     position: relative;
 }
+
 .main::before {
     content: '';
     position: fixed;
@@ -133,6 +134,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.7);
     overflow: hidden;
 }
+
 .card-header {
     padding: 18px 20px;
     border-bottom: 1px solid var(--border);
@@ -278,6 +280,7 @@ body {
     box-shadow: 0 8px 32px rgba(11, 37, 69, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .clock-widget::before {
     content: '';
     position: absolute;
@@ -288,6 +291,7 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.04);
 }
+
 .clock-widget::after {
     content: '';
     position: absolute;
@@ -298,6 +302,7 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.04);
 }
+
 .clock-time {
     font-family: 'Orbitron', monospace !important;
     font-size: 2.4rem;
@@ -307,6 +312,7 @@ body {
     z-index: 1;
     color: #f0c040;
 }
+
 .clock-dates {
     display: flex;
     gap: 16px;
@@ -381,6 +387,7 @@ body {
     justify-content: space-between;
     margin-bottom: 16px;
 }
+
 .cal-nav-btn {
     width: 32px;
     height: 32px;
@@ -395,6 +402,7 @@ body {
     justify-content: center;
     transition: all 0.2s;
 }
+
 .cal-nav-btn:hover {
     border-color: var(--primary-light);
     color: var(--primary-light);
@@ -410,6 +418,7 @@ body {
     grid-template-columns: repeat(7, 1fr);
     gap: 3px;
 }
+
 .cal-header {
     text-align: center;
     font-size: 0.68rem;
@@ -445,6 +454,7 @@ body {
     font-weight: 700;
     border: 2px solid var(--primary-light);
 }
+
 .cal-day.selected {
     background: var(--primary-light);
     color: #fff;
@@ -559,6 +569,7 @@ body {
         transform: translateY(0);
     }
 }
+
 @keyframes fadeInDown {
     from {
         opacity: 0;

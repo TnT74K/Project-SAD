@@ -7,8 +7,14 @@ namespace ReserveCenter.API.Repositories.Interfaces
         // برای گرفتن نقش کاربر در ان سازمان که با اینکلود ها می توان به نام سازمان و نام فرد و نقشش برسیم
         Task<StaffList> GetByOrgIdAsync(int orgId);
 
-        // کل رزرو ها تا به الان برای همه سازمان ها
+        // تعداد کل رزرو ها تا به الان برای همه سازمان ها
         Task<int> CountAllAppointmentAsync();
+
+        // تعداد کل کاربران
+        Task<int> CountAllUsersAsync();
+
+        // تعداد کل سازمان ها
+        Task<int> CountAllORGsAsync();
 
         // تعداد رزرو های امروز
         Task<int> CountTodayReservedAppointmentAsync();

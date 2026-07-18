@@ -52,7 +52,7 @@ select { font-family: var(--font); }
 
 #header {
   background: var(--navy);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -79,8 +79,13 @@ select { font-family: var(--font); }
 .logo-icon {
   width: 32px;
   height: 32px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
   background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+  display: flex;
+  align-items: center;
+  justify-content: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,6 +121,9 @@ select { font-family: var(--font); }
 
 .header-search input {
   flex: 1;
+  background: none;
+  border: none;
+  outline: none;
   background: none;
   border: none;
   outline: none;
@@ -162,6 +170,8 @@ select { font-family: var(--font); }
   color: var(--navy);
   font-size: 0.84rem;
   font-weight: 700;
+  font-size: 0.84rem;
+  font-weight: 700;
   transition: opacity 0.15s;
 }
 
@@ -176,7 +186,7 @@ select { font-family: var(--font); }
   position: sticky;
   top: calc(var(--header-height) + var(--searchbar-height));
   z-index: 90;
-  box-shadow: 0 2px 8px rgba(11,37,69,0.06);
+  box-shadow: 0 2px 8px rgba(11, 37, 69, 0.06);
 }
 
 .filter-inner {
@@ -187,6 +197,8 @@ select { font-family: var(--font); }
 }
 
 .filter-label {
+  font-size: 0.78rem;
+  font-weight: 600;
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--muted);
@@ -200,14 +212,23 @@ select { font-family: var(--font); }
   border-radius: var(--r);
   font-size: 0.82rem;
   color: var(--text);
+  font-size: 0.82rem;
+  color: var(--text);
   background: var(--bg);
+  cursor: pointer;
+  outline: none;
+  direction: rtl;
   cursor: pointer;
   outline: none;
   direction: rtl;
   transition: border-color 0.15s;
 }
 
+
 .filter-select:focus,
+.filter-select.active {
+  border-color: var(--blue);
+}
 .filter-select.active {
   border-color: var(--blue);
 }
@@ -220,8 +241,17 @@ select { font-family: var(--font); }
   color: var(--text-sec);
   font-size: 0.8rem;
   font-weight: 600;
+  background: var(--bg);
+  color: var(--text-sec);
+  font-size: 0.8rem;
+  font-weight: 600;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
   white-space: nowrap;
+}
+
+.filter-chip:hover {
+  border-color: var(--blue);
+  color: var(--blue);
 }
 
 .filter-chip:hover {
@@ -248,12 +278,18 @@ select { font-family: var(--font); }
   border-radius: var(--r);
   font-size: 0.82rem;
   color: var(--text);
+  font-size: 0.82rem;
+  color: var(--text);
   background: var(--bg);
   cursor: pointer;
   outline: none;
   direction: rtl;
   margin-right: auto;
   transition: border-color 0.15s;
+}
+
+.sort-select:focus {
+  border-color: var(--blue);
 }
 
 .sort-select:focus {
@@ -268,31 +304,45 @@ select { font-family: var(--font); }
 
 
 .results-header {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 22px;
-  flex-wrap: wrap; gap: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .results-title {
-  font-size: 1rem; font-weight: 700;
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--navy);
 }
 
 /* تعداد نتایج کنار عنوان */
 .results-title span {
-  color: var(--muted); font-weight: 400;
-  font-size: 0.88rem; margin-right: 6px;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.88rem;
+  margin-right: 6px;
 }
 
 /* نمایش متن جستجوی فعلی + دکمه پاک کردن */
 .results-query {
-  font-size: 0.82rem; color: var(--text-sec);
-  background: rgba(46,134,193,0.08);
-  border: 1px solid rgba(46,134,193,0.18);
-  padding: 4px 12px; border-radius: 99px;
-  display: flex; align-items: center; gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-sec);
+  background: rgba(46, 134, 193, 0.08);
+  border: 1px solid rgba(46, 134, 193, 0.18);
+  padding: 4px 12px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.results-query button { font-size: 0.8rem; color: var(--blue); }
+
+.results-query button {
+  font-size: 0.8rem;
+  color: var(--blue);
+}
 
 
 /* =============================================
@@ -329,61 +379,98 @@ select { font-family: var(--font); }
 /* کارت‌های برتر (premium) - بردر و سایه طلایی دارن */
 .biz-card.gold {
   border-color: var(--gold-bdr);
-  box-shadow: 0 2px 14px rgba(212,172,13,0.18);
+  box-shadow: 0 2px 14px rgba(212, 172, 13, 0.18);
 }
-.biz-card.gold:hover { box-shadow: 0 8px 28px rgba(212,172,13,0.28); }
+
+.biz-card.gold:hover {
+  box-shadow: 0 8px 28px rgba(212, 172, 13, 0.28);
+}
 
 
 /* --- تصویر/کاور بالای کارت --- */
 .card-cover {
   height: 158px;
   position: relative;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 3rem;
 }
 
 /* گرادیان تاریک پایین کاور برای خوانایی بهتر بج‌ها */
 .card-cover-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.22));
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.22));
 }
 
 /* خط طلایی بالای کارت‌های برتر */
 .biz-card.gold .card-cover::after {
   content: '';
-  position: absolute; top: 0; right: 0; left: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
   height: 4px;
   background: linear-gradient(90deg, var(--gold), var(--gold-lt), var(--gold));
 }
 
 /* محل قرارگیری بج‌ها روی کاور */
 .badge-wrap {
-  position: absolute; top: 10px; right: 10px;
-  display: flex; gap: 5px; align-items: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
 /* بج "برتر" طلایی */
 .badge-premium {
-  display: flex; align-items: center; gap: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   background: linear-gradient(135deg, #c8960c, #f0c930);
   color: var(--navy);
-  font-size: 0.68rem; font-weight: 800;
-  padding: 3px 9px; border-radius: 99px;
-  box-shadow: 0 2px 6px rgba(212,172,13,0.35);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 99px;
+  box-shadow: 0 2px 6px rgba(212, 172, 13, 0.35);
 }
 
 /* بج وضعیت - سه حالت داره */
 .badge-status {
-  font-size: 0.68rem; font-weight: 700;
-  padding: 3px 9px; border-radius: 99px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 99px;
 }
-.badge-status.open { background: rgba(34,197,94,0.88);  color: #fff; }   /* سبز - نوبت دارد */
-.badge-status.busy { background: rgba(251,146,60,0.88); color: #fff; }   /* نارنجی - محدود */
-.badge-status.full { background: rgba(224,85,85,0.88);  color: #fff; }   /* قرمز - تکمیل ظرفیت */
+
+.badge-status.open {
+  background: rgba(34, 197, 94, 0.88);
+  color: #fff;
+}
+
+/* سبز - نوبت دارد */
+.badge-status.busy {
+  background: rgba(251, 146, 60, 0.88);
+  color: #fff;
+}
+
+/* نارنجی - محدود */
+.badge-status.full {
+  background: rgba(224, 85, 85, 0.88);
+  color: #fff;
+}
+
+/* قرمز - تکمیل ظرفیت */
 
 
 /* --- بدنه کارت --- */
-.card-body { padding: 15px; }
+.card-body {
+  padding: 15px;
+}
 
 /* پس‌زمینه کرم خیلی کمرنگ برای کارت‌های برتر */
 .biz-card.gold .card-body {
@@ -391,86 +478,157 @@ select { font-family: var(--font); }
 }
 
 .card-cat {
-  font-size: 0.68rem; font-weight: 700;
+  font-size: 0.68rem;
+  font-weight: 700;
   color: var(--blue);
-  letter-spacing: 0.04em; text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   margin-bottom: 4px;
 }
 
 .card-name {
-  font-size: 0.95rem; font-weight: 800;
+  font-size: 0.95rem;
+  font-weight: 800;
   color: var(--navy);
   margin-bottom: 10px;
   line-height: 1.35;
 }
 
 /* ردیف ساعت‌های خالی */
-.card-slots { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 12px; }
+.card-slots {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
 
 .slot {
-  padding: 3px 8px; border-radius: 6px;
-  font-size: 0.68rem; font-weight: 700;
-  background: rgba(46,134,193,0.08); color: var(--blue);
-  border: 1px solid rgba(46,134,193,0.15);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(46, 134, 193, 0.08);
+  color: var(--blue);
+  border: 1px solid rgba(46, 134, 193, 0.15);
 }
 
 /* رنگ اسلات‌ها توی کارت برتر فرق داره */
 .biz-card.gold .slot {
-  background: rgba(212,172,13,0.1); color: #9a7200;
-  border-color: rgba(212,172,13,0.25);
+  background: rgba(212, 172, 13, 0.1);
+  color: #9a7200;
+  border-color: rgba(212, 172, 13, 0.25);
 }
 
 /* وقتی نوبت خالی امروز نیست */
-.no-slot { font-size: 0.72rem; color: var(--muted); }
+.no-slot {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
 
 /* ردیف آمار (امتیاز، تعداد نظر، نوبت موفق) */
 .card-stats {
-  display: flex; align-items: center; gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 13px;
 }
-.stat-item { display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--text-sec); }
-.stat-star { color: var(--gold); font-size: 0.8rem; }
-.stat-val  { font-weight: 700; color: var(--text); }
-.stat-dot  { width: 3px; height: 3px; border-radius: 50%; background: var(--border); } /* جداکننده نقطه‌ای */
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--text-sec);
+}
+
+.stat-star {
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+
+.stat-val {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.stat-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+/* جداکننده نقطه‌ای */
 
 /* پاورقی کارت - قیمت و دکمه رزرو */
 .card-footer {
-  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
-.card-price { font-size: 0.72rem; color: var(--muted); }
-.card-price strong { font-size: 0.82rem; color: var(--text); font-weight: 700; }
+
+.card-price {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.card-price strong {
+  font-size: 0.82rem;
+  color: var(--text);
+  font-weight: 700;
+}
 
 .btn-reserve {
-  padding: 8px 20px; border-radius: var(--r);
-  font-size: 0.8rem; font-weight: 700;
-  background: var(--navy); color: #fff;
+  padding: 8px 20px;
+  border-radius: var(--r);
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--navy);
+  color: #fff;
   transition: background 0.15s;
 }
-.btn-reserve:hover { background: var(--navy-mid); }
+
+.btn-reserve:hover {
+  background: var(--navy-mid);
+}
 
 /* دکمه رزرو توی کارت برتر - طلاییه */
 .biz-card.gold .btn-reserve {
   background: linear-gradient(135deg, #c8960c, #d4ac0d);
   color: var(--navy);
 }
-.biz-card.gold .btn-reserve:hover { opacity: 0.88; }
+
+.biz-card.gold .btn-reserve:hover {
+  opacity: 0.88;
+}
 
 /* لیبل "تبلیغ" بالای کارت‌های برتر - خیلی کوچیک و مودبانه */
 .sponsored-label {
-  font-size: 0.62rem; color: var(--muted);
-  text-align: left; padding: 6px 15px 0;
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-align: left;
+  padding: 6px 15px 0;
   letter-spacing: 0.03em;
 }
 
 /* وقتی فیلتر هیچ نتیجه‌ای نداشت */
 .no-results {
-  grid-column: 1/-1;  /* تمام عرض گرید رو بگیره */
+  grid-column: 1/-1;
+  /* تمام عرض گرید رو بگیره */
   text-align: center;
   padding: 70px 20px;
   color: var(--muted);
 }
-.no-results .icon { font-size: 3rem; margin-bottom: 14px; }
-.no-results p { font-size: 0.9rem; }
+
+.no-results .icon {
+  font-size: 3rem;
+  margin-bottom: 14px;
+}
+
+.no-results p {
+  font-size: 0.9rem;
+}
 
 
 /* =============================================
@@ -479,13 +637,32 @@ select { font-family: var(--font); }
    موبایل: گرید یک ستونه میشه
    ============================================= */
 @media (max-width: 768px) {
-  .header-actions { display: none; }   /* ورود/ثبت‌نام رو توی موبایل مخفی می‌کنیم */
-  .header-search  { max-width: none; } /* جستجو کل عرض رو بگیره */
-  .filter-inner   { gap: 7px; }
-  .sort-select    { margin-right: 0; }
+  .header-actions {
+    display: none;
+  }
+
+  /* ورود/ثبت‌نام رو توی موبایل مخفی می‌کنیم */
+  .header-search {
+    max-width: none;
+  }
+
+  /* جستجو کل عرض رو بگیره */
+  .filter-inner {
+    gap: 7px;
+  }
+
+  .sort-select {
+    margin-right: 0;
+  }
 }
 
 @media (max-width: 520px) {
-  .cards-grid { grid-template-columns: 1fr; } /* موبایل کوچیک: فقط یک ستون */
-  .container  { padding: 0 14px; }
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* موبایل کوچیک: فقط یک ستون */
+  .container {
+    padding: 0 14px;
+  }
 }

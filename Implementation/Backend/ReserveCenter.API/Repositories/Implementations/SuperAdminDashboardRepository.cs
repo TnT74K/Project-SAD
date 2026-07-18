@@ -15,12 +15,28 @@ namespace ReserveCenter.API.Repositories.Implementations
             _dbContext = dbContext;
         }
 
-        // کل رزرو ها تا به الان برای همه سازمان ها
+        // تعداد کل رزرو ها تا به الان برای همه سازمان ها
         public async Task<int> CountAllAppointmentAsync()
         {
             return await _dbContext.Appointments
                                    .AsNoTracking()
                                    .CountAsync(appo => appo.IsReserved == true);
+        }
+
+        // تعداد کل رزرو ها تا به الان برای همه سازمان ها
+        public async Task<int> CountAllUsersAsync()
+        {
+            return await _dbContext.Users
+                                   .AsNoTracking()
+                                   .CountAsync(c => c.IsDeleted == false);
+        }
+
+        // تعداد کل سازمان ها
+        public async Task<int> CountAllORGsAsync()
+        {
+            return await _dbContext.Orgs
+                                   .AsNoTracking()
+                                   .CountAsync(c => c.IsDeleted == false);
         }
 
         // تعداد نوبت های عدم حضور امروز

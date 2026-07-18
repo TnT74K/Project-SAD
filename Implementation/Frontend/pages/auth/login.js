@@ -144,14 +144,14 @@ async function submitPassword() {
 
     const phone =
         document.getElementById("pw-phone")
-        .value
-        .trim();
+            .value
+            .trim();
 
 
     const password =
         document.getElementById("pw-password")
-        .value
-        .trim();
+            .value
+            .trim();
 
 
 
@@ -254,7 +254,7 @@ async function submitPassword() {
 
     }
 
-    catch(error) {
+    catch (error) {
 
 
         showMsg(
@@ -267,7 +267,7 @@ async function submitPassword() {
 
     finally {
 
-        setButtonLoading(button,false);
+        setButtonLoading(button, false);
     }
 
 }
@@ -326,8 +326,8 @@ function openRoleModal(roles) {
 
             const label =
                 card.querySelector(".role-label")
-                .textContent
-                .trim();
+                    .textContent
+                    .trim();
 
 
 
@@ -347,14 +347,14 @@ function openRoleModal(roles) {
 
 
 
-                if(role.orgId)
-                {
+                if (role.orgId) {
                     card.dataset.orgId =
                         role.orgId;
                 }
             }
-
         });
+
+
 
 
     });
@@ -369,10 +369,10 @@ function selectRole(element) {
 
 
     document
-    .querySelectorAll(".role-card")
-    .forEach(card =>
-        card.classList.remove("selected")
-    );
+        .querySelectorAll(".role-card")
+        .forEach(card =>
+            card.classList.remove("selected")
+        );
 
 
 
@@ -387,16 +387,16 @@ function selectRole(element) {
 
     selectedOrgId =
         element.dataset.orgId
-        ?
-        Number(element.dataset.orgId)
-        :
-        null;
+            ?
+            Number(element.dataset.orgId)
+            :
+            null;
 
 
 
     document
-    .getElementById("modal-confirm-btn")
-    .disabled = false;
+        .getElementById("modal-confirm-btn")
+        .disabled = false;
 
 }
 
@@ -420,12 +420,12 @@ async function confirmRole() {
 
 
 
-    if(!selectedRoleBackendName)
+    if (!selectedRoleBackendName)
         return;
 
 
 
-    setButtonLoading(button,true);
+    setButtonLoading(button, true);
 
 
 
@@ -433,30 +433,30 @@ async function confirmRole() {
 
 
         const response =
-        await fetch(
-            `${API_BASE_URL}/Auth/select-role`,
-            {
+            await fetch(
+                `${API_BASE_URL}/Auth/select-role`,
+                {
 
-                method:"POST",
+                    method: "POST",
 
-                headers:{
-                    "Content-Type":"application/json"
-                },
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
 
-                body:JSON.stringify({
+                    body: JSON.stringify({
 
-                    userId:
-                        currentUserId,
+                        userId:
+                            currentUserId,
 
-                    roleName:
-                        selectedRoleBackendName,
+                        roleName:
+                            selectedRoleBackendName,
 
-                    orgId:
-                        selectedOrgId
-                })
+                        orgId:
+                            selectedOrgId
+                    })
 
-            });
+                });
 
 
 
@@ -465,8 +465,7 @@ async function confirmRole() {
 
 
 
-        if(!response.ok)
-        {
+        if (!response.ok) {
             throw new Error(
                 data.message ||
                 "خطا در انتخاب نقش"
@@ -475,8 +474,7 @@ async function confirmRole() {
 
 
 
-        if(data.token)
-        {
+        if (data.token) {
 
             localStorage.setItem(
                 "token",
@@ -495,24 +493,22 @@ async function confirmRole() {
             );
 
             window.location.href =
-            "/index.html";
+                "/index.html";
 
         }
 
 
     }
 
-    catch(error)
-    {
+    catch (error) {
 
         alert(error.message);
 
     }
 
-    finally
-    {
+    finally {
 
-        setButtonLoading(button,false);
+        setButtonLoading(button, false);
 
     }
 
@@ -527,7 +523,7 @@ async function confirmRole() {
 // ===============================
 
 
-function sendOtp(){
+function sendOtp() {
 
     alert(
         "OTP در مرحله بعد بررسی می‌شود."
@@ -535,7 +531,7 @@ function sendOtp(){
 }
 
 
-function verifyOtp(){
+function verifyOtp() {
 
     alert(
         "OTP در مرحله بعد بررسی می‌شود."
@@ -549,25 +545,24 @@ function verifyOtp(){
 // ===============================
 
 document
-.querySelectorAll(".otp-boxes input")
-.forEach(
-(input,index,inputs)=>{
+    .querySelectorAll(".otp-boxes input")
+    .forEach(
+        (input, index, inputs) => {
 
 
-    input.addEventListener(
-        "input",
-        ()=>{
+            input.addEventListener(
+                "input",
+                () => {
 
 
-            if(
-                input.value.length===1 &&
-                index < inputs.length-1
-            )
-            {
-                inputs[index+1].focus();
-            }
+                    if (
+                        input.value.length === 1 &&
+                        index < inputs.length - 1
+                    ) {
+                        inputs[index + 1].focus();
+                    }
 
-        }
-    );
+                }
+            );
 
-});
+        });
