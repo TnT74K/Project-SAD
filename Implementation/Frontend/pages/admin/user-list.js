@@ -89,7 +89,6 @@ function render() {
 
 <td data-label="شماره موبايل">${u.phone}</td>
 
-<td data-label="نقش">${u.role}</td>
 
 <td data-label="وضعیت"
 class="${u.personstatus === 'active'
@@ -257,14 +256,12 @@ async function saveUser() {
 
   const first = firstName.value.trim()
   const last = lastName.value.trim()
-  const phone = phoneNumber.value.trim()
   const national = nationalCode.value.trim()
   const usern = username.value.trim()
   const pass = password.value.trim()
-  const r = role.value
 
   // جلوگیری از ثبت فیلد خالی
-  if (!first || !phone || !last || !national || !usern || !pass) {
+  if (!first || !last || !national || !usern || !pass) {
 
     alert("لطفاً تمام فیلدها را تکمیل کنید")
 
@@ -346,8 +343,6 @@ function editUser(i) {
 
   firstName.value = u.first
   lastName.value = u.last
-  phoneNumber.value = u.phone
-  role.value = u.role
   nationalCode.value = u.nationalcode
   username.value = u.username
   password.value = ''
