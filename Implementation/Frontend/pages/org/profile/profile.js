@@ -343,7 +343,7 @@ document.getElementById("btnConfirmPay")?.addEventListener("click", async () => 
     orgId: orgId,
     serviceId: Number(selectedService),
     userId: Number(userId),
-    price: 0,
+    price: selectedPrice ?? 0,
     appointmentDate: selectedDate,
     appointmentTime: selectedTime,
   };

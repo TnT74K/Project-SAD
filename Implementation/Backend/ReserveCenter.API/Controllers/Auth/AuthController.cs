@@ -184,7 +184,6 @@ namespace ReserveCenter.API.Controllers.Auth
 
                 var result = await _authService.ResetPasswordAsync(
                     request.PhoneNumber,
-                    request.OtpToken,
                     request.NewPassword);
 
                 if (!result)

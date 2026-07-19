@@ -83,8 +83,8 @@ public class AuthService : IAuthService
         // Create user object
         var user = new User
         {
-            FirstName = "",
-            LastName = "",
+            FirstName = request.FirstName,
+            LastName = request.LastName,
             PhoneNumber = request.PhoneNumber,
             Password = request.Password,
             IsBlocked = false,
@@ -284,17 +284,14 @@ public class AuthService : IAuthService
         return "RESET_TOKEN";
     }
 
-    public async Task<bool> ResetPasswordAsync(string phoneNumber, string token, string newPassword)
+    public async Task<bool> ResetPasswordAsync(string phoneNumber, string newPassword)
     {
         var user = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
             throw new UnauthorizedAccessException();
         }
-        if (token != "RESET_TOKEN")
-        {
-            throw new UnauthorizedAccessException("توکن بازیابی نامعتبر است.");
-        }
+
         user.LastPassword = user.Password;
         user.Password = newPassword;
         user.ChangePasswordDateTime = DateTime.UtcNow;
