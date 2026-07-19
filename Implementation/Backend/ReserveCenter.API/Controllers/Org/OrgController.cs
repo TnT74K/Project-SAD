@@ -7,7 +7,7 @@ namespace ReserveCenter.API.Controllers.Org
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize] // همه متدها نیاز به احراز هویت دارند
+    [Authorize]
     public class OrgController : ControllerBase
     {
         private readonly IOrgService _orgService;
@@ -19,40 +19,40 @@ namespace ReserveCenter.API.Controllers.Org
             _logger = logger;
         }
 
-        // ============================================================
-        // ✅ ثبت سازمان 
-        // ============================================================
         [HttpPost("register")]
         public async Task<IActionResult> RegisterOrg([FromBody] OrgRegisterRequest request)
         {
-            // 1. دریافت UserId از توکن
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+            try
             {
-                return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-            }
-
-            // 2. اعتبارسنجی مدل
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage);
-                return BadRequest(new
+                // ✅ دریافت UserId از توکن
+                var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
                 {
-                    IsSuccess = false,
-                    Message = string.Join(" | ", errors)
-                });
+                    return BadRequest(new { IsSuccess = false, Message = "کاربر یافت نشد" });
+                }
+
+                // اعتبارسنجی مدل
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState.Values.SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage);
+                    return BadRequest(new
+                    {
+                        IsSuccess = false,
+                        Message = string.Join(" | ", errors)
+                    });
+                }
+
+                // ثبت سازمان
+                var result = await _orgService.RegisterOrgAsync(request, userId);
+                return Ok(result);
             }
-
-            // 3. ثبت سازمان
-            var result = await _orgService.RegisterOrgAsync(request, userId);
-
-            if (!result.IsSuccess)
+            //  مدیریت خطاها با BadRequest
+            catch (Exception ex)
             {
-                return BadRequest(result);
+                _logger.LogError(ex, "Error in RegisterOrg");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
             }
-
-            return Ok(result);
         }
     }
 }

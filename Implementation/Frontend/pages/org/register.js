@@ -348,7 +348,7 @@ function submitForm() {
     startRestTime: document.getElementById('breakStart').value || null,
     endRestTime: document.getElementById('breakEnd').value || null,
     cityId: 1,
-    address: ''
+    address: document.getElementById('bizAddress')?.value.trim() || ''
   };
 
   fetch(`${API_BASE_URL}/Org/register`, {
@@ -359,29 +359,68 @@ function submitForm() {
     },
     body: JSON.stringify(body)
   })
-    .then(res => res.json())
-    .then(data => {
-      if (data.IsSuccess) {
-        showToast('✅ ' + data.Message);
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step2').classList.add('done');
-        document.getElementById('step2').querySelector('.step-circle').textContent = '✓';
-        document.getElementById('step3').classList.remove('active');
-        document.getElementById('step3').classList.add('done');
-        document.getElementById('step3').querySelector('.step-circle').textContent = '✓';
-        document.getElementById('step4').classList.add('active');
-        document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
-      } else {
-        showToast('⚠️ ' + data.Message, true);
-        btn.disabled = false;
-        btn.textContent = '✅ ثبت کسب‌وکار';
+    .then(async response => {
+      const result = await response.json();
+
+      //  مدیریت ۴۰۰
+      if (response.status === 400) {
+        alert(result.message);
+        return;
+      }
+
+      // مدیریت ۴۰۳
+      if (response.status === 403) {
+        window.location.href = "/pages/errors/error-403.html";
+        return;
+      }
+
+      // مدیریت ۴۰۱ (Unauthorized)
+      if (response.status === 401) {
+        alert("نشست شما منقضی شده است. لطفاً مجدداً وارد شوید.");
+        window.location.href = "/login";
+        return;
+      }
+
+      // مدیریت ۵۰۰ (Internal Server Error)
+      if (response.status === 500) {
+        alert("خطای داخلی سرور. لطفاً مجدداً تلاش کنید.");
+        return;
+      }
+
+      // اگر وضعیت موفقیت‌آمیز بود
+      if (response.ok) {
+        if (result.isSuccess) {
+          alert('✅ ' + result.message);
+          document.getElementById('step2').classList.remove('active');
+          document.getElementById('step2').classList.add('done');
+          document.getElementById('step2').querySelector('.step-circle').textContent = '✓';
+          document.getElementById('step3').classList.remove('active');
+          document.getElementById('step3').classList.add('done');
+          document.getElementById('step3').querySelector('.step-circle').textContent = '✓';
+          document.getElementById('step4').classList.add('active');
+          document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
+          // ریدایرکت بعد از ۲ ثانیه
+          setTimeout(() => {
+        window.location.href = 'https://localhost:5000/index.html';//به نظرم مسیر باید تغییر کنه
+          }, 2000);
+
+        } else {
+           alert('⚠️ ' + result.message);        }
       }
     })
     .catch(err => {
-      showToast('⚠️ خطا در ارتباط با سرور', true);
+     // خطای شبکه
+      if (err.name === 'TypeError' || err.message.includes('Failed to fetch')) {
+        alert('❌ خطا در اتصال به سرور. لطفاً اتصال اینترنت خود را بررسی کنید.');
+      } else {
+        alert('⚠️ خطا در ارتباط با سرور');
+      }
+    })
+    .finally(() => {
       btn.disabled = false;
       btn.textContent = '✅ ثبت کسب‌وکار';
     });
+
 }
 
 // ========================================
@@ -421,7 +460,7 @@ function resetForm() {
   // reset کردن شمارنده کاراکترها
   document.getElementById('nameHint').textContent = '۰ / ۸۰ کاراکتر';
   document.getElementById('descHint').textContent = '۰ / ۵۰۰ کاراکتر';
-   document.getElementById('addressHint').textContent = '۰ / ۲۵۶ کاراکتر'; // جدید
+  document.getElementById('addressHint').textContent = '۰ / ۲۵۶ کاراکتر'; // جدید
 
   // نمایش پیام موفقیت آمیز بودن reset
   showToast('🔄 فرم با موفقیت پاک شد');
