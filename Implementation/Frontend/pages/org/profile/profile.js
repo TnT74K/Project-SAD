@@ -64,6 +64,7 @@ let orgData = null;
 let selectedService = null;
 let selectedDate = null;
 let selectedTime = null;
+let selectedPrice = null;
 
 const confirmModal = document.getElementById("confirmModal");
 const successModal = document.getElementById("successModal");
@@ -113,10 +114,10 @@ function renderOrgHeader() {
   if (metaValues[1]) metaValues[1].textContent = formatStatusLabel(Boolean(orgData?.isActive));
   if (metaValues[2]) metaValues[2].textContent = formatFaNumber(orgData?.voterCount);
   if (starCountEl) starCountEl.textContent = formatFaNumber(orgData?.starCount);
-  if (metaValues[3]) metaValues[3].textContent = formatFaNumber(orgData?.starCount);
-  if (metaValues[4]) metaValues[4].textContent = formatFaNumber(orgData?.successAppointmentCount);
-  if (metaValues[5]) metaValues[5].textContent = formatPremierLabel(Boolean(orgData?.isPremier));
-  if (metaValues[6]) metaValues[6].textContent = `${formatTime(orgData?.startWorkTime)} تا ${formatTime(orgData?.endWorkTime)}`;
+  //if (metaValues[3]) metaValues[3].textContent = formatFaNumber(orgData?.starCount);
+  if (metaValues[3]) metaValues[3].textContent = formatFaNumber(orgData?.successAppointmentCount);
+  if (metaValues[4]) metaValues[4].textContent = formatPremierLabel(Boolean(orgData?.isPremier));
+  if (metaValues[5]) metaValues[5].textContent = `${formatTime(orgData?.endWorkTime)} تا ${formatTime(orgData?.startWorkTime)}`;
 }
 
 function renderServices() {
@@ -135,7 +136,7 @@ function renderServices() {
 
 async function fetchFreeTimes(serviceId, dateInput) {
   const res = await fetch(
-    `${API_BASE_URL}/public-org-profile/services/${serviceId}/free-times?date=${encodeURIComponent(dateInput)}`
+    `${API_BASE_URL}/public-org-profile/services/${serviceId}/free-times/${encodeURIComponent(dateInput)}`
   );
 
   if (!res.ok) {
@@ -196,18 +197,48 @@ function renderAppointmentGroups() {
       return;
     }
 
-    timeWrap.innerHTML = freeTimes
-      .map((slot) => {
-        const start = slot.startTime || slot.StartTime || slot.startTime;
-        const end = slot.endTime || slot.EndTime || slot.endTime;
-        return `
-          <button class="time-btn" data-date="${dateInput}" data-start="${start}" data-end="${end}">
-            ${formatTime(start)}
-          </button>`;
-      })
-      .join("");
+timeWrap.innerHTML = freeTimes
+  .map((slot) => {
+    const start = slot.startTime ?? slot.StartTime;
+    const price = slot.price ?? slot.Price;
+
+    return `
+      <button class="time-btn"
+              data-date="${dateInput}"
+              data-start="${start}"
+              ${price !== null && price !== undefined ? `data-price="${price}"` : ""}>
+        ${formatTime(start)}
+      </button>`;
+  })
+  .join("");
+
+
+
   });
 }
+
+function formatPersianDateFromIso(dateInput) {
+  if (!dateInput) return "—";
+
+  const [year, month, day] = dateInput.split("-").map(Number);
+  const date = new Date(year, month - 1, day, 12); // noon to avoid timezone shift
+
+  return new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    weekday: "long",
+  }).format(date);
+}
+
+function formatPrice(value) {
+  if (value === null || value === undefined || value === "" || Number.isNaN(Number(value))) {
+    return "—";
+  }
+  return `${formatFaNumber(Number(value))} تومان`;
+}
+
+
 
 async function loadOrgProfile(id) {
   const res = await fetch(`${API_BASE_URL}/public-org-profile/${id}`);
@@ -267,12 +298,16 @@ document.addEventListener("click", function (event) {
 
   selectedDate = button.dataset.date || null;
   selectedTime = button.dataset.start || button.textContent.trim();
+const rawPrice = button.dataset.price;
+selectedPrice =
+  rawPrice && rawPrice !== "undefined" ? Number(rawPrice) : null;
+
 
   modalUsername.textContent = userName;
   modalOrgname.textContent = orgData?.name || "—";
-  modalDate.textContent = selectedDate || "—";
+  modalDate.textContent = formatPersianDateFromIso(selectedDate) || "—";
   modalTime.textContent = selectedTime || "—";
-  modalPrice.textContent = "—";
+modalPrice.textContent = formatPrice(selectedPrice);
   modalService.textContent = service ? `${service.name}${service.timeDuration ? ` (${formatFaNumber(service.timeDuration)} دقیقه)` : ""}` : "—";
 
   openModal(confirmModal);

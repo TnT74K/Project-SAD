@@ -509,16 +509,19 @@ async function confirmRole() {
                 data.token
             );
 
+localStorage.setItem(
+  "user",
+  JSON.stringify({
+    firstName: data.user.firstName,
+    lastName: data.user.lastName,
+  })
+);
 
-            // localStorage.setItem(
-            //     "user",
-            //     JSON.stringify(data.user)
+
+
+            // alert(
+            //     "ورود موفق بود. JWT دریافت شد."
             // );
-
-
-            alert(
-                "ورود موفق بود. JWT دریافت شد."
-            );
 
             window.location.href =
                 "/index.html";

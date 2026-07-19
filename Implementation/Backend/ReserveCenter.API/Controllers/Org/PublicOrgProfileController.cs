@@ -65,10 +65,10 @@ public class PublicOrgProfileController : ControllerBase
     /// <summary>
     /// لیست ساعات آزاد
     /// </summary>
-    [HttpGet("services/{serviceId}/free-times")]
+    [HttpGet("services/{serviceId}/free-times/{date}")]
     public async Task<IActionResult> GetFreeTimes(
         int serviceId,
-        [FromQuery] DateOnly date)
+        DateOnly date)
     {
         try
         {

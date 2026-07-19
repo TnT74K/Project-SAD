@@ -45,33 +45,18 @@ public class AppointmentService : IAppointmentService
 
         TimeOnly current = org.StartWorkTime;
 
-        while (current.AddMinutes(service.TimeDuration) <= org.EndWorkTime)
+        foreach (var appointment in appointments)
         {
-            TimeOnly end =
-                current.AddMinutes(service.TimeDuration);
 
-            bool inRest =
-                current < org.EndRestTime &&
-                end > org.StartRestTime;
-
-            if (!inRest)
+            if (!appointment.IsReserved)
             {
-                bool reserved =
-                    appointments.Any(a =>
-                        a.IsReserved &&
-                        a.AppointmentTime == current);
-
-                if (!reserved)
+                result.Add(new FreeTimeDto
                 {
-                    result.Add(new FreeTimeDto
-                    {
-                        StartTime = current,
-                        EndTime = end
-                    });
-                }
+                    StartTime = appointment.AppointmentTime,
+                    Date = appointment.AppointmentDate,
+                    Price = appointment.Price,
+                });
             }
-
-            current = current.AddMinutes(service.TimeDuration);
         }
 
         return result;
@@ -143,34 +128,34 @@ public class AppointmentService : IAppointmentService
     }
     public async Task<AppointmentResultDto?> GetByTrackingCodeAsync(
     string trackingCode)
-{
-    var appointment =
-        await _appointmentRepository.GetByTrackingCodeAsync(trackingCode);
-
-    if (appointment is null)
-        return null;
-
-    return new AppointmentResultDto
     {
-        AppointmentId = appointment.Id,
-        TrackingCode = appointment.BookingConfirmCode,
-        AppointmentDate = appointment.AppointmentDate,
-        AppointmentTime = appointment.AppointmentTime,
-        AppointmentStatusId = appointment.AppointmentStatusId ?? 0
-    };
-}
+        var appointment =
+            await _appointmentRepository.GetByTrackingCodeAsync(trackingCode);
 
-public async Task<bool> ChangeStatusAsync(
-    AppointmentTrackingDto dto)
-{
-    var appointment =
-        await _appointmentRepository.GetByTrackingCodeAsync(dto.TrackingCode);
+        if (appointment is null)
+            return null;
 
-    if (appointment is null)
-        return false;
+        return new AppointmentResultDto
+        {
+            AppointmentId = appointment.Id,
+            TrackingCode = appointment.BookingConfirmCode,
+            AppointmentDate = appointment.AppointmentDate,
+            AppointmentTime = appointment.AppointmentTime,
+            AppointmentStatusId = appointment.AppointmentStatusId ?? 0
+        };
+    }
 
-    appointment.AppointmentStatusId = dto.AppointmentStatusId;
+    public async Task<bool> ChangeStatusAsync(
+        AppointmentTrackingDto dto)
+    {
+        var appointment =
+            await _appointmentRepository.GetByTrackingCodeAsync(dto.TrackingCode);
 
-    return await _appointmentRepository.UpdateAsync(appointment);
-}
+        if (appointment is null)
+            return false;
+
+        appointment.AppointmentStatusId = dto.AppointmentStatusId;
+
+        return await _appointmentRepository.UpdateAsync(appointment);
+    }
 }

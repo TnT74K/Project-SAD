@@ -18,7 +18,8 @@
         <li><a href="/pages/org/staff/staff-list.html">لیست کارمندان</a></li>
         <li><a href="/pages/org/appointment-list.html">لیست نوبت ها</a></li>
         <li><a href="/pages/org/profile/profile-edit.html">پروفایل کسب و کار</a></li>
-        <li><a onclick="localStorage.removeItem('token'); window.location.href='/pages/auth/login.html'; return false;">خروج</a></li>
+        <li><a onclick="localStorage.removeItem('token');
+localStorage.removeItem('user'); window.location.href='/pages/auth/login.html'; return false;">خروج</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -52,7 +53,8 @@
         <a href="/pages/org/staff/staff-list.html">لیست کارمندان</a>
         <a href="/pages/org/appointment-list.html">لیست نوبت ها</a>
         <a href="/pages/org/profile/profile-edit.html">پروفایل کسب و کار</a>
-        <a onclick="localStorage.removeItem('token'); window.location.href='/pages/auth/login.html'; return false;">خروج</a>
+        <a onclick="localStorage.removeItem('token');
+localStorage.removeItem('user'); window.location.href='/pages/auth/login.html'; return false;">خروج</a>
 
       </div>
 
