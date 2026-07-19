@@ -85,10 +85,10 @@ namespace ReserveCenter.API.Controllers.Auth
 
                 return Ok(result);
             }
-            catch (UnauthorizedAccessException ex)
-            {
-                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
-            }
+            // catch (UnauthorizedAccessException ex)
+            // {
+            //     // return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
+            // }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "خطا در ورود کاربر");
