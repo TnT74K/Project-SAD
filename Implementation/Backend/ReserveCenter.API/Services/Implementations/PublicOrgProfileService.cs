@@ -36,8 +36,13 @@ public class PublicOrgProfileService : IPublicOrgProfileService
             Image = org.Image,
 
             StarCount = org.StarCount,
+            VoterCount = org.VoterCount,
 
             SuccessAppointmentCount = org.SuccessAppointmentCount,
+            IsPremier = org.IsPremier,
+            IsActive = org.IsActive,
+            StartWorkTime = org.StartWorkTime.ToString("HH:mm"),
+            EndWorkTime = org.EndWorkTime.ToString("HH:mm"),
 
             Services = services.Select(service => new PublicServiceDto
             {
