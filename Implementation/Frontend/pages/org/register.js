@@ -85,6 +85,11 @@ document.getElementById('bizDesc').addEventListener('input', function () {
   document.getElementById('descHint').textContent =
     `${toPersian(this.value.length)} / ${toPersian(500)} کاراکتر`;
 });
+// ─── شمارشگر آدرس (جدید) ────────────────────────────────────
+document.getElementById('bizAddress').addEventListener('input', function () {
+  document.getElementById('addressHint').textContent =
+    `${toPersian(this.value.length)} / ${toPersian(256)} کاراکتر`;
+});
 
 // ========================================
 // بخش ۴: فرمت تاریخ شمسی
@@ -226,6 +231,8 @@ function validate() {
   // دریافت مقادیر فیلدها
   const name = document.getElementById('bizName').value.trim();      // نام کسب‌وکار
   const desc = document.getElementById('bizDesc').value.trim();      // توضیحات
+  const address = document.getElementById('bizAddress').value.trim(); // جدید
+  const city = document.getElementById('bizCity').value;              // جدید
   const date = document.getElementById('bizDate').value.trim();      // تاریخ تأسیس
   const openT = document.getElementById('openTime').value;           // ساعت شروع
   const closeT = document.getElementById('closeTime').value;         // ساعت پایان
@@ -237,6 +244,8 @@ function validate() {
 
   // بررسی توضیحات
   if (!desc) { shake('bizDesc'); showToast('⚠️ توضیح مختصر را وارد کنید', true); return false; }
+  if (!address) { shake('bizAddress'); showToast('⚠️ آدرس کامل را وارد کنید', true); return false; } // جدید
+  if (!city) { shake('bizCity'); showToast('⚠️ شهر را انتخاب کنید', true); return false; }           // جدید
 
   // بررسی تاریخ تأسیس
   if (!date) { shake('bizDate'); showToast('⚠️ تاریخ تأسیس را وارد کنید', true); return false; }
@@ -385,11 +394,14 @@ function resetForm() {
   // پاک کردن فیلدهای متنی
   document.getElementById('bizName').value = '';
   document.getElementById('bizDesc').value = '';
+  document.getElementById('bizAddress').value = ''; // جدید
   document.getElementById('bizDate').value = '';
 
   // reset کردن سلکت نوع کسب‌وکار
   document.getElementById('bizType').value = '';
   document.getElementById('bizType').selectedIndex = 0;
+  document.getElementById('bizCity').value = '';    // جدید
+  document.getElementById('bizCity').selectedIndex = 0; // جدید
 
   // reset کردن سلکت‌های ساعت
   document.getElementById('openTime').selectedIndex = 0;
@@ -409,6 +421,7 @@ function resetForm() {
   // reset کردن شمارنده کاراکترها
   document.getElementById('nameHint').textContent = '۰ / ۸۰ کاراکتر';
   document.getElementById('descHint').textContent = '۰ / ۵۰۰ کاراکتر';
+   document.getElementById('addressHint').textContent = '۰ / ۲۵۶ کاراکتر'; // جدید
 
   // نمایش پیام موفقیت آمیز بودن reset
   showToast('🔄 فرم با موفقیت پاک شد');
