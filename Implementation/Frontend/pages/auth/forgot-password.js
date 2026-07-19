@@ -63,7 +63,7 @@ async function sendOtp() {
             return;
         }
 
-        if (response.ok && data.IsSuccess) {
+        if (response.ok && data.isSuccess) {
             document.getElementById('phone-display').textContent = formatPhone(phone);
             goToStep('otp');
             startOtpBoxes();
@@ -156,7 +156,7 @@ async function resendOtp() {
         });
         const data = await response.json();
 
-        if (response.ok && data.IsSuccess) {
+        if (response.ok && data.isSuccess) {
             const boxes = document.querySelectorAll('.otp-box');
             boxes.forEach(b => { b.value = ''; b.classList.remove('filled'); });
             boxes[0].focus();
@@ -188,7 +188,7 @@ async function verifyOtp() {
         });
         const data = await response.json();
 
-        if (response.ok && data.IsSuccess) {
+        if (response.ok && data.isSuccess) {
             otpToken = data.Token;
             clearInterval(countdownInterval);
             goToStep('password');
@@ -223,14 +223,13 @@ async function submitNewPassword() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 phoneNumber: currentPhone,
-                otpToken: otpToken,
                 newPassword: newPass,
                 confirmNewPassword: confirmPass
             })
         });
         const data = await response.json();
 
-        if (response.ok && data.IsSuccess) {
+        if (response.ok && data.isSuccess) {
             goToStep('success');
         } else {
             showInputError(confirmInput, data.Message);

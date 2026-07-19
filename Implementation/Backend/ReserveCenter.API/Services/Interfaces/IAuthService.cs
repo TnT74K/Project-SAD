@@ -17,7 +17,7 @@ namespace ReserveCenter.API.Services.Interfaces
         // بازیابی رمز عبور
         Task<bool> ForgotPasswordAsync(string phoneNumber);
         Task<string> VerifyOtpAsync(string phoneNumber, string otpCode);
-        Task<bool> ResetPasswordAsync(string phoneNumber, string token, string newPassword);
+        Task<bool> ResetPasswordAsync(string phoneNumber, string newPassword);
         
         // خروج
         // منطق خروج از حساب کاربری تماماً در فرانت‌اند انجام می‌شود

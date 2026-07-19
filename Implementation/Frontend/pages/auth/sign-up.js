@@ -253,9 +253,10 @@ async function registerUser() {
                 }
             );
 
-
+console.log(response);
         const result =
             await response.json();
+console.log(result);
 
         // مدیریت خطا - طبق استاندارد پروژه
         if (response.status === 400) {
