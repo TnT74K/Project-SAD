@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Models.DTOs.Auth;
 using ReserveCenter.API.Services.Interfaces;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -86,7 +87,7 @@ namespace ReserveCenter.API.Controllers.Auth
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(new { IsSuccess = false, Message = ex.Message });
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -153,7 +154,7 @@ namespace ReserveCenter.API.Controllers.Auth
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(new { IsSuccess = false, Message = ex.Message });
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -195,7 +196,7 @@ namespace ReserveCenter.API.Controllers.Auth
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(new { IsSuccess = false, Message = ex.Message });
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -231,7 +232,7 @@ namespace ReserveCenter.API.Controllers.Auth
                 var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
                 if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
                 {
-                    return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });
+                    return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = "کاربر یافت نشد" });
                 }
 
                 // دریافت اطلاعات کامل کاربر از سرویس
@@ -245,7 +246,7 @@ namespace ReserveCenter.API.Controllers.Auth
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new { IsSuccess = false, Message = ex.Message });
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -269,7 +270,7 @@ namespace ReserveCenter.API.Controllers.Auth
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(new { IsSuccess = false, Message = ex.Message });
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -288,7 +289,7 @@ namespace ReserveCenter.API.Controllers.Auth
 
                 if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out var parsedUserId))
                 {
-                    return BadRequest(new { IsSuccess = false, Message = "کاربر معتبر نیست" });
+                    return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = "کاربر معتبر نیست" });
                 }
 
                 // دریافت اطلاعات کامل کاربر از سرویس
@@ -312,7 +313,7 @@ namespace ReserveCenter.API.Controllers.Auth
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new { IsSuccess = false, Message = ex.Message });
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
