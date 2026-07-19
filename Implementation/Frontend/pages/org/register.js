@@ -27,7 +27,7 @@ function shamsiToGregorian(jy, jm, jd) {
 // ─── ساعت‌ها را پر کن ───────────────────────────────────────
 // تابع برای پر کردن لیست ساعت‌ها در سلکت‌های شروع، پایان و استراحت
 function fillTimeSelects() {
-  // آرایه包含 شناسه‌های سلکت‌هایی که باید ساعت در آنها پر شود
+  //  شناسه‌های سلکت‌هایی که باید ساعت در آنها پر شود
   const selects = ['openTime', 'closeTime', 'breakStart', 'breakEnd'];
 
   // حلقه روی هر سلکت
@@ -84,6 +84,11 @@ document.getElementById('bizDesc').addEventListener('input', function () {
   // به‌روزرسانی نمایش تعداد کاراکترها به فارسی
   document.getElementById('descHint').textContent =
     `${toPersian(this.value.length)} / ${toPersian(500)} کاراکتر`;
+});
+// ─── شمارشگر آدرس (جدید) ────────────────────────────────────
+document.getElementById('bizAddress').addEventListener('input', function () {
+  document.getElementById('addressHint').textContent =
+    `${toPersian(this.value.length)} / ${toPersian(256)} کاراکتر`;
 });
 
 // ========================================
@@ -178,7 +183,7 @@ function removeImage() {
 // ========================================
 
 // ─── خلاصه ساعات کاری ──────────────────────────────────────
-// آبجکت包含 نام روزها به فارسی
+// نام روزها به فارسی
 const dayNames = {
   saturday: 'شنبه', sunday: 'یک‌شنبه', monday: 'دوشنبه',
   tuesday: 'سه‌شنبه', wednesday: 'چهارشنبه', thursday: 'پنج‌شنبه', friday: 'جمعه'
@@ -226,6 +231,8 @@ function validate() {
   // دریافت مقادیر فیلدها
   const name = document.getElementById('bizName').value.trim();      // نام کسب‌وکار
   const desc = document.getElementById('bizDesc').value.trim();      // توضیحات
+  const address = document.getElementById('bizAddress').value.trim(); // جدید
+  const city = document.getElementById('bizCity').value;              // جدید
   const date = document.getElementById('bizDate').value.trim();      // تاریخ تأسیس
   const openT = document.getElementById('openTime').value;           // ساعت شروع
   const closeT = document.getElementById('closeTime').value;         // ساعت پایان
@@ -237,6 +244,8 @@ function validate() {
 
   // بررسی توضیحات
   if (!desc) { shake('bizDesc'); showToast('⚠️ توضیح مختصر را وارد کنید', true); return false; }
+  if (!address) { shake('bizAddress'); showToast('⚠️ آدرس کامل را وارد کنید', true); return false; } // جدید
+  if (!city) { shake('bizCity'); showToast('⚠️ شهر را انتخاب کنید', true); return false; }           // جدید
 
   // بررسی تاریخ تأسیس
   if (!date) { shake('bizDate'); showToast('⚠️ تاریخ تأسیس را وارد کنید', true); return false; }
@@ -339,7 +348,7 @@ function submitForm() {
     startRestTime: document.getElementById('breakStart').value || null,
     endRestTime: document.getElementById('breakEnd').value || null,
     cityId: 1,
-    address: ''
+    address: document.getElementById('bizAddress')?.value.trim() || ''
   };
 
   fetch(`${API_BASE_URL}/Org/register`, {
@@ -350,29 +359,68 @@ function submitForm() {
     },
     body: JSON.stringify(body)
   })
-    .then(res => res.json())
-    .then(data => {
-      if (data.IsSuccess) {
-        showToast('✅ ' + data.Message);
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step2').classList.add('done');
-        document.getElementById('step2').querySelector('.step-circle').textContent = '✓';
-        document.getElementById('step3').classList.remove('active');
-        document.getElementById('step3').classList.add('done');
-        document.getElementById('step3').querySelector('.step-circle').textContent = '✓';
-        document.getElementById('step4').classList.add('active');
-        document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
-      } else {
-        showToast('⚠️ ' + data.Message, true);
-        btn.disabled = false;
-        btn.textContent = '✅ ثبت کسب‌وکار';
+    .then(async response => {
+      const result = await response.json();
+
+      //  مدیریت ۴۰۰
+      if (response.status === 400) {
+        alert(result.message);
+        return;
+      }
+
+      // مدیریت ۴۰۳
+      if (response.status === 403) {
+        window.location.href = "/pages/errors/error-403.html";
+        return;
+      }
+
+      // مدیریت ۴۰۱ (Unauthorized)
+      if (response.status === 401) {
+        alert("نشست شما منقضی شده است. لطفاً مجدداً وارد شوید.");
+        window.location.href = "/login";
+        return;
+      }
+
+      // مدیریت ۵۰۰ (Internal Server Error)
+      if (response.status === 500) {
+        alert("خطای داخلی سرور. لطفاً مجدداً تلاش کنید.");
+        return;
+      }
+
+      // اگر وضعیت موفقیت‌آمیز بود
+      if (response.ok) {
+        if (result.isSuccess) {
+          alert('✅ ' + result.message);
+          document.getElementById('step2').classList.remove('active');
+          document.getElementById('step2').classList.add('done');
+          document.getElementById('step2').querySelector('.step-circle').textContent = '✓';
+          document.getElementById('step3').classList.remove('active');
+          document.getElementById('step3').classList.add('done');
+          document.getElementById('step3').querySelector('.step-circle').textContent = '✓';
+          document.getElementById('step4').classList.add('active');
+          document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
+          // ریدایرکت بعد از ۲ ثانیه
+          setTimeout(() => {
+        window.location.href = 'index.html';//به نظرم مسیر باید تغییر کنه
+          }, 2000);
+
+        } else {
+           alert('⚠️ ' + result.message);        }
       }
     })
     .catch(err => {
-      showToast('⚠️ خطا در ارتباط با سرور', true);
+     // خطای شبکه
+      if (err.name === 'TypeError' || err.message.includes('Failed to fetch')) {
+        alert('❌ خطا در اتصال به سرور. لطفاً اتصال اینترنت خود را بررسی کنید.');
+      } else {
+        alert('⚠️ خطا در ارتباط با سرور');
+      }
+    })
+    .finally(() => {
       btn.disabled = false;
       btn.textContent = '✅ ثبت کسب‌وکار';
     });
+
 }
 
 // ========================================
@@ -385,11 +433,14 @@ function resetForm() {
   // پاک کردن فیلدهای متنی
   document.getElementById('bizName').value = '';
   document.getElementById('bizDesc').value = '';
+  document.getElementById('bizAddress').value = ''; // جدید
   document.getElementById('bizDate').value = '';
 
   // reset کردن سلکت نوع کسب‌وکار
   document.getElementById('bizType').value = '';
   document.getElementById('bizType').selectedIndex = 0;
+  document.getElementById('bizCity').value = '';    // جدید
+  document.getElementById('bizCity').selectedIndex = 0; // جدید
 
   // reset کردن سلکت‌های ساعت
   document.getElementById('openTime').selectedIndex = 0;
@@ -409,6 +460,7 @@ function resetForm() {
   // reset کردن شمارنده کاراکترها
   document.getElementById('nameHint').textContent = '۰ / ۸۰ کاراکتر';
   document.getElementById('descHint').textContent = '۰ / ۵۰۰ کاراکتر';
+  document.getElementById('addressHint').textContent = '۰ / ۲۵۶ کاراکتر'; // جدید
 
   // نمایش پیام موفقیت آمیز بودن reset
   showToast('🔄 فرم با موفقیت پاک شد');

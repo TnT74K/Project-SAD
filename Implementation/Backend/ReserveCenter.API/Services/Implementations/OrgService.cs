@@ -74,6 +74,17 @@ namespace ReserveCenter.API.Services.Implementations
                         Message = "شهر معتبر نیست"
                     };
                 }
+                               if (request.StartRestTime.HasValue && request.EndRestTime.HasValue)
+                {
+                    if (request.StartRestTime.Value >= request.EndRestTime.Value)
+                    {
+                        return new OrgRegisterResponseDto
+                        {
+                            IsSuccess = false,
+                            Message = "ساعت پایان استراحت باید بعد از ساعت شروع استراحت باشد"
+                        };
+                    }
+                }
 
                 // 4. ایجاد سازمان موقت
                 var unregisteredOrg = new UnregisteredOrg
@@ -120,31 +131,63 @@ namespace ReserveCenter.API.Services.Implementations
         // ==============================
         // متدهای کمکی
         // ==============================
-        public async Task<bool> IsOrgOwnerAsync(int orgId, int userId)
+            public async Task<bool> IsOrgOwnerAsync(int orgId, int userId)
         {
-            var org = await _dbContext.Orgs
-                .FirstOrDefaultAsync(o => o.Id == orgId && !o.IsDeleted);
+            try
+            {
+                var org = await _dbContext.Orgs
+                    .FirstOrDefaultAsync(o => o.Id == orgId && !o.IsDeleted);
 
-            if (org == null)
+                if (org == null)
+                    return false;
+
+                return org.CreatedBy == userId;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error checking org ownership for OrgId: {OrgId}, UserId: {UserId}", orgId, userId);
                 return false;
-
-            return org.CreatedBy == userId;
+            }
         }
 
         public async Task<bool> IsOrgExistAsync(int orgId)
         {
-            var org = await _orgRepository.GetByIdAsync(orgId);
-            return org != null;
+            try
+            {
+                var org = await _orgRepository.GetByIdAsync(orgId);
+                return org != null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error checking org existence for OrgId: {OrgId}", orgId);
+                return false;
+            }
         }
 
         public async Task<Org?> GetOrgByIdAsync(int orgId)
         {
-            return await _orgRepository.GetByIdAsync(orgId);
+            try
+            {
+                return await _orgRepository.GetByIdAsync(orgId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting org by id: {OrgId}", orgId);
+                return null;
+            }
         }
-             public async Task<List<Org>?> GetAllOrgWithDetailAsync()
+
+        public async Task<List<Org>?> GetAllOrgWithDetailAsync()
         {
-            return await _orgRepository.GetAllOrgWithDetailAsync();
+            try
+            {
+                return await _orgRepository.GetAllOrgWithDetailAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting all orgs with details");
+                return null;
+            }
         }
-        
     }
 }
