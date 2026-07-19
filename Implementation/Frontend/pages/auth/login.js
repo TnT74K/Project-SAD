@@ -26,7 +26,7 @@ const roleMapping = {
         icon: "💼"
     },
 
-    Support: {
+    OrgSupport: {
         label: "پشتیبان",
         icon: "🎧"
     },
@@ -342,25 +342,22 @@ function openRoleModal(roles) {
 
 
 function createRoleCard(role, index) {
-    const backendRoleName = role.roleName;
+    const backendRoleName = role.roleName ?? "Customer";
     const roleInfo = roleMapping[backendRoleName];
 
     const roleLabel = roleInfo?.label ?? backendRoleName;
     const roleIcon = roleInfo?.icon ?? "👤";
-
     const organizationName =
         role.organizationName?.trim() ||
         getDefaultOrganizationLabel(role.orgId);
 
     const card = document.createElement("button");
-
     card.type = "button";
     card.className = "role-card";
     card.dataset.backendName = backendRoleName;
     card.dataset.index = String(index);
 
-    // orgId ممکن است null باشد؛ مقدار null را داخل dataset نریز
-    if (role.orgId !== null && role.orgId !== undefined) {
+    if (role.orgId != null) {
         card.dataset.orgId = String(role.orgId);
     }
 
@@ -392,6 +389,7 @@ function createRoleCard(role, index) {
 
     return card;
 }
+
 
 
 function getDefaultOrganizationLabel(orgId) {

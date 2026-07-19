@@ -59,20 +59,21 @@ const modalDate = document.getElementById('modal-date');
 const modalTime = document.getElementById('modal-time');
 const modalPrice = document.getElementById('modal-price');
 const trackingCode = document.getElementById('trackingCode');
+
 /* ---- انتخاب خدمت ---- */
 const serviceSelect = document.getElementById('serviceSelect');
 const appointmentGroups = document.querySelectorAll('.appointment-group');
 const modalService = document.getElementById('modal-service');
 
 let selectedService = '';
+
 /* در ابتدا هیچ خدمتی انتخاب نشده → نوبت‌ها مخفی */
 appointmentGroups.forEach(group => {
   group.style.display = 'none';
 });
+
 serviceSelect.addEventListener('change', function () {
-
   selectedService = this.value;
-
   appointmentGroups.forEach(group => {
     if (selectedService) {
       group.style.display = 'block';
@@ -80,7 +81,6 @@ serviceSelect.addEventListener('change', function () {
       group.style.display = 'none';
     }
   });
-
 });
 
 /* ---- باز/بستن مودال ---- */
@@ -100,14 +100,14 @@ async function loadOrgProfile(id) {
     const res = await fetch(`${API_BASE_URL}/public-org-profile/${id}`);
     if (!res.ok) throw new Error('خطا در دریافت اطلاعات سازمان');
     orgData = await res.json();
-            if(res.status === 400)
-            {
-                alert(orgData.message);
-            }
-            if(res.status === 403)
-            {
-                window.location.href = "/pages/errors/error-403.html";
-            }
+    
+    if(res.status === 400) {
+        alert(orgData.message);
+    }
+    if(res.status === 403) {
+        window.location.href = "/pages/errors/error-403.html";
+    }
+
     /* --- به‌روزرسانی اطلاعات سازمان در DOM --- */
     const orgNameEl = document.querySelector('.org-name');
     if (orgNameEl) orgNameEl.textContent = orgData.name;
@@ -115,8 +115,11 @@ async function loadOrgProfile(id) {
     const orgDescEl = document.querySelector('.org-description');
     if (orgDescEl) orgDescEl.textContent = orgData.description || '';
 
-    const orgImgEl = document.querySelector('.org-image');
-    if (orgImgEl && orgData.image) orgImgEl.src = orgData.image;
+    const orgStar = document.querySelector('.star-count');
+    if (orgStar) orgStar.textContent = orgData.starCount || '';
+
+    // const orgImgEl = document.querySelector('.org-image');
+    // if (orgImgEl && orgData.image) orgImgEl.src = orgData.image;
 
     const metaValues = document.querySelectorAll('.org-meta .meta-value');
     /* ترتیب meta-rowها در HTML: مکان، وضعیت، امتیازدهندگان، امتیاز، نوبت موفق، رده‌بندی، ساعت */
@@ -146,24 +149,10 @@ async function loadOrgProfile(id) {
 }
 
 /* ---- کلیک روی دکمه‌های ساعت ---- */
-const timeButtons = document.querySelectorAll('.time-btn');
-
-/* ---- باز/بستن مودال ---- */
-function openModal(overlay) {
-  overlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal(overlay) {
-  overlay.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-/* ---- کلیک روی دکمه‌های ساعت ---- */
+// تعریف منفرد متغیر بدون تکرار مجدد
 const timeButtons = document.querySelectorAll('.time-btn');
 
 document.addEventListener('click', function (e) {
-
   const btn = e.target.closest('.time-btn');
   if (!btn) return;
 
@@ -197,10 +186,7 @@ document.addEventListener('click', function (e) {
   modalService.textContent = serviceSelect.options[serviceSelect.selectedIndex].text;
 
   openModal(confirmModal);
-
 });
-
-
 
 /* ---- دکمه انصراف ---- */
 document.getElementById('btnCancel').addEventListener('click', () => {
@@ -250,14 +236,12 @@ document.getElementById('btnConfirmPay').addEventListener('click', async () => {
     }
 
     const data = await res.json();
-            if(res.status === 400)
-            {
-                alert(data.message);
-            }
-            if(res.status === 403)
-            {
-                window.location.href = "/pages/errors/error-403.html";
-            }
+    if(res.status === 400) {
+        alert(data.message);
+    }
+    if(res.status === 403) {
+        window.location.href = "/pages/errors/error-403.html";
+    }
     setTimeout(() => {
       trackingCode.textContent = data.trackingCode || '—';
       openModal(successModal);
