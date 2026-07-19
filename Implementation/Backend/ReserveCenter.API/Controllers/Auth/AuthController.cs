@@ -27,25 +27,33 @@ namespace ReserveCenter.API.Controllers.Auth
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] SignUpRequest request)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage);
-                return BadRequest(new TokenResponse
+                if (!ModelState.IsValid)
                 {
-                    IsSuccess = false,
-                    Message = string.Join(" | ", errors)
-                });
+                    var errors = ModelState.Values.SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage);
+                    return BadRequest(new TokenResponse
+                    {
+                        IsSuccess = false,
+                        Message = string.Join(" | ", errors)
+                    });
+                }
+
+                var result = await _authService.RegisterAsync(request);
+
+                if (!result.IsSuccess)
+                {
+                    return BadRequest(result);
+                }
+
+                return Ok(result);
             }
-
-            var result = await _authService.RegisterAsync(request);
-
-            if (!result.IsSuccess)
+            catch (Exception ex)
             {
-                return BadRequest(result);
+                _logger.LogError(ex, "خطا در ثبت‌نام کاربر");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
             }
-
-            return Ok(result);
         }
 
         /// <summary>
@@ -54,25 +62,37 @@ namespace ReserveCenter.API.Controllers.Auth
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage);
-                return BadRequest(new TokenResponse
+                if (!ModelState.IsValid)
                 {
-                    IsSuccess = false,
-                    Message = string.Join(" | ", errors)
-                });
+                    var errors = ModelState.Values.SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage);
+                    return BadRequest(new TokenResponse
+                    {
+                        IsSuccess = false,
+                        Message = string.Join(" | ", errors)
+                    });
+                }
+
+                var result = await _authService.LoginAsync(request);
+
+                if (result == null)
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "ورود ناموفق" });
+                }
+
+                return Ok(result);
             }
-
-            var result = await _authService.LoginAsync(request);
-
-            if (result == null)
+            catch (UnauthorizedAccessException ex)
             {
-                return BadRequest(new { IsSuccess = false, Message = "ورود ناموفق" });
+                return Unauthorized(new { IsSuccess = false, Message = ex.Message });
             }
-
-            return Ok(result);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در ورود کاربر");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
         }
 
         /// <summary>
@@ -81,19 +101,27 @@ namespace ReserveCenter.API.Controllers.Auth
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(new { IsSuccess = false, Message = "شماره تلفن معتبر نیست" });
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "شماره تلفن معتبر نیست" });
+                }
+
+                var result = await _authService.ForgotPasswordAsync(request.PhoneNumber);
+
+                if (!result)
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "کاربر با این شماره تلفن یافت نشد" });
+                }
+
+                return Ok(new { IsSuccess = true, Message = "کد تأیید به شماره تلفن شما ارسال شد" });
             }
-
-            var result = await _authService.ForgotPasswordAsync(request.PhoneNumber);
-
-            if (!result)
+            catch (Exception ex)
             {
-                return BadRequest(new { IsSuccess = false, Message = "کاربر با این شماره تلفن یافت نشد" });
+                _logger.LogError(ex, "خطا در درخواست بازیابی رمز عبور");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
             }
-
-            return Ok(new { IsSuccess = true, Message = "کد تأیید به شماره تلفن شما ارسال شد" });
         }
 
         /// <summary>
@@ -102,24 +130,36 @@ namespace ReserveCenter.API.Controllers.Auth
         [HttpPost("verify-otp")]
         public async Task<IActionResult> VerifyOtp([FromBody] OtpVerifyRequest request)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(new { IsSuccess = false, Message = "اطلاعات وارد شده معتبر نیست" });
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "اطلاعات وارد شده معتبر نیست" });
+                }
+
+                var token = await _authService.VerifyOtpAsync(request.PhoneNumber, request.OtpCode);
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "کد تأیید اشتباه است یا منقضی شده است" });
+                }
+
+                return Ok(new
+                {
+                    IsSuccess = true,
+                    Message = "کد تأیید صحیح است",
+                    Token = token
+                });
             }
-
-            var token = await _authService.VerifyOtpAsync(request.PhoneNumber, request.OtpCode);
-
-            if (string.IsNullOrEmpty(token))
+            catch (UnauthorizedAccessException ex)
             {
-                return BadRequest(new { IsSuccess = false, Message = "کد تأیید اشتباه است یا منقضی شده است" });
+                return Unauthorized(new { IsSuccess = false, Message = ex.Message });
             }
-
-            return Ok(new
+            catch (Exception ex)
             {
-                IsSuccess = true,
-                Message = "کد تأیید صحیح است",
-                Token = token
-            });
+                _logger.LogError(ex, "خطا در تأیید کد OTP");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
         }
 
         /// <summary>
@@ -128,28 +168,40 @@ namespace ReserveCenter.API.Controllers.Auth
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage);
-                return BadRequest(new
+                if (!ModelState.IsValid)
                 {
-                    IsSuccess = false,
-                    Message = string.Join(" | ", errors)
-                });
+                    var errors = ModelState.Values.SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage);
+                    return BadRequest(new
+                    {
+                        IsSuccess = false,
+                        Message = string.Join(" | ", errors)
+                    });
+                }
+
+                var result = await _authService.ResetPasswordAsync(
+                    request.PhoneNumber,
+                    request.OtpToken,
+                    request.NewPassword);
+
+                if (!result)
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "خطا در تغییر رمز عبور. لطفاً مجدداً تلاش کنید." });
+                }
+
+                return Ok(new { IsSuccess = true, Message = "رمز عبور با موفقیت تغییر یافت" });
             }
-
-            var result = await _authService.ResetPasswordAsync(
-                request.PhoneNumber,
-                request.OtpToken,
-                request.NewPassword);
-
-            if (!result)
+            catch (UnauthorizedAccessException ex)
             {
-                return BadRequest(new { IsSuccess = false, Message = "خطا در تغییر رمز عبور. لطفاً مجدداً تلاش کنید." });
+                return Unauthorized(new { IsSuccess = false, Message = ex.Message });
             }
-
-            return Ok(new { IsSuccess = true, Message = "رمز عبور با موفقیت تغییر یافت" });
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در تغییر رمز عبور");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
         }
 
         /// <summary>
@@ -174,31 +226,56 @@ namespace ReserveCenter.API.Controllers.Auth
         [HttpGet("me")]
         public async Task<IActionResult> GetCurrentUser()
         {
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+            try
             {
-                return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });
+                var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+                {
+                    return Unauthorized(new { IsSuccess = false, Message = "کاربر یافت نشد" });
+                }
+
+                // دریافت اطلاعات کامل کاربر از سرویس
+                var user = await _authService.GetUserByIdAsync(userId);
+
+                return Ok(new
+                {
+                    IsSuccess = true,
+                    User = user
+                });
             }
-
-            // دریافت اطلاعات کامل کاربر از سرویس
-            var user = await _authService.GetUserByIdAsync(userId);
-
-            return Ok(new
+            catch (KeyNotFoundException ex)
             {
-                IsSuccess = true,
-                User = user
-            });
+                return NotFound(new { IsSuccess = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در دریافت اطلاعات کاربر فعلی");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
         }
+
         // After login, the user chooses their role, and send this request to backend.
         [HttpPost("select-role")] // Call it "Controller action"
         public async Task<IActionResult> SelectRole([FromBody] RoleSelectionRequest request)
         {
-            var result = await _authService.SelectRoleAsync(
-                request.UserId,
-                request.RoleName,
-                request.OrgId);
+            try
+            {
+                var result = await _authService.SelectRoleAsync(
+                    request.UserId,
+                    request.RoleName,
+                    request.OrgId);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { IsSuccess = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در انتخاب نقش کاربر");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
         }
 
         [HttpPost("send-role-id")] 
@@ -233,11 +310,15 @@ namespace ReserveCenter.API.Controllers.Auth
                     LastName = user.LastName,
                 });
             }
-            catch (Exception)
+            catch (KeyNotFoundException ex)
             {
-                return BadRequest();
+                return NotFound(new { IsSuccess = false, Message = ex.Message });
             }
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در دریافت شناسه نقش");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
         }
     }
 }

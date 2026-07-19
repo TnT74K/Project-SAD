@@ -1,56 +1,86 @@
-
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReserveCenter.API.Services.Interfaces;
 
-namespace ReserveCenter.API.Controllers.Admin;
-/*
-GET   /api/admin/org-suspend-list
-PATCH /api/admin/org-suspend-list/{orgId}/suspend
-PATCH /api/admin/org-suspend-list/{orgId}/unlock
-*/
-
-[ApiController]
-[Route("api/admin/org-suspend-list")]
-public class OrgSuspendListController : ControllerBase
+namespace ReserveCenter.API.Controllers.Admin
 {
-    private readonly IOrgSuspendListService _orgSuspendListService;
+    /*
+    GET   /api/admin/org-suspend-list
+    PATCH /api/admin/org-suspend-list/{orgId}/suspend
+    PATCH /api/admin/org-suspend-list/{orgId}/unlock
+    */
 
-    public OrgSuspendListController(IOrgSuspendListService orgSuspendListService)
+    [ApiController]
+    [Route("api/admin/org-suspend-list")]
+    [Authorize(Roles = "Admin")]
+    public class OrgSuspendListController : ControllerBase
     {
-        _orgSuspendListService = orgSuspendListService;
-    }
+        private readonly IOrgSuspendListService _orgSuspendListService;
+        private readonly ILogger<OrgSuspendListController> _logger;
 
-    [HttpGet]
-    public async Task<IActionResult> ShowAllOrgs()
-    {
-        var orgs = await _orgSuspendListService.ShowAllOrgsAsync();
-        return Ok(orgs);
-    }
-
-    [HttpPatch("{orgId}/suspend")]
-    public async Task<IActionResult> SuspendOrg(int orgId)
-    {
-        var result = await _orgSuspendListService.SuspendOrgAsync(orgId);
-
-        if (!result)
+        public OrgSuspendListController(
+            IOrgSuspendListService orgSuspendListService,
+            ILogger<OrgSuspendListController> logger)
         {
-            return BadRequest("Organization does not exist or is already suspended.");
+            _orgSuspendListService = orgSuspendListService;
+            _logger = logger;
         }
 
-        return Ok("Organization suspended successfully.");
-    }
-
-    [HttpPatch("{orgId}/unlock")]
-    public async Task<IActionResult> UnlockOrg(int orgId)
-    {
-        var result = await _orgSuspendListService.UnlockOrgAsync(orgId);
-
-        if (!result)
+        [HttpGet]
+        public async Task<IActionResult> ShowAllOrgs()
         {
-            return BadRequest("Organization does not exist or is not suspended.");
+            try
+            {
+                var orgs = await _orgSuspendListService.ShowAllOrgsAsync();
+                return Ok(new { IsSuccess = true, Data = orgs });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در دریافت لیست سازمان‌ها");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
         }
 
-        return Ok("Organization unlocked successfully.");
+        [HttpPatch("{orgId}/suspend")]
+        public async Task<IActionResult> SuspendOrg(int orgId)
+        {
+            try
+            {
+                var result = await _orgSuspendListService.SuspendOrgAsync(orgId);
+
+                if (!result)
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "سازمان یافت نشد یا قبلاً تعلیق شده است." });
+                }
+
+                return Ok(new { IsSuccess = true, Message = "سازمان با موفقیت تعلیق شد." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در تعلیق سازمان {OrgId}", orgId);
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPatch("{orgId}/unlock")]
+        public async Task<IActionResult> UnlockOrg(int orgId)
+        {
+            try
+            {
+                var result = await _orgSuspendListService.UnlockOrgAsync(orgId);
+
+                if (!result)
+                {
+                    return BadRequest(new { IsSuccess = false, Message = "سازمان یافت نشد یا در حالت تعلیق نیست." });
+                }
+
+                return Ok(new { IsSuccess = true, Message = "تعلیق سازمان با موفقیت رفع شد." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در رفع تعلیق سازمان {OrgId}", orgId);
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
+        }
     }
 }
