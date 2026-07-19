@@ -27,7 +27,7 @@ namespace ReserveCenter.API.Services.Implementations
             return staffList.Select(MapToDto).ToList();
         }
 
-        public async Task<List<StaffListDto>?> SearchAsync(string searchPhrease)
+        public async Task<List<StaffListDto>?> SearchAsync(string searchPhrease, int orgId)
         {
             var staffList = await _staffListRepository.SearchAsync(searchPhrease);
 
@@ -36,7 +36,7 @@ namespace ReserveCenter.API.Services.Implementations
                 return new List<StaffListDto>();
             }
 
-            return staffList.Select(MapToDto).ToList();
+            return staffList.Where(staff => staff.OrgId == orgId).Select(MapToDto).ToList();
         }
 
         public async Task<StaffListDto> AddAsync(StaffCreateRequest staffCreateRequest)
@@ -55,8 +55,14 @@ namespace ReserveCenter.API.Services.Implementations
             return MapToDto(result);
         }
 
-        public async Task<StaffListDto> EditAsync(StaffUpdateRequest staffUpdateRequest)
+        public async Task<StaffListDto> EditAsync(StaffUpdateRequest staffUpdateRequest, int orgId)
         {
+            var existingStaff = await _staffListRepository.GetByIdAsync(staffUpdateRequest.Id);
+            if (existingStaff is null || existingStaff.OrgId != orgId)
+            {
+                return new StaffListDto();
+            }
+
             var result = await _staffListRepository.EditAsync(
                 staffUpdateRequest.Id,
                 (RoleEnum)staffUpdateRequest.RoleId,
@@ -70,14 +76,14 @@ namespace ReserveCenter.API.Services.Implementations
             return MapToDto(result);
         }
 
-        public async Task<bool> ChangeStatusAsync(int staffListId)
+        public async Task<bool> ChangeStatusAsync(int staffListId, int orgId)
         {
-            return await _staffListRepository.ChangeStatusAsync(staffListId);
+            return await _staffListRepository.ChangeStatusAsync(staffListId, orgId);
         }
 
-        public async Task<bool> DeleteAsync(int staffListId)
+        public async Task<bool> DeleteAsync(int staffListId, int orgId)
         {
-            return await _staffListRepository.DeleteAsync(staffListId);
+            return await _staffListRepository.DeleteAsync(staffListId, orgId);
         }
 
         private static StaffListDto MapToDto(StaffList staff)

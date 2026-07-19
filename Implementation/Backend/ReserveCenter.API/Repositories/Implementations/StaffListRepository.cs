@@ -39,9 +39,9 @@ namespace ReserveCenter.API.Repositories.Implementations
             return staffList;
         }
 
-        public async Task<bool> ChangeStatusAsync(int staffListId)
+        public async Task<bool> ChangeStatusAsync(int staffListId, int orgId)
         {
-            var staffList = _dbContext.StaffLists.FirstOrDefault(x => x.Id == staffListId);
+            var staffList = _dbContext.StaffLists.FirstOrDefault(x => x.Id == staffListId && x.OrgId == orgId);
 
             if (staffList is null)
             {
@@ -52,6 +52,16 @@ namespace ReserveCenter.API.Repositories.Implementations
             await _dbContext.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<StaffList?> GetByIdAsync(int staffListId)
+        {
+            return await _dbContext.StaffLists
+                .AsNoTracking()
+                .Include(i => i.Org)
+                .Include(i => i.Role)
+                .Include(i => i.User)
+                .FirstOrDefaultAsync(x => x.Id == staffListId);
         }
 
         public async Task<bool> CheckPhoneNumberIsExistAsync(string phoneNumber)
@@ -66,9 +76,9 @@ namespace ReserveCenter.API.Repositories.Implementations
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int staffListId)
+        public async Task<bool> DeleteAsync(int staffListId, int orgId)
         {
-            var staffList = _dbContext.StaffLists.FirstOrDefault(x => x.Id == staffListId);
+            var staffList = _dbContext.StaffLists.FirstOrDefault(x => x.Id == staffListId && x.OrgId == orgId);
 
             if (staffList is null)
             {
