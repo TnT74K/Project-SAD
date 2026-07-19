@@ -235,98 +235,27 @@ document.addEventListener('DOMContentLoaded', async function() {
     const user = JSON.parse(userStr);
     const currentRole = user.role; // مثلاً: "OrgAdmin" یا "SuperAdmin"
 
-    // ۳. تعیین آدرس API بک‌اند بر اساس نقش کاربر
-    let apiEndpoint = '';
-    if (currentRole === 'SuperAdmin') {
-        apiEndpoint = '/admin/dashboard'; // آدرس کنترلر ادمین
-    } else if (currentRole === 'OrgAdmin' || currentRole === 'Staff' || currentRole === 'Support') {
-        apiEndpoint = '/org/dashboard';  // آدرس کنترلر سازمان
-    } else {
+    const apiEndpoint = currentRole === 'SuperAdmin'
+        ? '/admin/dashboard'
+        : (currentRole === 'OrgAdmin' || currentRole === 'Staff' || currentRole === 'Support')
+            ? '/org/dashboard'
+            : null;
+
+    if (!apiEndpoint) {
         console.error("نقش نامعتبر!");
         return;
     }
 
-    // ۴. فراخوانی بک‌اند با توکن
     try {
-        // تابع apiGet رو از فایل api.js می‌گیره (توکن رو خودش می‌فرسته)
         const response = await apiGet(apiEndpoint);
-        
-        // بک‌اند دیتا رو داخل پراپرتی "Data" می‌فرسته (طبق کد سی‌شارپت: new { IsSuccess = true, Data = dashboard })
-        const backendData = response.Data;
-
-        // ۵. ساختن آبجکتی که تابع renderDashboard ازت انتظار داره
+        const backendData = response.Data || response.data || response;
         const finalDataForRender = {
             role: currentRole,
-            stats: backendData // دیتای واقعی از دیتابیس جایگزین فیک می‌شه
+            stats: backendData
         };
-
-        // ۶. ریندر نهایی داشبورد با دیتای واقعی
         renderDashboard(finalDataForRender);
-
     } catch (error) {
         console.error("خطا در دریافت اطلاعات داشبورد از بک‌اند:", error);
-        // اگر ارور داد، می‌تونی اینجا یک پیام خطا تو خود صفحه نشون بدی
-    }
-});
-// ============================================================
-// بخش ۵: اتصال به بک‌اند (دقیقاً روش لاگین و ساین‌آپ)
-// ============================================================
-
-const API_BASE_URL = "http://localhost:5041/api";
-
-document.addEventListener('DOMContentLoaded', async function() {
-    
-    // 1. لود کردن ساعت و تقویم
-    renderCalendar();
-    updateClock();
-    setInterval(updateClock, 1000);
-
-    // // 2. چک کردن لاگین بودن کاربر
-    // const userStr = localStorage.getItem("user");
-    // if (!userStr) {
-    //     alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
-    //     window.location.href = "/pages/auth/login.html";
-    //     return;
-    // }
-    
-    const user = JSON.parse(userStr);
-
-    // 3. آدرس بک‌اند (طبق Route تو کنترلر)
-    const apiUrl = `${API_BASE_URL}/org/dashboard`;
-
-    // 4. گرفتن توکن از localStorage
-    const token = localStorage.getItem("token");
-
-    // 5. فرستادن درخواست (دقیقاً مثل تابع submitPassword تو لاگین)
-    try {
-        const response = await fetch(apiUrl, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}` // توکن میفرستیم چون صفحه نیاز به لاگین داره
-            }
-        });
-
-        const data = await response.json();
-            if(response.status === 400)
-            {
-                alert(data.message);
-            }
-            if(res.status === 403)
-            {
-                window.location.href = "/pages/errors/error-403.html";
-            }
-
-        console.log("اتصال موفق بود! دیتای بک‌اند:", data.Data);
-
-        // 6. نشون دادن دیتا (فعلاً برای تست)
-        if (data.Data) {
-            document.getElementById('profileName').textContent = data.Data.orgName || "مدیر سازمان";
-            // بقیه دیتاها تو مراحل بعد می ریزیم تو کارت ها
-        }
-
-    } catch (error) {
-        console.error("خطا در اتصال به بک‌اند:", error);
-        alert("خطا در دریافت اطلاعات داشبورد");
+        alert(error.message || "خطا در دریافت اطلاعات داشبورد");
     }
 });

@@ -1,9 +1,6 @@
 // ==============================
 // API Configuration
 // ==============================
-const API_BASE_URL = "http://localhost:5041/api";
-function getToken() { return localStorage.getItem("token"); }
-
 // ==============================
 // داده کاربران (بارگذاری از API)
 // ==============================
@@ -23,29 +20,8 @@ let pendingIndex = null;
 // ==============================
 async function loadStaff() {
   try {
-    const res = await fetch(`${API_BASE_URL}/org/staff-list`, {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${getToken()}`,
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || `خطای سرور (${res.status})`);
-    }
-
-    const data = await res.json();
-                if(res.status === 400)
-            {
-                alert(data.message);
-            }
-            if(res.status === 403)
-            {
-                window.location.href = "/pages/errors/error-403.html";
-            }
-    const list = Array.isArray(data) ? data : (data.StaffList || data.data || []);
+    const data = await apiGet(`/org/staff-list`);
+    const list = Array.isArray(data) ? data : (data.StaffList || data.data || data.Data || []);
 
     users = list.map(item => ({
       id: item.id,
@@ -189,44 +165,11 @@ async function confirmAction() {
 
   try {
     if (actionType === "delete") {
-
-      const res = await fetch(`${API_BASE_URL}/org/staff-list/${users[pendingIndex].id}`, {
-        method: "DELETE",
-        headers: {
-          "Authorization": `Bearer ${getToken()}`,
-          "Content-Type": "application/json"
-        }
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `خطای سرور (${res.status})`);
-      }
-            // if(res.status === 400)
-            // {
-            //     alert(profileData.message);
-            // }
-            if(res.status === 403)
-            {
-                window.location.href = "/pages/errors/error-403.html";
-            }
+      await apiRequest(`/org/staff-list/${users[pendingIndex].id}`, { method: "DELETE" });
     }
 
     else if (actionType === "toggle") {
-
-      const res = await fetch(`${API_BASE_URL}/org/staff-list/${users[pendingIndex].id}/change-status`, {
-        method: "PATCH",
-        headers: {
-          "Authorization": `Bearer ${getToken()}`,
-          "Content-Type": "application/json"
-        }
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `خطای سرور (${res.status})`);
-      }
-
+      await apiRequest(`/org/staff-list/${users[pendingIndex].id}/change-status`, { method: "PATCH" });
     }
 
     pendingIndex = null;
@@ -309,34 +252,16 @@ async function saveUser() {
   try {
     if (editIndex != null) {
       // ویرایش — PUT
-      const res = await fetch(`${API_BASE_URL}/org/staff-list`, {
+      await apiRequest(`/org/staff-list`, {
         method: "PUT",
-        headers: {
-          "Authorization": `Bearer ${getToken()}`,
-          "Content-Type": "application/json"
-        },
         body: JSON.stringify({ id: editId, roleId: Number(roleId) })
       });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `خطای سرور (${res.status})`);
-      }
     } else {
       // افزودن — POST
-      const res = await fetch(`${API_BASE_URL}/org/staff-list`, {
+      await apiRequest(`/org/staff-list`, {
         method: "POST",
-        headers: {
-          "Authorization": `Bearer ${getToken()}`,
-          "Content-Type": "application/json"
-        },
         body: JSON.stringify({ phoneNumber: phone, roleId: Number(roleId) })
       });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `خطای سرور (${res.status})`);
-      }
     }
 
     closeModal();

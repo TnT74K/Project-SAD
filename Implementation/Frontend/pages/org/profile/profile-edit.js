@@ -349,29 +349,10 @@ async function saveOrg() {
     };
 
     try {
-        const res = await fetch(`${API_BASE_URL}/org/profile`, {
+        await apiRequest(`/org/profile`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${getToken()}`
-            },
             body: JSON.stringify(body)
         });
-
-        if (!res.ok) {
-            const errData = await res.json().catch(() => ({}));
-            throw new Error(errData.message || "خطا در ذخیره پروفایل");
-        }
-
-        const result = await res.json();
-            if(res.status === 400)
-            {
-                alert(result.message);
-            }
-            if(res.status === 403)
-            {
-                window.location.href = "/pages/errors/error-403.html";
-            }
         organization.name = name;
         organization.fullName = fullName;
         organization.start = start;
@@ -452,36 +433,18 @@ async function saveService() {
     try {
         if (editingServiceId) {
             /* --- ویرایش خدمت --- */
-            const res = await fetch(`${API_BASE_URL}/org/profile/services`, {
+            await apiRequest(`/org/profile/services`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${getToken()}`
-                },
                 body: JSON.stringify({ id: Number(editingServiceId), name, timeDuration: duration })
             });
-
-            if (!res.ok) {
-                const errData = await res.json().catch(() => ({}));
-                throw new Error(errData.message || "خطا در ویرایش خدمت");
-            }
 
             editingServiceId = null;
         } else {
             /* --- افزودن خدمت جدید --- */
-            const res = await fetch(`${API_BASE_URL}/org/profile/services`, {
+            await apiRequest(`/org/profile/services`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${getToken()}`
-                },
                 body: JSON.stringify({ name, timeDuration: duration })
             });
-
-            if (!res.ok) {
-                const errData = await res.json().catch(() => ({}));
-                throw new Error(errData.message || "خطا در ثبت خدمت");
-            }
         }
 
         document.getElementById("serviceName").value = "";
@@ -531,15 +494,7 @@ async function deleteService(id) {
     if (!confirmDelete) return;
 
     try {
-        const res = await fetch(`${API_BASE_URL}/org/profile/services/${id}`, {
-            method: "DELETE",
-            headers: { "Authorization": `Bearer ${getToken()}` }
-        });
-
-        if (!res.ok) {
-            const errData = await res.json().catch(() => ({}));
-            throw new Error(errData.message || "خطا در حذف خدمت");
-        }
+        await apiRequest(`/org/profile/services/${id}`, { method: "DELETE" });
 
         if (Number(editingServiceId) === Number(id)) {
             editingServiceId = null;
@@ -1007,31 +962,13 @@ function nextMonth() {
 // -----------------------------------------------
 
 async function loadProfile() {
-    const token = getToken();
-    if (!token) {
+    if (!getToken()) {
         alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
         return;
     }
 
     try {
-        const res = await fetch(`${API_BASE_URL}/org/profile`, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-
-        if (!res.ok) {
-            throw new Error("خطا در دریافت پروفایل");
-        }
-
-        profileData = await res.json();
-
-            if(res.status === 400)
-            {
-                alert(profileData.message);
-            }
-            if(res.status === 403)
-            {
-                window.location.href = "/pages/errors/error-403.html";
-            }
+        profileData = await apiGet(`/org/profile`);
         /* به‌روزرسانی شیء محلی organization */
         organization.name = profileData.name || "";
         organization.fullName = profileData.address || "";
@@ -1048,25 +985,10 @@ async function loadProfile() {
 }
 
 async function loadServices() {
-    const token = getToken();
-    if (!token) return;
+    if (!getToken()) return;
 
     try {
-        const res = await fetch(`${API_BASE_URL}/org/profile/services`, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-
-        if (!res.ok) throw new Error("خطا در دریافت خدمات");
-
-        const data = await res.json();
-            if(res.status === 400)
-            {
-                alert(data.message);
-            }
-            if(res.status === 403)
-            {
-                window.location.href = "/pages/errors/error-403.html";
-            }
+        const data = await apiGet(`/org/profile/services`);
         /* نگاشت timeDuration → duration */
         services = (Array.isArray(data) ? data : []).map(s => ({
             id: s.id,

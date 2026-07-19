@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ReserveCenter.API.Filters;
 using ReserveCenter.API.Models.DTOs.Org.Profile;
 using ReserveCenter.API.Models.DTOs.Org.Service;
 using ReserveCenter.API.Models.DTOs.Org.Staff;
+using ReserveCenter.API.Security;
 using ReserveCenter.API.Services.Interfaces;
 using System.Security.Claims;
 
@@ -11,6 +13,7 @@ namespace ReserveCenter.API.Controllers.Org
     [ApiController]
     [Route("api/org/profile")]
     [Authorize(Roles = "Organization")]
+    [RequireSameOrg]
     public class OrgProfileController : ControllerBase
     {
         private readonly IOrgProfileService _profileService;
@@ -27,17 +30,13 @@ namespace ReserveCenter.API.Controllers.Org
         //  متدهای کمکی
         private int GetCurrentUserId()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (string.IsNullOrEmpty(userId))
-                throw new UnauthorizedAccessException("کاربر احراز هویت نشده است.");
-            return int.Parse(userId);
+            return User.GetRequiredUserId();
         }
 
         private async Task<int> GetCurrentOrgIdAsync()
         {
-            var orgId = User.FindFirst("OrgId")?.Value;
-            var profile = await _profileService.GetProfileByOrgIdAsync(int.Parse(orgId));
+            var orgId = User.GetRequiredOrgId();
+            var profile = await _profileService.GetProfileByOrgIdAsync(orgId);
             return profile.Id;
         }
 
@@ -47,9 +46,12 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var orgId = User.FindFirst("OrgId")?.Value;
-                var profile = await _profileService.GetProfileByOrgIdAsync(int.Parse(orgId));
+                var profile = await _profileService.GetProfileByOrgIdAsync(User.GetRequiredOrgId());
                 return Ok(profile);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -64,13 +66,17 @@ namespace ReserveCenter.API.Controllers.Org
             try
             {
                 var userId = GetCurrentUserId();
-                var orgId = User.FindFirst("OrgId")?.Value;
-                var result = await _profileService.UpdateProfileAsync(int.Parse(orgId), userId, request);
+                var orgId = User.GetRequiredOrgId();
+                var result = await _profileService.UpdateProfileAsync(orgId, userId, request);
 
                 if (result)
                     return Ok(new { success = true, message = "پروفایل با موفقیت بروزرسانی شد." });
 
                 return BadRequest(new { success = false, message = "خطا در بروزرسانی پروفایل." });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -85,9 +91,13 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var orgId = await GetCurrentOrgIdAsync();
+                var orgId = User.GetRequiredOrgId();
                 var services = await _serviceService.GetServicesByOrgIdAsync(orgId);
                 return Ok(services);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -101,9 +111,13 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var orgId = await GetCurrentOrgIdAsync();
+                var orgId = User.GetRequiredOrgId();
                 var service = await _serviceService.GetServiceByIdAsync(serviceId, orgId);
                 return Ok(service);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -117,9 +131,13 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var orgId = await GetCurrentOrgIdAsync();
+                var orgId = User.GetRequiredOrgId();
                 var service = await _serviceService.CreateServiceAsync(orgId, request);
                 return Ok(new { success = true, message = "خدمت با موفقیت ایجاد شد.", data = service });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -133,13 +151,17 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var orgId = await GetCurrentOrgIdAsync();
+                var orgId = User.GetRequiredOrgId();
                 var result = await _serviceService.UpdateServiceAsync(orgId, request);
 
                 if (result)
                     return Ok(new { success = true, message = "خدمت با موفقیت بروزرسانی شد." });
 
                 return BadRequest(new { success = false, message = "خطا در بروزرسانی خدمت." });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -153,13 +175,17 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var orgId = await GetCurrentOrgIdAsync();
+                var orgId = User.GetRequiredOrgId();
                 var result = await _serviceService.DeleteServiceAsync(serviceId, orgId);
 
                 if (result)
                     return Ok(new { success = true, message = "خدمت با موفقیت حذف شد." });
 
                 return BadRequest(new { success = false, message = "خطا در حذف خدمت." });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
