@@ -36,7 +36,7 @@ namespace ReserveCenter.API.Services.Implementations
                 };
             }
 
-            // 2. ✅ مرتب‌سازی (در سرویس)
+            // 2.  مرتب‌سازی (در سرویس)
             var sortedOrgs = request.SortBy switch
             {
                 SortBy.MostSuccessful => orgs.OrderByDescending(o => o.SuccessAppointmentCount),
@@ -49,14 +49,14 @@ namespace ReserveCenter.API.Services.Implementations
 
             var orgList = sortedOrgs.ToList();
 
-            // 3. ✅ صفحه‌بندی
+            // 3.  صفحه‌بندی
             var totalCount = orgList.Count;
             var pagedOrgs = orgList
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToList();
 
-            // 4. ✅ Mapping به DTO (بدون MinPrice)
+            // 4.  Mapping به DTO (بدون MinPrice)
             var items = pagedOrgs.Select(org => new OrgSearchResultDto
             {
                 Id = org.Id,

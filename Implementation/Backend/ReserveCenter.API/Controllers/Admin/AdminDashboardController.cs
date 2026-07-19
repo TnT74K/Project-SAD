@@ -10,10 +10,14 @@ namespace ReserveCenter.API.Controllers.Admin
     public class AdminDashboardController : ControllerBase
     {
         private readonly IAdminDashboardService _adminDashboardService;
+        private readonly ILogger<AdminDashboardController> _logger;
 
-        public AdminDashboardController(IAdminDashboardService adminDashboardService)
+        public AdminDashboardController(
+            IAdminDashboardService adminDashboardService,
+            ILogger<AdminDashboardController> logger)
         {
             _adminDashboardService = adminDashboardService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -22,8 +26,16 @@ namespace ReserveCenter.API.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> GetDashboard()
         {
-            var dashboard = await _adminDashboardService.GetAdminDashboardAsync();
-            return Ok(new { IsSuccess = true, Data = dashboard });
+            try
+            {
+                var dashboard = await _adminDashboardService.GetAdminDashboardAsync();
+                return Ok(new { IsSuccess = true, Data = dashboard });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "خطا در دریافت داشبورد ادمین");
+                return BadRequest(new { IsSuccess = false, Message = ex.Message });
+            }
         }
     }
 }

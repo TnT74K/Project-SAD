@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 
 
 // نمایش خطا
@@ -140,36 +140,7 @@ function validatePhone() {
 }
 
 
-// تطبیق شماره تلفن
-function validateConfirmPhone() {
 
-    const phone =
-        document.getElementById("phone-number").value.trim();
-
-
-    const confirm =
-        document.getElementById("confirm-phone-number").value.trim();
-
-
-    if (phone !== confirm) {
-
-        showError(
-            "confirm-phone-number",
-            "confirm-phone-error",
-            "شماره تلفن‌ها یکسان نیستند"
-        );
-
-        return false;
-    }
-
-
-    showSuccess(
-        "confirm-phone-number",
-        "confirm-phone-error"
-    );
-
-    return true;
-}
 
 
 // اعتبارسنجی رمز
@@ -255,8 +226,7 @@ async function registerUser() {
         phoneNumber:
             document.getElementById("phone-number").value.trim(),
 
-        confirmPhoneNumber:
-            document.getElementById("confirm-phone-number").value.trim(),
+      
 
         password:
             document.getElementById("password").value,
@@ -283,10 +253,21 @@ async function registerUser() {
                 }
             );
 
-
+console.log(response);
         const result =
             await response.json();
+console.log(result);
 
+        // مدیریت خطا - طبق استاندارد پروژه
+        if (response.status === 400) {
+            alert(result.message || "درخواست نامعتبر است");
+            return;
+        }
+
+        if (response.status === 403) {
+            window.location.href = "/pages/errors/error-403.html";
+            return;
+        }
 
         if (!response.ok) {
 
@@ -347,7 +328,7 @@ document.addEventListener(
                     validateFirstName() &&
                     validateLastName() &&
                     validatePhone() &&
-                    validateConfirmPhone() &&
+                    
                     validatePassword() &&
                     validateConfirmPassword();
 

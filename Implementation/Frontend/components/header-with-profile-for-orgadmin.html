@@ -14,11 +14,13 @@
       <ul class="nav-links">
         <li><a href="/index.html" class="active">خانه</a></li>
         <li><a href="/pages/user/profile.html">پروفایل شخصی</a></li>
+        <li><a href="/pages/org/dashboard.html">داشبور</a></li>
         <li><a href="/pages/admin/ad-manage.html">مدیریت تبلیغات</a></li>
         <li><a href="/pages/org/staff/staff-list.html">لیست کارمندان</a></li>
         <li><a href="/pages/org/appointment-list.html">لیست نوبت ها</a></li>
         <li><a href="/pages/org/profile/profile-edit.html">پروفایل کسب و کار</a></li>
-        <li><a onclick="localStorage.removeItem('token'); window.location.href='/pages/auth/login.html'; return false;">خروج</a></li>
+        <li><a onclick="localStorage.removeItem('token');
+localStorage.removeItem('user'); window.location.href='/pages/auth/login.html'; return false;">خروج</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -48,11 +50,13 @@
 
         <a href="/index.html" class="active">خانه</a>
         <a href="/pages/user/profile.html">پروفایل شخصی</a>
+        <a href="/pages/org/dashboard.html">داشبور</a>
         <a href="/pages/admin/ad-manage.html">مدیریت تبلیغات</a>
         <a href="/pages/org/staff/staff-list.html">لیست کارمندان</a>
         <a href="/pages/org/appointment-list.html">لیست نوبت ها</a>
         <a href="/pages/org/profile/profile-edit.html">پروفایل کسب و کار</a>
-        <a onclick="localStorage.removeItem('token'); window.location.href='/pages/auth/login.html'; return false;">خروج</a>
+        <a onclick="localStorage.removeItem('token');
+localStorage.removeItem('user'); window.location.href='/pages/auth/login.html'; return false;">خروج</a>
       </div>
 
 

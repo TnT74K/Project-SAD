@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>مدیریت کارمندان</title>
+  <title>مدیریت کاربران</title>
 
 
   <!-- اتصال فایل CSS -->
@@ -53,7 +53,6 @@
               <th>نام</th>
               <th>نام خانوادگی</th>
               <th>شماره موبايل</th>
-              <th>نقش</th>
               <th>وضعیت</th>
               <th>عملیات</th>
             </tr>
@@ -74,59 +73,40 @@
 
 
   <!-- مودال ویرایش -->
-  <div class="modal" id="userModal">
-
+  <!-- مودال ویرایش -->
+<div class="modal" id="userModal">
     <div class="modal-content">
-
-      <div class="modal-header">ویرایش کاربر</div>
-
-      <div class="form-grid">
-
-        <input id="firstName" placeholder="نام">
-        <input id="lastName" placeholder="نام خانوادگی">
-        <input id="phoneNumber" placeholder="شماره موبايل">
-        <input id="nationalCode" placeholder="کد ملی">
-        <input id="username" placeholder="نام کاربری">
-
-        <!-- رمز عبور -->
-        <div class="password-wrap">
-
-          <input id="password" type="password" placeholder="رمز عبور">
-
-          <button class="show-pass" onclick="togglePass()">👁</button>
-
+        <div class="modal-header">ویرایش کاربر</div>
+        <div class="form-grid">
+            <input id="firstName" placeholder="نام">
+            <input id="lastName" placeholder="نام خانوادگی">
+            <input id="nationalCode" placeholder="کد ملی">
+            <input id="username" placeholder="نام کاربری">
+            <div class="password-wrap">
+                <input id="password" type="password" placeholder="رمز عبور">
+                <button class="show-pass" onclick="togglePass()">👁</button>
+            </div>
         </div>
+        <div class="modal-actions">
+            <button class="btn-primary-staff" onclick="saveUser()">ثبت</button>
+            <button onclick="closeModal()">انصراف</button>
+        </div>
+    </div>
+</div>
 
-        <!-- انتخاب نقش -->
-        <select id="role">
-          <option>مدير</option>
-          <option>پشتيبان سازمان</option>
-          <option>كارمند حضوری</option>
-          <option>كاربر عادی</option>
-        </select>
-
-      </div>
-
-      <!-- دکمه‌های مودال -->
-      <div class="modal-actions">
-
-        <button class="btn-primary-staff" onclick="saveUser()">ثبت</button>
-
-        <button onclick="closeModal()">انصراف</button>
-
-      </div>
-
-      <div class="modal" id="confirmModal">
-        <div class="modal-content">
-          <h3 id="confirmTitle">تأیید عملیات</h3>
-          <p id="confirmText"></p>
-
-          <div class="modal-actions">
+<!-- ========================================== -->
+<!-- مودال تایید عملیات (بیرون از مودال ویرایش) -->
+<!-- ========================================== -->
+<div class="modal" id="confirmModal">
+    <div class="modal-content">
+        <h3 id="confirmTitle">تأیید عملیات</h3>
+        <p id="confirmText"></p>
+        <div class="modal-actions">
             <button id="confirmBtn" onclick="confirmAction()">تأیید</button>
             <button onclick="closeConfirmModal()">انصراف</button>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
 
       <!-- اتصال فایل جاوااسکریپت -->
       <script src="user-list.js"></script>

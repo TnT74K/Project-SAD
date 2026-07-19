@@ -1,7 +1,7 @@
 // ==============================
 // API Configuration
 // ==============================
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 function getToken() { return localStorage.getItem("token"); }
 
 // ==============================
@@ -37,6 +37,14 @@ async function loadStaff() {
     }
 
     const data = await res.json();
+                if(res.status === 400)
+            {
+                alert(data.message);
+            }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
     const list = Array.isArray(data) ? data : (data.StaffList || data.data || []);
 
     users = list.map(item => ({
@@ -194,7 +202,14 @@ async function confirmAction() {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.message || `خطای سرور (${res.status})`);
       }
-
+            // if(res.status === 400)
+            // {
+            //     alert(profileData.message);
+            // }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
     }
 
     else if (actionType === "toggle") {
@@ -338,24 +353,41 @@ async function saveUser() {
 // ======================================
 // ویرایش کاربر
 // ======================================
+// ======================================
+// ویرایش کاربر (باز کردن مودال ویرایش)
+// ======================================
 function editUser(i) {
+    editIndex = i;
+    const u = users[i];
 
-  editIndex = i
-  editId = users[i].id
+    // پر کردن فیلدهای مودال ویرایش
+    document.getElementById('editRole').value = u.role;
 
-  const u = users[i]
-
-
-  phoneNumber.value = u.phone
-  role.value = u.role
-
-
-  openModal()
-
+    // باز کردن مودال ویرایش
+    document.getElementById('editModal').style.display = "flex";
 }
 
+// ======================================
+// ذخیره ویرایش کاربر (بدون تغییر شماره)
+// ======================================
+function saveEditUser() {
+    if (editIndex === null) return;
 
+    const role = document.getElementById('editRole').value;
 
+    // فقط نقش رو به‌روزرسانی کن (شماره تغییر نمی‌کنه)
+    users[editIndex].role = role;
+
+    render();
+    closeEditModal();
+}
+// ======================================
+// بستن مودال ویرایش
+// ======================================
+function closeEditModal() {
+    document.getElementById('editModal').style.display = "none";
+    editIndex = null;
+}
 // ======================================
 // تغییر وضعیت فعال / غیرفعال
 // ======================================

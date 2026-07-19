@@ -8,7 +8,7 @@ namespace ReserveCenter.API.Models.DTOs.Org.Profile
         [StringLength(256, ErrorMessage = "نام کسب‌وکار نمی‌تواند بیشتر از 256 کاراکتر باشد")]
         public string Name { get; set; }
 
-        public string Image { get; set; }  // آدرس تصویر (اختیاری)
+        public string Image { get; set; } = string.Empty;  // آدرس تصویر (اختیاری)
 
         [Required(ErrorMessage = "توضیحات الزامی است")]
         [StringLength(500, ErrorMessage = "توضیحات نمی‌تواند بیشتر از 500 کاراکتر باشد")]

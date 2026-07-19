@@ -25,13 +25,21 @@ public class PublicOrgProfileController : ControllerBase
     [HttpGet("{orgId}")]
     public async Task<IActionResult> GetOrgProfile(int orgId)
     {
-        var result =
+        try
+        {
+            var result =
             await _publicOrgProfileService.GetOrgProfileAsync(orgId);
 
-        if (result is null)
-            return NotFound();
+            if (result is null)
+                return BadRequest(new { IsSuccess = false, Message = "پروفایل کسب و کار یافت نشد" });
 
-        return Ok(result);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+
+            return BadRequest(new { IsSuccess = false, Message = ex.Message });
+        }
     }
 
     /// <summary>
@@ -40,26 +48,42 @@ public class PublicOrgProfileController : ControllerBase
     [HttpGet("{orgId}/services")]
     public async Task<IActionResult> GetServices(int orgId)
     {
-        var result =
+        try
+        {
+            var result =
             await _publicOrgProfileService.GetServicesAsync(orgId);
 
-        return Ok(result);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+
+            return BadRequest(new { IsSuccess = false, Message = ex.Message });
+        }
     }
 
     /// <summary>
     /// لیست ساعات آزاد
     /// </summary>
-    [HttpGet("services/{serviceId}/free-times")]
+    [HttpGet("services/{serviceId}/free-times/{date}")]
     public async Task<IActionResult> GetFreeTimes(
         int serviceId,
-        [FromQuery] DateOnly date)
+        DateOnly date)
     {
-        var result =
+        try
+        {
+            var result =
             await _appointmentService.GetFreeTimesAsync(
                 serviceId,
                 date);
 
-        return Ok(result);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+
+            return BadRequest(new { IsSuccess = false, Message = ex.Message });
+        }
     }
 
     /// <summary>
@@ -69,10 +93,18 @@ public class PublicOrgProfileController : ControllerBase
     public async Task<IActionResult> Reserve(
         [FromBody] AppointmentRequestDto dto)
     {
-        var result =
+        try
+        {
+            var result =
             await _appointmentService.ReserveAsync(dto);
 
-        return Ok(result);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+
+            return BadRequest(new { IsSuccess = false, Message = ex.Message });
+        }
     }
 
     /// <summary>
@@ -82,14 +114,22 @@ public class PublicOrgProfileController : ControllerBase
     public async Task<IActionResult> GetAppointment(
         string trackingCode)
     {
-        var result =
+        try
+        {
+            var result =
             await _appointmentService.GetByTrackingCodeAsync(
                 trackingCode);
 
-        if (result is null)
-            return NotFound();
+            if (result is null)
+                return BadRequest(new { IsSuccess = false, Message = "نوبتی یافت نشد" });
 
-        return Ok(result);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+
+            return BadRequest(new { IsSuccess = false, Message = ex.Message });
+        }
     }
 
     /// <summary>
@@ -99,15 +139,23 @@ public class PublicOrgProfileController : ControllerBase
     public async Task<IActionResult> ChangeStatus(
         [FromBody] AppointmentTrackingDto dto)
     {
-        bool result =
+        try
+        {
+            bool result =
             await _appointmentService.ChangeStatusAsync(dto);
 
-        if (!result)
-            return NotFound();
+            if (!result)
+                return BadRequest(new { IsSuccess = false, Message = "نوبتی یافت نشد" });
 
-        return Ok(new
+            return Ok(new
+            {
+                Message = "Appointment status updated successfully."
+            });
+        }
+        catch (Exception ex)
         {
-            Message = "Appointment status updated successfully."
-        });
+
+            return BadRequest(new { IsSuccess = false, Message = ex.Message });
+        }
     }
 }

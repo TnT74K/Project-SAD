@@ -51,7 +51,7 @@ function getServiceById(id) {
 // API Configuration
 // -----------------------------------------------
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 function getToken() { return localStorage.getItem("token"); }
 function getOrgId() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -364,7 +364,14 @@ async function saveOrg() {
         }
 
         const result = await res.json();
-
+            if(res.status === 400)
+            {
+                alert(result.message);
+            }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
         organization.name = name;
         organization.fullName = fullName;
         organization.start = start;
@@ -1017,6 +1024,14 @@ async function loadProfile() {
 
         profileData = await res.json();
 
+            if(res.status === 400)
+            {
+                alert(profileData.message);
+            }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
         /* به‌روزرسانی شیء محلی organization */
         organization.name = profileData.name || "";
         organization.fullName = profileData.address || "";
@@ -1044,7 +1059,14 @@ async function loadServices() {
         if (!res.ok) throw new Error("خطا در دریافت خدمات");
 
         const data = await res.json();
-
+            if(res.status === 400)
+            {
+                alert(data.message);
+            }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
         /* نگاشت timeDuration → duration */
         services = (Array.isArray(data) ? data : []).map(s => ({
             id: s.id,

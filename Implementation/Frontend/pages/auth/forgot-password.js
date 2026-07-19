@@ -3,7 +3,7 @@ let currentPhone = '';
 let otpToken = '';        // store token returned by server after OTP send
 let countdownInterval = null;
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 
 // ---- Step navigation ----
 const stepIds = ['phone', 'otp', 'password', 'success'];
@@ -52,7 +52,18 @@ async function sendOtp() {
         });
         const data = await response.json();
 
-        if (response.ok && data.IsSuccess) {
+        // مدیریت خطا - طبق استاندارد پروژه
+        if (response.status === 400) {
+            showInputError(phoneInput, data.Message || data.message || "درخواست نامعتبر است");
+            return;
+        }
+
+        if (response.status === 403) {
+            window.location.href = "/pages/errors/error-403.html";
+            return;
+        }
+
+        if (response.ok && data.isSuccess) {
             document.getElementById('phone-display').textContent = formatPhone(phone);
             goToStep('otp');
             startOtpBoxes();
@@ -145,7 +156,7 @@ async function resendOtp() {
         });
         const data = await response.json();
 
-        if (response.ok && data.IsSuccess) {
+        if (response.ok && data.isSuccess) {
             const boxes = document.querySelectorAll('.otp-box');
             boxes.forEach(b => { b.value = ''; b.classList.remove('filled'); });
             boxes[0].focus();
@@ -161,8 +172,8 @@ async function resendOtp() {
 // ---- Step 2: Verify OTP ----
 async function verifyOtp() {
     const otp = getOtpValue();
-    if (otp.length < 6) {
-        alert('لطفاً کد ۶ رقمی را کامل وارد کنید.');
+    if (otp.length < 5) {
+        alert('لطفاً کد ۵ رقمی را کامل وارد کنید.');
         return;
     }
 
@@ -177,7 +188,7 @@ async function verifyOtp() {
         });
         const data = await response.json();
 
-        if (response.ok && data.IsSuccess) {
+        if (response.ok && data.isSuccess) {
             otpToken = data.Token;
             clearInterval(countdownInterval);
             goToStep('password');
@@ -212,14 +223,13 @@ async function submitNewPassword() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 phoneNumber: currentPhone,
-                otpToken: otpToken,
                 newPassword: newPass,
                 confirmNewPassword: confirmPass
             })
         });
         const data = await response.json();
 
-        if (response.ok && data.IsSuccess) {
+        if (response.ok && data.isSuccess) {
             goToStep('success');
         } else {
             showInputError(confirmInput, data.Message);

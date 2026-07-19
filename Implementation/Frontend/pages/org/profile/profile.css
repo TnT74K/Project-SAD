@@ -250,6 +250,17 @@
     /* فاصله از بالا */
   }
 
+  .appointments-empty {
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    background: rgba(11, 37, 69, 0.04);
+    border: 1px dashed rgba(11, 37, 69, 0.16);
+    color: var(--text-2);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
   /* عنوان بخش */
   .section-title {
     margin: 0 0 18px;

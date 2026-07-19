@@ -6,7 +6,7 @@
 
 /* ---------- API helpers ---------- */
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 
 function getToken() {
   return localStorage.getItem("token");
@@ -229,11 +229,18 @@ async function setStatus(btn, type) {
 
     const json = await res.json();
 
-    if (!json.IsSuccess) {
+    if (!json.isSuccess) {
       alert(json.Message || 'خطا در تغییر وضعیت');
       return;
     }
-
+            if(res.status === 400)
+            {
+                alert(json.message);
+            }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
     // Update UI
     row.querySelector('.badge').className = 'badge ' + s.cls;
     row.querySelector('.badge').textContent = s.text;

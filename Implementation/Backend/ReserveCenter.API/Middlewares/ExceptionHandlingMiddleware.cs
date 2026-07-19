@@ -46,24 +46,24 @@ namespace ReserveCenter.API.Middlewares
                 context.User?.Identity?.Name ?? "ناشناس");
 
             // تعیین کد وضعیت بر اساس نوع خطا
-            // ✅ ترتیب اهمیت: از خاص‌ترین به عام‌ترین
+            //  ترتیب اهمیت: از خاص‌ترین به عام‌ترین
             var statusCode = exception switch
             {
-                // ✅ خاص‌ترین‌ها اول
+                //  خاص‌ترین‌ها اول
                 ArgumentNullException => StatusCodes.Status400BadRequest,
                 FileNotFoundException => StatusCodes.Status404NotFound,
                 
-                // ✅ بعدی خاص‌ها
+                //  بعدی خاص‌ها
                 UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
                 KeyNotFoundException => StatusCodes.Status404NotFound,
                 NotImplementedException => StatusCodes.Status501NotImplemented,
                 DbUpdateException => StatusCodes.Status500InternalServerError,
                 
-                // ✅ عام‌ترین‌ها آخر
+                //  عام‌ترین‌ها آخر
                 ArgumentException => StatusCodes.Status400BadRequest,
                 InvalidOperationException => StatusCodes.Status400BadRequest,
                 
-                // ✅ بقیه خطاها
+                //  بقیه خطاها
                 _ => StatusCodes.Status500InternalServerError
             };
 
@@ -104,21 +104,21 @@ namespace ReserveCenter.API.Middlewares
         {
             return exception switch
             {
-                // ✅ خاص‌ترین‌ها اول
+                //  خاص‌ترین‌ها اول
                 ArgumentNullException => "یکی از پارامترهای ضروری خالی ارسال شده است.",
                 FileNotFoundException => "فایل مورد نظر یافت نشد.",
                 
-                // ✅ خاص‌ها
+                //  خاص‌ها
                 UnauthorizedAccessException => "شما دسترسی لازم برای این عملیات را ندارید.",
                 KeyNotFoundException => "مورد درخواستی یافت نشد.",
                 NotImplementedException => "این قابلیت هنوز پیاده‌سازی نشده است.",
                 DbUpdateException => "خطا در ارتباط با دیتابیس رخ داده است. لطفاً مجدداً تلاش کنید.",
                 
-                // ✅ عام‌ها
+                //  عام‌ها
                 ArgumentException => "درخواست شما معتبر نیست. لطفاً اطلاعات را بررسی کنید.",
                 InvalidOperationException => "عملیات مورد نظر امکان‌پذیر نیست.",
                 
-                // ✅ بقیه
+                //  بقیه
                 _ => "خطای داخلی سرور رخ داده است. لطفاً مجدداً تلاش کنید."
             };
         }

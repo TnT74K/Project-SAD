@@ -22,57 +22,51 @@
       <section class="card profile-card">
         <div class="profile-header">
           <div class="org-image-wrap">
+            <!-- اضافه شدن کلاس org-image جهت هماهنگی با خط: orgImgEl.src = orgData.image -->
             <img class="org-image" src="../../../assets/img/online-reserve-profile-pic/رزرو-آنلاین.jpg"
               alt="کسب و کار ">
           </div>
 
           <div class="org-info">
-            <h2 class="org-name">مرکز تخصصی رزروسنتر</h2>
-            <p class="org-description">
-              این مرکز با بهره‌گیری از کادری مجرب و سیستم نوبت‌دهی هوشمند،
-              خدماتی با کیفیت در حوزه‌های تخصصی ارائه می‌دهد.
-            </p>
+            <h2 class="org-name">در حال بارگذاری...</h2>
+            <p class="org-description">در حال بارگذاری اطلاعات سازمان...</p>
 
             <div class="org-meta">
-              <div class="meta-row">
-                <span class="meta-label">نام کامل واحد</span>
-                <span class="meta-value">سازمان خدمات نمونه کشوری</span>
-              </div>
-
+              <!-- ترتیب این ردیف‌ها دقیقا متناسب با یادداشت کدهای جاوا اسکریپت شما تنظیم شده است:
+                   مکان، وضعیت، امتیازدهندگان، امتیاز، نوبت موفق، رده‌بندی، ساعت -->
               <div class="meta-row">
                 <span class="meta-label">مکان</span>
-                <span class="meta-value">تهران</span>
+                <span class="meta-value">—</span> <!-- metaValues[0] -->
               </div>
 
               <div class="meta-row">
                 <span class="meta-label">وضعیت فعالیت</span>
-                <span class="meta-value" style="color:#27ae60;">● فعال</span>
+                <span class="meta-value">—</span> <!-- metaValues[1] -->
               </div>
 
               <div class="meta-row">
                 <span class="meta-label">تعداد امتیازدهندگان</span>
-                <span class="meta-value">۱۲۴ نفر</span>
+                <span class="meta-value">—</span> <!-- metaValues[2] -->
               </div>
 
               <div class="meta-row">
                 <span class="meta-label">امتیاز کسب‌وکار</span>
-                <span class="meta-value" style="color:#f39c12;">۴.۷ از ۵</span>
+                <span class="star-count">—</span> <!-- metaValues[3] -->
               </div>
 
               <div class="meta-row">
                 <span class="meta-label">تعداد نوبت موفق</span>
-                <span class="meta-value">۳۵۸۰ نوبت</span>
+                <span class="meta-value">—</span> <!-- metaValues[4] -->
               </div>
-
 
               <div class="meta-row">
                 <span class="meta-label">رده بندی کسب و کار</span>
-                <span class="meta-value" style="color:#D4AC0D;">برتر</span>
+                <span class="meta-value">—</span> <!-- metaValues[5] -->
               </div>
 
               <div class="meta-row">
                 <span class="meta-label">ساعت پاسخگویی</span>
-                <span class="meta-value">۰۸:۰۰ الی ۱۸:۰۰</span>
+                <span class="meta-value">—</span> <!-- metaValues[6] -->
               </div>
             </div>
           </div>
@@ -83,53 +77,25 @@
       <section class="appointments-section">
         <h3 class="section-title">نوبت‌های قابل رزرو</h3>
 
-        <!-- ✅ انتخاب خدمت (بخش جدید) -->
+        <!-- ✅ انتخاب خدمت -->
         <div class="service-select-wrap">
-          <label>نوع خدمت</label>
+          <label for="serviceSelect">نوع خدمت</label>
           <select id="serviceSelect">
-            <option value="">انتخاب خدمت</option>
-            <option value="consult">مشاوره</option>
-            <option value="support">پشتیبانی</option>
-            <option value="registration">ثبت نام</option>
+            <option value="">در حال بارگذاری خدمات...</option>
           </select>
         </div>
 
-        <div class="appointment-grid">
-
-          <!-- گروه اول -->
-          <div class="card appointment-group" data-service="consult">
-            <div class="appointment-date">
-              <span>شنبه ۱۴۰۳/۱۰/۲۲</span>
-              <small>۴ نوبت آزاد</small>
-            </div>
-            <div class="appointment-times">
-              <button class="time-btn">08:00</button>
-              <button class="time-btn">09:30</button>
-              <button class="time-btn">11:00</button>
-              <button class="time-btn">12:30</button>
-            </div>
-          </div>
-
-          <!-- گروه دوم -->
-          <div class="card appointment-group" data-service="support">
-            <div class="appointment-date">
-              <span>یکشنبه ۱۴۰۳/۱۰/۲۳</span>
-              <small>۳ نوبت آزاد</small>
-            </div>
-            <div class="appointment-times">
-              <button class="time-btn">10:00</button>
-              <button class="time-btn">14:30</button>
-              <button class="time-btn">16:00</button>
-            </div>
-          </div>
-
+        <div class="appointments-empty" id="appointmentsEmpty">
+          برای دیدن نوبت‌های قابل رزرو، ابتدا نوع خدمت را انتخاب کنید.
         </div>
+
+        <div class="appointment-grid" id="appointmentGrid" hidden></div>
       </section>
     </div>
   </main>
 
 
-  <!-- Modal Confirm -->
+  <!-- Modal Confirm (تطبیق کامل کلاس‌ها با ساختار modal-overlay) -->
   <div class="modal-overlay" id="confirmModal">
     <div class="modal-box">
 
@@ -150,7 +116,7 @@
 
         <div class="modal-info-row">
           <span class="modal-info-label">🏢 نام سازمان</span>
-          <span class="modal-info-value" id="modal-orgname">مرکز تخصصی رزروسنتر</span>
+          <span class="modal-info-value" id="modal-orgname">در حال بارگذاری...</span>
         </div>
 
         <!-- ✅ نمایش خدمت -->
@@ -178,16 +144,14 @@
 
       <div class="modal-actions">
         <button class="btn-cancel" id="btnCancel">انصراف</button>
-        <button class="btn-confirm" id="btnConfirmPay">
-          <span>✓</span> تایید و پرداخت
-        </button>
+        <button class="btn-confirm" id="btnConfirmPay">تایید و پرداخت</button>
       </div>
 
     </div>
   </div>
 
 
-  <!-- Success Modal -->
+  <!-- Success Modal (تطبیق کامل کلاس‌ها با ساختار modal-overlay) -->
   <div class="modal-overlay" id="successModal">
     <div class="modal-box">
       <div class="success-icon-wrap">✓</div>
@@ -209,6 +173,7 @@
 
   <div id="footer-placeholder"></div>
 
+  <!-- تغییر مسیر فایل اسکریپت اصلی به profile.js مطابق فایل‌های پروژه شما -->
   <script src="profile.js"></script>
 
   <script src="/components/load-header.js"></script>

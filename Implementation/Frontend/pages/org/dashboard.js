@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 // بخش ۵: اتصال به بک‌اند (دقیقاً روش لاگین و ساین‌آپ)
 // ============================================================
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 
 document.addEventListener('DOMContentLoaded', async function() {
     
@@ -281,13 +281,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     updateClock();
     setInterval(updateClock, 1000);
 
-    // 2. چک کردن لاگین بودن کاربر
-    const userStr = localStorage.getItem("user");
-    if (!userStr) {
-        alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
-        window.location.href = "/pages/auth/login.html";
-        return;
-    }
+    // // 2. چک کردن لاگین بودن کاربر
+    // const userStr = localStorage.getItem("user");
+    // if (!userStr) {
+    //     alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
+    //     window.location.href = "/pages/auth/login.html";
+    //     return;
+    // }
     
     const user = JSON.parse(userStr);
 
@@ -308,11 +308,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
 
         const data = await response.json();
-
-        // اگر ارور بود (مثلاً 401 یا 403)
-        if (!response.ok) {
-            throw new Error(data.message || "خطا در دریافت اطلاعات");
-        }
+            if(response.status === 400)
+            {
+                alert(data.message);
+            }
+            if(res.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
 
         console.log("اتصال موفق بود! دیتای بک‌اند:", data.Data);
 

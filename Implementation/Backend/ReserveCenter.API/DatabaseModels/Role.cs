@@ -13,7 +13,3 @@ public partial class Role
 
     public virtual ICollection<StaffList> StaffLists { get; set; } = new List<StaffList>();
 }
-/*
-Roles:
-Customer is represented by null and does not have a role record.
-*/

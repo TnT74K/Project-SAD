@@ -302,7 +302,7 @@ function updateClock() {
 
 // بخش ۶: تنظیمات اتصال به API
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://localhost:5041/api";
 function getToken() { return localStorage.getItem("token"); }
 
 // ============================================================
@@ -320,8 +320,25 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
         const result = await response.json();
 
+
+        if (response.ok && result.isSuccess) {
+            const d = result.data;
+
+        // مدیریت خطا - طبق استاندارد پروژه
+        if (response.status === 400) {
+            alert(result.message || "درخواست نامعتبر است");
+            renderDashboard(MOCK_USER);
+            return;
+        }
+
+        if (response.status === 403) {
+            window.location.href = "/pages/errors/error-403.html";
+            return;
+        }
+
         if (response.ok && result.IsSuccess) {
             const d = result.Data;
+
             // Map AdminDashboardDto to the existing MOCK_USER format
             const userData = {
                 role: 'admin',
@@ -342,7 +359,15 @@ document.addEventListener('DOMContentLoaded', async function() {
         } else {
             // Fallback to mock on error
             renderDashboard(MOCK_USER);
-        }
+            if(response.status === 400)
+            {
+                alert(result.message);
+            }
+            if(response.status === 403)
+            {
+                window.location.href = "/pages/errors/error-403.html";
+            }
+            }
     } catch (err) {
         console.error('خطا در دریافت داده:', err);
         renderDashboard(MOCK_USER);

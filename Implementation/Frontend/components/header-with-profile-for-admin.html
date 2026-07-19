@@ -14,11 +14,13 @@
       <ul class="nav-links">
         <li><a href="/index.html" class="active">خانه</a></li>
         <li><a href="/pages/user/profile.html">پروفایل شخصی</a></li>
+        <li><a href="/pages/admin/dashboard.html">داشبور</a></li>
         <li><a href="/pages/admin/ad-manage.html">مدیریت تبلیغات</a></li>
         <li><a href="/pages/admin/user-list.html">لیست کاربران</a></li>
-        <li><a href="/pages/admin/org manage/suspend-list.html">لیست كسب و كار هاي تاييد شده</a></li>
-        <li><a href="/pages/admin/org manage/approval-list.html">لیست كسب و كار هاي در انتظار تاييد</a></li>
-        <li><a onclick="localStorage.removeItem('token'); window.location.href='/pages/auth/login.html'; return false;">خروج</a></li>
+        <li><a href="/pages/admin/org manage/suspend-list.html">لیست كسب و كارها</a></li>
+        <li><a href="/pages/admin/org manage/approval-list.html">کسب و کارهای در انتظار تایید</a></li>
+        <li><a onclick="localStorage.removeItem('token');
+localStorage.removeItem('user'); window.location.href='/pages/auth/login.html'; return false;">خروج</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -48,11 +50,13 @@
 
         <a href="/index.html" class="active">خانه</a>
         <a href="/pages/user/profile.html">پروفایل شخصی</a>
+        <a href="/pages/admin/dashboard.html">داشبور</a>
         <a href="/pages/admin/ad-manage.html">مدیریت تبلیغات</a>
         <a href="/pages/admin/user-list.html">لیست کاربران</a>
-        <a href="/pages/admin/org manage/suspend-list.html">لیست كسب و كار هاي تاييد شده</a>
-        <a href="/pages/admin/org manage/approval-list.html">لیست كسب و كار هاي در انتظار تاييد</a>
-        <a onclick="localStorage.removeItem('token'); window.location.href='/pages/auth/login.html'; return false;">خروج</a>
+        <a href="/pages/admin/org manage/suspend-list.html">لیست كسب و كارها</a>
+        <a href="/pages/admin/org manage/approval-list.html">کسب و کارهای در انتظار تایید</a>
+        <a onclick="localStorage.removeItem('token');
+localStorage.removeItem('user'); window.location.href='/pages/auth/login.html'; return false;">خروج</a>
     </div>
 
 

@@ -7,14 +7,15 @@ namespace ReserveCenter.API.DatabaseModels;
 
 public partial class User
 {
-    public int Id { get; set; } 
+    public int Id { get; set; }
+
     public string FirstName { get; set; }
 
-    public string LastName { get; set; } 
+    public string LastName { get; set; }
 
-    public string PhoneNumber { get; set; } 
+    public string PhoneNumber { get; set; }
 
-    public string Password { get; set; } 
+    public string Password { get; set; }
 
     public string LastPassword { get; set; }
 
@@ -28,7 +29,7 @@ public partial class User
 
     public int WrongPasswordCount { get; set; }
 
-    public DateTime? NextTimeToLogin { get; set; } // If they enter too much failed passwords, they have to wait
+    public DateTime? NextTimeToLogin { get; set; }
 
     public bool IsBlocked { get; set; }
 
