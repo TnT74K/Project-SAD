@@ -43,7 +43,7 @@ function formatStatusLabel(isActive) {
 }
 
 function formatPremierLabel(isPremier) {
-  return isPremier ? "بله" : "خیر";
+  return isPremier ? "برتر" : "معمولی";
 }
 
 function addDays(date, days) {
@@ -75,7 +75,8 @@ const modalPrice = document.getElementById("modal-price");
 const trackingCode = document.getElementById("trackingCode");
 const modalService = document.getElementById("modal-service");
 const serviceSelect = document.getElementById("serviceSelect");
-const appointmentGrid = document.querySelector(".appointment-grid");
+const appointmentGrid = document.getElementById("appointmentGrid");
+const appointmentsEmpty = document.getElementById("appointmentsEmpty");
 const profileContainer = document.querySelector(".container");
 
 function openModal(overlay) {
@@ -150,9 +151,11 @@ function renderAppointmentGroups() {
   const services = orgData?.services || [];
 
   if (!selectedService || services.length === 0) {
-    appointmentGrid.innerHTML = `
-      <div class="card appointment-group" style="display:none"></div>
-      <div class="card appointment-group" style="display:none"></div>`;
+    appointmentGrid.hidden = true;
+    appointmentGrid.innerHTML = "";
+    if (appointmentsEmpty) {
+      appointmentsEmpty.hidden = false;
+    }
     return;
   }
 
@@ -160,6 +163,10 @@ function renderAppointmentGroups() {
   if (!service) return;
 
   const dates = [new Date(), addDays(new Date(), 1)];
+  appointmentGrid.hidden = false;
+  if (appointmentsEmpty) {
+    appointmentsEmpty.hidden = true;
+  }
   appointmentGrid.innerHTML = `
     <div class="card appointment-group" data-slot-group="0">
       <div class="appointment-date">📅 <span>در حال بارگذاری...</span></div>
@@ -238,6 +245,7 @@ serviceSelect?.addEventListener("change", async function () {
   selectedService = this.value || null;
   selectedDate = null;
   selectedTime = null;
+  document.querySelectorAll(".time-btn").forEach((item) => item.classList.remove("selected"));
   await renderAppointmentGroups();
 });
 

@@ -85,35 +85,11 @@
           </select>
         </div>
 
-        <div class="appointment-grid">
-
-          <!-- گروه اول (این گروه‌ها در زمان عدم انتخاب خدمت در استارت‌آپ صفحه توسط اسکریپت مخفی می‌شوند) -->
-          <div class="card appointment-group">
-            <div class="appointment-date">
-              📅 <span>شنبه ۱۴۰۳/۱۰/۲۲</span>
-            </div>
-            <!-- اضافه کردن کلاس time-btn به دکمه‌ها جهت شنود رویداد توسط اسکریپت -->
-            <div class="appointment-times">
-              <button class="time-btn">۰۸:۰۰</button>
-              <button class="time-btn">۰۹:۳۰</button>
-              <button class="time-btn">۱۱:۰۰</button>
-              <button class="time-btn">۱۲:۳۰</button>
-            </div>
-          </div>
-
-          <!-- گروه دوم -->
-          <div class="card appointment-group">
-            <div class="appointment-date">
-              📅 <span>یکشنبه ۱۴۰۳/۱۰/۲۳</span>
-            </div>
-            <div class="appointment-times">
-              <button class="time-btn">۱۰:۰۰</button>
-              <button class="time-btn">۱۴:۳۰</button>
-              <button class="time-btn">۱۶:۰۰</button>
-            </div>
-          </div>
-
+        <div class="appointments-empty" id="appointmentsEmpty">
+          برای دیدن نوبت‌های قابل رزرو، ابتدا نوع خدمت را انتخاب کنید.
         </div>
+
+        <div class="appointment-grid" id="appointmentGrid" hidden></div>
       </section>
     </div>
   </main>
