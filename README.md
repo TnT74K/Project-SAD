@@ -3,12 +3,9 @@
 > An online appointment-booking and service-business management platform.<br>
 > سامانه‌ای برای رزرو آنلاین نوبت و مدیریت کسب‌وکارهای خدماتی.
 
-<!-- ✍️ Replace both placeholder URLs after creating the public UptimeRobot monitor. -->
-[![Website availability — ✍️ Add UptimeRobot badge URL](https://img.shields.io/badge/Website%20availability-Configure%20UptimeRobot-lightgrey)](✍️-paste-the-public-uptimerobot-status-page-url-here)
 
 **Live site:** [rsvcenter.ir](https://rsvcenter.ir/)  
 **Second Address:** [here](https://reservecenter.csharpers.workers.dev/)  
-**Cloudflare deployment:** ✍️ Add the public deployment URL or environment details.
 
 ## Overview | معرفی
 
@@ -31,16 +28,11 @@ ReserveCenter helps customers find service businesses and book appointments, whi
 This repository contains the completed implementation and supporting deliverables for an academic course project. It is a project handoff, not a claim of production readiness.<br>
 این مخزن شامل پیاده‌سازی تکمیل‌شده و خروجی‌های پشتیبان یک پروژه درسی است و ادعای آماده‌بودن برای محیط عملیاتی ندارد.
 
-- **Team members (5):** ✍️ Add the final names and roles.
-- **Course / institution:** ✍️ Add course and institution name.
+- **Team members (5):** Sajad, Abolfazl, Ali, Hamed, Mohammad Hossein
+- **Course / institution:** System Analysis and Design | تحلیل و طراحی سیستم‌ها
 - **Instructor:** ✍️ Add instructor name.
 - **Submission date / version:** ✍️ Add the final delivery date and version.
 - **Full documentation:** [Documentation](Documentation/) | **Design assets:** [Design](Design/)
-
-## Availability Monitoring | پایش دسترس‌پذیری
-
-The public site is hosted through Cloudflare. To show live availability and uptime history, create a public HTTPS monitor for `https://rsvcenter.ir/` in UptimeRobot, then replace the badge link above with the monitor's public badge image URL and status-page URL. Keep monitor credentials and API keys outside this repository.<br>
-وب‌سایت عمومی از طریق Cloudflare میزبانی می‌شود. برای نمایش وضعیت زنده و سابقه دسترس‌پذیری، یک مانیتور HTTPS عمومی برای `https://rsvcenter.ir/` در UptimeRobot بسازید و آدرس تصویر نشان و صفحه وضعیت عمومی را جایگزین کنید. کلیدهای API و اطلاعات محرمانه را در مخزن قرار ندهید.
 
 ## Code Statistics | آمار کد
 Last update: 28 Tir 1405
@@ -71,6 +63,7 @@ Counts cover source files under `Implementation/` and exclude generated/build ou
 
 - `Implementation/Frontend/` is the Cloudflare-hosted user interface.
 - `Implementation/Backend/ReserveCenter.API/` is the C# API; it follows controller, service, repository, model/DTO, and database-model layers.
+- `Implementation/Database` contains the latest backup of database used in SSMS to restore database on local MS SQL server.
 - `Documentation/` is the source of truth for the detailed project documentation; this README intentionally stays brief.
 - `Design/DatabaseSchema_Final.svg` provides the final database-schema visual.
 
