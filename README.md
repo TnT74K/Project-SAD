@@ -1,6 +1,6 @@
 # ReserveCenter | رزروسنتر
 
-> An online appointment-booking and service-business management platform.<br>
+> An online appointment-booking and service-business management platform.  
 > سامانه‌ای برای رزرو آنلاین نوبت و مدیریت کسب‌وکارهای خدماتی.
 
 
@@ -9,30 +9,28 @@
 
 ## Overview | معرفی
 
-ReserveCenter helps customers find service businesses and book appointments, while giving business teams and platform administrators the tools to manage their operations.<br>
+ReserveCenter helps customers find service businesses and book appointments, while giving business teams and platform administrators the tools to manage their operations.  
 رزروسنتر به مشتریان کمک می‌کند کسب‌وکارهای خدماتی را پیدا کنند و نوبت بگیرند؛ همچنین ابزارهای لازم برای مدیریت کسب‌وکار و مدیریت سامانه را فراهم می‌کند.
 
 ## Highlights | قابلیت‌های کلیدی
 
-- **Authentication & roles:** registration, login, password recovery, and role selection.<br>
-  **احراز هویت و نقش‌ها:** ثبت‌نام، ورود، بازیابی رمز عبور و انتخاب نقش.
-- **Business management:** organisation registration, profiles, services, staff, and appointment workflows.<br>
+- **Authentication & roles:** registration, login, password recovery, role selection, JWT creation.  
+  **احراز هویت و نقش‌ها:**  ثبت‌نام، ورود، بازیابی رمز عبور، انتخاب نقش و تولید توکن احراز هویت
+- **Business management:** organisation registration, profiles, services, staff, and appointment workflows.  
   **مدیریت کسب‌وکار:** ثبت سازمان، پروفایل، خدمات، کارکنان و فرایند نوبت‌ها.
-- **Customer experience:** business discovery, search, public profiles, booking, appointment tracking, and reviews.<br>
+- **Customer experience:** business discovery, search, public profiles, booking, appointment tracking, and reviews.  
   **تجربه مشتری:** جست‌وجو، پروفایل عمومی، رزرو، پیگیری نوبت و ثبت نظر.
-- **Dashboards & administration:** organisation dashboards plus user, advertisement, and organisation administration.<br>
-  **داشبورد و مدیریت:** داشبوردهای سازمانی و مدیریت کاربران، تبلیغات و کسب‌وکارها.
+- **Dashboards & administration:** organisation dashboards plus user, advertisement, organisation administration, and new organisation request management.  
+  **داشبورد و مدیریت:** داشبوردهای سازمانی و مدیریت کاربران، تبلیغات و کسب‌وکارها، مدیریت درخواست ثبت کسب‌وکارهای تازه.
 
 ## Project Completion Note | یادداشت تکمیل پروژه
 
-This repository contains the completed implementation and supporting deliverables for an academic course project. It is a project handoff, not a claim of production readiness.<br>
+This repository contains the completed implementation and supporting deliverables for an academic course project. It is a project handoff, not a claim of production readiness.  
 این مخزن شامل پیاده‌سازی تکمیل‌شده و خروجی‌های پشتیبان یک پروژه درسی است و ادعای آماده‌بودن برای محیط عملیاتی ندارد.
 
 - **Team members (5):** Sajad, Abolfazl, Ali, Hamed, Mohammad Hossein
 - **Course / institution:** System Analysis and Design | تحلیل و طراحی سیستم‌ها
-- **Instructor:** ✍️ Add instructor name.
-- **Submission date / version:** ✍️ Add the final delivery date and version.
-- **Full documentation:** [Documentation](Documentation/) | **Design assets:** [Design](Design/)
+- **Submission date / version:** 28 Tir 1405 | July 19 2026
 
 ## Code Statistics | آمار کد
 Last update: 28 Tir 1405
@@ -44,7 +42,7 @@ Last update: 28 Tir 1405
 | JavaScript | 22 | 6,890 |
 | C# | 139 | 7,886 |
 
-Counts cover source files under `Implementation/` and exclude generated/build output such as `bin/`, `obj/`, and dependencies.<br>
+Counts cover source files under `Implementation/` and exclude generated/build output such as `bin/`, `obj/`, and dependencies.  
 این آمار فقط فایل‌های منبع در `Implementation/` را شامل می‌شود و خروجی‌های تولیدشده مانند `bin/`، `obj/` و وابستگی‌ها را در نظر نمی‌گیرد.
 
 ## Repository Structure | ساختار مخزن
