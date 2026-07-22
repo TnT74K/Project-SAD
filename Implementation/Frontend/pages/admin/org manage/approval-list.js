@@ -2,69 +2,14 @@
    app.js — منطق اصلی صفحه تأیید کسب‌وکارها
    ═══════════════════════════════════════════════════════ */
 
+const API_BASE_URL = "http://localhost:5041/api";
+function getToken() { return localStorage.getItem("token"); }
+
 
 /* ─────────────────────────────────────────
-   داده‌های نمونه — لیست کسب‌وکارهایی که
-   منتظر بررسی هستن. در یه پروژه واقعی
-   این‌ها از API سرور میان
+   داده‌های کسب‌وکارها — از API لود میشن
 ───────────────────────────────────────── */
-let businesses = [
-  {
-    id: "BIZ-1001",
-    name: "آرایشگاه مدرن ولیعصر",
-    category: "آرایشگاه",
-    owner: "علی رضایی",
-    ownerPhone: "09123456789",
-    city: "تهران",
-    address: "خیابان ولیعصر، نرسیده به میدان ونک",
-    submitDate: "1405/03/01",
-    description: "آرایشگاه مردانه با بیش از ۱۰ سال سابقه، ارائه خدمات کوتاهی مو، اصلاح ریش و رنگ‌آمیزی."
-  },
-  {
-    id: "BIZ-1002",
-    name: "کلینیک تخصصی آرمیتا",
-    category: "کلینیک",
-    owner: "دکتر مریم احمدی",
-    ownerPhone: "09387654321",
-    city: "تهران",
-    address: "نیاوران، خیابان کامرانیه شمالی",
-    submitDate: "1405/03/03",
-    description: "کلینیک زیبایی و پوست با تجهیزات پیشرفته، ارائه خدمات لیزر، بوتاکس و فیلر.",
-  },
-  {
-    id: "BIZ-1003",
-    name: "باشگاه پاور فیتنس",
-    category: "باشگاه",
-    owner: "رضا کریمی",
-    ownerPhone: "09211234567",
-    city: "تهران",
-    address: "سعادت‌آباد، بلوار دادمان",
-    submitDate: "1405/03/05",
-    description: "باشگاه بدنسازی مجهز با دستگاه‌های روز دنیا و مربیان دارای مدرک فدراسیون.",
-  },
-  {
-    id: "BIZ-1004",
-    name: "دندانپزشکی دکتر نوری",
-    category: "دندانپزشکی",
-    owner: "دکتر سعید نوری",
-    ownerPhone: "09141122334",
-    city: "اصفهان",
-    address: "خیابان چهارباغ بالا، پلاک ۲۴",
-    submitDate: "1405/03/06",
-    description: "مطب تخصصی دندانپزشکی ارائه‌دهنده خدمات ایمپلنت، ارتودنسی، لمینت و بلیچینگ.",
-  },
-  {
-    id: "BIZ-1005",
-    name: "سالن زیبایی نگار",
-    category: "سالن زیبایی",
-    owner: "فاطمه حسینی",
-    ownerPhone: "09369988776",
-    city: "مشهد",
-    address: "خیابان امام رضا، نبش کوچه ۱۲",
-    submitDate: "1405/03/08",
-    description: "سالن زیبایی بانوان با خدمات کامل شامل آرایش عروس، کوتاهی و رنگ مو در فضایی لوکس.",
-  },
-];
+let businesses = [];
 
 
 /* ─────────────────────────────────────────
@@ -76,7 +21,7 @@ let pendingId = null;  // شناسه کسب‌وکاری که داره پردا�
 let pendingType = null;  // نوع عملیات: 'approve' یا 'reject'
 
 /* لیست آیدی‌هایی که الان توی جدول نمایش دارن */
-let visibleIds = businesses.map(b => b.id);
+let visibleIds = [];
 
 
 /* ═══════════════════════════════════════════════════════
@@ -90,9 +35,10 @@ let visibleIds = businesses.map(b => b.id);
 function renderStats() {
   const total = businesses.length;
 
-  // فیلتر موردی — فقط ثبت‌شده‌های امروز (۰۴/۰۸) رو حساب می‌کنیم
+  // فیلتر موردی — فقط ثبت‌شده‌های امروز رو حساب می‌کنیم
   // در پروژه واقعی باید با تاریخ امروز مقایسه بشه
-  const todayCount = businesses.filter(b => b.submitDate.includes("۰۴/۰۸")).length;
+  const today = new Date().toLocaleDateString('fa-IR');
+  const todayCount = businesses.filter(b => b.submitDate === today).length;
 
   document.getElementById("statsBar").innerHTML = `
     <div class="stat-badge total">🏢 در انتظار بررسی: ${total}</div>
@@ -157,6 +103,59 @@ function render(ids) {
 
 
 /* ═══════════════════════════════════════════════════════
+   لود داده‌ها از API
+   ═══════════════════════════════════════════════════════ */
+
+/**
+ * لیست کسب‌وکارهای منتظر تأیید رو از سرور می‌گیره
+ */
+async function loadBusinesses() {
+  try {
+    const token = getToken();
+    const res = await fetch(`${API_BASE_URL}/org/admin/approval-list`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+
+    // مدیریت خطا - طبق استاندارد پروژه
+    if (res.status === 400) {
+      const errData = await res.json().catch(() => ({}));
+      alert(errData.message || "درخواست نامعتبر است");
+      return;
+    }
+
+    if (res.status === 403) {
+      window.location.href = "/pages/errors/error-403.html";
+      return;
+    }
+
+    if (!res.ok) throw new Error(`خطا در دریافت اطلاعات (${res.status})`);
+
+    const data = await res.json();
+    const list = Array.isArray(data) ? data : (data.data || data || []);
+
+    businesses = list.map(item => ({
+      id: String(item.id),
+      name: item.name,
+      category: item.category,
+      owner: item.ownerName,
+      ownerPhone: '',  // not in list endpoint
+      city: item.city,
+      address: '',      // not in list endpoint
+      submitDate: item.submitDate,
+      description: ''   // not in list endpoint
+    }));
+
+    visibleIds = businesses.map(b => b.id);
+    render(visibleIds);
+  } catch (err) {
+    console.error("loadBusinesses error:", err);
+    document.getElementById("businessTable").innerHTML =
+      `<tr><td colspan="6" class="empty-state">خطا در بارگذاری داده‌ها. لطفاً دوباره تلاش کنید.</td></tr>`;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════
    جستجو و فیلتر
    ═══════════════════════════════════════════════════════ */
 
@@ -206,52 +205,64 @@ document.getElementById("searchInput").addEventListener("keydown", e => {
 
 /**
  * مدال جزئیات رو با اطلاعات کسب‌وکار انتخاب‌شده باز می‌کنه
+ * اطلاعات رو از API جزئیات می‌گیره
  * @param {string} id - شناسه کسب‌وکار
  */
-function openDetail(id) {
-  const b = businesses.find(x => x.id === id);
-  if (!b) return; // اگه پیدا نشد کاری نمی‌کنیم
+async function openDetail(id) {
+  try {
+    const token = getToken();
+    const res = await fetch(`${API_BASE_URL}/org/admin/approval-list/${parseInt(id)}`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
 
-  // پر کردن هدر مدال
-  document.getElementById("detailName").textContent = b.name;
-  document.getElementById("detailCat").textContent = b.category + " · " + b.city;
+    if (!res.ok) throw new Error(`خطا در دریافت جزئیات (${res.status})`);
 
-  // پر کردن گرید اطلاعات
-  document.getElementById("detailGrid").innerHTML = `
-    <div class="detail-field">
-      <div class="detail-field-label">مالک / مسئول</div>
-      <div class="detail-field-value">${b.owner}</div>
-    </div>
-    <div class="detail-field">
-      <div class="detail-field-label">شماره تماس</div>
-      <!-- شماره تلفن LTR نشون داده میشه چون عدده -->
-      <div class="detail-field-value" style="direction:ltr;">${b.ownerPhone}</div>
-    </div>
-    <div class="detail-field">
-      <div class="detail-field-label">شهر</div>
-      <div class="detail-field-value">${b.city}</div>
-    </div>
-    <div class="detail-field">
-      <div class="detail-field-label">تاریخ ثبت</div>
-      <div class="detail-field-value" style="direction:ltr;">${b.submitDate}</div>
-    </div>
-    <!-- آدرس و توضیحات — تمام‌عرض -->
-    <div class="detail-field full">
-      <div class="detail-field-label">آدرس</div>
-      <div class="detail-field-value light">${b.address}</div>
-    </div>
-    <div class="detail-field full">
-      <div class="detail-field-label">توضیحات</div>
-      <div class="detail-field-value light">${b.description}</div>
-    </div>
-  `;
+    const data = await res.json();
 
-  // دکمه‌های فوتر مدال رو به این کسب‌وکار وصل می‌کنیم
-  // اول مدال جزئیات رو می‌بندیم، بعد مدال تأیید باز میشه
-  document.getElementById("dfApprove").onclick = () => { closeDetail(); askAction(id, 'approve'); };
-  document.getElementById("dfReject").onclick = () => { closeDetail(); askAction(id, 'reject'); };
+    // پر کردن هدر مدال
+    document.getElementById("detailName").textContent = data.name;
+    document.getElementById("detailCat").textContent  = (data.orgTypeName || '') + " · " + (data.cityName || '');
 
-  document.getElementById("detailModal").classList.add("open");
+    // پر کردن گرید اطلاعات
+    document.getElementById("detailGrid").innerHTML = `
+      <div class="detail-field">
+        <div class="detail-field-label">مالک / مسئول</div>
+        <div class="detail-field-value">${data.ownerName || ''}</div>
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">شماره تماس</div>
+        <!-- شماره تلفن LTR نشون داده میشه چون عدده -->
+        <div class="detail-field-value" style="direction:ltr;">${data.ownerPhone || ''}</div>
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">شهر</div>
+        <div class="detail-field-value">${data.cityName || ''}</div>
+      </div>
+      <div class="detail-field">
+        <div class="detail-field-label">تاریخ ثبت</div>
+        <div class="detail-field-value" style="direction:ltr;">${data.createdDate || ''}</div>
+      </div>
+      <!-- آدرس و توضیحات — تمام‌عرض -->
+      <div class="detail-field full">
+        <div class="detail-field-label">آدرس</div>
+        <div class="detail-field-value light">${data.address || ''}</div>
+      </div>
+      <div class="detail-field full">
+        <div class="detail-field-label">توضیحات</div>
+        <div class="detail-field-value light">${data.description || ''}</div>
+      </div>
+    `;
+
+    // دکمه‌های فوتر مدال رو به این کسب‌وکار وصل می‌کنیم
+    // اول مدال جزئیات رو می‌بندیم، بعد مدال تأیید باز میشه
+    document.getElementById("dfApprove").onclick = () => { closeDetail(); askAction(id, 'approve'); };
+    document.getElementById("dfReject").onclick  = () => { closeDetail(); askAction(id, 'reject');  };
+
+    document.getElementById("detailModal").classList.add("open");
+  } catch (err) {
+    console.error("openDetail error:", err);
+    alert("خطا در دریافت جزئیات کسب‌وکار.");
+  }
 }
 
 
@@ -303,17 +314,40 @@ function askAction(id, type) {
 
 
 /**
- * عملیات نهایی رو انجام میده
- * کسب‌وکار رو از لیست حذف می‌کنه (تأیید یا رد — هر دو از صف خارج میشن)
- * در پروژه واقعی باید یه API call بره
+ * عملیات نهایی رو انجام میده — API call برای تأیید یا رد
  */
-function doAction() {
-  // کسب‌وکار رو از هر دو آرایه حذف می‌کنیم
-  businesses = businesses.filter(b => b.id !== pendingId);
-  visibleIds = visibleIds.filter(id => id !== pendingId);
+async function doAction() {
+  try {
+    const token = getToken();
+    const numericId = parseInt(pendingId);
+    const endpoint = pendingType === 'approve'
+      ? `${API_BASE_URL}/org/admin/approval-list/${numericId}/approve`
+      : `${API_BASE_URL}/org/admin/approval-list/${numericId}/reject`;
 
-  render(visibleIds);
-  closeConfirm();
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.message || `خطای سرور (${res.status})`);
+    }
+
+    // کسب‌وکار رو از هر دو آرایه حذف می‌کنیم
+    businesses = businesses.filter(b => b.id !== pendingId);
+    visibleIds = visibleIds.filter(id => id !== pendingId);
+
+    render(visibleIds);
+    closeConfirm();
+  } catch (err) {
+    console.error("doAction error:", err);
+    alert(err.message || "خطا در انجام عملیات.");
+    closeConfirm();
+  }
 }
 
 
@@ -350,6 +384,8 @@ document.getElementById("confirmModal").addEventListener("click", function (e) {
 
 
 /* ─────────────────────────────────────────
-   شروع — وقتی صفحه لود میشه جدول رو نشون بده
+   شروع — وقتی صفحه لود میشه داده‌ها رو از API می‌گیره
 ───────────────────────────────────────── */
-render(visibleIds);
+document.addEventListener("DOMContentLoaded", () => {
+  loadBusinesses();
+});

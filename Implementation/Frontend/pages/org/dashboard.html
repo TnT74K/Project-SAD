@@ -1,0 +1,92 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>رزروسنتر — داشبورد</title>
+    <link rel="stylesheet" href="/components/fonts.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="main">
+        <div class="dashboard-layout">
+
+            <!-- ====== سایدبار (سمت راست) ====== -->
+            <aside class="profile-section">
+
+                <!-- کارت پروفایل -->
+                <div class="card">
+                    <div class="profile-card">
+                        <div class="profile-avatar" id="profileAvatar">م</div>
+                        <div class="profile-name" id="profileName">مدیر سیستم</div>
+                        <div class="profile-role" id="profileRole">مدیر ارشد رزروسنتر</div>
+
+                        <!-- سه فیلد سمت راست (پویا) -->
+                        <div class="profile-stats" id="profileStats">
+                            <!-- توسط JS ساخته می‌شود -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تقویم -->
+                <div class="card">
+                    <div class="card-header"><h2>تقویم شمسی</h2></div>
+                    <div class="card-body">
+                        <div class="cal-nav">
+                            <button class="cal-nav-btn" id="calNext">›</button>
+                            <span id="calMonthLabel">—</span>
+                            <button class="cal-nav-btn" id="calPrev">‹</button>
+                        </div>
+                        <div class="cal-grid" id="calGrid"></div>
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- ====== بخش اصلی (سمت چپ) ====== -->
+            <section class="dashboard-section">
+
+                <!-- هدر -->
+                <div class="topbar-wrapper">
+                    <div class="topbar">
+                        <div class="topbar-title">
+                            <h1 id="dashboardTitle">داشبورد مدیریتی</h1>
+                            <p id="topbarDate">در حال بارگذاری...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ساعت -->
+                <div class="content-grid">
+                    <div class="clock-widget">
+                        <div class="clock-time" id="clockTime">--:--:--</div>
+                        <div class="clock-dates">
+                            <div class="clock-date-item">شمسی: <span id="jalaliDate">—</span></div>
+                            <div class="clock-date-item">میلادی: <span id="gregorianDate">—</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ۴ کارت آماری سمت چپ (ثابت برای همه) -->
+                <div class="stats-grid" id="statsGrid">
+                    <!-- توسط JS ساخته می‌شود -->
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/components/api.js" defer></script>
+    <script src="dashboard.js" defer></script>
+    <script src="/components/load-header.js" defer></script>
+    <script src="/components/header.js" defer></script>
+    <script src="/components/load-footer.js" defer></script>
+</body>
+</html>

@@ -50,6 +50,8 @@ body {
 
   display: flex;
   flex-direction: column;
+    margin: 0;
+  padding-top: 80px;
 }
 
 button {
@@ -601,7 +603,7 @@ select {
   color: #c0392b;
 }
 
-.appt-info {}
+
 
 .appt-biz {
   font-size: 14px;
@@ -847,10 +849,8 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
   top: 0;
   background: var(--card);
-  z-index: 1;
 }
 
 .edit-sheet-title {

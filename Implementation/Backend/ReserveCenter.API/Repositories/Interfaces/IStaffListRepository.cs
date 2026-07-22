@@ -13,14 +13,16 @@ public interface IStaffListRepository
 
     Task<List<StaffList>?> SearchAsync(string searchPhrase);
 
+    Task<StaffList?> GetByIdAsync(int staffListId);
+
     Task<List<StaffList>?> GetAllAsync(int orgId);
 
     //ویرایش
     Task<StaffList> EditAsync(int lastStaffListId, RoleEnum role, int modifiedBy);
 
-    Task<bool> DeleteAsync(int staffListId);
+    Task<bool> DeleteAsync(int staffListId, int orgId);
 
-    Task<bool> ChangeStatusAsync(int staffListId);
+    Task<bool> ChangeStatusAsync(int staffListId, int orgId);
 
     Task<List<StaffList>> GetActiveAssignmentsByUserIdAsync(int userId);
 

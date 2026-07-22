@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ورود به رزرو سنتر</title>
-    <link rel="stylesheet" href="/components/fonts.css">
+    <link rel="stylesheet" href="../../components/fonts.css">
     <link rel="stylesheet" href="login.css">
 </head>
 
@@ -115,49 +115,36 @@
         </div>
     </div>
 
-    <!-- مودال انتخاب نقش -->
+        <!-- مودال انتخاب نقش -->
     <div id="role-modal" class="modal-overlay" style="display:none;">
         <div class="modal-box">
             <div class="modal-icon-wrap">
                 <span style="font-size:28px;">👤</span>
             </div>
-            <div class="modal-title">انتخاب نقش</div>
-            <div class="modal-sub">لطفاً نقش خود را برای ورود انتخاب کنید</div>
 
-            <div class="role-grid">
-                <div class="role-card" onclick="selectRole(this, 'مشتری')">
-                    <div class="role-check">✓</div>
-                    <span class="role-icon">🧑</span>
-                    <span class="role-label">مشتری</span>
-                </div>
-                <div class="role-card" onclick="selectRole(this, 'کارمند')">
-                    <div class="role-check">✓</div>
-                    <span class="role-icon">💼</span>
-                    <span class="role-label">کارمند کسب‌وکار</span>
-                </div>
-                <div class="role-card" onclick="selectRole(this, 'پشتیبان')">
-                    <div class="role-check">✓</div>
-                    <span class="role-icon">🎧</span>
-                    <span class="role-label">پشتیبان</span>
-                </div>
-                <div class="role-card" onclick="selectRole(this, 'مدیر کسب‌وکار')">
-                    <div class="role-check">✓</div>
-                    <span class="role-icon">🏪</span>
-                    <span class="role-label">مدیر کسب‌وکار</span>
-                </div>
-                <div class="role-card role-card--full" onclick="selectRole(this, 'سوپر ادمین')">
-                    <div class="role-check">✓</div>
-                    <span class="role-icon">🛡️</span>
-                    <span class="role-label">مدیر ارشد سیستم</span>
-                </div>
+            <div class="modal-title">انتخاب نقش و سازمان</div>
+
+            <div class="modal-sub">
+                لطفاً نقش و سازمان مورد نظر خود را برای ورود انتخاب کنید
             </div>
 
-            <button class="btn-primary" id="modal-confirm-btn" onclick="confirmRole()" disabled>
+            <!-- کارت‌ها توسط JavaScript ساخته می‌شوند -->
+            <div id="role-grid" class="role-grid"></div>
+
+            <div id="role-modal-msg" class="status-msg"></div>
+
+            <button
+                type="button"
+                class="btn-primary"
+                id="modal-confirm-btn"
+                onclick="confirmRole()"
+                disabled>
                 <span class="spinner"></span>
                 <span class="btn-text">ورود به سیستم</span>
             </button>
         </div>
     </div>
+
     <script src="login.js"></script>
 </body>
 

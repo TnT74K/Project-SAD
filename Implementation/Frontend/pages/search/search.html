@@ -20,36 +20,22 @@
      sticky هست و موقع اسکرول بالا می‌مونه
      ============================================= -->
   <header id="header">
+    <div id="header-placeholder"></div>
+  </header>
+
+  <section class="search-topbar">
     <div class="container">
-      <div class="header-inner">
-
-        <!-- لوگو -->
-        <a href="../../index.html" class="logo">
-          <div class="logo-icon">📅</div>
-          <em>رزروسنتر</em>
-        </a>
-
-        <!-- باکس جستجو - value پیش‌فرض رو JS می‌خونه -->
-        <div class="header-search">
-          <!-- آیکون ذره‌بین -->
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8" />
-            <path d="M21 21l-4.35-4.35" />
-          </svg>
-          <input type="text" id="searchInput" placeholder="جستجوی خدمت یا کسب‌وکار..." value="آرایشگاه">
-
-        </div>
-
-        <!-- دکمه‌های ورود/ثبت‌نام - توی موبایل مخفی میشن -->
-        <div class="header-actions">
-          <button class="btn-login" onclick="window.location.href = '../auth/login.html'">ورود</button>
-          <button class="btn-signup" onclick="window.location.href = '../auth/sign-up.html'">ثبت‌نام رایگان</button>
-        </div>
-
+      <div class="header-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
+        <input type="text" id="searchInput" placeholder="جستجوی خدمت یا کسب‌وکار..." value=""> 
+        <!-- Need to get value from homepage -->
       </div>
     </div>
-  </header>
+  </section>
 
 
   <!-- =============================================
@@ -141,6 +127,9 @@
 
   <!-- JS در آخر لود میشه تا DOM آماده باشه -->
   <script src="search.js"></script>
+
+  <script src="/components/load-header.js"></script>
+  <script src="/components/header.js"></script>
   <script src="/components/load-footer.js"></script>
 
 </body>

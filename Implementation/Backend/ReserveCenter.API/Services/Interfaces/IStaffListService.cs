@@ -16,7 +16,7 @@ namespace ReserveCenter.API.Services.Interfaces
         /// <summary>
         /// جست و جو
         /// </summary>
-        Task<List<StaffListDto>?> SearchAsync(string searchPhrease);
+        Task<List<StaffListDto>?> SearchAsync(string searchPhrease, int orgId);
 
         /// <summary>
         /// ثبت کارمند
@@ -26,17 +26,17 @@ namespace ReserveCenter.API.Services.Interfaces
         /// <summary>
         /// ویرایش کارمند
         /// </summary>
-        Task<StaffListDto> EditAsync(StaffUpdateRequest staffUpdateRequest);
+        Task<StaffListDto> EditAsync(StaffUpdateRequest staffUpdateRequest, int orgId);
 
         /// <summary>
         /// تغییر وضعیت
         /// </summary>
-        Task<bool> ChangeStatusAsync(int staffListId);
+        Task<bool> ChangeStatusAsync(int staffListId, int orgId);
 
         /// <summary>
         /// حذف
         /// </summary>
-        Task<bool> DeleteAsync(int staffListId);
+        Task<bool> DeleteAsync(int staffListId, int orgId);
 
 
     }

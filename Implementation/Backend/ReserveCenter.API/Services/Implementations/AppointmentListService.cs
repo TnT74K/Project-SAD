@@ -9,22 +9,22 @@ namespace ReserveCenter.API.Services.Implementations
 {
     public class AppointmentListService : IAppointmentListService
     {
-        private readonly ReserveCenterDBContext _dbContext;
         private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IServiceRepository _serviceRepository;
         private readonly IOrgRepository _orgRepository;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<AppointmentListService> _logger;
 
         public AppointmentListService(
-            ReserveCenterDBContext dbContext,
             IAppointmentRepository appointmentRepository,
             IOrgRepository orgRepository,
+            IServiceRepository serviceRepository,
             IUserRepository userRepository,
             ILogger<AppointmentListService> logger)
         {
-            _dbContext = dbContext;
             _appointmentRepository = appointmentRepository;
             _orgRepository = orgRepository;
+            _serviceRepository = serviceRepository;
             _userRepository = userRepository;
             _logger = logger;
         }
@@ -45,15 +45,7 @@ namespace ReserveCenter.API.Services.Implementations
                     };
                 }
 
-                var appointments = await _dbContext.Appointments
-                    .AsNoTracking()
-                    .Include(a => a.AppointmentStatus)
-                    .Include(a => a.BookingUser)
-                    .Include(a => a.Org)
-                    .Include(a => a.Orgservice)
-                    .Where(a => a.OrgId == orgId && a.AppointmentDate == date)
-                    .OrderBy(a => a.AppointmentTime)
-                    .ToListAsync();
+                var appointments = await _appointmentRepository.GetAppointmentsByDateAsync(orgId, date);
 
                 var appointmentDtos = appointments.Select(a => MapToDto(a)).ToList();
 
@@ -91,18 +83,7 @@ namespace ReserveCenter.API.Services.Implementations
                     };
                 }
 
-                var appointments = await _dbContext.Appointments
-                    .AsNoTracking()
-                    .Include(a => a.AppointmentStatus)
-                    .Include(a => a.BookingUser)
-                    .Include(a => a.Org)
-                    .Include(a => a.Orgservice)
-                    .Where(a => a.OrgId == orgId && 
-                                a.AppointmentDate >= startDate && 
-                                a.AppointmentDate <= endDate)
-                    .OrderBy(a => a.AppointmentDate)
-                    .ThenBy(a => a.AppointmentTime)
-                    .ToListAsync();
+                var appointments = await _appointmentRepository.GetAppointmentsByDateRangeAsync(orgId, startDate, endDate);
 
                 var appointmentDtos = appointments.Select(a => MapToDto(a)).ToList();
 
@@ -114,7 +95,7 @@ namespace ReserveCenter.API.Services.Implementations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error getting appointments for org {OrgId} from {StartDate} to {EndDate}", 
+                _logger.LogError(ex, "Error getting appointments for org {OrgId} from {StartDate} to {EndDate}",
                     orgId, startDate, endDate);
                 return new AppointmentListResponse
                 {
@@ -155,14 +136,7 @@ namespace ReserveCenter.API.Services.Implementations
                 if (appointment == null)
                     return false;
 
-                var status = await _dbContext.AppointmentStatuses
-                    .FirstOrDefaultAsync(s => s.Id == request.AppointmentStatusId);
-                if (status == null)
-                    return false;
-
-                // ✅ فقط فیلدهای موجود در مدل را به‌روزرسانی می‌کنیم
                 appointment.AppointmentStatusId = request.AppointmentStatusId;
-                // ❌ ModifiedBy و ModifiedDate رو حذف می‌کنیم چون در مدل وجود ندارند
 
                 return await _appointmentRepository.UpdateAsync(appointment);
             }
@@ -217,7 +191,7 @@ namespace ReserveCenter.API.Services.Implementations
 
             return appointment.OrgId == orgId;
         }
-            public async Task<AppointmentDto> CreateAppointmentAsync(int orgId, AppointmentCreateRequest request, int modifiedBy)
+        public async Task<AppointmentDto> CreateAppointmentAsync(int orgId, AppointmentCreateRequest request, int modifiedBy)
         {
             try
             {
@@ -227,17 +201,12 @@ namespace ReserveCenter.API.Services.Implementations
                     throw new KeyNotFoundException("سازمان مورد نظر یافت نشد.");
 
                 // 2. بررسی وجود سرویس و تعلق آن به سازمان
-                var service = await _dbContext.Orgservices
-                    .FirstOrDefaultAsync(s => s.Id == request.OrgserviceId && s.OrgId == orgId && !s.IsDeleted);
+                var service = await _serviceRepository.GetByIdAsync(orgId);
                 if (service == null)
                     throw new KeyNotFoundException("سرویس مورد نظر یافت نشد یا به این سازمان تعلق ندارد.");
 
                 // 3. بررسی تداخل زمانی
-                var existingAppointment = await _dbContext.Appointments
-                    .FirstOrDefaultAsync(a => a.OrgserviceId == request.OrgserviceId &&
-                                               a.AppointmentDate == request.AppointmentDate &&
-                                               a.AppointmentTime == request.AppointmentTime &&
-                                               a.IsReserved);
+                var existingAppointment = await _appointmentRepository.GetConflictAppointmentAsync(request.OrgserviceId, request.AppointmentDate, request.AppointmentTime);
 
                 if (existingAppointment != null)
                     throw new InvalidOperationException("زمان انتخاب شده قبلاً رزرو شده است.");
@@ -289,7 +258,7 @@ namespace ReserveCenter.API.Services.Implementations
         }
 
         // ============================================================
-        // ✅ متد کمکی برای تولید کد رهگیری
+        //  متد کمکی برای تولید کد رهگیری
         // ============================================================
 
         private string GenerateTrackingCode()
@@ -319,8 +288,8 @@ namespace ReserveCenter.API.Services.Implementations
                 OrgserviceId = appointment.OrgserviceId,
                 ServiceName = appointment.Orgservice?.Name,
                 BookingUserId = appointment.BookingUserId,
-                BookingUserFullName = appointment.BookingUser != null 
-                    ? $"{appointment.BookingUser.FirstName} {appointment.BookingUser.LastName}" 
+                BookingUserFullName = appointment.BookingUser != null
+                    ? $"{appointment.BookingUser.FirstName} {appointment.BookingUser.LastName}"
                     : null,
                 BookingConfirmCode = appointment.BookingConfirmCode,
                 IsReserved = appointment.IsReserved,

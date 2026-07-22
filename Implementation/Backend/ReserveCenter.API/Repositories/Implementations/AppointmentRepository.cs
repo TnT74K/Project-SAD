@@ -1,3 +1,4 @@
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using ReserveCenter.API.DatabaseModels;
 using ReserveCenter.API.Repositories.Interfaces;
@@ -110,5 +111,43 @@ public class AppointmentRepository : IAppointmentRepository
                                .Include(a => a.BookingUser)
                                .Include(a => a.AppointmentStatus)
                                .FirstOrDefaultAsync(a => a.BookingConfirmCode == trackingCode);
+    }
+
+    public async Task<List<Appointment>?> GetAppointmentsByDateAsync(int orgId, DateOnly date)
+    {
+        return await _dbContext.Appointments
+                    .AsNoTracking()
+                    .Include(a => a.AppointmentStatus)
+                    .Include(a => a.BookingUser)
+                    .Include(a => a.Org)
+                    .Include(a => a.Orgservice)
+                    .Where(a => a.OrgId == orgId && a.AppointmentDate == date)
+                    .OrderBy(a => a.AppointmentTime)
+                    .ToListAsync();
+    }
+
+    public async Task<List<Appointment>?> GetAppointmentsByDateRangeAsync(int orgId, DateOnly startDate, DateOnly endDate)
+    {
+        return await _dbContext.Appointments
+                    .AsNoTracking()
+                    .Include(a => a.AppointmentStatus)
+                    .Include(a => a.BookingUser)
+                    .Include(a => a.Org)
+                    .Include(a => a.Orgservice)
+                    .Where(a => a.OrgId == orgId &&
+                                a.AppointmentDate >= startDate &&
+                                a.AppointmentDate <= endDate)
+                    .OrderBy(a => a.AppointmentDate)
+                    .ThenBy(a => a.AppointmentTime)
+                    .ToListAsync();
+    }
+
+    public async Task<Appointment?> GetConflictAppointmentAsync(int serviceId, DateOnly appointmentDate, TimeOnly appointmentTime)
+    {
+        return await _dbContext.Appointments
+                    .FirstOrDefaultAsync(a => a.OrgserviceId == serviceId &&
+                                               a.AppointmentDate == appointmentDate &&
+                                               a.AppointmentTime == appointmentTime &&
+                                               a.IsReserved);
     }
 }

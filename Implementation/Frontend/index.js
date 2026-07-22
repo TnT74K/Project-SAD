@@ -16,19 +16,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // ===== 2. منوی موبایل =====
-  var hamburgerBtn = document.getElementById('hamburgerBtn');
-  var mobileMenu = document.getElementById('mobileMenu');
+  // // ===== 2. منوی موبایل =====
+  // var hamburgerBtn = document.getElementById('hamburgerBtn');
+  // var mobileMenu = document.getElementById('mobileMenu');
 
-  hamburgerBtn.addEventListener('click', function () {
-    mobileMenu.classList.toggle('open');
-  });
+  // hamburgerBtn.addEventListener('click', function () {
+  //   mobileMenu.classList.toggle('open');
+  // });
 
-  document.addEventListener('click', function (e) {
-    if (!header.contains(e.target)) {
-      mobileMenu.classList.remove('open');
-    }
-  });
+  // document.addEventListener('click', function (e) {
+  //   if (!header.contains(e.target)) {
+  //     mobileMenu.classList.remove('open');
+  //   }
+  // });
 
   // ===== 3. چیپ‌های پرطرفدار =====
   window.setChip = function (el, category) {

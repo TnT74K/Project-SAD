@@ -2,73 +2,317 @@
 <html lang="fa" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>ثبت‌نام در رزرو سنتر</title>
-    <link rel="stylesheet" href="/components/fonts.css">
+
+    <link rel="stylesheet" href="../../components/fonts.css">
     <link rel="stylesheet" href="sign-up.css">
+
 </head>
 
 <body>
-    <div class="auth-card">
-        <div class="logo-block">
-            <div class="logo-text">رزرو سنتر</div>
-            <div class="logo-sub">ایجاد حساب کاربری جدید</div>
+
+
+<div class="auth-card">
+
+
+    <div class="logo-block">
+
+        <div class="logo-text">
+            رزرو سنتر
         </div>
 
-        <div class="form-group">
-            <label for="username">نام کاربری
-                <span class="required-star">*</span>
-            </label>
-            <div class="input-group">
-                <input type="text" id="username" name="username" required placeholder="نام کاربری خود را وارد کنید">
-                <div class="error-message" id="username-error"></div>
-            </div>
+        <div class="logo-sub">
+            ایجاد حساب کاربری جدید
         </div>
 
-        <div class="form-group">
-            <label for="phone-number">شماره تلفن
-                <span class="required-star">*</span>
-            </label>
-            <div class="input-group">
-                <input type="text" id="phone-number" name="phone-number" inputmode="numeric" maxlength="11" required
-                    placeholder="شماره تلفن را مانند 09131234567 وارد کنید">
-                <div class="error-message" id="phone-number-error"></div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="password">رمز عبور
-                <span class="required-star">*</span>
-            </label>
-            <div class="input-group">
-                <input type="password" id="password" name="password" required placeholder="رمز عبور خود را وارد کنید"
-                    class="has-icon">
-                <span class="toggle-icon" onclick="togglePasswordVisibility('password', this)">👁</span>
-                <div class="error-message" id="password-error"></div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="confirm-password">تکرار رمز عبور
-                <span class="required-star">*</span>
-            </label>
-            <div class="input-group">
-                <input type="password" id="confirm-password" name="confirm-password" required
-                    placeholder="رمز عبور را دوباره وارد کنید" class="has-icon">
-                <span class="toggle-icon" onclick="togglePasswordVisibility('confirm-password', this)">👁</span>
-                <div class="error-message" id="confirm-error"></div>
-            </div>
-        </div>
-
-        <button type="submit" class="btn-primary">ثبت‌نام</button>
-        </form>
-
-        <div class="login-link">
-            قبلاً حساب کاربری ساخته‌اید؟ <a href="login.html">وارد شوید</a>
-        </div>
     </div>
-    <script src="sign-up.js"></script>
+
+
+
+    <form id="registerForm">
+
+
+
+        <!-- نام -->
+
+        <div class="form-group">
+
+            <label for="firstName">
+
+                نام
+
+                <span class="required-star">*</span>
+
+            </label>
+
+
+            <div class="input-group">
+
+
+                <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    placeholder="نام خود را وارد کنید"
+                    required>
+
+
+                <div
+                    class="error-message"
+                    id="firstName-error">
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- نام خانوادگی -->
+
+        <div class="form-group">
+
+            <label for="lastName">
+
+                نام خانوادگی
+
+                <span class="required-star">*</span>
+
+            </label>
+
+
+            <div class="input-group">
+
+
+                <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="نام خانوادگی خود را وارد کنید"
+                    required>
+
+
+                <div
+                    class="error-message"
+                    id="lastName-error">
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+        <!-- شماره تلفن -->
+
+        <div class="form-group">
+
+
+            <label for="phone-number">
+
+                شماره تلفن
+
+                <span class="required-star">*</span>
+
+            </label>
+
+
+            <div class="input-group">
+
+
+                <input
+                    type="text"
+                    id="phone-number"
+                    name="phoneNumber"
+                    maxlength="11"
+                    inputmode="numeric"
+                    placeholder="مثال: 09123456789"
+                    required>
+
+
+                <div
+                    class="error-message"
+                    id="phone-number-error">
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- رمز عبور -->
+
+        <div class="form-group">
+
+
+            <label for="password">
+
+                رمز عبور
+
+                <span class="required-star">*</span>
+
+            </label>
+
+
+
+            <div class="input-group">
+
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="has-icon"
+                    placeholder="رمز عبور خود را وارد کنید"
+                    required>
+
+
+
+                <span
+                    class="toggle-icon"
+                    onclick="togglePasswordVisibility('password', this)">
+                    👁
+                </span>
+
+
+
+                <div
+                    class="error-message"
+                    id="password-error">
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+        <!-- تکرار رمز -->
+
+        <div class="form-group">
+
+
+            <label for="confirm-password">
+
+                تکرار رمز عبور
+
+                <span class="required-star">*</span>
+
+            </label>
+
+
+
+            <div class="input-group">
+
+
+                <input
+                    type="password"
+                    id="confirm-password"
+                    name="confirmPassword"
+                    class="has-icon"
+                    placeholder="رمز عبور را دوباره وارد کنید"
+                    required>
+
+
+
+                <span
+                    class="toggle-icon"
+                    onclick="togglePasswordVisibility('confirm-password', this)">
+                    👁
+                </span>
+
+
+
+                <div
+                    class="error-message"
+                    id="confirm-error">
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+        <button
+            type="submit"
+            class="btn-primary">
+
+            ثبت‌نام
+
+        </button>
+
+
+
+    </form>
+
+
+
+
+
+
+    <div class="login-link">
+
+
+        قبلاً حساب کاربری ساخته‌اید؟
+
+        <a href="login.html">
+
+            وارد شوید
+
+        </a>
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+<script src="sign-up.js"></script>
+
 
 </body>
 

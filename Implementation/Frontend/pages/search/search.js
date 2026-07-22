@@ -1,97 +1,4 @@
-
-const businesses = [
-  {
-    id: 1, premium: true,
-    emoji: '✂️', bg: 'linear-gradient(135deg,#1a2d45,#2e5f8a)',
-    cat: 'آرایشگاه مردانه', catKey: 'barbershop',
-    name: 'آرایشگاه دایموند تهران',
-    city: 'tehran', status: 'open',
-    slots: ['۱۰:۰۰', '۱۱:۳۰', '۱۴:۰۰'],
-    rating: 4.9, reviews: 247, success: 1840,
-    price: 'از ۱۵۰٬۰۰۰ تومان'
-  },
-  {
-    id: 2, premium: true,
-    emoji: '🌿', bg: 'linear-gradient(135deg,#0d3d2a,#1a7a55)',
-    cat: 'طب سنتی', catKey: 'trad',
-    name: 'مرکز طب سنتی حکیم',
-    city: 'tehran', status: 'open',
-    slots: ['۰۹:۰۰', '۱۱:۰۰', '۱۶:۳۰'],
-    rating: 4.9, reviews: 561, success: 3200,
-    price: 'از ۲۰۰٬۰۰۰ تومان'
-  },
-  {
-    id: 3, premium: false,
-    emoji: '🦷', bg: 'linear-gradient(135deg,#1a0e2e,#4c1d95)',
-    cat: 'دندانپزشکی', catKey: 'dental',
-    name: 'کلینیک دندانپزشکی دکتر رضایی',
-    city: 'mashhad', status: 'busy',
-    slots: ['۰۹:۰۰', '۱۵:۳۰'],
-    rating: 4.8, reviews: 183, success: 920,
-    price: 'از ۳۰۰٬۰۰۰ تومان'
-  },
-  {
-    id: 4, premium: false,
-    emoji: '💅', bg: 'linear-gradient(135deg,#2d1a4a,#6b21a8)',
-    cat: 'سالن زیبایی', catKey: 'beauty',
-    name: 'سالن آرایش بانوان لونا',
-    city: 'tehran', status: 'open',
-    slots: ['۱۲:۰۰', '۱۳:۳۰', '۱۶:۰۰'],
-    rating: 4.7, reviews: 312, success: 1150,
-    price: 'از ۱۸۰٬۰۰۰ تومان'
-  },
-  {
-    id: 5, premium: true,
-    emoji: '💪', bg: 'linear-gradient(135deg,#1a0d0d,#a83232)',
-    cat: 'باشگاه ورزشی', catKey: 'gym',
-    name: 'باشگاه فیتنس ایران‌زمین',
-    city: 'isfahan', status: 'full',
-    slots: [],  /* ظرفیت تکمیله، نوبت خالی نداره */
-    rating: 4.6, reviews: 458, success: 2600,
-    price: 'از ۵۰۰٬۰۰۰ تومان'
-  },
-  {
-    id: 6, premium: false,
-    emoji: '✂️', bg: 'linear-gradient(135deg,#0f2a1a,#196640)',
-    cat: 'آرایشگاه مردانه', catKey: 'barbershop',
-    name: 'آرایشگاه مدرن آقایان',
-    city: 'shiraz', status: 'open',
-    slots: ['۱۰:۳۰', '۱۲:۰۰'],
-    rating: 4.3, reviews: 89, success: 410,
-    price: 'از ۱۲۰٬۰۰۰ تومان'
-  },
-  {
-    id: 7, premium: false,
-    emoji: '🏥', bg: 'linear-gradient(135deg,#0a1e3a,#1b4f72)',
-    cat: 'کلینیک', catKey: 'clinic',
-    name: 'کلینیک پوست و مو دکتر احمدی',
-    city: 'tehran', status: 'open',
-    slots: ['۰۸:۰۰', '۱۱:۰۰', '۱۴:۳۰'],
-    rating: 4.5, reviews: 204, success: 780,
-    price: 'از ۲۵۰٬۰۰۰ تومان'
-  },
-  {
-    id: 8, premium: false,
-    emoji: '💈', bg: 'linear-gradient(135deg,#1a1000,#7a4800)',
-    cat: 'آرایشگاه مردانه', catKey: 'barbershop',
-    name: 'آرایشگاه کلاسیک برادران',
-    city: 'tabriz', status: 'busy',
-    slots: ['۱۵:۰۰'],
-    rating: 4.2, reviews: 67, success: 320,
-    price: 'از ۱۰۰٬۰۰۰ تومان'
-  },
-  {
-    id: 9, premium: false,
-    emoji: '🧖', bg: 'linear-gradient(135deg,#1a0a2e,#5b21b6)',
-    cat: 'سالن زیبایی', catKey: 'beauty',
-    name: 'سالن زیبایی ستاره',
-    city: 'karaj', status: 'open',
-    slots: ['۱۰:۰۰', '۱۳:۰۰', '۱۵:۳۰', '۱۷:۰۰'],
-    rating: 4.4, reviews: 131, success: 590,
-    price: 'از ۱۶۰٬۰۰۰ تومان'
-  }
-];
-
+const API_BASE_URL = "http://localhost:5041/api";
 
 /* =============================================
    وضعیت چیپ‌های فیلتر
@@ -103,6 +10,57 @@ const activeChips = {
   open: false
 };
 
+/* ---- مپینگ شهر (HTML value → CityEnum int) ---- */
+const CITY_MAP = {
+  tehran: 1,        // تهران
+  isfahan: 2,       // اصفهان
+mashhad: 3,         // مشهد
+  shiraz: 4,        // شیراز
+  tabriz: 5,        // تبریز
+  ahvaz: 6,         // اهواز
+  kermanshah: 7,    // کرمانشاه
+  karaj: 8          // کرج
+};
+
+/* ---- مپینگ دسته‌بندی (HTML value → OrgTypeEnum int) ---- */
+const CAT_MAP = {
+  barbershop: 1,
+  beauty: 2,
+  dental: 3,
+  clinic: 4,
+  gym: 5,
+  trad: 6
+};
+
+/* ---- مپینگ مرتب‌سازی (HTML value → sortBy int) ---- */
+const SORT_MAP = {
+  default: 0,   // Recommended
+  rating: 1,   // MostSuccessful
+  success: 1,   // MostSuccessful
+  newest: 2    // Newest
+};
+
+/* ---- پیش‌فرض ایموجی و گرادینت بر اساس orgTypeName ---- */
+const ORG_STYLE = {
+  'آرایشگاه مردانه':    { emoji: '✂️', bg: 'linear-gradient(135deg,#1a2d45,#2e5f8a)' },
+  'سالن زیبایی':        { emoji: '💅', bg: 'linear-gradient(135deg,#2d1a4a,#6b21a8)' },
+  'دندانپزشکی':         { emoji: '🦷', bg: 'linear-gradient(135deg,#1a0e2e,#4c1d95)' },
+  'کلینیک':             { emoji: '🏥', bg: 'linear-gradient(135deg,#0a1e3a,#1b4f72)' },
+'باشگاه ورزشی':         { emoji: '💪', bg: 'linear-gradient(135deg,#1a0d0d,#a83232)' },
+  'طب سنتی':            { emoji: '🌿', bg: 'linear-gradient(135deg,#0d3d2a,#1a7a55)' }
+};
+
+const DEFAULT_STYLE = { emoji: '🏢', bg: 'linear-gradient(135deg,#1a1a2e,#16213e)' };
+
+/* ---- حالت صفحه‌بندی ---- */
+let currentPage = 1;
+const PAGE_SIZE = 10;
+
+/* ---- تایمر دِبَنس برای جستجو ---- */
+let debounceTimer = null;
+const DEBOUNCE_MS = 400;
+
+
 /*
   toggleChip - وقتی روی چیپ‌های فیلتر کلیک میشه
   وضعیت رو برعکس می‌کنه و فیلترها رو دوباره اجرا می‌کنه
@@ -110,6 +68,7 @@ const activeChips = {
 function toggleChip(key) {
   activeChips[key] = !activeChips[key];
   document.getElementById('chip-' + key).classList.toggle('on', activeChips[key]);
+  currentPage = 1;
   applyFilters();
 }
 
@@ -117,56 +76,81 @@ function toggleChip(key) {
 /* =============================================
    applyFilters - قلب صفحه
    هر بار که کاربر یه فیلتر یا سورت تغییر میده
-   این تابع صدا زده میشه
+   این تابع صدا زده میشه — حالا async و سمت سرور
    ============================================= */
-function applyFilters() {
-  const city = document.getElementById('filterCity').value;
-  const cat = document.getElementById('filterCat').value;
-  const sort = document.getElementById('sortBy').value;
+async function applyFilters() {
+  const cityVal = document.getElementById('filterCity').value;
+  const catVal = document.getElementById('filterCat').value;
+  const sortVal = document.getElementById('sortBy').value;
+  const query = document.getElementById('searchInput').value.trim();
 
-  /* اول فیلتر می‌کنیم */
-  let list = businesses.filter(b => {
-    if (city && b.city !== city) return false;
-    if (cat && b.catKey !== cat) return false;
+  /* ساخت پارامترهای کوئری */
+  const params = new URLSearchParams();
 
-    /* چیپ‌های سه‌گانه */
-    if (activeChips.rating && b.rating < 4) return false;  /* زیر ۴ ستاره حذف */
-    if (activeChips.success && b.success < 500) return false;  /* کمتر از ۵۰۰ نوبت حذف */
-    if (activeChips.open && b.status !== 'open') return false;  /* فقط کسانی که نوبت دارن */
+  if (query) params.set('query', query);
+  if (cityVal && CITY_MAP[cityVal]) params.set('city', CITY_MAP[cityVal]);
+  if (catVal && CAT_MAP[catVal]) params.set('orgType', CAT_MAP[catVal]);
+  if (activeChips.rating) params.set('upFourStar', 'true');
+  if (activeChips.success) params.set('up500Appointment', 'true');
+  if (activeChips.open) params.set('hasAppointment', 'true');
 
-    return true;
-  });
+  params.set('sortBy', SORT_MAP[sortVal] ?? 0);
+  params.set('page', currentPage);
+  params.set('pageSize', PAGE_SIZE);
 
-  /* بعد مرتب می‌کنیم */
-  if (sort === 'rating') list.sort((a, b) => b.rating - a.rating);
-  if (sort === 'success') list.sort((a, b) => b.success - a.success);
-  if (sort === 'newest') list.sort((a, b) => b.id - a.id);
+  /* نمایش لودینگ */
+  const grid = document.getElementById('cards-grid');
+  grid.innerHTML = `
+    <div class="no-results" style="padding:60px 0">
+      <div class="icon" style="font-size:32px;animation:spin 1s linear infinite">⏳</div>
+      <p style="margin-top:12px">در حال جستجو...</p>
+    </div>`;
 
-  /*
-    مهم: بعد از هر سورتی، کسب‌وکارهای برتر (premium)
-    رو به اول لیست میاریم - این رفتار نباید تغییر کنه
-  */
-  list.sort((a, b) => (b.premium ? 1 : 0) - (a.premium ? 1 : 0));
+  try {
+    const res = await fetch(`${API_BASE_URL}/Search?${params.toString()}`);
+    const json = await res.json();
 
-  /* رندر کارت‌ها */
-  renderCards(list);
+    if (!json.isSuccess || !json.data) {
+      grid.innerHTML = `
+        <div class="no-results">
+          <div class="icon">⚠️</div>
+          <p>خطا در دریافت اطلاعات از سرور.</p>
+        </div>`;
+      document.getElementById('result-count').textContent = '۰ کسب‌وکار یافت شد';
+      document.getElementById('query-text').textContent = query || 'همه';
+      return;
+    }
 
-  /* آپدیت متن‌های بالای نتایج */
-  const q = document.getElementById('searchInput').value;
-  document.getElementById('query-text').textContent = q || 'همه';
-  document.getElementById('result-count').textContent = toFa(list.length) + ' کسب‌وکار یافت شد';
+    const { items, totalCount } = json.data;
+
+    /* آپدیت متن‌های بالای نتایج */
+    document.getElementById('query-text').textContent = query || 'همه';
+    document.getElementById('result-count').textContent = toFa(totalCount) + ' کسب‌وکار یافت شد';
+
+    /* رندر کارت‌ها */
+    renderCards(items || []);
+
+  } catch (err) {
+    console.error('Search API error:', err);
+    grid.innerHTML = `
+      <div class="no-results">
+        <div class="icon">⚠️</div>
+        <p>خطا در ارتباط با سرور.<br>لطفاً اتصال اینترنت خود را بررسی کنید.</p>
+      </div>`;
+    document.getElementById('result-count').textContent = '۰ کسب‌وکار یافت شد';
+    document.getElementById('query-text').textContent = query || 'همه';
+  }
 }
 
 
 /* =============================================
    renderCards - رندر کارت‌ها توی گرید
-   لیست فیلترشده رو میگیره و HTML میسازه
+   لیست آیتم‌های API رو میگیره و HTML میسازه
    ============================================= */
-function renderCards(list) {
+function renderCards(items) {
   const grid = document.getElementById('cards-grid');
 
-  /* اگه نتیجه‌ای نبود یه پیام نشون بده */
-  if (!list.length) {
+  if (!items.length) {
     grid.innerHTML = `
       <div class="no-results">
         <div class="icon">🔍</div>
@@ -175,57 +159,54 @@ function renderCards(list) {
     return;
   }
 
-  grid.innerHTML = list.map(b => {
-    /* متن وضعیت بر اساس status */
-    const statusLabel = {
-      open: 'نوبت دارد',
-      busy: 'محدود',
-      full: 'تکمیل ظرفیت'
-    }[b.status];
+  grid.innerHTML = items.map(item => {
+    /* انتخاب ایموجی و گرادینت بر اساس نوع سازمان */
+    const style = ORG_STYLE[item.orgTypeName] || DEFAULT_STYLE;
 
-    /* ساعت‌های خالی - اگه نبود پیام فردا نشون میده */
-    const slots = b.slots.length
-      ? b.slots.map(s => `<span class="slot">${s}</span>`).join('')
-      : `<span class="no-slot">نوبت خالی فردا موجود است</span>`;
+    /* متن وضعیت */
+    const status = item.isActive ? 'open' : 'closed';
+    const statusLabel = item.isActive ? 'نوبت دارد' : 'بسته';
 
-    /* بج "برتر" فقط برای کسب‌وکارهای premium */
-    const premiumBadge = b.premium
+    /* ساعت‌ها — API جستجو سِل‌ها رو برنمی‌گردونه */
+    const slots = `<span class="no-slot">مشاهده</span>`;
+
+    /* بج "برتر" برای isPremier */
+    const premiumBadge = item.isPremier
       ? `<span class="badge-premium">👑 برتر</span>`
       : '';
 
-    /* لیبل "تبلیغ" گوشه کارت - فقط برای premium */
-    const sponsoredNote = b.premium
+    const sponsoredNote = item.isPremier
       ? `<div class="sponsored-label">تبلیغ</div>`
       : '';
 
     return `
-      <div class="biz-card ${b.premium ? 'gold' : ''}">
+      <div class="biz-card ${item.isPremier ? 'gold' : ''}">
         ${sponsoredNote}
-        <div class="card-cover" style="background:${b.bg}">
-          <span style="position:relative;z-index:1">${b.emoji}</span>
+        <div class="card-cover" style="background:${style.bg}">
+          <span style="position:relative;z-index:1">${style.emoji}</span>
           <div class="card-cover-overlay"></div>
           <div class="badge-wrap">
             ${premiumBadge}
-            <span class="badge-status ${b.status}">${statusLabel}</span>
+            <span class="badge-status ${status}">${statusLabel}</span>
           </div>
         </div>
         <div class="card-body">
-          <div class="card-cat">${b.cat}</div>
-          <div class="card-name">${b.name}</div>
+          <div class="card-cat">${item.orgTypeName || ''}</div>
+          <div class="card-name">${item.name}</div>
           <div class="card-slots">${slots}</div>
           <div class="card-stats">
             <div class="stat-item">
               <span class="stat-star">★</span>
-              <span class="stat-val">${toFa(b.rating)}</span>
+              <span class="stat-val">${toFa(item.starCount)}</span>
             </div>
             <div class="stat-dot"></div>
-            <div class="stat-item">${toFa(b.reviews)} تعدادامتیازدهنده</div>
+            <div class="stat-item">${toFa(item.voterCount)} تعدادامتیازدهنده</div>
             <div class="stat-dot"></div>
-            <div class="stat-item">✅ ${toFa(b.success)}+ نوبت موفق</div>
+            <div class="stat-item">✅ ${toFa(item.successAppointmentCount)}+ نوبت موفق</div>
           </div>
           <div class="card-footer">
-            <div class="card-price"><strong>${b.price}</strong></div>
-            <button class="btn-reserve" onclick="window.location.href = '/pages/org/profile/profile.html'">مشاهده پروفايل</button>
+            <div class="card-price"><strong>${item.cityName || ''}</strong></div>
+            <button class="btn-reserve" onclick="window.location.href = '/pages/org/profile/profile.html?id=' + ${item.id}">مشاهده پروفايل</button>
           </div>
         </div>
       </div>`;
@@ -240,6 +221,7 @@ function renderCards(list) {
 function clearSearch() {
   document.getElementById('searchInput').value = '';
   document.getElementById('query-text').textContent = 'همه';
+  currentPage = 1;
   applyFilters();
 }
 
@@ -253,5 +235,19 @@ function toFa(n) {
 }
 
 
-/* اجرای اولیه - صفحه که لود میشه کارت‌ها رندر بشن */
+/* =============================================
+   دِبَنس برای اینپوت جستجو
+   کاربر تایپ می‌کنه و بعد از یک فاصله کوتاه
+   درخواست به سرور ارسال میشه
+   ============================================= */
+document.getElementById('searchInput').addEventListener('input', function () {
+  clearTimeout(debounceTimer);
+  currentPage = 1;
+  debounceTimer = setTimeout(() => {
+    applyFilters();
+  }, DEBOUNCE_MS);
+});
+
+
+/* اجرای اولیه - صفحه که لود میشه نتایج رو از سرور میگیره */
 applyFilters();

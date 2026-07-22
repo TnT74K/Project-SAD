@@ -1,11 +1,33 @@
 // ========================================
+// API Configuration
+// ========================================
+const API_BASE_URL = "http://localhost:5000/api";
+function getToken() { return localStorage.getItem("token"); }
+
+// ─── Shamsi to Gregorian converter ─────────────────────────────
+function shamsiToGregorian(jy, jm, jd) {
+  jy += 1595;
+  let days = -355779 + 365 * jy + Math.floor(jy / 33) * 8 + Math.floor(((jy % 33) + 3) / 4) + jd;
+  const jmDays = [0, 31, 62, 93, 125, 155, 186, 216, 247, 277, 304, 334];
+  days += jmDays[jm - 1];
+  let gy = 400 * Math.floor(days / 146097); days %= 146097;
+  if (days > 36524) { gy += 100 * Math.floor(--days / 36524); days %= 36524; if (days >= 365) days++; }
+  gy += 4 * Math.floor(days / 1461); days %= 1461;
+  if (days > 365) { gy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
+  const gmDays = [31, (gy % 4 == 0 && (gy % 100 != 0 || gy % 400 == 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  let gm = 1;
+  for (let i = 0; i < 12; i++) { if (days < gmDays[i]) { gm = i + 1; break; } days -= gmDays[i]; }
+  return `${gy}-${String(gm).padStart(2, '0')}-${String(days).padStart(2, '0')}`;
+}
+
+// ========================================
 // بخش ۱: پر کردن سلکت‌های ساعت
 // ========================================
 
 // ─── ساعت‌ها را پر کن ───────────────────────────────────────
 // تابع برای پر کردن لیست ساعت‌ها در سلکت‌های شروع، پایان و استراحت
 function fillTimeSelects() {
-  // آرایه包含 شناسه‌های سلکت‌هایی که باید ساعت در آنها پر شود
+  //  شناسه‌های سلکت‌هایی که باید ساعت در آنها پر شود
   const selects = ['openTime', 'closeTime', 'breakStart', 'breakEnd'];
 
   // حلقه روی هر سلکت
@@ -62,6 +84,11 @@ document.getElementById('bizDesc').addEventListener('input', function () {
   // به‌روزرسانی نمایش تعداد کاراکترها به فارسی
   document.getElementById('descHint').textContent =
     `${toPersian(this.value.length)} / ${toPersian(500)} کاراکتر`;
+});
+// ─── شمارشگر آدرس (جدید) ────────────────────────────────────
+document.getElementById('bizAddress').addEventListener('input', function () {
+  document.getElementById('addressHint').textContent =
+    `${toPersian(this.value.length)} / ${toPersian(256)} کاراکتر`;
 });
 
 // ========================================
@@ -156,7 +183,7 @@ function removeImage() {
 // ========================================
 
 // ─── خلاصه ساعات کاری ──────────────────────────────────────
-// آبجکت包含 نام روزها به فارسی
+// نام روزها به فارسی
 const dayNames = {
   saturday: 'شنبه', sunday: 'یک‌شنبه', monday: 'دوشنبه',
   tuesday: 'سه‌شنبه', wednesday: 'چهارشنبه', thursday: 'پنج‌شنبه', friday: 'جمعه'
@@ -204,6 +231,8 @@ function validate() {
   // دریافت مقادیر فیلدها
   const name = document.getElementById('bizName').value.trim();      // نام کسب‌وکار
   const desc = document.getElementById('bizDesc').value.trim();      // توضیحات
+  const address = document.getElementById('bizAddress').value.trim(); // جدید
+  const city = document.getElementById('bizCity').value;              // جدید
   const date = document.getElementById('bizDate').value.trim();      // تاریخ تأسیس
   const openT = document.getElementById('openTime').value;           // ساعت شروع
   const closeT = document.getElementById('closeTime').value;         // ساعت پایان
@@ -215,6 +244,8 @@ function validate() {
 
   // بررسی توضیحات
   if (!desc) { shake('bizDesc'); showToast('⚠️ توضیح مختصر را وارد کنید', true); return false; }
+  if (!address) { shake('bizAddress'); showToast('⚠️ آدرس کامل را وارد کنید', true); return false; } // جدید
+  if (!city) { shake('bizCity'); showToast('⚠️ شهر را انتخاب کنید', true); return false; }           // جدید
 
   // بررسی تاریخ تأسیس
   if (!date) { shake('bizDate'); showToast('⚠️ تاریخ تأسیس را وارد کنید', true); return false; }
@@ -288,29 +319,108 @@ function submitForm() {
   // اگر اعتبارسنجی ناموفق بود، خارج شو
   if (!validate()) return;
 
-  // شبیه‌سازی ارسال به سرور
   const btn = document.querySelector('.btn-primary');  // دریافت دکمه ثبت
   btn.disabled = true;                                 // غیرفعال کردن دکمه
   btn.textContent = '⏳ در حال ثبت...';                // تغییر متن دکمه
 
-  // شبیه‌سازی تأخیر شبکه (۱.۵ ثانیه)
-  setTimeout(() => {
-    btn.disabled = false;                              // فعال کردن دکمه
-    btn.textContent = '✅ ثبت کسب‌وکار';               // برگرداندن متن اصلی
-    showToast('✅ کسب‌وکار با موفقیت ثبت شد!');        // نمایش پیام موفقیت
+  // Build request body from form fields
+  const checkedDays = document.querySelectorAll('.day-check:checked');
+  const activeDaysPerWeek = Array.from(checkedDays).map(c => dayNames[c.value]).join(',');
 
+  // Convert Shamsi date (e.g. "۱۳۹۵/۰۴/۱۵") to Gregorian "YYYY-MM-DD"
+  let shamsiRaw = document.getElementById('bizDate').value.trim();
+  shamsiRaw = shamsiRaw.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+  const [jy, jm, jd] = shamsiRaw.split('/').map(Number);
+  const establishmentDate = shamsiToGregorian(jy, jm, jd);
 
-    document.getElementById('step2').classList.remove('active');
-    document.getElementById('step2').classList.add('done');
-    document.getElementById('step2').querySelector('.step-circle').textContent = '✓';
-    document.getElementById('step3').classList.remove('active');
-    document.getElementById('step3').classList.add('done');
-    document.getElementById('step3').querySelector('.step-circle').textContent = '✓';
-    document.getElementById('step4').classList.add('active');
-    document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
-  }, 1500);
+  // Get uploaded image (base64 data URL) or empty string
+  const image = (previewImg.src && previewImg.src.startsWith('data:')) ? previewImg.src : '';
 
-  ; window.location.href = '../../index.html';
+  const body = {
+    name: document.getElementById('bizName').value.trim(),
+    image: image,
+    description: document.getElementById('bizDesc').value.trim(),
+    establishmentDate: establishmentDate,
+    orgtypeId: parseInt(document.getElementById('bizType').value),
+    activeDaysPerWeek: activeDaysPerWeek,
+    startWorkTime: document.getElementById('openTime').value,
+    endWorkTime: document.getElementById('closeTime').value,
+    startRestTime: document.getElementById('breakStart').value || null,
+    endRestTime: document.getElementById('breakEnd').value || null,
+    cityId: 1,
+    address: document.getElementById('bizAddress')?.value.trim() || ''
+  };
+
+  fetch(`${API_BASE_URL}/Org/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getToken()}`
+    },
+    body: JSON.stringify(body)
+  })
+    .then(async response => {
+      const result = await response.json();
+
+      //  مدیریت ۴۰۰
+      if (response.status === 400) {
+        alert(result.message);
+        return;
+      }
+
+      // مدیریت ۴۰۳
+      if (response.status === 403) {
+        window.location.href = "/pages/errors/error-403.html";
+        return;
+      }
+
+      // مدیریت ۴۰۱ (Unauthorized)
+      if (response.status === 401) {
+        alert("نشست شما منقضی شده است. لطفاً مجدداً وارد شوید.");
+        window.location.href = "/login";
+        return;
+      }
+
+      // مدیریت ۵۰۰ (Internal Server Error)
+      if (response.status === 500) {
+        alert("خطای داخلی سرور. لطفاً مجدداً تلاش کنید.");
+        return;
+      }
+
+      // اگر وضعیت موفقیت‌آمیز بود
+      if (response.ok) {
+        if (result.isSuccess) {
+          alert('✅ ' + result.message);
+          document.getElementById('step2').classList.remove('active');
+          document.getElementById('step2').classList.add('done');
+          document.getElementById('step2').querySelector('.step-circle').textContent = '✓';
+          document.getElementById('step3').classList.remove('active');
+          document.getElementById('step3').classList.add('done');
+          document.getElementById('step3').querySelector('.step-circle').textContent = '✓';
+          document.getElementById('step4').classList.add('active');
+          document.getElementById('step4').querySelector('.step-circle').textContent = '✓';
+          // ریدایرکت بعد از ۲ ثانیه
+          setTimeout(() => {
+        window.location.href = 'index.html';//به نظرم مسیر باید تغییر کنه
+          }, 2000);
+
+        } else {
+           alert('⚠️ ' + result.message);        }
+      }
+    })
+    .catch(err => {
+     // خطای شبکه
+      if (err.name === 'TypeError' || err.message.includes('Failed to fetch')) {
+        alert('❌ خطا در اتصال به سرور. لطفاً اتصال اینترنت خود را بررسی کنید.');
+      } else {
+        alert('⚠️ خطا در ارتباط با سرور');
+      }
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = '✅ ثبت کسب‌وکار';
+    });
+
 }
 
 // ========================================
@@ -323,11 +433,14 @@ function resetForm() {
   // پاک کردن فیلدهای متنی
   document.getElementById('bizName').value = '';
   document.getElementById('bizDesc').value = '';
+  document.getElementById('bizAddress').value = ''; // جدید
   document.getElementById('bizDate').value = '';
 
   // reset کردن سلکت نوع کسب‌وکار
   document.getElementById('bizType').value = '';
   document.getElementById('bizType').selectedIndex = 0;
+  document.getElementById('bizCity').value = '';    // جدید
+  document.getElementById('bizCity').selectedIndex = 0; // جدید
 
   // reset کردن سلکت‌های ساعت
   document.getElementById('openTime').selectedIndex = 0;
@@ -347,6 +460,7 @@ function resetForm() {
   // reset کردن شمارنده کاراکترها
   document.getElementById('nameHint').textContent = '۰ / ۸۰ کاراکتر';
   document.getElementById('descHint').textContent = '۰ / ۵۰۰ کاراکتر';
+  document.getElementById('addressHint').textContent = '۰ / ۲۵۶ کاراکتر'; // جدید
 
   // نمایش پیام موفقیت آمیز بودن reset
   showToast('🔄 فرم با موفقیت پاک شد');

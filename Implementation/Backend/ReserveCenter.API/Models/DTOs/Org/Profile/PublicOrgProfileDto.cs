@@ -14,7 +14,17 @@ public class PublicOrgProfileDto
 
     public decimal StarCount { get; set; }
 
+    public int VoterCount { get; set; }
+
     public int SuccessAppointmentCount { get; set; }
+
+    public bool IsPremier { get; set; }
+
+    public bool IsActive { get; set; }
+
+    public string StartWorkTime { get; set; } = "";
+
+    public string EndWorkTime { get; set; } = "";
 
     public List<PublicServiceDto> Services { get; set; } = new();
 }

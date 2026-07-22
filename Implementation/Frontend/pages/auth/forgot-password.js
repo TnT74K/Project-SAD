@@ -3,6 +3,8 @@ let currentPhone = '';
 let otpToken = '';        // store token returned by server after OTP send
 let countdownInterval = null;
 
+const API_BASE_URL = "http://localhost:5041/api";
+
 // ---- Step navigation ----
 const stepIds = ['phone', 'otp', 'password', 'success'];
 
@@ -31,7 +33,7 @@ function updateDots(stepName) {
 }
 
 // ---- Step 1: Send OTP ----
-function sendOtp() {
+async function sendOtp() {
     const phoneInput = document.getElementById('phone');
     const phone = phoneInput.value.trim();
 
@@ -42,14 +44,36 @@ function sendOtp() {
     clearInputError(phoneInput);
     currentPhone = phone;
 
-    // TODO: replace with real API call
-    // fetch('/api/auth/send-otp', { method: 'POST', body: JSON.stringify({ phone }) })
+    try {
+        const response = await fetch(`${API_BASE_URL}/Auth/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phoneNumber: currentPhone })
+        });
+        const data = await response.json();
 
-    // Show OTP step
-    document.getElementById('phone-display').textContent = formatPhone(phone);
-    goToStep('otp');
-    startOtpBoxes();
-    startCountdown(120);
+        // مدیریت خطا - طبق استاندارد پروژه
+        if (response.status === 400) {
+            showInputError(phoneInput, data.Message || data.message || "درخواست نامعتبر است");
+            return;
+        }
+
+        if (response.status === 403) {
+            window.location.href = "/pages/errors/error-403.html";
+            return;
+        }
+
+        if (response.ok && data.isSuccess) {
+            document.getElementById('phone-display').textContent = formatPhone(phone);
+            goToStep('otp');
+            startOtpBoxes();
+            startCountdown(120);
+        } else {
+            showInputError(phoneInput, data.Message);
+        }
+    } catch (err) {
+        showInputError(phoneInput, 'خطا در ارتباط با سرور. لطفاً دوباره تلاش کنید.');
+    }
 }
 
 // ---- Step 2: OTP boxes ----
@@ -123,34 +147,61 @@ function updateCountdownDisplay(seconds, el) {
     el.textContent = m + ':' + s;
 }
 
-function resendOtp() {
-    // TODO: replace with real API call
-    // fetch('/api/auth/send-otp', { method: 'POST', body: JSON.stringify({ phone: currentPhone }) })
-    const boxes = document.querySelectorAll('.otp-box');
-    boxes.forEach(b => { b.value = ''; b.classList.remove('filled'); });
-    boxes[0].focus();
-    startCountdown(120);
+async function resendOtp() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/Auth/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phoneNumber: currentPhone })
+        });
+        const data = await response.json();
+
+        if (response.ok && data.isSuccess) {
+            const boxes = document.querySelectorAll('.otp-box');
+            boxes.forEach(b => { b.value = ''; b.classList.remove('filled'); });
+            boxes[0].focus();
+            startCountdown(120);
+        } else {
+            alert(data.Message);
+        }
+    } catch (err) {
+        alert('خطا در ارتباط با سرور. لطفاً دوباره تلاش کنید.');
+    }
 }
 
 // ---- Step 2: Verify OTP ----
-function verifyOtp() {
+async function verifyOtp() {
     const otp = getOtpValue();
-    if (otp.length < 6) {
-        alert('لطفاً کد ۶ رقمی را کامل وارد کنید.');
+    if (otp.length < 5) {
+        alert('لطفاً کد ۵ رقمی را کامل وارد کنید.');
         return;
     }
 
-    // TODO: replace with real API call
-    // const res = await fetch('/api/auth/verify-otp', { method:'POST', body: JSON.stringify({ phone: currentPhone, otp }) })
-    // otpToken = res.token;
+    // Backend expects 5 digits; take first 5 from the 6 boxes
+    const otpCode = otp.substring(0, 5);
 
-    // Simulate success → go to password step
-    clearInterval(countdownInterval);
-    goToStep('password');
+    try {
+        const response = await fetch(`${API_BASE_URL}/Auth/verify-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phoneNumber: currentPhone, otpCode: otpCode })
+        });
+        const data = await response.json();
+
+        if (response.ok && data.isSuccess) {
+            otpToken = data.Token;
+            clearInterval(countdownInterval);
+            goToStep('password');
+        } else {
+            alert(data.Message);
+        }
+    } catch (err) {
+        alert('خطا در ارتباط با سرور. لطفاً دوباره تلاش کنید.');
+    }
 }
 
 // ---- Step 3: New password ----
-function submitNewPassword() {
+async function submitNewPassword() {
     const newPass = document.getElementById('new_password').value;
     const confirmPass = document.getElementById('confirm_new_password').value;
     const confirmInput = document.getElementById('confirm_new_password');
@@ -166,13 +217,26 @@ function submitNewPassword() {
     }
     clearInputError(confirmInput);
 
-    // TODO: replace with real API call
-    // fetch('/api/auth/reset-password', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ phone: currentPhone, token: otpToken, password: newPass })
-    // })
+    try {
+        const response = await fetch(`${API_BASE_URL}/Auth/reset-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                phoneNumber: currentPhone,
+                newPassword: newPass,
+                confirmNewPassword: confirmPass
+            })
+        });
+        const data = await response.json();
 
-    goToStep('success');
+        if (response.ok && data.isSuccess) {
+            goToStep('success');
+        } else {
+            showInputError(confirmInput, data.Message);
+        }
+    } catch (err) {
+        showInputError(confirmInput, 'خطا در ارتباط با سرور. لطفاً دوباره تلاش کنید.');
+    }
 }
 
 // ---- Password toggle ----

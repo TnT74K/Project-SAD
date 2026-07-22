@@ -83,8 +83,8 @@ public class AuthService : IAuthService
         // Create user object
         var user = new User
         {
-            FirstName = "",
-            LastName = "",
+            FirstName = request.FirstName,
+            LastName = request.LastName,
             PhoneNumber = request.PhoneNumber,
             Password = request.Password,
             IsBlocked = false,
@@ -215,7 +215,7 @@ public class AuthService : IAuthService
 
         RoleEnum? selectedRole = null;
 
-        if (roleName is not null)
+        if (roleName is not null && roleName != "Customer" && roleName != "null")
         {
             if (!TryParseStaffRole(roleName, out var staffRole))
                 throw new UnauthorizedAccessException("نقش نامعتبر");
@@ -284,17 +284,14 @@ public class AuthService : IAuthService
         return "RESET_TOKEN";
     }
 
-    public async Task<bool> ResetPasswordAsync(string phoneNumber, string token, string newPassword)
+    public async Task<bool> ResetPasswordAsync(string phoneNumber, string newPassword)
     {
         var user = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
         if (user == null || user.IsBlocked || user.IsDeleted)
         {
             throw new UnauthorizedAccessException();
         }
-        if (token != "RESET_TOKEN")
-        {
-            throw new UnauthorizedAccessException("توکن بازیابی نامعتبر است.");
-        }
+
         user.LastPassword = user.Password;
         user.Password = newPassword;
         user.ChangePasswordDateTime = DateTime.UtcNow;
@@ -302,12 +299,6 @@ public class AuthService : IAuthService
         user.NextTimeToLogin = null;
         await _userRepository.UpdateAsync(user);
         return true;
-    }
-
-    //Because our JWTs are stateless and we don’t store refresh tokens, logout is very simple:
-    public async Task<bool> LogoutAsync(int userId)
-    {
-        return await ValidateUserAsync(userId);
     }
 
     public Task<TokenResponse> RefreshTokenAsync(string refreshToken)

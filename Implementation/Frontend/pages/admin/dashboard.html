@@ -1,13 +1,13 @@
+<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>رزروسنتر — داشبورد</title>
-
-    <link rel="stylesheet" href="/components/fonts.css">
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="/components/fonts.css" />
+    <link rel="stylesheet" href="dashboard.css" />
 </head>
 
 <body>
@@ -15,156 +15,82 @@
     <div id="header-placeholder"></div>
 
     <main class="main">
-
         <div class="dashboard-layout">
 
-            <!-- Sidebar -->
+            <!-- ====== سایدبار (سمت راست) ====== -->
             <aside class="profile-section">
 
+                <!-- کارت پروفایل -->
                 <div class="card">
                     <div class="profile-card">
+                        <div class="profile-avatar" id="profileAvatar">م</div>
+                        <div class="profile-name" id="profileName">مدیر سیستم</div>
+                        <div class="profile-role" id="profileRole">مدیر ارشد رزروسنتر</div>
 
-                        <div class="profile-avatar">م</div>
-                        <div class="profile-name">مدیر سیستم</div>
-                        <div class="profile-role">مدیر ارشد رزروسنتر</div>
-
-                        <div class="profile-stats">
-                            <div class="profile-stat">
-                                <div class="val">1,240</div>
-                                <div class="lbl">کل رزرو</div>
-                            </div>
-
-                            <div class="profile-stat">
-                                <div class="val">98%</div>
-                                <div class="lbl">رضایت</div>
-                            </div>
-
-                            <div class="profile-stat">
-                                <div class="val">36</div>
-                                <div class="lbl">ماه فعال</div>
-                            </div>
+                        <!-- سه فیلد سمت راست (پویا) -->
+                        <div class="profile-stats" id="profileStats">
+                            <!-- توسط JS ساخته می‌شود -->
                         </div>
-
                     </div>
                 </div>
 
+                <!-- تقویم -->
                 <div class="card">
-
                     <div class="card-header">
                         <h2>تقویم شمسی</h2>
                     </div>
-
                     <div class="card-body">
-
                         <div class="cal-nav">
-                            <button class="cal-nav-btn" id="calNext">&#8250;</button>
+                            <button class="cal-nav-btn" id="calNext">›</button>
                             <span id="calMonthLabel">—</span>
-                            <button class="cal-nav-btn" id="calPrev">&#8249;</button>
+                            <button class="cal-nav-btn" id="calPrev">‹</button>
                         </div>
-
                         <div class="cal-grid" id="calGrid"></div>
-
                     </div>
                 </div>
 
             </aside>
 
-
-
-            <!-- Main Dashboard -->
+            <!-- ====== بخش اصلی (سمت چپ) ====== -->
             <section class="dashboard-section">
 
+                <!-- هدر -->
                 <div class="topbar-wrapper">
                     <div class="topbar">
                         <div class="topbar-title">
-                            <h1>داشبورد مدیریتی</h1>
+                            <h1 id="dashboardTitle">داشبورد مدیریتی</h1>
                             <p id="topbarDate">در حال بارگذاری...</p>
                         </div>
                     </div>
                 </div>
 
-
-
-                <!-- Clock -->
+                <!-- ساعت -->
                 <div class="content-grid">
-
                     <div class="clock-widget">
-
                         <div class="clock-time" id="clockTime">--:--:--</div>
-
                         <div class="clock-dates">
-
-                            <div class="clock-date-item">
-                                شمسی: <span id="jalaliDate">—</span>
-                            </div>
-
-                            <div class="clock-date-item">
-                                میلادی: <span id="gregorianDate">—</span>
-                            </div>
-
+                            <div class="clock-date-item">شمسی: <span id="jalaliDate">—</span></div>
+                            <div class="clock-date-item">میلادی: <span id="gregorianDate">—</span></div>
                         </div>
-
                     </div>
-
                 </div>
 
-
-
-                <!-- Stats -->
-                <div class="stats-grid">
-
-                    <div class="stat-card">
-                        <div class="stat-icon blue">📅</div>
-                        <div class="stat-info">
-                            <div class="value">124</div>
-                            <div class="label">رزرو امروز</div>
-                            <div class="change up">↑ 8% نسبت به دیروز</div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon green">✅</div>
-                        <div class="stat-info">
-                            <div class="value">98</div>
-                            <div class="label">تأیید شده</div>
-                            <div class="change up">↑ 12%</div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon yellow">⏳</div>
-                        <div class="stat-info">
-                            <div class="value">18</div>
-                            <div class="label">در انتظار</div>
-                            <div class="change down">↓ 3%</div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon red">❌</div>
-                        <div class="stat-info">
-                            <div class="value">8</div>
-                            <div class="label">لغو شده</div>
-                            <div class="change down">↓ 5%</div>
-                        </div>
-                    </div>
-
+                <!-- ۴ کارت آماری سمت چپ (ثابت برای همه) -->
+                <div class="stats-grid" id="statsGrid">
+                    <!-- توسط JS ساخته می‌شود -->
                 </div>
 
             </section>
 
         </div>
-
     </main>
 
     <div id="footer-placeholder"></div>
 
-
     <script src="dashboard.js" defer></script>
-    <script src="/components/temp/load-header-with-profile-for-admin.js" defer></script>
-    <script src="/components/header.js"></script>
-    <script src="/components/load-footer.js"></script>
-
+    <script src="/components/load-header.js" defer></script>
+    <script src="/components/header.js" defer></script>
+    <script src="/components/load-footer.js" defer></script>
 </body>
 
 </html>
