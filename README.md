@@ -68,3 +68,7 @@ Counts cover source files under `Implementation/` and exclude generated/build ou
 ## Detailed Documentation | مستندات کامل
 
 For requirements, analysis, plans, meeting notes, and project artefacts, start in [Documentation/](Documentation/). Backend-specific development guidance is available in [Implementation/Backend/guide/](Implementation/Backend/guide/), and frontend planning notes are in [Implementation/Frontend/guide/](Implementation/Frontend/guide/).
+
+## System Proposal | پروپوزال سیستم
+This document was made in a different plance and it's kept in our repository.
+این مستند در جای دیگری درست شده است و در مخزن ما نگهداری نمی‌شود.
