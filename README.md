@@ -72,3 +72,48 @@ For requirements, analysis, plans, meeting notes, and project artefacts, start i
 ## System Proposal | پروپوزال سیستم
 This document was made in a different plance and it's kept in our repository.
 این مستند در جای دیگری درست شده است و در مخزن ما نگهداری نمی‌شود.
+
+## Setup Instructions | دستورالعمل راه‌اندازی
+
+> [!IMPORTANT]
+>
+> We assume you have **macOS** or **Windows** with **.NET 9+** installed.
+>
+> And have access to an **MSSQL Server 2022** and newer.
+>
+> ​	For **macOS**, you should set the connection string to use an MSSQL database  running on a **Windows** machine in your local network.
+>
+> You should have **VS Code** (or whatever IDE that has **'LiveServer'** extension) installed to run this project.
+
+1. Install the packages used by our solution file.
+
+2. Setup your own **MSSQL Server** environment and allow your **firewall** to allow **MSSQL** traffic.
+   - If using **macOS**, make sure you have an **MSSQL** Server running on a **Windows machine** accessible by your Mac's network.
+
+3. Restore our database backup file located at `Implementation/Database` to your MSSQL Server.
+
+4. Download this repository to your machine.
+
+5. Setup **ASP.NET Core Web API** environment.
+
+6. Add a `appsettings.Development.json` file at `Implementation/Backend/ReserveCenter.API/` then write your **own** MSSQL Server connection string to connect backend to your MSSQL server having our database backup restored.
+
+7. Install **'LiveServer'** VSCode extension
+
+8. Move your shell directory to `Implementation/Backend/ReserveCenter.API/` with `cd` command.
+
+9. Run `dotnet run` to start the backend
+
+   - Wait a while for the program to start.
+
+   - In successful runs, it should show you contents like in this image:
+
+   - ![backend-output-example](Attachments/backend-output-example.png)
+
+   - Notice if says `false` at the top, means **backend cannot connect to your MSSQL Server**, check your connection string again.
+
+   - Pay attention to the port number after `http://localhost:`. it should be `5041` for the forntend pages to work.
+
+10. Open `index.html` using **'LiveServer'** to get started.
+
+11. Have fun!
