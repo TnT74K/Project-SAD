@@ -6,12 +6,6 @@
 
 /* ---------- API helpers ---------- */
 
-const API_BASE_URL = "http://localhost:5041/api";
-
-function getToken() {
-  return localStorage.getItem("token");
-}
-
 function getOrgId() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   return user.orgId || null;
@@ -135,25 +129,9 @@ async function render() {
     '<tr><td colspan="8" style="text-align:center;">در حال بارگذاری...</td></tr>';
 
   try {
-    const token = getToken();
-    const res = await fetch(
-      `${API_BASE_URL}/AppointmentList/org/${orgId}/date/${formattedDate}`,
-      {
-        headers: { 'Authorization': `Bearer ${token}` }
-      }
-    );
-
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-    const json = await res.json();
-
-    if (!json.IsSuccess) {
-      document.getElementById('appointmentsBody').innerHTML =
-        '<tr><td colspan="8" style="text-align:center;color:red;">خطا در دریافت اطلاعات</td></tr>';
-      return;
-    }
-
-    appointmentsData = json.Data.appointments || [];
+    const json = await apiGet(`/AppointmentList/org/${orgId}/date/${formattedDate}`);
+    const payload = json.Data || json.data || json;
+    appointmentsData = payload.appointments || [];
 
     if (appointmentsData.length === 0) {
       document.getElementById('appointmentsBody').innerHTML =
@@ -217,30 +195,14 @@ async function setStatus(btn, type) {
   const s = STATUS_MAP[type];
 
   try {
-    const token = getToken();
-    const res = await fetch(`${API_BASE_URL}/AppointmentList/update-status`, {
+    const json = await apiRequest(`/AppointmentList/update-status`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ appointmentId, appointmentStatusId }),
     });
 
-    const json = await res.json();
-
-    if (!json.isSuccess) {
-      alert(json.Message || 'خطا در تغییر وضعیت');
-      return;
-    }
-            if(res.status === 400)
-            {
-                alert(json.message);
-            }
-            if(res.status === 403)
-            {
-                window.location.href = "/pages/errors/error-403.html";
-            }
     // Update UI
     row.querySelector('.badge').className = 'badge ' + s.cls;
     row.querySelector('.badge').textContent = s.text;

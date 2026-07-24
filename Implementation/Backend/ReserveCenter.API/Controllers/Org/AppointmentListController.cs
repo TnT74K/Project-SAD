@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using ReserveCenter.API.Filters;
 using ReserveCenter.API.Models.DTOs.Org.Appointment;
 using ReserveCenter.API.Models.DTOs.Org.Staff;
+using ReserveCenter.API.Security;
 using ReserveCenter.API.Services.Interfaces;
 using System.Security.Claims;
 
@@ -11,6 +13,7 @@ namespace ReserveCenter.API.Controllers.Org
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
+    [RequireSameOrg]
     public class AppointmentListController : ControllerBase
     {
         private readonly IAppointmentListService _appointmentListService;
@@ -35,13 +38,6 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                {
-                    return BadRequest(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-                }
-
-
                 if (!DateOnly.TryParse(date, out var appointmentDate))
                 {
                     return BadRequest(new { IsSuccess = false, Message = "فرمت تاریخ نامعتبر است" });
@@ -50,6 +46,10 @@ namespace ReserveCenter.API.Controllers.Org
                 var result = await _appointmentListService.GetAppointmentsByDateAsync(orgId, appointmentDate);
 
                 return Ok(new { IsSuccess = true, Data = result });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -69,13 +69,6 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                {
-                    return BadRequest(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-                }
-
-
                 if (!DateOnly.TryParse(startDate, out var start) || !DateOnly.TryParse(endDate, out var end))
                 {
                     return BadRequest(new { IsSuccess = false, Message = "فرمت تاریخ نامعتبر است" });
@@ -89,6 +82,10 @@ namespace ReserveCenter.API.Controllers.Org
                 var result = await _appointmentListService.GetAppointmentsByDateRangeAsync(orgId, start, end);
 
                 return Ok(new { IsSuccess = true, Data = result });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -105,11 +102,7 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                {
-                    return BadRequest(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-                }
+                var userId = User.GetRequiredUserId();
 
                 var appointment = await _appointmentListService.GetAppointmentByIdAsync(appointmentId);
                 if (appointment == null)
@@ -117,7 +110,16 @@ namespace ReserveCenter.API.Controllers.Org
                     return BadRequest(new { IsSuccess = false, Message = "نوبت یافت نشد" });
                 }
 
+                if (appointment.OrgId != User.GetRequiredOrgId())
+                {
+                    return Forbid();
+                }
+
                 return Ok(new { IsSuccess = true, Data = appointment });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -134,11 +136,8 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                {
-                    return BadRequest(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-                }
+                var userId = User.GetRequiredUserId();
+                var currentOrgId = User.GetRequiredOrgId();
 
                 if (!ModelState.IsValid)
                 {
@@ -157,6 +156,11 @@ namespace ReserveCenter.API.Controllers.Org
                     return BadRequest(new { IsSuccess = false, Message = "نوبت یافت نشد" });
                 }
 
+                if (appointment.OrgId != currentOrgId)
+                {
+                    return Forbid();
+                }
+
                 var result = await _appointmentListService.UpdateAppointmentStatusAsync(request, userId);
 
                 if (!result)
@@ -165,6 +169,10 @@ namespace ReserveCenter.API.Controllers.Org
                 }
 
                 return Ok(new { IsSuccess = true, Message = "وضعیت نوبت با موفقیت تغییر کرد" });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -180,11 +188,8 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-                {
-                    return BadRequest(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-                }
+                var userId = User.GetRequiredUserId();
+                var currentOrgId = User.GetRequiredOrgId();
 
                 var appointment = await _appointmentListService.GetAppointmentByIdAsync(appointmentId);
                 if (appointment == null)
@@ -192,11 +197,16 @@ namespace ReserveCenter.API.Controllers.Org
                     return BadRequest(new { IsSuccess = false, Message = "نوبت یافت نشد" });
                 }
 
+                if (appointment.OrgId != currentOrgId)
+                {
+                    return Forbid();
+                }
+
                 var isBooker = appointment.BookingUserId == userId;
 
                 if (!isBooker)
                 {
-                    return BadRequest("شما دسترسی به لغو این نوبت را ندارید");
+                    return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = "شما دسترسی به لغو این نوبت را ندارید" });
                 }
 
                 var result = await _appointmentListService.CancelAppointmentAsync(appointmentId, userId);
@@ -207,6 +217,10 @@ namespace ReserveCenter.API.Controllers.Org
                 }
 
                 return Ok(new { IsSuccess = true, Message = "نوبت با موفقیت لغو شد" });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -225,6 +239,10 @@ namespace ReserveCenter.API.Controllers.Org
                 var today = DateOnly.FromDateTime(DateTime.Now);
                 return await GetAppointmentsByDate(orgId, today.ToString("yyyy-MM-dd"));
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
+            }
             catch (Exception ex)
             {
                 return BadRequest(new { IsSuccess = false, Message = ex.Message });
@@ -242,6 +260,10 @@ namespace ReserveCenter.API.Controllers.Org
                 var tomorrow = DateOnly.FromDateTime(DateTime.Now.AddDays(1));
                 return await GetAppointmentsByDate(orgId, tomorrow.ToString("yyyy-MM-dd"));
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
+            }
             catch (Exception ex)
             {
                 return BadRequest(new { IsSuccess = false, Message = ex.Message });
@@ -255,12 +277,7 @@ namespace ReserveCenter.API.Controllers.Org
         [HttpPost("create")]
         public async Task<IActionResult> CreateAppointment([FromBody] AppointmentCreateRequest request)
         {
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
-            {
-                return BadRequest(new { IsSuccess = false, Message = "کاربر یافت نشد" });
-            }
-
+            var userId = User.GetRequiredUserId();
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors)
@@ -274,10 +291,18 @@ namespace ReserveCenter.API.Controllers.Org
 
             try
             {
-                string _userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var currentOrgId = User.GetRequiredOrgId();
+                if (request.OrgId != currentOrgId)
+                {
+                    return Forbid();
+                }
 
-                var result = await _appointmentListService.CreateAppointmentAsync(request.OrgId, request, int.Parse(_userId));
+                var result = await _appointmentListService.CreateAppointmentAsync(currentOrgId, request, userId);
                 return Ok(new { IsSuccess = true, Message = "نوبت با موفقیت ایجاد شد.", Data = result });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (KeyNotFoundException ex)
             {

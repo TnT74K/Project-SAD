@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ReserveCenter.API.Filters;
 using ReserveCenter.API.Models.DTOs.Org.Staff;
+using ReserveCenter.API.Security;
 using ReserveCenter.API.Services.Interfaces;
 using System.Security.Claims;
 
@@ -9,6 +11,7 @@ namespace ReserveCenter.API.Controllers.Org
     [ApiController]
     [Route("api/org/staff-list")]
     [Authorize]
+    [RequireSameOrg]
     public class StaffListController : ControllerBase
     {
         private readonly IStaffListService _staffListService;
@@ -23,9 +26,13 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var orgId = User.FindFirst("OrgId")?.Value;
-                var result = await _staffListService.GetAllStaffListListAsync(int.Parse(orgId));
+                var orgId = User.GetRequiredOrgId();
+                var result = await _staffListService.GetAllStaffListListAsync(orgId);
                 return Ok(result);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -39,8 +46,12 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var result = await _staffListService.SearchAsync(searchPhrase);
+                var result = await _staffListService.SearchAsync(searchPhrase, User.GetRequiredOrgId());
                 return Ok(result);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -61,11 +72,11 @@ namespace ReserveCenter.API.Controllers.Org
                 }
 
                 var roleId = User.FindFirstValue(ClaimTypes.Role);
-                var orgId = User.FindFirst("OrgId")?.Value;
+                var orgId = User.GetRequiredOrgId();
 
                 staffCreateRequest.CreatedBy = userId;
                 staffCreateRequest.RoleId = int.Parse(roleId);
-                staffCreateRequest.OrgId = int.Parse(orgId);
+                staffCreateRequest.OrgId = orgId;
 
                 var result = await _staffListService.AddAsync(staffCreateRequest);
 
@@ -84,6 +95,10 @@ namespace ReserveCenter.API.Controllers.Org
                     message = "کارمند با موفقیت ثبت شد.",
                     data = result
                 });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
@@ -104,13 +119,11 @@ namespace ReserveCenter.API.Controllers.Org
                 }
 
                 var roleId = User.FindFirstValue(ClaimTypes.Role);
+                var orgId = User.GetRequiredOrgId();
 
                 staffUpdateRequest.ModifiedBy = userId;
                 staffUpdateRequest.RoleId = int.Parse(roleId);
-
-                var result = await _staffListService.EditAsync(staffUpdateRequest);
-
-                if (result == null || result.Id == 0)
+                if (await _staffListService.EditAsync(staffUpdateRequest, orgId) is not { Id: > 0 } result)
                 {
                     return BadRequest(new
                     {
@@ -126,6 +139,10 @@ namespace ReserveCenter.API.Controllers.Org
                     data = result
                 });
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
+            }
             catch (Exception ex)
             {
 
@@ -138,7 +155,7 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var result = await _staffListService.ChangeStatusAsync(staffListId);
+                var result = await _staffListService.ChangeStatusAsync(staffListId, User.GetRequiredOrgId());
 
                 if (result)
                 {
@@ -155,6 +172,10 @@ namespace ReserveCenter.API.Controllers.Org
                     message = "تغییر وضعیت کارمند انجام نشد."
                 });
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
+            }
             catch (Exception ex)
             {
 
@@ -167,7 +188,7 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var result = await _staffListService.DeleteAsync(staffListId);
+                var result = await _staffListService.DeleteAsync(staffListId, User.GetRequiredOrgId());
 
                 if (result)
                 {
@@ -183,6 +204,10 @@ namespace ReserveCenter.API.Controllers.Org
                     success = false,
                     message = "حذف کارمند انجام نشد."
                 });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {

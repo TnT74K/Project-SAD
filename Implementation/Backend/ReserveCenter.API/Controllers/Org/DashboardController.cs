@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ReserveCenter.API.Filters;
+using ReserveCenter.API.Security;
 using ReserveCenter.API.Services.Interfaces;
 
 namespace ReserveCenter.API.Controllers.Org
@@ -7,6 +9,7 @@ namespace ReserveCenter.API.Controllers.Org
     [ApiController]
     [Route("api/org/dashboard")]
     [Authorize(Roles = "Organization")]
+    [RequireSameOrg]
     public class DashboardController : ControllerBase
     {
         private readonly IDashboardService _dashboardService;
@@ -51,9 +54,17 @@ namespace ReserveCenter.API.Controllers.Org
         {
             try
             {
-                var orgId = await GetCurrentOrgIdAsync();
+                var orgId = User.GetRequiredOrgId();
                 var dashboard = await _dashboardService.GetOrgDashboardAsync(orgId);
                 return Ok(new { IsSuccess = true, Data = dashboard });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { IsSuccess = false, Message = ex.Message });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { IsSuccess = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
