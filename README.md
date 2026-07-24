@@ -65,13 +65,23 @@ Counts cover source files under `Implementation/` and exclude generated/build ou
 - `Documentation/` is the source of truth for the detailed project documentation; this README intentionally stays brief.
 - `Design/DatabaseSchema_Final.svg` provides the final database-schema visual.
 
-## Detailed Documentation | مستندات کامل
+## Project Documentation | مستندات پروژه
 
 For requirements, analysis, plans, meeting notes, and project artefacts, start in [Documentation/](Documentation/). Backend-specific development guidance is available in [Implementation/Backend/guide/](Implementation/Backend/guide/), and frontend planning notes are in [Implementation/Frontend/guide/](Implementation/Frontend/guide/).
 
 ## System Proposal | پروپوزال سیستم
 This document was made in a different plance and it's kept in our repository.
 این مستند در جای دیگری درست شده است و در مخزن ما نگهداری نمی‌شود.
+
+## CSharpers Team Members
+This project is done by a team of five.
+این پروژه توسط تیم پنج‌نفره انجام شده‌است.
+
+- [Sajad Sabaghkermani](https://github.con/TnT74K) -- Project Lead
+- [Abolfazl Vaziri](https://github.com/AbolfazlVaziri1384) -- Database Lead
+- [Ali Adib Razavi](https://github.com/AliRz01) -- Frontend Lead
+- [Hamed Yazdizadeh](https://github.com/hamed-yazdi9772) -- Backend Lead
+- [Mohammad Hossein Zarei](https://github.com/mohamad-hosein-iren) -- FE-BE Integration Lead
 
 ## Setup Instructions | دستورالعمل راه‌اندازی
 
