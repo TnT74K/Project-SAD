@@ -173,4 +173,4 @@ This project is done by a team of five.
 ۱۱. از پروژه استفاده کنید و آن را بررسی کنید!
 
 ---
-Made by CSharpers Team
+Proudly made by CSharpers Team
