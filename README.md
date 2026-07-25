@@ -77,7 +77,7 @@ This document was made in a different plance and it's kept in our repository.
 This project is done by a team of five.  
 این پروژه توسط تیم پنج‌نفره انجام شده‌است.
 
-- [Sajad Sabaghkermani](https://github.con/TnT74K) -- Project Lead
+- [Sajad Sabaghkermani](https://github.com/TnT74K) -- Project Lead
 - [Abolfazl Vaziri](https://github.com/AbolfazlVaziri1384) -- Database Lead
 - [Ali Adib Razavi](https://github.com/AliRz01) -- Frontend Lead
 - [Hamed Yazdizadeh](https://github.com/hamed-yazdi9772) -- Backend Lead
