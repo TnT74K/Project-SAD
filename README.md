@@ -33,14 +33,14 @@ This repository contains the completed implementation and supporting deliverable
 - **Submission date / version:** 28 Tir 1405 | July 19 2026
 
 ## Code Statistics | آمار کد
-Last update: 28 Tir 1405
+Last update: July 26 2026
 
 | Language | Files | Lines |
 | --- | ---: | ---: |
-| HTML | 33 | 5,356 |
-| CSS | 26 | 13,659 |
-| JavaScript | 22 | 6,890 |
-| C# | 139 | 7,886 |
+| HTML | 30 | 4,347 |
+| CSS | 25 | 12,586 |
+| JavaScript | 22 | 6,619 |
+| C# | 141 | 8,197 |
 
 Counts cover source files under `Implementation/` and exclude generated/build output such as `bin/`, `obj/`, and dependencies.  
 این آمار فقط فایل‌های منبع در `Implementation/` را شامل می‌شود و خروجی‌های تولیدشده مانند `bin/`، `obj/` و وابستگی‌ها را در نظر نمی‌گیرد.
